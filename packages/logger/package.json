@@ -1,0 +1,33 @@
+{
+  "name": "@cfd/logger",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "format": "prettier --check \"**/*.{mjs,ts,md,json}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pino": "^8.16.0",
+    "pino-pretty": "^10.2.3"
+  },
+  "devDependencies": {
+    "@cfd/eslint-config": "^0.2.0",
+    "@cfd/prettier-config": "^0.1.0",
+    "@cfd/tsconfig": "^0.1.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@cfd/eslint-config/base"
+    ]
+  },
+  "prettier": "@cfd/prettier-config"
+}
