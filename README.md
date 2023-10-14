@@ -197,7 +197,6 @@ pnpm typecheck
 - [@ganeshasapu](https://github.com/ganeshasapu)
 - [@RyanL123](https://github.com/RyanL123)
 - [@helenaglow](https://github.com/helenaglow)
-- [@LevOzay](https://github.com/LevOzay)
 
 
 ## License
