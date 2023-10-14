@@ -195,6 +195,7 @@ pnpm typecheck
 
 - [@BakerWJ](https://www.github.com/BakerWJ)
 - [@ganeshasapu](https://github.com/ganeshasapu)
+- [@sarinali](https://github.com/sarinali)
 
 ## License
 
