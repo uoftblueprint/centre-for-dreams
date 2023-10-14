@@ -199,6 +199,7 @@ pnpm typecheck
 - [@RyanL123](https://github.com/RyanL123)
 - [@helenaglow](https://github.com/helenaglow)
 - [@nm-le](https://github.com/nm-le)
+- [@sarinali](https://github.com/sarinali)
 
 ## License
 
