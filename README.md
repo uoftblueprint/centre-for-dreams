@@ -195,7 +195,9 @@ pnpm typecheck
 
 - [@BakerWJ](https://www.github.com/BakerWJ)
 - [@ganeshasapu](https://github.com/ganeshasapu)
+- [@RyanL123](https://github.com/RyanL123)
 - [@helenaglow](https://github.com/helenaglow)
+
 
 ## License
 
