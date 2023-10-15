@@ -52,7 +52,7 @@ export const api = createTRPCNext<AppRouter>({
    *
    * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
    */
-  ssr: true,
+  ssr: false,
   overrides: {
     useMutation: {
       async onSuccess(opts) {
