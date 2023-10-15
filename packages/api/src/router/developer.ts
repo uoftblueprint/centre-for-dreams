@@ -24,7 +24,7 @@ export const developerRouter = createTRPCRouter({
       .then((dev) => dev?.upvotes);
     return {
       name: "Ryan Li",
-      year: 2,
+      year: 3,
       introduction: "I am a developer for the CFD team on UofT blueprint!",
       fav_food: "pasta",
       fav_song: "Piano Concerto No. 24 K491",
