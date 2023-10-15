@@ -202,6 +202,7 @@ pnpm typecheck
 - [@LevOzay](https://www.github.com/LevOzay)
 - [@nm-le](https://github.com/nm-le)
 - [@sarinali](https://github.com/sarinali)
+- [@Ram-Raghav-S](https://github.com/Ram-Raghav-S)
 
 ## License
 
