@@ -37,4 +37,48 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+
+  sarinali_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const sarinaExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Sarina Li",
+      },
+    });
+
+    // does not exist, add to table
+    if (!sarinaExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Sarina Li",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = sarinaExists.upvotes;
+    }
+
+    return {
+      name: "Sarina Li",
+      year: 2,
+      introduction:
+        "I am a developer for CFD, I like to weightlift in my free time",
+      fav_food: "hot pot",
+      fav_song: "New Person, Same Old Mistakes by Tame Impala",
+      upvotes: upvotes,
+    };
+  }),
+
+  sarinali_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Sarina Li",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });
