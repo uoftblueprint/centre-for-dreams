@@ -1,5 +1,6 @@
 import Head from "next/head";
 
+import RyanLi from "~/components/developers/ryanli";
 import { api } from "~/utils/api";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
+        <RyanLi />
       </main>
     </>
   );
