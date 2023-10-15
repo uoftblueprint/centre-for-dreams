@@ -1,8 +1,8 @@
 import { api } from "~/utils/api";
 
 export default function RyanLi() {
-  const info = api.ryanli.info.useQuery().data;
-  const upvote = api.ryanli.upvote.useMutation();
+  const info = api.developer.ryanli_info.useQuery().data;
+  const upvote = api.developer.ryanli_upvote.useMutation();
 
   return (
     <div className="container mx-auto my-5">

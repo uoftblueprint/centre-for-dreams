@@ -4,10 +4,7 @@ export const developerRouter = createTRPCRouter({
   count: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.developers.count();
   }),
-});
-
-export const ryanLiRouter = createTRPCRouter({
-  info: publicProcedure.query(async ({ ctx }) => {
+  ryanli_info: publicProcedure.query(async ({ ctx }) => {
     await ctx.db.developers.upsert({
       where: {
         name: "Ryan Li",
@@ -34,7 +31,7 @@ export const ryanLiRouter = createTRPCRouter({
       upvotes: upvotes,
     };
   }),
-  upvote: publicProcedure.mutation(async ({ ctx }) => {
+  ryanli_upvote: publicProcedure.mutation(async ({ ctx }) => {
     return await ctx.db.developers.update({
       where: { name: "Ryan Li" },
       data: { upvotes: { increment: 1 } },

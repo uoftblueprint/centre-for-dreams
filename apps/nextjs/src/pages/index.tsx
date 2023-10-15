@@ -1,7 +1,7 @@
 import Head from "next/head";
 
+import RyanLi from "~/components/developers/ryanli";
 import { api } from "~/utils/api";
-import RyanLi from "../components/developers/ryanli";
 
 export default function Home() {
   const developerCount = api.developer.count.useQuery();
