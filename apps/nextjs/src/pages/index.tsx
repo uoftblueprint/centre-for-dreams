@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { api } from "~/utils/api";
+import RyanLi from "../components/developers/ryanli";
 
 export default function Home() {
   const developerCount = api.developer.count.useQuery();
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
+        <RyanLi />
       </main>
     </>
   );
