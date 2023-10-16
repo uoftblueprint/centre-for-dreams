@@ -1,5 +1,6 @@
 import Head from "next/head";
 
+import JasonWangCard from "~/components/developers/jasonwang";
 import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
@@ -18,6 +19,7 @@ export default function Home() {
         <div> We have {developerCount.data} awesome devs on our team! </div>
         <RyanLi />
         <SarinaLi />
+        <JasonWangCard />
       </main>
     </>
   );
