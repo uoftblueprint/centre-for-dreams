@@ -81,4 +81,30 @@ export const developerRouter = createTRPCRouter({
       },
     });
   }),
+  jasonwang_info: publicProcedure.query(async ({ ctx }) => {
+    let user = await ctx.db.developers.findUnique({ where: { name: "Jason Wang" } })
+    if (!user) {
+      user = await ctx.db.developers.create({
+        data: {
+          name: "Jason Wang",
+          upvotes: 0
+        }
+      })
+    }
+    return {
+      name: "Jason Wang",
+      year: 3,
+      introduction: "Hi! I'm a third year CS and CogSci student at UofT and I'm a developer for the CFD Blueprint team.",
+      fav_food: "Sushi",
+      fav_song: "Helium - Glass Animals",
+      upvotes: user.upvotes
+    }
+  }),
+  jasonwang_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    const user = await ctx.db.developers.update({
+      where: { name: "Jason Wang" },
+      data: { upvotes: { increment: 1 } }
+    })
+    return user
+  })
 });
