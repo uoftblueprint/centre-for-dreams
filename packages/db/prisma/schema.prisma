@@ -16,18 +16,18 @@ model Developers {
   upvotes Int    @default(0)
 }
 
-model Posts {
-  id        Int        @id @default(autoincrement())
+model Post {
+  id        Int       @id @default(autoincrement())
   title     String
   contents  String
-  createdAt DateTime   @default(now())
-  comments  Comments[]
+  createdAt DateTime  @default(now())
+  comments  Comment[]
 }
 
-model Comments {
+model Comment {
   id        Int      @id @default(autoincrement())
   postId    Int
-  post      Posts    @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
   text      String
   createdAt DateTime @default(now())
 }
