@@ -15,3 +15,10 @@ model Developers {
   name    String @id
   upvotes Int    @default(0)
 }
+
+model Posts {
+  id        Int      @id @default(autoincrement())
+  title     String
+  contents  String
+  createdAt DateTime @default(now())
+}
