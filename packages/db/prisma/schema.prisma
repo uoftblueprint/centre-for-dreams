@@ -17,8 +17,17 @@ model Developers {
 }
 
 model Posts {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   title     String
   contents  String
+  createdAt DateTime   @default(now())
+  comments  Comments[]
+}
+
+model Comments {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      Posts    @relation(fields: [postId], references: [id])
+  text      String
   createdAt DateTime @default(now())
 }
