@@ -1,7 +1,7 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const postRouter = createTRPCRouter({
-  getPosts: publicProcedure.query(async ({ ctx }) => {
+  getPosts: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
     });
