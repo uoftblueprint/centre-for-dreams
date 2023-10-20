@@ -8,7 +8,7 @@
  */
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
-import { TRPCPanelMeta } from "trpc-panel";
+import type { TRPCPanelMeta } from "trpc-panel";
 import { ZodError } from "zod";
 
 import { db } from "@cfd/db";
