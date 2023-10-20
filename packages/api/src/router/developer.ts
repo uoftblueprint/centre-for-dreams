@@ -1,9 +1,11 @@
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const developerRouter = createTRPCRouter({
-  count: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.developers.count();
-  }),
+  count: publicProcedure
+    .meta({ description: "Returns number of developers in developers table" })
+    .query(async ({ ctx }) => {
+      return await ctx.db.developers.count();
+    }),
   ryanli_info: publicProcedure.query(async ({ ctx }) => {
     await ctx.db.developers.upsert({
       where: {
