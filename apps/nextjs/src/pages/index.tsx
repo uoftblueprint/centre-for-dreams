@@ -4,6 +4,7 @@ import HelenZhao from "~/components/developers/helenzhao";
 import JasonWangCard from "~/components/developers/jasonwang";
 import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
+import LeventOzay from "~/components/developers/leventozay";
 import { api } from "~/utils/api";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <SarinaLi />
         <JasonWangCard />
         <HelenZhao />
+        <LeventOzay />
       </main>
     </>
   );
