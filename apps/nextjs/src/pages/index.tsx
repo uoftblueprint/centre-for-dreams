@@ -7,6 +7,7 @@ import MinhLe from "~/components/developers/minhle";
 import RamRaghavSharma from "~/components/developers/ramraghavsharma";
 import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
+import LeventOzay from "~/components/developers/leventozay";
 import { api } from "~/utils/api";
 
 export default function Home() {
