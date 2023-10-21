@@ -6,6 +6,7 @@ export const developerRouter = createTRPCRouter({
     .query(async ({ ctx }) => {
       return await ctx.db.developers.count();
     }),
+
   ryanli_info: publicProcedure.query(async ({ ctx }) => {
     await ctx.db.developers.upsert({
       where: {
@@ -140,6 +141,38 @@ export const developerRouter = createTRPCRouter({
   helenzhao_upvote: publicProcedure.mutation(async ({ ctx }) => {
     return await ctx.db.developers.update({
       where: { name: "Helen Zhao" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
+  helenaglowacki_info: publicProcedure.query(async ({ ctx }) => {
+    let developer = await ctx.db.developers.findFirst({
+      where: { name: "Helena Glowacki" },
+    });
+
+    // Create developer if doesn't exist
+    if (developer === null) {
+      developer = await ctx.db.developers.create({
+        data: {
+          name: "Helena Glowacki",
+          upvotes: 0,
+        },
+      });
+    }
+
+    return {
+      name: "Helena Glowacki",
+      year: 3,
+      introduction:
+        "Hello! I am a developer for CFD (yay!). I like art and photography.",
+      fav_food: "Street tacos",
+      fav_song: "Falling Behind by Laufey",
+      upvotes: developer.upvotes,
+    };
+  }),
+  helenaglowacki_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // Update!
+    return await ctx.db.developers.update({
+      where: { name: "Helena Glowacki" },
       data: { upvotes: { increment: 1 } },
     });
   }),
