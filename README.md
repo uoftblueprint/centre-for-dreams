@@ -1,5 +1,9 @@
 # Centre for Dreams
 
+![CI Status](https://github.com/uoftblueprint/centre-for-dreams/actions/workflows/ci.yml/badge.svg?event=push&branch=main)  [![Netlify Status](https://api.netlify.com/api/v1/badges/210c8d23-7ccc-4083-9d03-54d6a5c98ea2/deploy-status)](https://app.netlify.com/sites/centre-for-dreams/deploys)  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+
+
 The Centre for Dreams is a day program that provides services for adults living with a developmental disability. UofT Blueprint is collaborating with the Centre for Dreams to build a centralized platform for announcements and program information.
 
 
