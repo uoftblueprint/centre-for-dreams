@@ -38,6 +38,7 @@
   },
   "globalEnv": [
     "DATABASE_URL",
+    "DIRECT_URL",
     "NODE_ENV",
     "CI"
   ]

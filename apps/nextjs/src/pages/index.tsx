@@ -1,5 +1,9 @@
 import Head from "next/head";
 
+import JasonWangCard from "~/components/developers/jasonwang";
+import LeventOzayCard from "~/components/developers/leventozay";
+import RyanLi from "~/components/developers/ryanli";
+import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
 
 export default function Home() {
@@ -14,6 +18,10 @@ export default function Home() {
       <main>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
+        <RyanLi />
+        <SarinaLi />
+        <JasonWangCard />
+        <LeventOzayCard />
       </main>
     </>
   );
