@@ -146,33 +146,34 @@ export const developerRouter = createTRPCRouter({
   }),
   helenaglowacki_info: publicProcedure.query(async ({ ctx }) => {
     let developer = await ctx.db.developers.findFirst({
-      where: {name: "Helena Glowacki"},
-    })
+      where: { name: "Helena Glowacki" },
+    });
 
     // Create developer if doesn't exist
     if (developer === null) {
-        developer = await ctx.db.developers.create({
-          data: {
-            name: "Helena Glowacki",
-            upvotes: 0,
-          }
-        })
+      developer = await ctx.db.developers.create({
+        data: {
+          name: "Helena Glowacki",
+          upvotes: 0,
+        },
+      });
     }
 
-    return{
+    return {
       name: "Helena Glowacki",
-      year: 3, 
-      introduction: "Hello! I am a developer for CFD (yay!). I like art and photography.",
+      year: 3,
+      introduction:
+        "Hello! I am a developer for CFD (yay!). I like art and photography.",
       fav_food: "Street tacos",
       fav_song: "Falling Behind by Laufey",
       upvotes: developer.upvotes,
-    } 
+    };
   }),
   helenaglowacki_upvote: publicProcedure.mutation(async ({ ctx }) => {
     // Update!
     await ctx.db.developers.update({
-      where: {name: "Helena Glowacki"}, 
-      data: {upvotes: {increment: 1}}
-    })
-  })
+      where: { name: "Helena Glowacki" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
 });
