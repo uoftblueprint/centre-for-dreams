@@ -8,5 +8,6 @@
       "matchPackagePatterns": ["^@cfd/"],
       "enabled": false
     }
-  ]
+  ],
+  "automerge": true
 }
