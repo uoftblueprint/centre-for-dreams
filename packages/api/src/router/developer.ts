@@ -112,4 +112,35 @@ export const developerRouter = createTRPCRouter({
     });
     return user;
   }),
+
+  helenzhao_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    const helenExist = await ctx.db.developers.findUnique({
+      where: { name: "Helen Zhao" },
+    });
+    if (!helenExist) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Helen Zhao",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = helenExist.upvotes;
+    }
+    return {
+      name: "Helen Zhao",
+      year: 1,
+      introduction: "I'm a developer for CFD at UofT Blueprint :)",
+      fav_food: "Shepherd's pie",
+      fav_song: "Cudi Zone by Kid Cudi",
+      upvotes: upvotes,
+    };
+  }),
+  helenzhao_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Helen Zhao" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
 });
