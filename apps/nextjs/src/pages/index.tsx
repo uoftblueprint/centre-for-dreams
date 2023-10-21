@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import HelenZhao from "~/components/developers/helenzhao";
+import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import JasonWangCard from "~/components/developers/jasonwang";
 import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
@@ -22,6 +23,7 @@ export default function Home() {
         <SarinaLi />
         <JasonWangCard />
         <HelenZhao />
+        <HelenaGlowacki />
       </main>
     </>
   );
