@@ -7,7 +7,6 @@ const SarinaLi = () => {
   const mutation = api.developer.sarinali_upvote.useMutation();
   return (
     <div>
-      <h1>sarinaliInfo from API:</h1>
       {sarinaliInfo ? (
         <div>
           <p>Name: {sarinaliInfo.name}</p>
