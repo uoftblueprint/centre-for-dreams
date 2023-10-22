@@ -46,7 +46,7 @@
     "@cfd/tailwind-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
     "@expo/config-plugins": "^7.2.5",
-    "@types/babel__core": "^7.20.2",
+    "@types/babel__core": "^7.20.3",
     "@types/react": "^18.2.25",
     "eslint": "^8.50.0",
     "expo-doctor": "^1.1.3",
