@@ -144,6 +144,37 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+
+  leventozay_info: publicProcedure.query(async ({ ctx }) => {
+    let levent = await ctx.db.developers.findUnique({
+      where: { name: "Levent Ozay" },
+    });
+    if (!levent) {
+      levent = await ctx.db.developers.create({
+        data: {
+          name: "Levent Ozay",
+          upvotes: 0,
+        },
+      });
+    }
+    return {
+      name: "Levent Ozay",
+      year: 2,
+      introduction:
+        "Hello! I am a developer for the CFD Blueprint team and I am in my second year of Computer Science at UofT.",
+      fav_food: "Hamburger",
+      fav_song: "HONEY (ARE U COMING?) - Maneskin",
+      upvotes: levent.upvotes,
+    };
+  }),
+
+  leventozay_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    const levent = await ctx.db.developers.update({
+      where: { name: "Levent Ozay" },
+      data: { upvotes: { increment: 1 } },
+    });
+    return levent;
+  }),
   helenaglowacki_info: publicProcedure.query(async ({ ctx }) => {
     let developer = await ctx.db.developers.findFirst({
       where: { name: "Helena Glowacki" },
