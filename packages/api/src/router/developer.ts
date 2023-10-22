@@ -176,4 +176,37 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+  ramraghavsharma_info: publicProcedure.query(async ({ ctx }) => {
+    await ctx.db.developers.upsert({
+      where: {
+        name: "Ram Raghav Sharma",
+      },
+      update: {},
+      create: {
+        name: "Ram Raghav Sharma",
+        upvotes: 0,
+      },
+    });
+    const upvotes = await ctx.db.developers
+      .findUnique({
+        where: {
+          name: "Ram Raghav Sharma",
+        },
+      })
+      .then((dev) => dev?.upvotes);
+    return {
+      name: "Ram Raghav Sharma",
+      year: 3,
+      introduction: "I am a developer for the CFD team!",
+      fav_food: "Dal Makhni",
+      fav_song: "Shine on you crazy diamond",
+      upvotes: upvotes,
+    };
+  }),
+  ramraghavsharma_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Ram Raghav Sharma" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
 });
