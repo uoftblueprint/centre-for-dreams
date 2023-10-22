@@ -1,13 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-   ":dependencyDashboard",
-    ":semanticPrefixFixDepsChoreOthers",
-    ":ignoreModulesAndTests",
-    "group:recommended",
-    "replacements:all",
-    "workarounds:all" 
+    "config:recommended"
   ],
+  "ignorePresets": ["group:expoMonorepo"],
   "packageRules": [
     {
       "matchPackagePatterns": ["^@cfd/"],
