@@ -1,0 +1,2 @@
+[build]
+  ignore = "npx --yes turbo-ignore nextjs"

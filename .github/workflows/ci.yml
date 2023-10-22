@@ -50,6 +50,9 @@ jobs:
 
       - name: Check workspaces
         run: pnpm manypkg check
+
+      - name: Check Expo dependencies
+        run: (cd apps/expo && pnpm lint:expo)
   format:
     runs-on: ubuntu-latest
 

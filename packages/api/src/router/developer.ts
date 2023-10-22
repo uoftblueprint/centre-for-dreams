@@ -6,6 +6,7 @@ export const developerRouter = createTRPCRouter({
     .query(async ({ ctx }) => {
       return await ctx.db.developers.count();
     }),
+
   ryanli_info: publicProcedure.query(async ({ ctx }) => {
     await ctx.db.developers.upsert({
       where: {
@@ -140,6 +141,101 @@ export const developerRouter = createTRPCRouter({
   helenzhao_upvote: publicProcedure.mutation(async ({ ctx }) => {
     return await ctx.db.developers.update({
       where: { name: "Helen Zhao" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
+  helenaglowacki_info: publicProcedure.query(async ({ ctx }) => {
+    let developer = await ctx.db.developers.findFirst({
+      where: { name: "Helena Glowacki" },
+    });
+
+    // Create developer if doesn't exist
+    if (developer === null) {
+      developer = await ctx.db.developers.create({
+        data: {
+          name: "Helena Glowacki",
+          upvotes: 0,
+        },
+      });
+    }
+
+    return {
+      name: "Helena Glowacki",
+      year: 3,
+      introduction:
+        "Hello! I am a developer for CFD (yay!). I like art and photography.",
+      fav_food: "Street tacos",
+      fav_song: "Falling Behind by Laufey",
+      upvotes: developer.upvotes,
+    };
+  }),
+  helenaglowacki_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // Update!
+    return await ctx.db.developers.update({
+      where: { name: "Helena Glowacki" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
+  ramraghavsharma_info: publicProcedure.query(async ({ ctx }) => {
+    await ctx.db.developers.upsert({
+      where: {
+        name: "Ram Raghav Sharma",
+      },
+      update: {},
+      create: {
+        name: "Ram Raghav Sharma",
+        upvotes: 0,
+      },
+    });
+    const upvotes = await ctx.db.developers
+      .findUnique({
+        where: {
+          name: "Ram Raghav Sharma",
+        },
+      })
+      .then((dev) => dev?.upvotes);
+    return {
+      name: "Ram Raghav Sharma",
+      year: 3,
+      introduction: "I am a developer for the CFD team!",
+      fav_food: "Dal Makhni",
+      fav_song: "Shine on you crazy diamond",
+      upvotes: upvotes,
+    };
+  }),
+  ramraghavsharma_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Ram Raghav Sharma" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
+  minhle_info: publicProcedure.query(async ({ ctx }) => {
+    const dev = await ctx.db.developers.findUnique({
+      where: { name: "Minh Le" },
+    });
+    let upvotes = 0;
+    if (!dev) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Minh Le",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = dev.upvotes;
+    }
+    return {
+      name: "Minh Le",
+      year: 3,
+      introduction: "3rd year CS at UofT",
+      fav_food: "Wood-fired pizza",
+      fav_song: "The Heart Part 5",
+      upvotes: upvotes,
+    };
+  }),
+  minhle_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Minh Le" },
       data: { upvotes: { increment: 1 } },
     });
   }),
