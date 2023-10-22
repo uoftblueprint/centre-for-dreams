@@ -211,36 +211,36 @@ export const developerRouter = createTRPCRouter({
   }),
   minhle_info: publicProcedure.query(async ({ ctx }) => {
     const dev = await ctx.db.developers.findUnique({
-        where: { name: "Minh Le" },
-        });
+      where: { name: "Minh Le" },
+      });
     let upvotes = 0;
 
     if (!dev) {
-        await ctx.db.developers.create({
-            data: {
-                name: "Minh Le",
-                upvotes: 0,
-            },
-        });
+      await ctx.db.developers.create({
+        data: {
+          name: "Minh Le",
+          upvotes: 0,
+        },
+      });
     } else {
-        upvotes = dev.upvotes;
+      upvotes = dev.upvotes;
     }
 
     return {
-        name: "Minh Le",
-        year: 3,
-        introduction: "3rd year CS at UofT",
-        fav_food: "Wood-fired pizza",
-        fav_song: "The Heart Part 5",
-        upvotes: upvotes,
+      name: "Minh Le",
+      year: 3,
+      introduction: "3rd year CS at UofT",
+      fav_food: "Wood-fired pizza",
+      fav_song: "The Heart Part 5",
+      upvotes: upvotes,
     };
-    }),
-    minhle_upvote: publicProcedure.mutation(async ({ ctx }) => {
-        return await ctx.db.developers.update({
-            where: { name: "Minh Le" },
-            data: { upvotes: { increment: 1 } },
-        });
-    }),
+  }),
+  minhle_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Minh Le" },
+      data: { upvotes: { increment: 1 } },
+    });
+ }),
 
 
 });
