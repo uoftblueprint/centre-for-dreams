@@ -15,5 +15,23 @@ export const postRouter = createTRPCRouter({
       }
     })
   }),
+  // updatePostByID: protectedProcedure.input(z.object({ id: z.number(), title: z.string().optional(), contents: z.string().optional()})).mutation(async({ctx, input}) => {
+  //   await ctx.db.post.upsert({
+  //     where: {
+  //       id: input.id
+  //     }, 
+  //     data: {
+  //       title: input.title,
+  //       content: input.contents
+  //     }
+  //   })
+  // }),
+  deletePostByID: protectedProcedure.input(z.object({ id: z.number()})).mutation(async({ctx, input}) => {
+    await ctx.db.post.delete({
+      where: {
+        id: input.id
+      }
+    })
+  }),
   
 });
