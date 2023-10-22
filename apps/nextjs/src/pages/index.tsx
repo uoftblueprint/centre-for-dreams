@@ -3,6 +3,7 @@ import Head from "next/head";
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
 import JasonWangCard from "~/components/developers/jasonwang";
+import RamRaghavSharma from "~/components/developers/ramraghavsharma";
 import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
@@ -24,6 +25,7 @@ export default function Home() {
         <JasonWangCard />
         <HelenZhao />
         <HelenaGlowacki />
+        <RamRaghavSharma />
       </main>
     </>
   );
