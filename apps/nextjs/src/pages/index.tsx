@@ -29,6 +29,7 @@ export default function Home() {
         <HelenaGlowacki />
         <RamRaghavSharma />
         <MinhLe />
+        <LeventOzay
       </main>
     </>
   );
