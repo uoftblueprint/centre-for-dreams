@@ -11,7 +11,7 @@ export const postRouter = createTRPCRouter({
   createPost: protectedProcedure
     .input(
       z.object({
-        title: z.string().min(1).max(300),
+        title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
       }),
     )
