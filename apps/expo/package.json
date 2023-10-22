@@ -8,7 +8,7 @@
     "dev": "expo start",
     "dev:android": "expo start --android",
     "dev:ios": "expo start --ios",
-    "lint": "eslint .",
+    "lint": "eslint . && npx expo-doctor",
     "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
     "typecheck": "tsc --noEmit",
     "android": "expo run:android",
