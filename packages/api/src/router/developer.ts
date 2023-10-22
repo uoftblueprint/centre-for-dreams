@@ -212,9 +212,8 @@ export const developerRouter = createTRPCRouter({
   minhle_info: publicProcedure.query(async ({ ctx }) => {
     const dev = await ctx.db.developers.findUnique({
       where: { name: "Minh Le" },
-      });
+    });
     let upvotes = 0;
-
     if (!dev) {
       await ctx.db.developers.create({
         data: {
@@ -225,7 +224,6 @@ export const developerRouter = createTRPCRouter({
     } else {
       upvotes = dev.upvotes;
     }
-
     return {
       name: "Minh Le",
       year: 3,
@@ -240,7 +238,5 @@ export const developerRouter = createTRPCRouter({
       where: { name: "Minh Le" },
       data: { upvotes: { increment: 1 } },
     });
- }),
-
-
+  }),
 });
