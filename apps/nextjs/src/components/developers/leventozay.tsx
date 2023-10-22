@@ -1,7 +1,7 @@
 import { api } from "~/utils/api";
 
 const LeventOzay = () => {
-  const leventozayInfo = api.developer.levnetozay_info.useQuery().data;
+  const leventozayInfo = api.developer.leventozay_info.useQuery().data;
   const mutation = api.developer.leventozay_upvote.useMutation();
   return (
     <div>
