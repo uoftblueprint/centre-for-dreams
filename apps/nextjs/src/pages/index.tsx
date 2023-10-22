@@ -26,6 +26,9 @@ export default function Home() {
         <SarinaLi />
         <JasonWangCard />
         <HelenZhao />
+        <HelenaGlowacki />
+        <RamRaghavSharma />
+        <MinhLe />
         <LeventOzay />
       </main>
     </>
