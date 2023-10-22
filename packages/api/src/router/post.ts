@@ -26,7 +26,7 @@ export const postRouter = createTRPCRouter({
   updatePostByID: protectedProcedure
     .input(
       z.object({
-        id: z.number().min(0),
+        id: z.number().nonnegative(),
         title: z.string().optional(),
         contents: z.string().optional(),
       }),
@@ -43,7 +43,7 @@ export const postRouter = createTRPCRouter({
       });
     }),
   deletePostByID: protectedProcedure
-    .input(z.object({ id: z.number().min(0) }))
+    .input(z.object({ id: z.number().nonnegative() }))
     .mutation(async ({ ctx, input }) => {
       await ctx.db.post.delete({
         where: {
