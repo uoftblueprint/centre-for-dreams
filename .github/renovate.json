@@ -15,5 +15,6 @@
       "automerge": true
     }
   ],
-  "ignoreDeps": ["next"]
+  "ignoreDeps": ["next"],
+  "rangeStrategy": "bump"
 }
