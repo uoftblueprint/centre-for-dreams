@@ -14,5 +14,7 @@
   "typescript.preferences.autoImportFileExcludePatterns": [
     "next/router.d.ts",
     "next/dist/client/router.d.ts"
-  ]
+  ],
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2
 }
