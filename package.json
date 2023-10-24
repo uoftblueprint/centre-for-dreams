@@ -2,7 +2,7 @@
   "name": "centre-for-dreams",
   "private": true,
   "engines": {
-    "node": ">=18.18.2"
+    "node": ">=20.8.1"
   },
   "packageManager": "pnpm@8.9.2",
   "scripts": {
