@@ -16,5 +16,6 @@
     }
   ],
   "ignoreDeps": ["next"],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "minimumReleaseAge": "5 days"
 }
