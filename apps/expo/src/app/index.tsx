@@ -8,11 +8,12 @@ import registerForPushNotificationsAsync from "~/notifications/registerNotificat
 import NotificationView from "./notifications";
 
 Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
+  handleNotification: () =>
+    Promise.resolve({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
 });
 
 const Index = () => {

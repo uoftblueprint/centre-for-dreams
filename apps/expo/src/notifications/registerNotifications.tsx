@@ -21,8 +21,8 @@ async function registerForPushNotificationsAsync() {
     if (existingStatus.valueOf() != "granted") {
       await Notifications.requestPermissionsAsync();
     }
-    if (Constants.expoConfig?.extra?.eas?.projectId) {
-      const easConfig = Constants.expoConfig.extra.eas as { projectId: string };
+    const easConfig = Constants.expoConfig?.extra?.eas as { projectId: string };
+    if (easConfig) {
       token = await Notifications.getExpoPushTokenAsync({
         projectId: easConfig.projectId,
       });
