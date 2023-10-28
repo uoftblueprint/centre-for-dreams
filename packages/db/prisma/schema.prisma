@@ -33,7 +33,7 @@ model Comment {
 }
 
 model Activity {
-  id        Int      @id
+  id        Int      @id @default(autoincrement())
   name      String
   day       DateTime @db.Date
   startTime DateTime @db.Time()
