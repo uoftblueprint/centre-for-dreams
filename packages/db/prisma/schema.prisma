@@ -31,3 +31,9 @@ model Comment {
   text      String
   createdAt DateTime @default(now())
 }
+
+model Absence {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  absenceDate DateTime @db.Date
+}
