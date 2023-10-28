@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
@@ -11,6 +12,7 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const developerCount = api.developer.count.useQuery();
+  const { isSignedIn } = useAuth();
   return (
     <>
       <Head>
@@ -28,6 +30,10 @@ export default function Home() {
         <HelenaGlowacki />
         <RamRaghavSharma />
         <MinhLe />
+        <div>
+          {isSignedIn ? "" : <SignInButton mode="modal" />}
+          <UserButton afterSignOutUrl="/" />
+        </div>
       </main>
     </>
   );
