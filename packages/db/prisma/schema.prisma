@@ -32,6 +32,16 @@ model Comment {
   createdAt DateTime @default(now())
 }
 
+model Activity {
+  id        Int      @id @default(autoincrement())
+  name      String
+  day       DateTime @db.Date
+  startTime DateTime @db.Time()
+  endTime   DateTime @db.Time()
+  leader    String
+  location  String
+}
+
 model Absence {
   id          Int      @id @default(autoincrement())
   userId      Int
