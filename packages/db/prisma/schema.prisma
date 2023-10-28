@@ -31,3 +31,12 @@ model Comment {
   text      String
   createdAt DateTime @default(now())
 }
+
+model Activity {
+  name      String   @id
+  day       DateTime @db.Date
+  startTime DateTime @db.Timetz()
+  endTime   DateTime @db.Timetz()
+  leader    String
+  location  String
+}
