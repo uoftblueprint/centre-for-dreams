@@ -35,8 +35,8 @@ model Comment {
 model Activity {
   name      String   @id
   day       DateTime @db.Date
-  startTime DateTime @db.Timetz()
-  endTime   DateTime @db.Timetz()
+  startTime DateTime @db.Time()
+  endTime   DateTime @db.Time()
   leader    String
   location  String
 }
