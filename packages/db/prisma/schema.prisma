@@ -33,7 +33,8 @@ model Comment {
 }
 
 model Activity {
-  name      String   @id
+  id        Int      @id
+  name      String
   day       DateTime @db.Date
   startTime DateTime @db.Time()
   endTime   DateTime @db.Time()
