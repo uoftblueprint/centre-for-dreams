@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { adminProcedure, protectedProcedure, createTRPCRouter } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
   getSchedule: protectedProcedure
@@ -10,7 +10,7 @@ export const activityRouter = createTRPCRouter({
         where: {
           day: {
             gte: new Date(input.day),
-            lte: new Date(input.day.setDate((input.day).getDate() + 7)),
+            lte: new Date(input.day.setDate(input.day.getDate() + 7)),
           },
         },
         orderBy: { day: "desc" },
@@ -21,7 +21,7 @@ export const activityRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         day: z.date(),
-        startTime: z.date(), 
+        startTime: z.date(),
         endTime: z.date(),
         leader: z.string(),
         location: z.string(),
@@ -46,7 +46,7 @@ export const activityRouter = createTRPCRouter({
         name: z.string().optional(),
         day: z.date().optional(),
         startTime: z.date().optional(),
-        endTime: z.date().optional(), 
+        endTime: z.date().optional(),
         leader: z.string().optional(),
         location: z.string().optional(),
       }),
