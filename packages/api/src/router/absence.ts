@@ -23,7 +23,7 @@ export const absenceRouter = createTRPCRouter({
     return await ctx.db.absence.findMany();
   }),
 
-  getAbsenceByUserId: adminProcedure
+  getAbsences: protectedProcedure
     .input(
       z.object({
         userId: z.number().nonnegative(),
