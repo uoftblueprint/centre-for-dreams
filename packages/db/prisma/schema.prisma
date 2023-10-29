@@ -33,13 +33,13 @@ model Comment {
 }
 
 model Activity {
-  id        Int      @id @default(autoincrement())
-  name      String
-  day       DateTime @db.Date
-  startTime DateTime @db.Time()
-  duration  Int
-  leader    String
-  location  String
+  id              Int      @id @default(autoincrement())
+  name            String
+  day             DateTime @db.Date
+  startTime       DateTime @db.Time()
+  durationMinutes Int
+  leader          String
+  location        String
 }
 
 model Absence {
