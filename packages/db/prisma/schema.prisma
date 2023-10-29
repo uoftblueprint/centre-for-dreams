@@ -11,6 +11,11 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model User {
+  id       Int       @id @default(autoincrement())
+  absences Absence[]
+}
+
 model Developers {
   name    String @id
   upvotes Int    @default(0)
@@ -44,6 +49,7 @@ model Activity {
 
 model Absence {
   userId      Int
+  user        User     @relation(fields: [userId], references: [id])
   absenceDate DateTime @db.Date
 
   @@unique([absenceDate, userId])
