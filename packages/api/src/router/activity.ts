@@ -1,29 +1,16 @@
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter } from "../trpc";
+import { adminProcedure, protectedProcedure, createTRPCRouter } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
-  getActivity: adminProcedure
-    .input(z.object({ id: z.number().nonnegative().optional() }))
-    .query(async ({ ctx, input }) => {
-      return input.id
-        ? await ctx.db.activity.findFirst({
-            where: { id: input.id },
-          })
-        : await ctx.db.activity.findMany({
-            orderBy: { day: "desc" },
-          });
-    }),
-  getSchedule: adminProcedure
-    .input(z.object({ day: z.string() }))
+  getSchedule: protectedProcedure
+    .input(z.object({ day: z.date() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.activity.findMany({
         where: {
           day: {
             gte: new Date(input.day),
-            lte: new Date(
-              new Date(input.day).getTime() + 7 * 24 * 60 * 60 * 1000,
-            ),
+            lte: new Date(input.day.setDate((input.day).getDate() + 7)),
           },
         },
         orderBy: { day: "desc" },
@@ -33,20 +20,20 @@ export const activityRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        day: z.string(), // format YYYY-MM-DD
-        startTime: z.string(), // format HH:MM
-        endTime: z.string(), // format HH:MM
+        day: z.date(),
+        startTime: z.date(), 
+        endTime: z.date(),
         leader: z.string(),
         location: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.activity.create({
+      return await ctx.db.activity.create({
         data: {
           name: input.name,
-          day: new Date(input.day),
-          startTime: new Date("1970/01/01 " + input.startTime + "Z"),
-          endTime: new Date("1970/01/01 " + input.endTime + "Z"),
+          day: input.day,
+          startTime: input.day,
+          endTime: input.day,
           leader: input.leader,
           location: input.location,
         },
@@ -57,27 +44,23 @@ export const activityRouter = createTRPCRouter({
       z.object({
         id: z.number().nonnegative(),
         name: z.string().optional(),
-        day: z.string().optional(), // format YYYY-MM-DD
-        startTime: z.string().optional(), // format HH:MM
-        endTime: z.string().optional(), // format HH:MM
+        day: z.date().optional(),
+        startTime: z.date().optional(),
+        endTime: z.date().optional(), 
         leader: z.string().optional(),
         location: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.activity.update({
+      return await ctx.db.activity.update({
         where: {
           id: input.id,
         },
         data: {
           name: input.name,
-          day: input.day ? new Date(input.day) : input.day,
-          startTime: input.startTime
-            ? new Date("1970/01/01 " + input.startTime + "Z")
-            : input.startTime,
-          endTime: input.endTime
-            ? new Date("1970/01/01 " + input.endTime + "Z")
-            : input.endTime,
+          day: input.day,
+          startTime: input.startTime,
+          endTime: input.endTime,
           leader: input.leader,
           location: input.location,
         },
