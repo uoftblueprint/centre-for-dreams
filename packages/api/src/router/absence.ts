@@ -37,26 +37,6 @@ export const absenceRouter = createTRPCRouter({
       });
     }),
 
-  updateAbsence: protectedProcedure
-    .input(
-      z.object({
-        id: z.number().nonnegative(),
-        userId: z.number().nonnegative().optional(),
-        absenceDate: z.date().optional(),
-      }),
-    )
-    .mutation(async ({ input, ctx }) => {
-      await ctx.db.absence.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          userId: input.userId,
-          absenceDate: input.absenceDate,
-        },
-      });
-    }),
-
   deleteAbsence: protectedProcedure
     .input(
       z.object({
