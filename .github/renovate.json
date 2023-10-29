@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "ignorePresets": ["group:expoMonorepo"],
   "packageRules": [
     {
       "matchPackagePatterns": ["^@cfd/"],
@@ -14,5 +15,7 @@
       "automerge": true
     }
   ],
-  "ignoreDeps": ["next"]
+  "ignoreDeps": ["next"],
+  "rangeStrategy": "bump",
+  "minimumReleaseAge": "5 days"
 }
