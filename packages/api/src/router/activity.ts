@@ -3,11 +3,17 @@ import { z } from "zod";
 import { adminProcedure, createTRPCRouter } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
-  getActivity: adminProcedure.query(async ({ ctx }) => {
-    return await ctx.db.activity.findMany({
-      orderBy: { day: "desc" },
-    });
-  }),
+  getActivity: adminProcedure
+    .input(z.object({ id: z.number().nonnegative().optional() }))
+    .query(async ({ ctx, input }) => {
+      return input.id
+        ? await ctx.db.activity.findFirst({
+            where: { id: input.id },
+          })
+        : await ctx.db.activity.findMany({
+            orderBy: { day: "desc" },
+          });
+    }),
   getSchedule: adminProcedure
     .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
