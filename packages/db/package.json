@@ -18,16 +18,16 @@
   },
   "dependencies": {
     "@cfd/logger": "^0.1.0",
-    "@prisma/client": "^5.0.0"
+    "@prisma/client": "^5.5.0"
   },
   "devDependencies": {
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.50.0",
+    "eslint": "^8.52.0",
     "prettier": "^3.0.3",
-    "prisma": "^5.0.0",
+    "prisma": "^5.5.0",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
