@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const absenceRouter = createTRPCRouter({
   createAbsence: protectedProcedure
@@ -19,9 +19,23 @@ export const absenceRouter = createTRPCRouter({
       });
     }),
 
-  getAllAbsences: protectedProcedure.query(async ({ ctx }) => {
+  getAllAbsences: adminProcedure.query(async ({ ctx }) => {
     return await ctx.db.absence.findMany();
   }),
+
+  getAbsenceByUserId: adminProcedure
+    .input(
+      z.object({
+        userId: z.number().nonnegative(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.absence.findMany({
+        where: {
+          userId: input.userId,
+        },
+      });
+    }),
 
   updateAbsence: protectedProcedure
     .input(
