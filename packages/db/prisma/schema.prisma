@@ -44,7 +44,7 @@ model Activity {
 
 model Absence {
   userId      Int
-  absenceDate DateTime
+  absenceDate DateTime @db.Date
 
-  @@unique([absenceDate])
+  @@unique([absenceDate, userId])
 }
