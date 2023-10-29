@@ -43,7 +43,8 @@ model Activity {
 }
 
 model Absence {
-  id          Int      @id @default(autoincrement())
   userId      Int
   absenceDate DateTime @db.Date
+
+  @@unique([absenceDate, userId])
 }
