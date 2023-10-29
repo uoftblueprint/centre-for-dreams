@@ -40,13 +40,15 @@ export const absenceRouter = createTRPCRouter({
   deleteAbsence: protectedProcedure
     .input(
       z.object({
-        id: z.number().nonnegative(),
+        userId: z.number().nonnegative(),
+        absenceDate: z.date(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
       await ctx.db.absence.delete({
         where: {
-          id: input.id,
+          userId: input.userId,
+          absenceDate: input.absenceDate,
         },
       });
     }),
