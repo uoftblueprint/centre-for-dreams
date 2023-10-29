@@ -45,7 +45,7 @@ export const absenceRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.absence.delete({
+      await ctx.db.absence.deleteMany({
         where: {
           userId: input.userId,
           absenceDate: input.absenceDate,
