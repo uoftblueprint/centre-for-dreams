@@ -22,7 +22,7 @@ export const activityRouter = createTRPCRouter({
         name: z.string(),
         day: z.date(),
         startTime: z.date(),
-        endTime: z.date(),
+        duration: z.number().nonnegative(),
         leader: z.string(),
         location: z.string(),
       }),
@@ -32,21 +32,21 @@ export const activityRouter = createTRPCRouter({
         data: {
           name: input.name,
           day: input.day,
-          startTime: input.day,
-          endTime: input.day,
+          startTime: input.startTime,
+          duration: input.duration, 
           leader: input.leader,
           location: input.location,
         },
       });
     }),
-  updateAcitivty: adminProcedure
+  updateActivity: adminProcedure
     .input(
       z.object({
         id: z.number().nonnegative(),
         name: z.string().optional(),
         day: z.date().optional(),
         startTime: z.date().optional(),
-        endTime: z.date().optional(),
+        duration: z.number().nonnegative().optional(),
         leader: z.string().optional(),
         location: z.string().optional(),
       }),
@@ -60,7 +60,7 @@ export const activityRouter = createTRPCRouter({
           name: input.name,
           day: input.day,
           startTime: input.startTime,
-          endTime: input.endTime,
+          duration: input.duration,
           leader: input.leader,
           location: input.location,
         },

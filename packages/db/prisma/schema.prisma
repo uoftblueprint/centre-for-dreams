@@ -37,7 +37,7 @@ model Activity {
   name      String
   day       DateTime @db.Date
   startTime DateTime @db.Time()
-  endTime   DateTime @db.Time()
+  duration  Int
   leader    String
   location  String
 }
