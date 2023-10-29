@@ -19,22 +19,15 @@ export const notificationRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       // Create notification messages
-      const messages: ExpoPushMessage[] = [];
-      for (const pushToken of input.pushTokens) {
-        if (!Expo.isExpoPushToken(pushToken)) {
-          console.error(
-            `Push token ${String(pushToken)} is not a valid Expo push token`,
-          );
-          continue;
-        }
-        messages.push({
+      const messages: ExpoPushMessage[] = input.pushTokens
+        .filter((pushToken) => Expo.isExpoPushToken(pushToken))
+        .map((pushToken) => ({
           to: pushToken,
           sound: "default",
           title: input.title,
           body: input.body,
           subtitle: input.subtitle,
-        });
-      }
+        }));
 
       // Send the messages
       const chunks = expo.chunkPushNotifications(messages);
