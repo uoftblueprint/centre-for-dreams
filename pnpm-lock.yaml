@@ -229,6 +229,9 @@ importers:
       '@trpc/server':
         specifier: ^10.42.0
         version: 10.43.0
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       superjson:
         specifier: 2.2.0
         version: 2.2.0
@@ -4441,6 +4444,13 @@ packages:
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
+    dev: false
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.23.2
     dev: false
 
   /dateformat@4.6.3:

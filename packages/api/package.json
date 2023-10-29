@@ -16,6 +16,7 @@
     "@cfd/logger": "^0.1.0",
     "@trpc/client": "^10.42.0",
     "@trpc/server": "^10.42.0",
+    "date-fns": "^2.30.0",
     "superjson": "2.2.0",
     "zod": "^3.22.4"
   },
