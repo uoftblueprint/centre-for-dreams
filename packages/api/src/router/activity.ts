@@ -33,7 +33,7 @@ export const activityRouter = createTRPCRouter({
           name: input.name,
           day: input.day,
           startTime: input.startTime,
-          duration: input.duration, 
+          duration: input.duration,
           leader: input.leader,
           location: input.location,
         },

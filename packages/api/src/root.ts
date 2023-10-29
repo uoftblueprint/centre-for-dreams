@@ -1,5 +1,5 @@
-import { activityRouter } from "./router/activity";
 import { absenceRouter } from "./router/absence";
+import { activityRouter } from "./router/activity";
 import { developerRouter } from "./router/developer";
 import { postRouter } from "./router/post";
 import { createTRPCRouter } from "./trpc";
