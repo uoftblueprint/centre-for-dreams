@@ -18,9 +18,9 @@
   "dependencies": {
     "@expo/metro-config": "^0.10.7",
     "@tanstack/react-query": "^4.36.1",
-    "@trpc/client": "^10.41.0",
-    "@trpc/react-query": "^10.41.0",
-    "@trpc/server": "^10.41.0",
+    "@trpc/client": "^10.42.0",
+    "@trpc/react-query": "^10.42.0",
+    "@trpc/server": "^10.42.0",
     "expo": "^49.0.16",
     "expo-constants": "~14.4.2",
     "expo-linking": "~5.0.2",
