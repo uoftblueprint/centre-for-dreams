@@ -173,6 +173,11 @@ jobs:
   ios:
     runs-on: macos-latest
     needs: [lint, format, build]
+    env:
+      - CLANG: clang
+      - CLANGPLUSPLUS: clang++
+      - LD: clang
+      - LDPLUSPLUS: clang++
 
     steps:
     - name: Setup repo
