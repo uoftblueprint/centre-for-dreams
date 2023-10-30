@@ -6,6 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   scheme: "expo",
   version: "1.0.0",
   orientation: "portrait",
+  owner: process.env.EXPO_OWNER,
   // icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   splash: {
@@ -28,11 +29,11 @@ const defineConfig = (): ExpoConfig => ({
       backgroundColor: "#1F104A",
     },
   },
-  // extra: {
-  //   eas: {
-  //     projectId: "your-eas-project-id",
-  //   },
-  // },
+  extra: {
+    eas: {
+      projectId: process.env.EXPO_PROJECT_ID,
+    },
+  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,
