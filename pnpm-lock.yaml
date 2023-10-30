@@ -270,7 +270,7 @@ importers:
         specifier: ^0.1.0
         version: link:../logger
       '@prisma/client':
-        specifier: ^5.5.1
+        specifier: ^5.5.2
         version: 5.5.2(prisma@5.5.2)
     devDependencies:
       '@cfd/eslint-config':
@@ -292,7 +292,7 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       prisma:
-        specifier: ^5.5.1
+        specifier: ^5.5.2
         version: 5.5.2
       typescript:
         specifier: ^5.2.2
