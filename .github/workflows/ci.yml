@@ -133,7 +133,7 @@ jobs:
         eas-version: latest
         packager: pnpm
 
-    - name: Install dependencies
+    - name: Install deps
       if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
       run: pnpm i
 
@@ -198,7 +198,7 @@ jobs:
         eas-version: latest
         packager: pnpm
 
-    - name: Install dependencies
+    - name: Install deps
       if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
       run: pnpm i
 
