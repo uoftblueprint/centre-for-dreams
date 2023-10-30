@@ -150,7 +150,7 @@ jobs:
         read-only: ${{ github.ref != 'refs/heads/main' }}
 
     - name: Build app
-      if: steps.check-expo.outputs.skip_job == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
