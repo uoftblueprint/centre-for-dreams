@@ -106,14 +106,24 @@ jobs:
     - name: Check for changes to Expo app
       id: check-expo
       run: |
-        if git diff --quiet origin/main HEAD -- apps/expo; then
-          echo "Expo project not modified"
-          echo "skip_job=true" >> $GITHUB_OUTPUT
+        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if git diff --quiet HEAD^ HEAD -- apps/expo; then
+            echo "Expo project not modified"
+            echo "skip_job=true" >> $GITHUB_OUTPUT
+          else
+            echo "Expo project modified"
+            echo "skip_job=false" >> $GITHUB_OUTPUT
+          fi
         else
-          echo "Expo project modified"
-          echo "skip_job=false" >> $GITHUB_OUTPUT
+          if git diff --quiet origin/main HEAD -- apps/expo; then
+            echo "Expo project not modified"
+            echo "skip_job=true" >> $GITHUB_OUTPUT
+          else
+            echo "Expo project modified"
+            echo "skip_job=false" >> $GITHUB_OUTPUT
+          fi
         fi
-        
+
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
@@ -173,12 +183,22 @@ jobs:
     - name: Check for changes to Expo app
       id: check-expo
       run: |
-        if git diff --quiet origin/main HEAD -- apps/expo; then
-          echo "Expo project not modified"
-          echo "skip_job=true" >> $GITHUB_OUTPUT
+        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if git diff --quiet HEAD^ HEAD -- apps/expo; then
+            echo "Expo project not modified"
+            echo "skip_job=true" >> $GITHUB_OUTPUT
+          else
+            echo "Expo project modified"
+            echo "skip_job=false" >> $GITHUB_OUTPUT
+          fi
         else
-          echo "Expo project modified"
-          echo "skip_job=false" >> $GITHUB_OUTPUT
+          if git diff --quiet origin/main HEAD -- apps/expo; then
+            echo "Expo project not modified"
+            echo "skip_job=true" >> $GITHUB_OUTPUT
+          else
+            echo "Expo project modified"
+            echo "skip_job=false" >> $GITHUB_OUTPUT
+          fi
         fi
 
     - name: Setup pnpm
