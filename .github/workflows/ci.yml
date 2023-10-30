@@ -102,16 +102,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2.4.0
-
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18.18.2
-        cache: 'pnpm'
-        cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Check for changes to Expo app
       id: check-expo
@@ -123,6 +113,18 @@ jobs:
           echo "Expo project modified"
           echo "skip_job=false" >> $GITHUB_OUTPUT
         fi
+        
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.4.0
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+      with:
+        node-version: 18.18.2
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Setup Expo and EAS
       uses: expo/expo-github-action@v8
@@ -168,16 +170,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2.4.0
-
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18.18.2
-        cache: 'pnpm'
-        cache-dependency-path: 'pnpm-lock.yaml'
-
     - name: Check for changes to Expo app
       id: check-expo
       run: |
@@ -188,6 +180,18 @@ jobs:
           echo "Expo project modified"
           echo "skip_job=false" >> $GITHUB_OUTPUT
         fi
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2.4.0
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+      with:
+        node-version: 18.18.2
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Setup Expo and EAS
       uses: expo/expo-github-action@v8
