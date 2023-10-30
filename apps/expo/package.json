@@ -23,6 +23,7 @@
     "@trpc/server": "^10.42.0",
     "expo": "^49.0.16",
     "expo-constants": "~14.4.2",
+    "expo-dev-client": "~2.4.11",
     "expo-linking": "~5.0.2",
     "expo-router": "2.0.9",
     "expo-splash-screen": "~0.20.5",
@@ -51,7 +52,7 @@
     "eslint": "^8.52.0",
     "expo-doctor": "^1.1.3",
     "prettier": "^3.0.3",
-    "tailwindcss": "3.3.4",
+    "tailwindcss": "3.3.2",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
