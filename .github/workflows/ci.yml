@@ -126,7 +126,7 @@ jobs:
 
     - name: Setup Expo and EAS
       uses: expo/expo-github-action@v8
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with:
         token: ${{ secrets.EXPO_TOKEN }}
         expo-version: latest
@@ -134,23 +134,23 @@ jobs:
         packager: pnpm
 
     - name: Install deps
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: pnpm i
 
     - name: Expo prebuild
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: cd apps/expo && pnpm expo prebuild
 
     - name: Gradle Cache
       uses: burrunan/gradle-cache-action@v1
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with:
         build-root-directory: apps/expo/android
         gradle-distribution-sha-256-sum-warning: false
         read-only: ${{ github.ref != 'refs/heads/main' }}
 
     - name: Build app
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
@@ -191,7 +191,7 @@ jobs:
 
     - name: Setup Expo and EAS
       uses: expo/expo-github-action@v8
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with:
         token: ${{ secrets.EXPO_TOKEN }}
         expo-version: latest
@@ -199,11 +199,11 @@ jobs:
         packager: pnpm
 
     - name: Install deps
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: pnpm i
 
     - name: Build app
-      if: ${{ steps.check-expo.outputs.skip_job }} == 'false'
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
