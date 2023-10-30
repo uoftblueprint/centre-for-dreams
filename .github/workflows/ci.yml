@@ -201,6 +201,11 @@ jobs:
           fi
         fi
 
+    - name: Buildcache setup 
+      uses: mikehard/buildcache-action@v2
+      env:
+        BUILDCACHE_DEBUG: 2
+
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}

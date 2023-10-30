@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.tsx",
+  "author": {
+    "email": "bakerwjackson@gmail.com",
+    "name": "Baker Jackson"
+  },
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start",
