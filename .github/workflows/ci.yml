@@ -161,8 +161,6 @@ jobs:
       CLANGPLUSPLUS: 'clang++'
       LD: 'clang'
       LDPLUSPLUS: 'clang++'
-      CC: 'clang'
-      CXX: 'clang++'
       CCACHE_SLOPPINESS: 'clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros'
       CCACHE_FILECLONE: 'true'
       CCACHE_DEPEND: 'true'
@@ -201,6 +199,14 @@ jobs:
 
     - name: ccache path
       run: export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+
+    - name: ccache symlinks
+      run: ln -s $(which ccache) /usr/local/bin/gcc &&
+        ln -s $(which ccache) /usr/local/bin/g++ &&
+        ln -s $(which ccache) /usr/local/bin/cc &&
+        ln -s $(which ccache) /usr/local/bin/c++ &&
+        ln -s $(which ccache) /usr/local/bin/clang &&
+        ln -s $(which ccache) /usr/local/bin/clang++
 
     - name: check gcc
       run: which gcc
