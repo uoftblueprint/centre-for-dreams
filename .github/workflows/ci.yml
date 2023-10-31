@@ -192,8 +192,8 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with: 
-        key: ${{ github.job }}-${{ runner.os }}
         verbose: 1
+        max-size: "3G"
 
     - name: ccache path
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
