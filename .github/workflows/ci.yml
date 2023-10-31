@@ -140,6 +140,10 @@ jobs:
         eas-version: latest
         packager: pnpm
 
+    - name: Install deps
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+      run: pnpm i
+
     - name: Build app
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: |
@@ -195,6 +199,10 @@ jobs:
         expo-version: latest
         eas-version: latest
         packager: pnpm
+
+    - name: Install deps
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
+      run: pnpm i
 
     - name: Build app
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
