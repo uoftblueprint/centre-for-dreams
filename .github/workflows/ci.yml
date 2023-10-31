@@ -174,8 +174,8 @@ jobs:
     runs-on: macos-latest
     needs: [lint, format, build]
     env:
-      CLANG: clang
-      CLANGPLUSPLUS: clang++
+      CC: clang
+      CPLUSPLUS: clang++
       LD: clang
       LDPLUSPLUS: clang++
 
@@ -208,8 +208,6 @@ jobs:
 
     - name: Buildcache setup 
       uses: mikehardy/buildcache-action@v2
-      env:
-        BUILDCACHE_DEBUG: 2
 
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
