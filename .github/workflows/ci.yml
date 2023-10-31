@@ -190,12 +190,14 @@ jobs:
           fi
         fi
 
-    - name: ccashe setup
+    - name: ccache setup
       uses: hendrikmuhs/ccache-action@v1.2
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with: 
         key: ${{ github.job }}-${{ matrix.os }}
         verbose: 1
+
+    - name: ccache path
       run: export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
 
     - name: Setup pnpm
