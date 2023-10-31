@@ -202,6 +202,9 @@ jobs:
     - name: ccache path
       run: export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
 
+    - name: check gcc
+      run: which gcc
+
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
