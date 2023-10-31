@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node 18
         uses: actions/setup-node@v4
         with:
-          node-version: 18.18.2
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
@@ -62,7 +62,7 @@ jobs:
       - name: Setup Node 18
         uses: actions/setup-node@v4
         with:
-          node-version: 18.18.2
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
@@ -84,7 +84,7 @@ jobs:
       - name: Setup Node 18
         uses: actions/setup-node@v4
         with:
-          node-version: 18.18.2
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
@@ -132,7 +132,7 @@ jobs:
       uses: actions/setup-node@v4
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with:
-        node-version: 18.18.2
+        node-version-file: '.nvmrc'
         cache: 'pnpm'
         cache-dependency-path: 'pnpm-lock.yaml'
 
@@ -173,11 +173,6 @@ jobs:
   ios:
     runs-on: macos-latest
     needs: [lint, format, build]
-    env:
-      CC: clang
-      CPLUSPLUS: clang++
-      LD: clang
-      LDPLUSPLUS: clang++
 
     steps:
     - name: Setup repo
@@ -206,9 +201,6 @@ jobs:
           fi
         fi
 
-    - name: Buildcache setup 
-      uses: mikehardy/buildcache-action@v2
-
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
@@ -217,7 +209,7 @@ jobs:
       uses: actions/setup-node@v4
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       with:
-        node-version: 18.18.2
+        node-version-file: '.nvmrc'
         cache: 'pnpm'
         cache-dependency-path: 'pnpm-lock.yaml'
 
