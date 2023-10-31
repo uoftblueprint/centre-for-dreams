@@ -129,24 +129,6 @@ jobs:
           fi
         fi
 
-    - name: ccache setup
-      uses: hendrikmuhs/ccache-action@v1.2
-      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
-      with:
-        key: ${{ github.job }}-${{ runner.os }}
-        verbose: 1
-
-    - name: ccache path
-      run: export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
-
-    - name: ccache symlinks
-      run: ln -s $(which ccache) /usr/local/bin/gcc &&
-        ln -s $(which ccache) /usr/local/bin/g++ &&
-        ln -s $(which ccache) /usr/local/bin/cc &&
-        ln -s $(which ccache) /usr/local/bin/c++ &&
-        ln -s $(which ccache) /usr/local/bin/clang &&
-        ln -s $(which ccache) /usr/local/bin/clang++
-
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.4.0
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
@@ -214,9 +196,11 @@ jobs:
         verbose: 1
 
     - name: ccache path
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
 
     - name: ccache symlinks
+      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
       run: ln -s $(which ccache) /usr/local/bin/gcc &&
         ln -s $(which ccache) /usr/local/bin/g++ &&
         ln -s $(which ccache) /usr/local/bin/cc &&
