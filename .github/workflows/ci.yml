@@ -107,13 +107,8 @@ jobs:
       id: check-expo
       run: |
         if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-          if git diff --quiet HEAD^ HEAD -- apps/expo; then
-            echo "Expo project not modified"
-            echo "skip_job=true" >> $GITHUB_OUTPUT
-          else
-            echo "Expo project modified"
-            echo "skip_job=false" >> $GITHUB_OUTPUT
-          fi
+          echo "Always build expo project on main"
+          echo "skip_job=false" >> $GITHUB_OUTPUT
         else
           if git diff --quiet origin/main HEAD -- apps/expo; then
             echo "Expo project not modified"
@@ -144,22 +139,6 @@ jobs:
         expo-version: latest
         eas-version: latest
         packager: pnpm
-
-    - name: Install deps
-      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
-      run: pnpm i
-
-    - name: Expo prebuild
-      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
-      run: cd apps/expo && pnpm expo prebuild
-
-    - name: Gradle Cache
-      uses: burrunan/gradle-cache-action@v1
-      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
-      with:
-        build-root-directory: apps/expo/android
-        gradle-distribution-sha-256-sum-warning: false
-        read-only: ${{ github.ref != 'refs/heads/main' }}
 
     - name: Build app
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
@@ -184,13 +163,8 @@ jobs:
       id: check-expo
       run: |
         if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-          if git diff --quiet HEAD^ HEAD -- apps/expo; then
-            echo "Expo project not modified"
-            echo "skip_job=true" >> $GITHUB_OUTPUT
-          else
-            echo "Expo project modified"
-            echo "skip_job=false" >> $GITHUB_OUTPUT
-          fi
+          echo "Always build expo project on main"
+          echo "skip_job=false" >> $GITHUB_OUTPUT
         else
           if git diff --quiet origin/main HEAD -- apps/expo; then
             echo "Expo project not modified"
@@ -221,10 +195,6 @@ jobs:
         expo-version: latest
         eas-version: latest
         packager: pnpm
-
-    - name: Install deps
-      if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
-      run: pnpm i
 
     - name: Build app
       if: ${{ steps.check-expo.outputs.skip_job == 'false' }}
