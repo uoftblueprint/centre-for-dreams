@@ -14,7 +14,17 @@ env:
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
   EXPO_OWNER: ${{ secrets.EXPO_OWNER }}
   EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
-
+  CLANG: 'clang'
+  CLANGPLUSPLUS: 'clang++'
+  LD: 'clang'
+  LDPLUSPLUS: 'clang++'
+  CC: 'clang'
+  CXX: 'clang++'
+  CCACHE_SLOPPINESS: 'clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros'
+  CCACHE_FILECLONE: 'true'
+  CCACHE_DEPEND: 'true'
+  CCACHE_INODECACHE: 'true'
+  CCACHE_COMPILERCHECK: 'content'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -173,18 +183,6 @@ jobs:
   ios:
     runs-on: macos-latest
     needs: [lint, format, build]
-    env:
-      CLANG: 'clang'
-      CLANGPLUSPLUS: 'clang++'
-      LD: 'clang'
-      LDPLUSPLUS: 'clang++'
-      CC: 'clang'
-      CXX: 'clang++'
-      CCACHE_SLOPPINESS: 'clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros'
-      CCACHE_FILECLONE: 'true'
-      CCACHE_DEPEND: 'true'
-      CCACHE_INODECACHE: 'true'
-      CCACHE_COMPILERCHECK: 'content'
 
     steps:
     - name: Setup repo
