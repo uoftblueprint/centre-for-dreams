@@ -156,12 +156,22 @@ jobs:
   ios:
     runs-on: macos-latest
     needs: [lint, format, build]
+    env:
+      CC: 'clang'
+      CPLUSPLUS: 'clang++'
+      LD: 'clang'
+      LDPLUSPLUS: 'clang++'
 
     steps:
     - name: Setup repo
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Buildcache setup
+      uses: mikehardy/buildcache-action@v2
+      with:
+        upload_buildcache_log: 'true'
 
     - name: Check for changes to Expo app
       id: check-expo
