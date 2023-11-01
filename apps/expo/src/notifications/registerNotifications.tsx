@@ -4,7 +4,10 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
 async function registerForPushNotificationsAsync() {
-  let token;
+  const easConfig = Constants.expoConfig?.extra?.eas as { projectId: string };
+  if (!easConfig) {
+    throw new Error("Unable to get projectId from Constants");
+  }
 
   if (Platform.OS === "android") {
     void Notifications.setNotificationChannelAsync("default", {
@@ -21,19 +24,12 @@ async function registerForPushNotificationsAsync() {
     if (existingStatus.valueOf() != "granted") {
       await Notifications.requestPermissionsAsync();
     }
-    const easConfig = Constants.expoConfig?.extra?.eas as { projectId: string };
-    if (easConfig) {
-      token = await Notifications.getExpoPushTokenAsync({
-        projectId: easConfig.projectId,
-      });
-    } else {
-      console.log("Unable to get projectId from Constants");
-    }
+    return await Notifications.getExpoPushTokenAsync({
+      projectId: easConfig.projectId,
+    });
   } else {
     alert("Must use physical device for Push Notifications");
   }
-
-  return token;
 }
 
 export default registerForPushNotificationsAsync;

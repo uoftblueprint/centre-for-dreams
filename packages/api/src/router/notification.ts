@@ -2,12 +2,12 @@ import type { ExpoPushMessage } from "expo-server-sdk";
 import { Expo } from "expo-server-sdk";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter } from "../trpc";
 
 const expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
 
 export const notificationRouter = createTRPCRouter({
-  push: protectedProcedure
+  push: adminProcedure
     .input(
       z.object({
         pushTokens: z.array(z.string()),

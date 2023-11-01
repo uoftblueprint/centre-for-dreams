@@ -5,7 +5,6 @@ import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
-import NotificationView from "./notifications";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -17,8 +16,9 @@ Notifications.setNotificationHandler({
 });
 
 const Index = () => {
-  const [expoPushToken, setExpoPushToken] =
-    useState<Notifications.ExpoPushToken | null>(null);
+  const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
+    null,
+  );
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -31,7 +31,6 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text> Index </Text>
-        <NotificationView expoPushToken={expoPushToken!} />
       </View>
     </SafeAreaView>
   );
