@@ -36,7 +36,6 @@ export const notificationRouter = createTRPCRouter({
         for (const chunk of chunks) {
           try {
             const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-            console.log(ticketChunk);
             tickets.push(...ticketChunk);
           } catch (error) {
             console.error(error);
