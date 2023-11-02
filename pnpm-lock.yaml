@@ -51,8 +51,8 @@ importers:
         specifier: ~2.4.11
         version: 2.4.11(expo@49.0.16)
       expo-device:
-        specifier: ~5.4.0
-        version: 5.4.0(expo@49.0.16)
+        specifier: ~5.6.0
+        version: 5.6.0(expo@49.0.16)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.16)
@@ -5523,17 +5523,12 @@ packages:
       semver: 7.5.4
     dev: false
 
-  /expo-device@5.4.0(expo@49.0.16):
-    resolution: {integrity: sha512-TQxSVPrC6njCbzZ9Cqpc1lGLIjPmO1zBIbqW7CTqBPD1dOIMrgQvt7lZZhkHh3pWzoZznH283sSYqCvy3XcURw==}
+  /expo-device@5.6.0(expo@49.0.16):
+    resolution: {integrity: sha512-tWERUBJQ7LbBqQOr1dNyG+63iSYSYhhqhbIlA44sgRwlhUjLGPj6pfNUrniPFiggATDtIacaS5Nx5kTI69tuGg==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.16(@babel/core@7.23.2)
-      expo-dev-launcher: 2.4.13(expo@49.0.16)
-      expo-dev-menu: 3.2.1(expo@49.0.16)
-      expo-dev-menu-interface: 1.3.0(expo@49.0.16)
-      expo-manifests: 0.7.2
-      expo-updates-interface: 0.10.1(expo@49.0.16)
       ua-parser-js: 0.7.35
     dev: false
 
