@@ -1,13 +1,11 @@
 # Centre for Dreams
 
-![CI Status](https://github.com/uoftblueprint/centre-for-dreams/actions/workflows/ci.yml/badge.svg?event=push&branch=main)  [![Netlify Status](https://api.netlify.com/api/v1/badges/210c8d23-7ccc-4083-9d03-54d6a5c98ea2/deploy-status)](https://app.netlify.com/sites/centre-for-dreams/deploys)  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-
+![CI Status](https://github.com/uoftblueprint/centre-for-dreams/actions/workflows/ci.yml/badge.svg?event=push&branch=main) [![Netlify Status](https://api.netlify.com/api/v1/badges/210c8d23-7ccc-4083-9d03-54d6a5c98ea2/deploy-status)](https://app.netlify.com/sites/centre-for-dreams/deploys) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 The Centre for Dreams is a day program that provides services for adults living with a developmental disability. UofT Blueprint is collaborating with the Centre for Dreams to build a centralized platform for announcements and program information.
 
-
 ## Project Structure
+
 ```
 apps
   ├─ expo
@@ -25,8 +23,8 @@ packages
       └─ Prisma schema and migrations
 ```
 
-
 This project uses a monorepo that contains our API, React Native mobile application, and Next.js admin dashboard.
+
 ## Local Setup
 
 ### Project dependencies
@@ -81,6 +79,25 @@ cp .env.example .env
 
 After filling in the values in `.env`, you are ready to run the project!
 
+### Authentication Setup with Clerk
+
+To setup authentication with Clerk, follow the guide [here](https://clerk.com/docs/quickstarts/setup-clerk).
+
+TLDR: You need to make an account and update the following environment variables in `.env`. With what's provided in the Centre for Dreams organization on Clerk (Ask). Note: you do not need to modify NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.
+
+```
+CLERK_SECRET_KEY=
+```
+
+For the following environment variables, keep them the same for now, unless you're working on authentication. When you update them you should update them in `.env.example` as well
+
+```
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
+```
+
 ### Database Setup
 
 One of the environment variables that you need to fill out is `DATABASE_URL`. This project is using Postgres for the database. To setup a development database, you can either install Postgres locally or use an online provider.
@@ -100,7 +117,7 @@ This command applies all new migrations to your database -- you are now ready to
 
 ### Creating Database Migrations
 
-If you are making any changes to the Prisma schema, you will need to generate a new migration. You can do this with 
+If you are making any changes to the Prisma schema, you will need to generate a new migration. You can do this with
 
 ```zsh
 pnpm db:migrate
@@ -110,7 +127,7 @@ The command will see the schema change and provide a prompt for the new migratio
 
 #### Quick Schema Iteration
 
-While you are working on a ticket, you may want to try out multiple different schema options. You only want to make a migration when you have finalized a schema change, and each pr should contain at most one migration. To change your database schema during development, you can use 
+While you are working on a ticket, you may want to try out multiple different schema options. You only want to make a migration when you have finalized a schema change, and each pr should contain at most one migration. To change your database schema during development, you can use
 
 ```zsh
 pnpm db:push
@@ -127,7 +144,6 @@ pnpm dev
 ```
 
 This command will run the admin dashboard and API on localhost:3000, open Prisma Studio on localhost:5556, and run the Expo application on localhost:8081.
-
 
 #### Using Expo Go
 
@@ -172,6 +188,7 @@ pnpm format:fix
 ```
 
 #### Generate Prisma Client
+
 This command is run automatically whenever you use `pnpm dev`, `pnpm lint`, or `pnpm typecheck`.
 
 ```zsh
@@ -191,6 +208,7 @@ pnpm db:migrate
 ```
 
 #### Run type checks on all files
+
 ```zsh
 pnpm typecheck
 ```
@@ -211,5 +229,3 @@ pnpm typecheck
 ## License
 
 [MIT](https://github.com/uoftblueprint/centre-for-dreams/blob/main/LICENSE)
-
-

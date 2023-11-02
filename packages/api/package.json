@@ -14,6 +14,7 @@
   "dependencies": {
     "@cfd/db": "^0.1.0",
     "@cfd/logger": "^0.1.0",
+    "@clerk/clerk-sdk-node": "^4.12.15",
     "@trpc/client": "^10.43.0",
     "@trpc/server": "^10.43.0",
     "date-fns": "^2.30.0",

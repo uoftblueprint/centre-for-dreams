@@ -6,7 +6,13 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import { initTRPC } from "@trpc/server";
+import type {
+  SignedInAuthObject,
+  SignedOutAuthObject,
+} from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
+import { initTRPC, TRPCError } from "@trpc/server";
+import type * as trpcNext from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import type { TRPCPanelMeta } from "trpc-panel";
 import { ZodError } from "zod";
@@ -32,9 +38,15 @@ import { db } from "@cfd/db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = () => {
+
+interface AuthContext {
+  auth: SignedInAuthObject | SignedOutAuthObject;
+}
+
+const createInnerTRPCContext = ({ auth }: AuthContext) => {
   return {
     db,
+    auth,
   };
 };
 
@@ -43,8 +55,8 @@ const createInnerTRPCContext = () => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = () => {
-  return createInnerTRPCContext();
+export const createTRPCContext = (opts: trpcNext.CreateNextContextOptions) => {
+  return createInnerTRPCContext({ auth: getAuth(opts.req) });
 };
 
 /**
@@ -98,10 +110,20 @@ export const publicProcedure = t.procedure;
  * Theses procedures are available to all users who are logged in.
  * Should be used for any user-facing endpoints.
  *
- * TODO: Add middleware for authentication
- *
  */
-export const protectedProcedure = t.procedure;
+
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.auth.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      auth: ctx.auth,
+    },
+  });
+});
+
+export const protectedProcedure = t.procedure.use(isAuthed);
 
 /**
  * Admin (authenticated and authorized) procedure
@@ -109,7 +131,5 @@ export const protectedProcedure = t.procedure;
  * These procedures are only available to admins.
  * Should be used for all admin dashboard functionality.
  *
- * TODO: Add middleware for authentication and authorization
- *
  */
-export const adminProcedure = t.procedure;
+export const adminProcedure = t.procedure.use(isAuthed);
