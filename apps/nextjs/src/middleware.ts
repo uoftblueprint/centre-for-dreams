@@ -1,11 +1,11 @@
 import { authMiddleware } from "@clerk/nextjs";
 
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
-export default authMiddleware();
+export default authMiddleware({
+  publicRoutes: ["/"], // Do not protect '/' for now since that's where we land
+});
 
-// Do not protect '/' for now since that's where we land
+// See https://nextjs.org/docs/pages/building-your-application/routing/middleware#matcher for what config does
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

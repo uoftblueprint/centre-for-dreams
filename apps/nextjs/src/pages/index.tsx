@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import { SignIn, SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
@@ -31,7 +31,7 @@ export default function Home() {
         <RamRaghavSharma />
         <MinhLe />
         <div>
-          {isSignedIn ? "" : <SignInButton mode="modal" />}
+          {isSignedIn ? "" : <SignInButton />}
           <UserButton afterSignOutUrl="/" />
         </div>
       </main>
