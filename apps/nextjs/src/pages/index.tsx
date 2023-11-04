@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { SignIn, SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
