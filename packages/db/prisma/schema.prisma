@@ -13,8 +13,9 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  absences Absence[]
+  id         Int         @id @default(autoincrement())
+  absences   Absence[]
+  pushTokens PushToken[]
 }
 
 model Developers {
@@ -55,6 +56,15 @@ model Absence {
   absenceDate DateTime @db.Date
 
   @@unique([absenceDate, userId])
+}
+
+model PushToken {
+  token   String
+  userId  Int
+  user    User    @relation(fields: [userId], references: [id])
+  isValid Boolean @default(true)
+
+  @@unique([token, userId])
 }
 
 enum PostType {
