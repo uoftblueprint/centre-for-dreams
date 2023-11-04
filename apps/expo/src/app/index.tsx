@@ -5,6 +5,7 @@ import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+import { logger } from "../../../../packages/logger";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -23,7 +24,7 @@ const Index = () => {
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? null))
-      .catch((err) => console.log(err));
+      .catch((err) => logger.error(err));
   }, []);
   return (
     <SafeAreaView className="">
