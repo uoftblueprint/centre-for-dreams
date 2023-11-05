@@ -13,6 +13,7 @@ export const postRouter = createTRPCRouter({
       z.object({
         title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
+        postType: z.enum(["Announcement", "Discussion"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -20,6 +21,7 @@ export const postRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
+          postType: input.postType,
         },
       });
     }),
@@ -29,6 +31,7 @@ export const postRouter = createTRPCRouter({
         id: z.number().nonnegative(),
         title: z.string().optional(),
         contents: z.string().optional(),
+        postType: z.enum(["Announcement", "Discussion"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -39,6 +42,7 @@ export const postRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
+          postType: input.postType,
         },
       });
     }),
