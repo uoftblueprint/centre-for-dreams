@@ -5,6 +5,7 @@ import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+import Activities from "./activites";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -29,9 +30,10 @@ const Index = () => {
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
-      <View className="h-full w-full p-4">
+      {/* <View className="h-full w-full p-4">
         <Text> Index </Text>
-      </View>
+      </View> */}
+      <Activities></Activities>
     </SafeAreaView>
   );
 };
