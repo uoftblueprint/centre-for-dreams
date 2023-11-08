@@ -147,9 +147,6 @@ importers:
       '@cfd/api':
         specifier: ^0.1.0
         version: link:../../packages/api
-      '@cfd/logger':
-        specifier: ^0.1.0
-        version: link:../../packages/logger
       '@clerk/nextjs':
         specifier: ^4.26.1
         version: 4.26.1(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
