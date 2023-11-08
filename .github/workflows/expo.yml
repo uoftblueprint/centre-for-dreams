@@ -1,6 +1,7 @@
-name: Expo Build
+name: Expo
 
 on:
+  pull_request:
   merge_group:
 
 env:
@@ -14,13 +15,16 @@ jobs:
 
     steps:
     - name: Setup repo
+      if: github.event_name != 'pull_request'
       uses: actions/checkout@v4
 
     - name: Setup pnpm
+      if: github.event_name != 'pull_request'
       uses: pnpm/action-setup@v2.4.0
 
     - name: Setup Node
       uses: actions/setup-node@v4
+      if: github.event_name != 'pull_request'
       with:
         node-version-file: '.nvmrc'
         cache: 'pnpm'
@@ -28,6 +32,7 @@ jobs:
 
     - name: Setup Expo and EAS
       uses: expo/expo-github-action@v8
+      if: github.event_name != 'pull_request'
       with:
         token: ${{ secrets.EXPO_TOKEN }}
         expo-version: latest
@@ -35,12 +40,11 @@ jobs:
         packager: pnpm
 
     - name: Install deps
+      if: github.event_name != 'pull_request'
       run: pnpm i
 
-    - name: Expo prebuild
-      run: cd apps/expo && pnpm expo prebuild
-
     - name: Build app
+      if: github.event_name != 'pull_request'
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
@@ -53,12 +57,15 @@ jobs:
 
     steps:
     - name: Setup repo
+      if: github.event_name != 'pull_request'
       uses: actions/checkout@v4
 
     - name: Setup pnpm
+      if: github.event_name != 'pull_request'
       uses: pnpm/action-setup@v2.4.0
 
     - name: Setup Node
+      if: github.event_name != 'pull_request'
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -66,6 +73,7 @@ jobs:
         cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Setup Expo and EAS
+      if: github.event_name != 'pull_request'
       uses: expo/expo-github-action@v8
       with:
         token: ${{ secrets.EXPO_TOKEN }}
@@ -74,9 +82,11 @@ jobs:
         packager: pnpm
 
     - name: Install deps
+      if: github.event_name != 'pull_request'
       run: pnpm i
 
     - name: Build app
+      if: github.event_name != 'pull_request'
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
