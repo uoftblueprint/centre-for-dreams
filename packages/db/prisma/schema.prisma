@@ -59,7 +59,7 @@ model Absence {
 }
 
 model PushToken {
-  token   String  @id
+  token   String  @unique
   userId  Int
   user    User    @relation(fields: [userId], references: [id])
   isValid Boolean @default(true)
