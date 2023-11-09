@@ -40,7 +40,6 @@ export const postRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
-          postType: "Discussion",
         },
       });
     }),
