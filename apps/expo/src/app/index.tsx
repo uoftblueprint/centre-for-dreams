@@ -23,7 +23,7 @@ const Index = () => {
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? null))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
   return (
     <SafeAreaView className="">
