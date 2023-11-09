@@ -31,7 +31,7 @@ export default function Home() {
         <RamRaghavSharma />
         <MinhLe />
         <div>
-          {isSignedIn ? "" : <SignInButton mode="modal" />}
+          {isSignedIn ? "" : <SignInButton />}
           <UserButton afterSignOutUrl="/" />
         </div>
       </main>
