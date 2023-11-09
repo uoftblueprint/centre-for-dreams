@@ -1,4 +1,3 @@
-import type { SignedInAuthObject } from "@clerk/clerk-sdk-node";
 import type { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 
@@ -25,11 +24,11 @@ const deletePostInput = z.object({
 });
 
 const createPost = async (
-  ctx: { db: PrismaClient; auth: SignedInAuthObject },
+  db: PrismaClient,
   input: z.infer<typeof createPostInput>,
   postType: "Announcement" | "Discussion",
 ) => {
-  await ctx.db.post.create({
+  await db.post.create({
     data: {
       ...input,
       postType,
@@ -38,11 +37,11 @@ const createPost = async (
 };
 
 const updatePost = async (
-  ctx: { db: PrismaClient; auth: SignedInAuthObject },
+  db: PrismaClient,
   input: z.infer<typeof updatePostInput>,
   postType: "Announcement" | "Discussion",
 ) => {
-  await ctx.db.post.update({
+  await db.post.update({
     where: {
       id: input.id,
       postType,
@@ -54,11 +53,11 @@ const updatePost = async (
 };
 
 const deletePost = async (
-  ctx: { db: PrismaClient; auth: SignedInAuthObject },
+  db: PrismaClient,
   input: z.infer<typeof updatePostInput>,
   postType: "Announcement" | "Discussion",
 ) => {
-  await ctx.db.post.delete({
+  await db.post.delete({
     where: {
       id: input.id,
       postType,
@@ -75,31 +74,31 @@ export const postRouter = createTRPCRouter({
   createPost: protectedProcedure
     .input(createPostInput)
     .mutation(async ({ ctx, input }) => {
-      await createPost(ctx, input, "Discussion");
+      await createPost(ctx.db, input, "Discussion");
     }),
   createAnnouncement: adminProcedure
     .input(createPostInput)
     .mutation(async ({ ctx, input }) => {
-      await createPost(ctx, input, "Announcement");
+      await createPost(ctx.db, input, "Announcement");
     }),
   updatePostByID: protectedProcedure
     .input(updatePostInput)
     .mutation(async ({ ctx, input }) => {
-      await updatePost(ctx, input, "Discussion");
+      await updatePost(ctx.db, input, "Discussion");
     }),
   updateAnnouncementByID: adminProcedure
     .input(updatePostInput)
     .mutation(async ({ ctx, input }) => {
-      await updatePost(ctx, input, "Announcement");
+      await updatePost(ctx.db, input, "Announcement");
     }),
   deletePostByID: protectedProcedure
     .input(deletePostInput)
     .mutation(async ({ ctx, input }) => {
-      await deletePost(ctx, input, "Discussion");
+      await deletePost(ctx.db, input, "Discussion");
     }),
   deleteAnnouncementByID: adminProcedure
     .input(deletePostInput)
     .mutation(async ({ ctx, input }) => {
-      await deletePost(ctx, input, "Announcement");
+      await deletePost(ctx.db, input, "Announcement");
     }),
 });
