@@ -19,10 +19,10 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
-    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
-    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.literal("/signin"),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.literal("/signup"),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.literal("/"),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.literal("/"),
   },
 
   /**
