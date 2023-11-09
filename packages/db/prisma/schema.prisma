@@ -59,12 +59,10 @@ model Absence {
 }
 
 model PushToken {
-  token   String
+  token   String  @id
   userId  Int
   user    User    @relation(fields: [userId], references: [id])
   isValid Boolean @default(true)
-
-  @@unique([token, userId])
 }
 
 enum PostType {
