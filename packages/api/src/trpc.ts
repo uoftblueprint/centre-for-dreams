@@ -6,10 +6,6 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import type {
-  SignedInAuthObject,
-  SignedOutAuthObject,
-} from "@clerk/nextjs/server";
 import { getAuth } from "@clerk/nextjs/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import type * as trpcNext from "@trpc/server/adapters/next";
@@ -38,12 +34,11 @@ import { db } from "@cfd/db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-
-interface AuthContext {
-  auth: SignedInAuthObject | SignedOutAuthObject;
-}
-
-const createInnerTRPCContext = ({ auth }: AuthContext) => {
+const createInnerTRPCContext = ({
+  auth,
+}: {
+  auth: ReturnType<typeof getAuth>;
+}) => {
   return {
     db,
     auth,
