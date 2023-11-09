@@ -27,6 +27,7 @@ model Post {
   contents  String
   createdAt DateTime  @default(now())
   comments  Comment[]
+  postType  PostType
 }
 
 model Comment {
@@ -53,4 +54,9 @@ model Absence {
   absenceDate DateTime @db.Date
 
   @@unique([absenceDate, userId])
+}
+
+enum PostType {
+  Announcement
+  Discussion
 }
