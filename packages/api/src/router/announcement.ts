@@ -1,10 +1,11 @@
+import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const announcementRouter = createTRPCRouter({
-  getAnnouncements: adminProcedure.query(async ({ ctx }) => {
+  getAnnouncements: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       where: { postType: "Announcement" },
@@ -35,52 +36,49 @@ export const announcementRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const post = await ctx.db.post.findFirst({
-        where: {
-          id: input.id,
-          postType: "Announcement",
-        },
-      });
-
-      if (!post) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Announcement with the given ID not found",
+      try {
+        await ctx.db.post.update({
+          where: {
+            id: input.id,
+            postType: "Announcement",
+          },
+          data: {
+            title: input.title,
+            contents: input.contents,
+          },
         });
+      } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === "P2025") {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Announcement with the given ID not found",
+            });
+          }
+        }
+        throw e;
       }
-
-      await ctx.db.post.update({
-        where: {
-          id: input.id,
-          postType: "Announcement",
-        },
-        data: {
-          title: input.title,
-          contents: input.contents,
-        },
-      });
     }),
   deleteAnnouncementByID: adminProcedure
     .input(z.object({ id: z.number().nonnegative() }))
     .mutation(async ({ ctx, input }) => {
-      const post = await ctx.db.post.findFirst({
-        where: {
-          id: input.id,
-          postType: "Announcement",
-        },
-      });
-
-      if (!post) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Announcement with the given ID not found",
+      try {
+        await ctx.db.post.delete({
+          where: {
+            id: input.id,
+            postType: "Announcement",
+          },
         });
+      } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === "P2025") {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Announcement with the given ID not found",
+            });
+          }
+          throw e;
+        }
       }
-
-      await ctx.db.post.delete({
-        where: {
-          id: input.id,
-        },
-      });
     }),
 });
