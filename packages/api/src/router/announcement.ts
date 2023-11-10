@@ -1,16 +1,16 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter } from "../trpc";
 
-export const postRouter = createTRPCRouter({
-  getPosts: protectedProcedure.query(async ({ ctx }) => {
+export const announcementRouter = createTRPCRouter({
+  getAnnouncements: adminProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
-      where: { postType: "Discussion" },
+      where: { postType: "Announcement" },
     });
   }),
-  createPost: protectedProcedure
+  createAnnouncement: adminProcedure
     .input(
       z.object({
         title: z.string().trim().min(1).max(300),
@@ -22,11 +22,11 @@ export const postRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
-          postType: "Discussion",
+          postType: "Announcement",
         },
       });
     }),
-  updatePostByID: protectedProcedure
+  updateAnnouncementByID: adminProcedure
     .input(
       z.object({
         id: z.number().nonnegative(),
@@ -38,20 +38,21 @@ export const postRouter = createTRPCRouter({
       const post = await ctx.db.post.findFirst({
         where: {
           id: input.id,
-          postType: "Discussion",
+          postType: "Announcement",
         },
       });
 
       if (!post) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Post with the given ID not found",
+          message: "Announcement with the given ID not found",
         });
       }
 
       await ctx.db.post.update({
         where: {
           id: input.id,
+          postType: "Announcement",
         },
         data: {
           title: input.title,
@@ -59,20 +60,20 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
-  deletePostByID: protectedProcedure
+  deleteAnnouncementByID: adminProcedure
     .input(z.object({ id: z.number().nonnegative() }))
     .mutation(async ({ ctx, input }) => {
       const post = await ctx.db.post.findFirst({
         where: {
           id: input.id,
-          postType: "Discussion",
+          postType: "Announcement",
         },
       });
 
       if (!post) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Post with the given ID not found",
+          message: "Announcement with the given ID not found",
         });
       }
 
