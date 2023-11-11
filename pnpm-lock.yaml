@@ -174,6 +174,9 @@ importers:
       react:
         specifier: 18.2.0
         version: 18.2.0
+      react-datepicker:
+        specifier: ^4.21.0
+        version: 4.21.0(react-dom@18.2.0)(react@18.2.0)
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
@@ -2697,6 +2700,10 @@ packages:
       webcrypto-core: 1.7.7
     dev: false
 
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
   /@prisma/adapter-neon@5.5.2(@neondatabase/serverless@0.6.0):
     resolution: {integrity: sha512-XcpJ/fgh/sP7mlBFkqjIzEcU/kWnNyiZf19MBP366HF7vXg2UQTbGxmbbeFiohXSJ/rwyu1Qmos7IrKK+QJOgg==}
     peerDependencies:
@@ -4450,6 +4457,10 @@ packages:
   /ci-info@3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
+    dev: false
+
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
     dev: false
 
   /clean-stack@2.2.0:
@@ -9022,6 +9033,22 @@ packages:
       strip-json-comments: 2.0.1
     dev: false
 
+  /react-datepicker@4.21.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-z0DtuRrKMz9i7dcTusW29VacbM9pn08g1yw0cG+Y5GpodJDxSWv7zUMxl3IwKN9Ap/AMphiepvmT5P+iNCgEiA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17 || ^18
+      react-dom: ^16.9.0 || ^17 || ^18
+    dependencies:
+      '@popperjs/core': 2.11.8
+      classnames: 2.3.2
+      date-fns: 2.30.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-onclickoutside: 6.13.0(react-dom@18.2.0)(react@18.2.0)
+      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /react-devtools-core@4.27.7:
     resolution: {integrity: sha512-12N0HrhCPbD76Z7SkyJdGdXdPGouUsgV6tlEsbSpAnLDO06tjXZP+irht4wPdYwJAJRQ85DxL48eQoz7UmrSuQ==}
     dependencies:
@@ -9170,6 +9197,30 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /react-onclickoutside@6.13.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ty8So6tcUpIb+ZE+1HAhbLROvAIJYyJe/1vRrrcmW+jLsaM+/powDRqxzo6hSh9CuRZGSL1Q8mvcF5WRD93a0A==}
+    peerDependencies:
+      react: ^15.5.x || ^16.x || ^17.x || ^18.x
+      react-dom: ^15.5.x || ^16.x || ^17.x || ^18.x
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==}
+    peerDependencies:
+      '@popperjs/core': ^2.0.0
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: ^16.8.0 || ^17 || ^18
+    dependencies:
+      '@popperjs/core': 2.11.8
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-fast-compare: 3.2.1
+      warning: 4.0.3
     dev: false
 
   /react-refresh@0.4.3:
@@ -10708,6 +10759,12 @@ packages:
 
   /warn-once@0.1.1:
     resolution: {integrity: sha512-VkQZJbO8zVImzYFteBXvBOZEl1qL175WH8VmZcxF2fZAoudNhNDvHi+doCaAEdU2l2vtcIwa2zn0QK5+I1HQ3Q==}
+    dev: false
+
+  /warning@4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
+    dependencies:
+      loose-envify: 1.4.0
     dev: false
 
   /watchpack@2.4.0:
