@@ -10,7 +10,7 @@ export default function Absences() {
   const { data: allAbsences } = api.absence.getAllAbsences.useQuery();
   const [startDate, setStartDate] = useState(new Date());
 
-  const areDatesEqual = (date1, date2) => {
+  const areDatesEqual = (date1: Date, date2: Date) => {
     return (
       date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&
