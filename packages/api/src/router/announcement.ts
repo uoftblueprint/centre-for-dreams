@@ -2,7 +2,12 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const announcementRouter = createTRPCRouter({
   getAnnouncements: protectedProcedure.query(async ({ ctx }) => {
@@ -11,7 +16,7 @@ export const announcementRouter = createTRPCRouter({
       where: { postType: "Announcement" },
     });
   }),
-  createAnnouncement: adminProcedure
+  createAnnouncement: publicProcedure
     .input(
       z.object({
         title: z.string().trim().min(1).max(300),

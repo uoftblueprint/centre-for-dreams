@@ -4,7 +4,7 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   // "/" is not protected since that's where we land
   // api routes are not protected since authentication is done via protected routes in trpc.ts
-  publicRoutes: ["/", "/(api|trpc)(.*)"],
+  publicRoutes: ["/", "/(api|trpc)(.*)", "/createpost"],
 });
 
 // See https://nextjs.org/docs/pages/building-your-application/routing/middleware#matcher for what config does
