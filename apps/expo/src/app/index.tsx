@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
