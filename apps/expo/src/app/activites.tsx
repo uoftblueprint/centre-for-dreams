@@ -1,14 +1,16 @@
 import React from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
+
 import CreateActivityComponent from "./components/createactivity";
 import ViewActivitiesComponent from "./components/viewactivites";
 
 const Activities = () => {
-  
-  return <View className="h-full w-full p-4">
-    <ViewActivitiesComponent></ViewActivitiesComponent>
-    <CreateActivityComponent></CreateActivityComponent>
-  </View>;
+  return (
+    <ScrollView className="h-full w-full p-4">
+      <ViewActivitiesComponent></ViewActivitiesComponent>
+      <CreateActivityComponent></CreateActivityComponent>
+    </ScrollView>
+  );
 };
 
 export default Activities;
