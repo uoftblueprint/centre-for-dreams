@@ -1,13 +1,15 @@
 import { absenceRouter } from "./router/absence";
 import { activityRouter } from "./router/activity";
+import { announcementRouter } from "./router/announcement";
 import { developerRouter } from "./router/developer";
+import { discussionRouter } from "./router/discussion";
 import { notificationRouter } from "./router/notification";
-import { postRouter } from "./router/post";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
   developer: developerRouter,
-  post: postRouter,
+  discussion: discussionRouter,
+  announcement: announcementRouter,
   activity: activityRouter,
   absence: absenceRouter,
   notification: notificationRouter,
