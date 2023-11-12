@@ -40,65 +40,25 @@ const CreatePost = () => {
     }
   };
 
-  // Define styles using React.CSSProperties
-  const styles: Record<string, React.CSSProperties> = {
-    form: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "10px",
-      maxWidth: "500px",
-      margin: "0 auto",
-      padding: "20px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    },
-    input: {
-      padding: "10px",
-      borderRadius: "4px",
-      border: "1px solid #ccc",
-    },
-    textarea: {
-      height: "150px",
-      padding: "10px",
-      borderRadius: "4px",
-      border: "1px solid #ccc",
-    },
-    button: {
-      padding: "10px 15px",
-      borderRadius: "4px",
-      border: "none",
-      backgroundColor: "#007bff",
-      color: "white",
-      cursor: "pointer",
-    },
-    error: {
-      color: "red",
-      fontSize: "0.8rem",
-    },
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <input
         {...register("title", { required: true })}
         placeholder="Title"
-        style={styles.input}
         onChange={handleInputChange}
       />
-      {errors.title && <span style={styles.error}>Title is required</span>}
+      {errors.title && <span>Title is required</span>}
 
       <textarea
         {...register("contents", { required: true })}
         placeholder="Content"
-        style={styles.textarea}
         onChange={handleInputChange}
       />
-      {errors.contents && <span style={styles.error}>Content is required</span>}
+      {errors.contents && <span>Content is required</span>}
 
-      <button type="submit" style={styles.button}>
-        Create Post
-      </button>
-      {error && <p style={styles.error}>Error: {error.message}</p>}
-      {isSuccess && <p style={styles.success}>Post created successfully!</p>}
+      <button type="submit">Create Post</button>
+      {error && <p>Error: {error.message}</p>}
+      {isSuccess && <p>Post created successfully!</p>}
     </form>
   );
 };

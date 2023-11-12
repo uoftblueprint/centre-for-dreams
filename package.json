@@ -25,8 +25,6 @@
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.0",
     "prettier": "^3.0.3",
-    "react-hook-form": "^7.48.2",
-    "react-query": "^3.39.3",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2"
   },
