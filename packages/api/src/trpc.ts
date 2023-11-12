@@ -7,6 +7,7 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { getAuth } from "@clerk/nextjs/server";
+import type { PrismaClient } from "@prisma/client";
 import { initTRPC, TRPCError } from "@trpc/server";
 import type * as trpcNext from "@trpc/server/adapters/next";
 import superjson from "superjson";
@@ -34,14 +35,21 @@ import { db } from "@cfd/db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
+interface innerTRPCContext {
+  db: PrismaClient;
+  auth: ReturnType<typeof getAuth>;
+  userId: number | null; // the user id within OUR database, a monotonically increasing integer
+}
+
 const createInnerTRPCContext = ({
   auth,
 }: {
   auth: ReturnType<typeof getAuth>;
-}) => {
+}): innerTRPCContext => {
   return {
     db,
     auth,
+    userId: null,
   };
 };
 
@@ -107,13 +115,27 @@ export const publicProcedure = t.procedure;
  *
  */
 
-const isAuthed = t.middleware(({ next, ctx }) => {
+const isAuthed = t.middleware(async ({ next, ctx }) => {
   if (!ctx.auth.userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
+
+  // If the user isn't in our database yet, insert them
+  const userId = ctx.auth.userId;
+  const user = await ctx.db.user.upsert({
+    where: {
+      clerkId: userId,
+    },
+    update: {},
+    create: {
+      clerkId: userId,
+    },
+  });
+
   return next({
     ctx: {
       auth: ctx.auth,
+      userId: user.id, // the user id within OUR database, a monotonically increasing integer
     },
   });
 });

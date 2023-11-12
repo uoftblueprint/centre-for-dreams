@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const developerRouter = createTRPCRouter({
   count: publicProcedure
@@ -34,7 +34,7 @@ export const developerRouter = createTRPCRouter({
       upvotes: upvotes,
     };
   }),
-  ryanli_upvote: publicProcedure.mutation(async ({ ctx }) => {
+  ryanli_upvote: protectedProcedure.mutation(async ({ ctx }) => {
     return await ctx.db.developers.update({
       where: { name: "Ryan Li" },
       data: { upvotes: { increment: 1 } },
