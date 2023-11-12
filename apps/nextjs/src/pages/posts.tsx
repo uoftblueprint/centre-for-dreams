@@ -3,7 +3,7 @@ import React from "react";
 import { api } from "~/utils/api";
 import Post from "../components/post";
 
-function PostsAndComments() {
+function Posts() {
   const posts = api.post.getPosts.useQuery();
   const allComments = api.comment.getComments.useQuery();
 
@@ -20,4 +20,4 @@ function PostsAndComments() {
   );
 }
 
-export default PostsAndComments;
+export default Posts;
