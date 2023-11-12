@@ -4,18 +4,16 @@ import { api } from "~/utils/api";
 import Post from "../components/post";
 
 function PostsAndComments() {
-  const posts = api.post.getPosts.useQuery().data!;
-  const allComments = api.comment.getComments.useQuery().data!;
-
-  console.log(posts);
+  const posts = api.post.getPosts.useQuery();
+  const allComments = api.comment.getComments.useQuery();
 
   return (
     <>
-      {posts?.map((data) => (
+      {posts.data?.map((data) => (
         <Post
           key={data.id}
           data={data}
-          comments={allComments.filter((c) => c.postId === data.id)}
+          comments={allComments.data!.filter((c) => c.postId === data.id)}
         ></Post>
       ))}
     </>
