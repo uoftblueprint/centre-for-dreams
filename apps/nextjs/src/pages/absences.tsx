@@ -22,7 +22,7 @@ export default function Absences() {
     ?.filter(
       (absence) => !startDate || areDatesEqual(absence.absenceDate, startDate),
     )
-    .map((data) => <Absence key={data.id} data={data} />);
+    .map((data) => <Absence key={data} data={data} />);
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Absences() {
         <span>Pick a date: </span>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date: Date) => setStartDate(date)}
         />
       </div>
       {filteredAbsences}
