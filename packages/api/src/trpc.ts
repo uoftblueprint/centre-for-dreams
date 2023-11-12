@@ -38,7 +38,7 @@ import { db } from "@cfd/db";
 interface innerTRPCContext {
   db: PrismaClient;
   auth: ReturnType<typeof getAuth>;
-  userId: number | null;
+  userId: number | null; // the user id within OUR database, a monotonically increasing integer
 }
 
 const createInnerTRPCContext = ({
