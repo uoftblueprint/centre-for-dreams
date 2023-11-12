@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import Activities from "~/components/activity/activities";
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
 import JasonWangCard from "~/components/developers/jasonwang";
@@ -21,7 +22,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div> Centre for Dreams Home Page </div>
+        <Activities></Activities>
+        {/* <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
         <RyanLi />
         <SarinaLi />
@@ -33,7 +35,7 @@ export default function Home() {
         <div>
           {isSignedIn ? "" : <SignInButton />}
           <UserButton afterSignOutUrl="/" />
-        </div>
+        </div> */}
       </main>
     </>
   );
