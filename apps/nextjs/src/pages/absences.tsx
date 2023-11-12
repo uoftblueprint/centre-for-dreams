@@ -22,7 +22,13 @@ export default function Absences() {
     ?.filter(
       (absence) => !startDate || areDatesEqual(absence.absenceDate, startDate),
     )
-    .map((data, index) => <Absence key={index} data={data} />);
+    .map((data, index) => (
+      <Absence
+        key={index}
+        userId={data.userId}
+        absenceDate={data.absenceDate}
+      />
+    ));
 
   return (
     <>
