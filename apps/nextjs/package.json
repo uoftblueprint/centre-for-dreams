@@ -21,6 +21,7 @@
     "@trpc/next": "^10.43.1",
     "@trpc/react-query": "^10.43.1",
     "@trpc/server": "^10.43.1",
+    "@types/react-datepicker": "^4.19.3",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-datepicker": "^4.21.0",
