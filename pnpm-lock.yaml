@@ -17,12 +17,6 @@ importers:
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
-      react-hook-form:
-        specifier: ^7.48.2
-        version: 7.48.2(react@18.2.0)
-      react-query:
-        specifier: ^3.39.3
-        version: 3.39.3(react@18.2.0)
       turbo:
         specifier: ^1.10.16
         version: 1.10.16
@@ -183,6 +177,12 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-hook-form:
+        specifier: ^7.48.2
+        version: 7.48.2(react@18.2.0)
+      react-query:
+        specifier: ^3.39.3
+        version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
       superjson:
         specifier: 2.2.0
         version: 2.2.0
@@ -9229,7 +9229,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /react-query@3.39.3(react@18.2.0):
+  /react-query@3.39.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nLfLz7GiohKTJDuT4us4X3h/8unOh+00MLb2yJoGTPjxKs2bc1iDhkNx2bd5MKklXnOD3NrVZ+J2UXujA5In4g==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -9245,6 +9245,7 @@ packages:
       broadcast-channel: 3.7.0
       match-sorter: 6.3.1
       react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-refresh@0.4.3:
