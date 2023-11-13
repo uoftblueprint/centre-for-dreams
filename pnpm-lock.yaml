@@ -42,7 +42,7 @@ importers:
         specifier: ^10.43.1
         version: 10.43.1
       expo:
-        specifier: ^49.0.17
+        specifier: ^49.0.18
         version: 49.0.18(@babel/core@7.23.2)
       expo-constants:
         specifier: ~14.4.2
