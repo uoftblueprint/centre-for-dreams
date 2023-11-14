@@ -13,10 +13,10 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  clerkId      String        @unique
-  participants Participant[]
-  pushTokens   PushToken[]
+  id          Int          @id @default(autoincrement())
+  clerkId     String       @unique
+  participant Participant?
+  pushTokens  PushToken[]
 }
 
 model Developers {
@@ -62,7 +62,8 @@ model Absence {
 model Participant {
   id       Int       @id @default(autoincrement())
   name     String
-  users    User[]
+  user     User      @relation(fields: [userId], references: [id])
+  userId   Int       @unique
   absences Absence[]
 }
 
