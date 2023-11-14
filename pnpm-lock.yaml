@@ -242,7 +242,7 @@ importers:
         specifier: ^0.1.0
         version: link:../logger
       '@clerk/clerk-sdk-node':
-        specifier: ^4.12.20
+        specifier: ^4.12.21
         version: 4.12.21(react@18.2.0)
       '@trpc/client':
         specifier: ^10.43.1
