@@ -20,21 +20,13 @@ ADD COLUMN     "participantId" INTEGER NOT NULL;
 CREATE TABLE "Participant" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Participant_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_ParticipantToUser" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
-CREATE UNIQUE INDEX "_ParticipantToUser_AB_unique" ON "_ParticipantToUser"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_ParticipantToUser_B_index" ON "_ParticipantToUser"("B");
+CREATE UNIQUE INDEX "Participant_userId_key" ON "Participant"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Absence_absenceDate_participantId_key" ON "Absence"("absenceDate", "participantId");
@@ -43,7 +35,4 @@ CREATE UNIQUE INDEX "Absence_absenceDate_participantId_key" ON "Absence"("absenc
 ALTER TABLE "Absence" ADD CONSTRAINT "Absence_participantId_fkey" FOREIGN KEY ("participantId") REFERENCES "Participant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_ParticipantToUser" ADD CONSTRAINT "_ParticipantToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Participant"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_ParticipantToUser" ADD CONSTRAINT "_ParticipantToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Participant" ADD CONSTRAINT "Participant_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
