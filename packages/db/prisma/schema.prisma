@@ -13,10 +13,10 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  clerkId    String      @unique
-  absences   Absence[]
-  pushTokens PushToken[]
+  id           Int           @id @default(autoincrement())
+  clerkId      String        @unique
+  participants Participant[]
+  pushTokens   PushToken[]
 }
 
 model Developers {
@@ -52,11 +52,18 @@ model Activity {
 }
 
 model Absence {
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id])
-  absenceDate DateTime @db.Date
+  participant   Participant @relation(fields: participantId, references: id)
+  participantId Int
+  absenceDate   DateTime    @db.Date
 
-  @@unique([absenceDate, userId])
+  @@unique([absenceDate, participantId])
+}
+
+model Participant {
+  id       Int       @id @default(autoincrement())
+  name     String
+  users    User[]
+  absences Absence[]
 }
 
 model PushToken {
