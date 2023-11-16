@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { api } from "~/utils/api";
 import DatePicker from "react-datepicker";
+
+import { api } from "~/utils/api";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function CreateActivity() {
   const currentDateTime: Date = new Date();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(currentDateTime);
-  const [selectedStartDate, setselectedStartDate] = useState<Date | null>(currentDateTime);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    currentDateTime,
+  );
+  const [selectedStartDate, setselectedStartDate] = useState<Date | null>(
+    currentDateTime,
+  );
   const createActivity = api.activity.createActivity.useMutation();
 
   const [activityData, setActivityData] = useState({
@@ -26,10 +32,14 @@ export default function CreateActivity() {
   };
 
   const handleSubmit = () => {
-    if (activityData.name == "" || activityData.duration == "" || activityData.leader == "" || activityData.location == 
-    "") {
-      alert("You cannot have empty fields!")
-      return
+    if (
+      activityData.name == "" ||
+      activityData.duration == "" ||
+      activityData.leader == "" ||
+      activityData.location == ""
+    ) {
+      alert("You cannot have empty fields!");
+      return;
     }
 
     const duration = parseInt(activityData.duration, 10);
@@ -53,8 +63,8 @@ export default function CreateActivity() {
       startDate: currentDateTime,
     });
 
-    alert("Submitted!")
-  }
+    alert("Submitted!");
+  };
 
   return (
     <div>
@@ -99,17 +109,23 @@ export default function CreateActivity() {
       </div>
       <div className="mt-2">
         <div>Date of Activity:</div>
-        <DatePicker selected={selectedDate} onChange={(date) => {
-          setSelectedDate(date)
-          activityData.selectedDate = selectedDate!
-          }} />
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => {
+            setSelectedDate(date);
+            activityData.selectedDate = selectedDate!;
+          }}
+        />
       </div>
       <div className="mt-2">
         <div>Start Date:</div>
-        <DatePicker selected={selectedStartDate} onChange={(date) => {
-          setselectedStartDate(date)
-          activityData.startDate = selectedStartDate!
-          }} />
+        <DatePicker
+          selected={selectedStartDate}
+          onChange={(date) => {
+            setselectedStartDate(date);
+            activityData.startDate = selectedStartDate!;
+          }}
+        />
       </div>
       <button
         type="submit"
