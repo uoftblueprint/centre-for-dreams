@@ -1,10 +1,10 @@
 import { addWeeks } from "date-fns";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
-  getSchedule: protectedProcedure
+  getSchedule: publicProcedure
     .input(z.object({ day: z.date() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.activity.findMany({
@@ -17,7 +17,7 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
-  createActivity: adminProcedure
+  createActivity: publicProcedure
     .input(
       z.object({
         name: z.string(),

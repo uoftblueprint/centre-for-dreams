@@ -23,7 +23,7 @@ export default function Home() {
       </Head>
       <main>
         <Activities></Activities>
-        {/* <div> Centre for Dreams Home Page </div>
+        <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
         <RyanLi />
         <SarinaLi />
@@ -35,7 +35,7 @@ export default function Home() {
         <div>
           {isSignedIn ? "" : <SignInButton />}
           <UserButton afterSignOutUrl="/" />
-        </div> */}
+        </div>
       </main>
     </>
   );

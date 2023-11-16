@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { api } from "~/utils/api";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function ViewActivities() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -8,8 +10,13 @@ export default function ViewActivities() {
   });
 
   return <div>
+    <div className="mt-2">
+        <div>Start Date:</div>
+        <DatePicker selected={selectedDate} onChange={(date) => {
+          setSelectedDate(date!)
+          }} />
+      </div>
     <div>{viewAcitivtes.data?.map((item) => {
-      console.log(viewAcitivtes.data)
       return (
         <div key={item.id}>{JSON.stringify(item, null, 2)}</div>
       )

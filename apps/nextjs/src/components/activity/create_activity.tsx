@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function CreateActivity() {
   const currentDateTime: Date = new Date();
   const [selectedDate, setSelectedDate] = useState<Date | null>(currentDateTime);
-  const [selectedStartDate, setselectedStartDate] = useState(currentDateTime);
+  const [selectedStartDate, setselectedStartDate] = useState<Date | null>(currentDateTime);
   const createActivity = api.activity.createActivity.useMutation();
 
   const [activityData, setActivityData] = useState({
@@ -40,6 +40,7 @@ export default function CreateActivity() {
       durationMinutes: duration,
       leader: activityData.leader,
       location: activityData.location,
+      // always creates an object with start date 1970?
       startTime: activityData.startDate,
     });
 
@@ -99,14 +100,14 @@ export default function CreateActivity() {
       <div className="mt-2">
         <div>Date of Activity:</div>
         <DatePicker selected={selectedDate} onChange={(date) => {
-          setSelectedDate(date as Date)
+          setSelectedDate(date)
           activityData.selectedDate = selectedDate!
           }} />
       </div>
       <div className="mt-2">
         <div>Start Date:</div>
         <DatePicker selected={selectedStartDate} onChange={(date) => {
-          setselectedStartDate(date as Date)
+          setselectedStartDate(date)
           activityData.startDate = selectedStartDate!
           }} />
       </div>
