@@ -7,6 +7,7 @@ export default function CreateActivity() {
   const currentDateTime: Date = new Date();
   const [selectedDate, setSelectedDate] = useState<Date | null>(currentDateTime);
   const [selectedStartDate, setselectedStartDate] = useState(currentDateTime);
+  const createActivity = api.activity.createActivity.useMutation();
 
   const [activityData, setActivityData] = useState({
     name: "",
@@ -30,7 +31,17 @@ export default function CreateActivity() {
       alert("You cannot have empty fields!")
       return
     }
-    console.log(activityData)
+
+    const duration = parseInt(activityData.duration, 10);
+
+    createActivity.mutate({
+      name: activityData.name,
+      day: activityData.selectedDate,
+      durationMinutes: duration,
+      leader: activityData.leader,
+      location: activityData.location,
+      startTime: activityData.startDate,
+    });
 
     setActivityData({
       name: "",
@@ -40,6 +51,8 @@ export default function CreateActivity() {
       selectedDate: currentDateTime,
       startDate: currentDateTime,
     });
+
+    alert("Submitted!")
   }
 
   return (
@@ -48,6 +61,7 @@ export default function CreateActivity() {
         <input
           type="text"
           placeholder="Name"
+          value={activityData.name}
           onChange={(text) => {
             handleInputChange("name", text.target.value);
           }}
@@ -59,6 +73,7 @@ export default function CreateActivity() {
           type="number"
           min="0"
           placeholder="Duration (minutes)"
+          value={activityData.duration}
           onChange={(text) => handleInputChange("duration", text.target.value)}
           className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -67,6 +82,7 @@ export default function CreateActivity() {
         <input
           type="text"
           placeholder="Leader"
+          value={activityData.leader}
           onChange={(text) => handleInputChange("leader", text.target.value)}
           className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -75,17 +91,24 @@ export default function CreateActivity() {
         <input
           type="text"
           placeholder="Location"
+          value={activityData.location}
           onChange={(text) => handleInputChange("location", text.target.value)}
           className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
       <div className="mt-2">
         <div>Date of Activity:</div>
-        <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date as Date)} />
+        <DatePicker selected={selectedDate} onChange={(date) => {
+          setSelectedDate(date as Date)
+          activityData.selectedDate = selectedDate!
+          }} />
       </div>
       <div className="mt-2">
         <div>Start Date:</div>
-        <DatePicker selected={selectedStartDate} onChange={(date) => setselectedStartDate(date as Date)} />
+        <DatePicker selected={selectedStartDate} onChange={(date) => {
+          setselectedStartDate(date as Date)
+          activityData.startDate = selectedStartDate!
+          }} />
       </div>
       <button
         type="submit"
