@@ -30,9 +30,9 @@ const Index = () => {
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
-      <View className="h-full w-full p-4">
-        <Text> Index </Text>
-      </View>
+      {/* <View className="h-full w-full p-4">
+        <Text> Index</Text>
+      </View> */}
       <Announcement title="hell0" author='hi' date="Nov 15" summary="helooo" ></Announcement>
     </SafeAreaView>
   );
