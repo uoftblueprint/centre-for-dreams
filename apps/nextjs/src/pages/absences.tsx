@@ -25,7 +25,7 @@ export default function Absences() {
     .map((data, index) => (
       <Absence
         key={index}
-        userId={data.userId}
+        userId={data.participantId}
         absenceDate={data.absenceDate}
       />
     ));
