@@ -5,19 +5,7 @@ import Post from "../components/post";
 
 function Posts() {
   const posts = api.post.getPosts.useQuery();
-  const allComments = api.comment.getComments.useQuery();
-
-  return (
-    <>
-      {posts.data?.map((data) => (
-        <Post
-          key={data.id}
-          data={data}
-          comments={allComments.data!.filter((c) => c.postId === data.id)}
-        ></Post>
-      ))}
-    </>
-  );
+  return <>{posts.data?.map((p) => <Post key={p.id} {...p} />)}</>;
 }
 
 export default Posts;

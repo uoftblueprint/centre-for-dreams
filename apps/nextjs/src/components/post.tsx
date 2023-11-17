@@ -1,23 +1,17 @@
 import React from "react";
+import type { inferRouterOutputs } from "@trpc/server";
 
-interface PostProps {
-  data: {
-    id: number;
-    title: string;
-    contents: string;
-    createdAt: Date;
-  };
-  comments: {
-    id: number;
-    postId: number;
-    text: string;
-    createdAt: Date;
-  }[];
-}
+import type { AppRouter } from "@cfd/api";
 
-const Post: React.FC<PostProps> = ({ data, comments }) => {
-  const { title, contents, createdAt } = data;
+type RouterOutput = inferRouterOutputs<AppRouter>;
+type GetPostOutput = RouterOutput["post"]["getPosts"][number];
 
+const Post: React.FC<GetPostOutput> = ({
+  title,
+  contents,
+  createdAt,
+  comments,
+}) => {
   return (
     <div className="border-y-3 my-10px rounded-lg bg-white shadow-md">
       <h2 className="mb-2 text-2xl font-bold">{title}</h2>
@@ -26,7 +20,6 @@ const Post: React.FC<PostProps> = ({ data, comments }) => {
         Created at: {createdAt.toDateString()}
       </p>
 
-      {/* Render comments */}
       <div className="mb-10 mt-4">
         <h3 className="text-lg font-semibold">Comments:</h3>
         <ul>
