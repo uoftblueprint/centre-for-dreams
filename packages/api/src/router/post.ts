@@ -6,6 +6,11 @@ export const postRouter = createTRPCRouter({
   getPosts: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
+      include: {
+        comments: {
+          orderBy: { createdAt: "asc" },
+        },
+      },
     });
   }),
   createPost: protectedProcedure
