@@ -241,9 +241,9 @@ importers:
       '@cfd/logger':
         specifier: ^0.1.0
         version: link:../logger
-      '@clerk/clerk-sdk-node':
-        specifier: ^4.12.21
-        version: 4.12.21(react@18.2.0)
+      '@clerk/nextjs':
+        specifier: ^4.27.1
+        version: 4.27.1(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
         specifier: ^10.43.3
         version: 10.43.3(@trpc/server@10.43.3)
