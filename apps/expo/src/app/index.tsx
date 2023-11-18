@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
+import Comment from "./components/comment"
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
@@ -29,9 +30,10 @@ const Index = () => {
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
-      <View className="h-full w-full p-4">
+      {/* <View className="h-full w-full p-4">
         <Text> Index </Text>
-      </View>
+      </View> */}
+      <Comment user="Sarina" time_elapsed="10h" comment_body="thank you so much for merging my PR so quickly i love my PLs and they are awesome #ilovebakerandganesh"></Comment>
     </SafeAreaView>
   );
 };
