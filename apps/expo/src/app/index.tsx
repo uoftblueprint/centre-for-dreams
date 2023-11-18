@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
+import { SignedIn, SignedOut } from "@clerk/clerk-expo";
 
+import SignInScreen from "~/components/SignInScreen";
+import SignInWithOAuth from "~/components/SignInWithOAuth";
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
 Notifications.setNotificationHandler({
@@ -32,6 +35,13 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="font-poppins"> Index </Text>
+        <SignedIn>
+          <Text>You are signed in!</Text>
+        </SignedIn>
+        <SignedOut>
+          {/* <SignInScreen /> */}
+          <SignInWithOAuth />
+        </SignedOut>
       </View>
     </SafeAreaView>
   );
