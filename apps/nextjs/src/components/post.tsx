@@ -1,10 +1,8 @@
 import React from "react";
-import type { inferRouterOutputs } from "@trpc/server";
 
-import type { AppRouter } from "@cfd/api";
+import type { RouterOutputs } from "@cfd/api";
 
-type RouterOutput = inferRouterOutputs<AppRouter>;
-type GetPostOutput = RouterOutput["post"]["getPosts"][number];
+type GetPostOutput = RouterOutputs["post"]["getPosts"][number];
 
 const Post: React.FC<GetPostOutput> = ({
   title,
