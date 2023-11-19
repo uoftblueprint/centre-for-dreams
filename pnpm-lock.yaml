@@ -150,6 +150,9 @@ importers:
       '@cfd/api':
         specifier: ^0.1.0
         version: link:../../packages/api
+      '@clerk/backend':
+        specifier: ^0.34.1
+        version: 0.34.1(react@18.2.0)
       '@clerk/nextjs':
         specifier: ^4.27.2
         version: 4.27.2(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
