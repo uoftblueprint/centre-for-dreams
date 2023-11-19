@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { logger } from "@cfd/logger";
 
-import { adminProcedure, createTRPCRouter } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 const expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
 
@@ -44,5 +44,23 @@ export const notificationRouter = createTRPCRouter({
           }
         }
       })();
+    }),
+  register: protectedProcedure
+    .input(
+      z.object({
+        pushToken: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.userId;
+      if (!userId) {
+        throw new Error("User not found");
+      }
+      await ctx.db.pushToken.create({
+        data: {
+          token: input.pushToken,
+          userId,
+        },
+      });
     }),
 });
