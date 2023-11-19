@@ -5,12 +5,15 @@ import type { RouterOutputs } from "@cfd/api";
 import { api } from "~/utils/api";
 import Post from "../components/post";
 
-type GetPostOutput = RouterOutputs["post"]["getPosts"][number];
+type GetDiscussionOutput =
+  RouterOutputs["discussion"]["getDiscussions"][number];
 
 function Posts() {
-  const posts = api.post.getPosts.useQuery();
+  const posts = api.discussion.getDiscussions.useQuery();
   return (
-    <>{posts.data?.map((p: GetPostOutput) => <Post key={p.id} {...p} />)}</>
+    <>
+      {posts.data?.map((p: GetDiscussionOutput) => <Post key={p.id} {...p} />)}
+    </>
   );
 }
 

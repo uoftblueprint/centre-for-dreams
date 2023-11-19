@@ -22,8 +22,10 @@
     "typecheck": "turbo typecheck"
   },
   "dependencies": {
+    "18": "^0.0.0",
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.0",
+    "expo": "^49.0.19",
     "prettier": "^3.1.0",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2"
