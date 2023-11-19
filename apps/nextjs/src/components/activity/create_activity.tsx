@@ -1,139 +1,142 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import { Controller, useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
 
-import "react-datepicker/dist/react-datepicker.css";
+interface ActivityData {
+  name: string;
+  duration: string;
+  leader: string;
+  location: string;
+  selectedDate: Date;
+  startDate: Date;
+}
 
 export default function CreateActivity() {
-  const currentDateTime: Date = new Date();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(
-    currentDateTime,
-  );
-  const [selectedStartDate, setselectedStartDate] = useState<Date | null>(
-    currentDateTime,
-  );
-  const createActivity = api.activity.createActivity.useMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+  } = useForm<ActivityData>();
 
-  const [activityData, setActivityData] = useState({
-    name: "",
-    duration: "",
-    leader: "",
-    location: "",
-    selectedDate: currentDateTime,
-    startDate: currentDateTime,
-  });
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleInputChange = (field: string, value: string | number) => {
-    setActivityData({
-      ...activityData,
-      [field]: value,
+  const { mutate: createActivity, error } =
+    api.activity.createActivity.useMutation({
+      onSuccess: () => {
+        setIsSuccess(true);
+        reset();
+      },
     });
+
+  const handleInputChange = () => {
+    if (isSuccess) {
+      setIsSuccess(false);
+      reset();
+    }
   };
 
-  const handleSubmit = () => {
-    if (
-      activityData.name == "" ||
-      activityData.duration == "" ||
-      activityData.leader == "" ||
-      activityData.location == ""
-    ) {
-      alert("You cannot have empty fields!");
-      return;
-    }
-
-    const duration = parseInt(activityData.duration, 10);
-
-    createActivity.mutate({
-      name: activityData.name,
-      day: activityData.selectedDate,
+  const onSubmit = (data: ActivityData) => {
+    const duration = parseInt(data.duration, 10);
+    createActivity({
+      name: data.name,
       durationMinutes: duration,
-      leader: activityData.leader,
-      location: activityData.location,
-      // always creates an object with start date 1970?
-      startTime: activityData.startDate,
+      leader: data.leader,
+      location: data.location,
+      day: data.selectedDate,
+      startTime: data.startDate,
     });
-
-    setActivityData({
-      name: "",
-      duration: "",
-      leader: "",
-      location: "",
-      selectedDate: currentDateTime,
-      startDate: currentDateTime,
-    });
-
-    alert("Submitted!");
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input
-          type="text"
+          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          {...register("name", { required: true })}
           placeholder="Name"
-          value={activityData.name}
-          onChange={(text) => {
-            handleInputChange("name", text.target.value);
-          }}
-          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          onChange={handleInputChange}
         />
+        {errors.name && <span>Name is required</span>}
       </div>
       <div>
         <input
+          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          {...register("duration", { required: true })}
           type="number"
-          min="0"
-          placeholder="Duration (minutes)"
-          value={activityData.duration}
-          onChange={(text) => handleInputChange("duration", text.target.value)}
-          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          min="15"
+          placeholder="Duration (15+ minutes)"
+          onChange={handleInputChange}
         />
+        {errors.duration && <span>Duration is required</span>}
       </div>
+
       <div>
         <input
-          type="text"
+          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          {...register("leader", { required: true })}
           placeholder="Leader"
-          value={activityData.leader}
-          onChange={(text) => handleInputChange("leader", text.target.value)}
-          className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          onChange={handleInputChange}
         />
+        {errors.leader && <span>Leader is required</span>}
       </div>
+
       <div>
         <input
-          type="text"
-          placeholder="Location"
-          value={activityData.location}
-          onChange={(text) => handleInputChange("location", text.target.value)}
           className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          {...register("location", { required: true })}
+          placeholder="Location"
+          onChange={handleInputChange}
         />
+        {errors.location && <span>Location is required</span>}
       </div>
-      <div className="mt-2">
-        <div>Date of Activity:</div>
-        <DatePicker
-          selected={selectedDate}
-          onChange={(date) => {
-            setSelectedDate(date);
-            activityData.selectedDate = selectedDate!;
-          }}
+
+      <div>
+        <Controller
+          name="selectedDate"
+          control={control}
+          render={({ field }) => (
+            <DatePicker
+              className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              selected={field.value}
+              placeholderText="Day"
+              onChange={(date) => field.onChange(date)}
+              dateFormat="MM/dd/yyyy" // Customize the date format as needed
+            />
+          )}
         />
+        {errors.selectedDate && <span>Day is required</span>}
       </div>
-      <div className="mt-2">
-        <div>Start Date:</div>
-        <DatePicker
-          selected={selectedStartDate}
-          onChange={(date) => {
-            setselectedStartDate(date);
-            activityData.startDate = selectedStartDate!;
-          }}
+
+      <div>
+        <Controller
+          name="startDate"
+          control={control}
+          render={({ field }) => (
+            <DatePicker
+              className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              selected={field.value}
+              placeholderText="Start Time"
+              onChange={(date) => field.onChange(date)}
+              showTimeSelect
+              timeIntervals={5}
+              dateFormat="MM/dd/yyyy hh:mm"
+            />
+          )}
         />
+        {errors.startDate && <span>Start time is required</span>}
       </div>
+
       <button
         type="submit"
         className="focus:shadow-outline mt-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
-        onClick={handleSubmit}
       >
         Submit
       </button>
-    </div>
+      {isSuccess && <p>Post created successfully!</p>}
+    </form>
   );
 }
