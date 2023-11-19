@@ -9,6 +9,11 @@ export const discussionRouter = createTRPCRouter({
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       where: { postType: "Discussion" },
+      include: {
+        comments: {
+          orderBy: { createdAt: "asc" },
+        },
+      },
     });
   }),
   createDiscussion: protectedProcedure
