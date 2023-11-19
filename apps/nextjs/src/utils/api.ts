@@ -10,7 +10,6 @@ import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
 import type { AppRouter } from "@cfd/api";
-import { logger } from "@cfd/logger";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
@@ -36,7 +35,6 @@ export const api = createTRPCNext<AppRouter>({
        */
       links: [
         loggerLink({
-          logger: (o) => logger.info(o),
           enabled: (opts) =>
             process.env.NODE_ENV === "development" ||
             (opts.direction === "down" && opts.result instanceof Error),

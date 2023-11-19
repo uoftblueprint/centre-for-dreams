@@ -18,16 +18,20 @@
   },
   "dependencies": {
     "@cfd/logger": "^0.1.0",
-    "@prisma/client": "^5.5.0"
+    "@neondatabase/serverless": "^0.6.0",
+    "@prisma/adapter-neon": "^5.5.2",
+    "@prisma/client": "^5.5.2",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
+    "@types/ws": "^8.5.9",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.52.0",
-    "prettier": "^3.0.3",
-    "prisma": "^5.5.0",
+    "eslint": "^8.53.0",
+    "prettier": "^3.1.0",
+    "prisma": "^5.5.2",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
@@ -36,5 +40,9 @@
       "@cfd/eslint-config/base"
     ]
   },
-  "prettier": "@cfd/prettier-config"
+  "prettier": "@cfd/prettier-config",
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8",
+    "utf-8-validate": "^6.0.3"
+  }
 }

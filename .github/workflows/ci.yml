@@ -2,16 +2,14 @@ name: CI
 
 on:
   pull_request:
-    branches: ["*"]
-  push:
-    branches: ["main"]
   merge_group:
 
-# You can leverage Vercel Remote Caching with Turbo to speed up your builds
-# @link https://turborepo.org/docs/core-concepts/remote-caching#remote-caching-on-vercel-builds
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+  EXPO_OWNER: ${{ secrets.EXPO_OWNER }}
+  EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
 
 jobs:
   lint:
@@ -24,25 +22,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
 
-      - name: Setup Node 18
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install deps (with cache)
+      - name: Install deps
         run: pnpm install
 
       - name: Lint
@@ -63,25 +50,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
 
-      - name: Setup Node 18
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install deps (with cache)
+      - name: Install deps
         run: pnpm install
 
       - name: Check formatting
@@ -96,26 +72,99 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
 
-      - name: Setup Node 18
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install deps (with cache)
+      - name: Install deps
         run: pnpm install
 
       - name: Build
         run: pnpm turbo typecheck build
+
+  android:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v2.4.0
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      if: github.event_name != 'pull_request'
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      uses: expo/expo-github-action@v8
+      if: github.event_name != 'pull_request'
+      with:
+        token: ${{ secrets.EXPO_TOKEN }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app
+      if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build --local \
+          --non-interactive \
+          --output=./app-build \
+          --platform=android \
+          --profile=development
+
+  ios:
+    runs-on: macos-latest
+
+    steps:
+    - name: Setup repo
+      if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v2.4.0
+
+    - name: Setup Node
+      if: github.event_name != 'pull_request'
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      if: github.event_name != 'pull_request'
+      uses: expo/expo-github-action@v8
+      with:
+        token: ${{ secrets.EXPO_TOKEN }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app
+      if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build --local \
+          --non-interactive \
+          --output=./app-build \
+          --platform=ios \
+          --profile=preview

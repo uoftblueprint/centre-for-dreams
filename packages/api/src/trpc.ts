@@ -6,7 +6,10 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import { initTRPC } from "@trpc/server";
+import { getAuth } from "@clerk/nextjs/server";
+import type { PrismaClient } from "@prisma/client";
+import { initTRPC, TRPCError } from "@trpc/server";
+import type * as trpcNext from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import type { TRPCPanelMeta } from "trpc-panel";
 import { ZodError } from "zod";
@@ -32,9 +35,21 @@ import { db } from "@cfd/db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = () => {
+interface innerTRPCContext {
+  db: PrismaClient;
+  auth: ReturnType<typeof getAuth>;
+  userId: number | null; // the user id within OUR database, a monotonically increasing integer
+}
+
+const createInnerTRPCContext = ({
+  auth,
+}: {
+  auth: ReturnType<typeof getAuth>;
+}): innerTRPCContext => {
   return {
     db,
+    auth,
+    userId: null,
   };
 };
 
@@ -43,8 +58,8 @@ const createInnerTRPCContext = () => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = () => {
-  return createInnerTRPCContext();
+export const createTRPCContext = (opts: trpcNext.CreateNextContextOptions) => {
+  return createInnerTRPCContext({ auth: getAuth(opts.req) });
 };
 
 /**
@@ -98,10 +113,34 @@ export const publicProcedure = t.procedure;
  * Theses procedures are available to all users who are logged in.
  * Should be used for any user-facing endpoints.
  *
- * TODO: Add middleware for authentication
- *
  */
-export const protectedProcedure = t.procedure;
+
+const isAuthed = t.middleware(async ({ next, ctx }) => {
+  if (!ctx.auth.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  // If the user isn't in our database yet, insert them
+  const userId = ctx.auth.userId;
+  const user = await ctx.db.user.upsert({
+    where: {
+      clerkId: userId,
+    },
+    update: {},
+    create: {
+      clerkId: userId,
+    },
+  });
+
+  return next({
+    ctx: {
+      auth: ctx.auth,
+      userId: user.id, // the user id within OUR database, a monotonically increasing integer
+    },
+  });
+});
+
+export const protectedProcedure = t.procedure.use(isAuthed);
 
 /**
  * Admin (authenticated and authorized) procedure
@@ -109,7 +148,5 @@ export const protectedProcedure = t.procedure;
  * These procedures are only available to admins.
  * Should be used for all admin dashboard functionality.
  *
- * TODO: Add middleware for authentication and authorization
- *
  */
-export const adminProcedure = t.procedure;
+export const adminProcedure = t.procedure.use(isAuthed);

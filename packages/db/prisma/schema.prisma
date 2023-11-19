@@ -2,13 +2,21 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  clerkId    String      @unique
+  absences   Absence[]
+  pushTokens PushToken[]
 }
 
 model Developers {
@@ -22,6 +30,7 @@ model Post {
   contents  String
   createdAt DateTime  @default(now())
   comments  Comment[]
+  postType  PostType
 }
 
 model Comment {
@@ -33,17 +42,31 @@ model Comment {
 }
 
 model Activity {
-  id        Int      @id @default(autoincrement())
-  name      String
-  day       DateTime @db.Date
-  startTime DateTime @db.Time()
-  endTime   DateTime @db.Time()
-  leader    String
-  location  String
+  id              Int      @id @default(autoincrement())
+  name            String
+  day             DateTime @db.Date
+  startTime       DateTime @db.Time()
+  durationMinutes Int
+  leader          String
+  location        String
 }
 
 model Absence {
-  id          Int      @id @default(autoincrement())
   userId      Int
+  user        User     @relation(fields: [userId], references: [id])
   absenceDate DateTime @db.Date
+
+  @@unique([absenceDate, userId])
+}
+
+model PushToken {
+  token   String  @unique
+  userId  Int
+  user    User    @relation(fields: [userId], references: [id])
+  isValid Boolean @default(true)
+}
+
+enum PostType {
+  Announcement
+  Discussion
 }

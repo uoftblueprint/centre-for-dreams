@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 
+import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: () =>
+    Promise.resolve({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+});
+
 const Index = () => {
+  const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
+    null,
+  );
+
+  useEffect(() => {
+    registerForPushNotificationsAsync()
+      .then((token) => setExpoPushToken(token ?? null))
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
