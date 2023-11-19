@@ -1,10 +1,9 @@
-import React from "react";
-
 import type { RouterOutputs } from "@cfd/api";
 
-type GetPostOutput = RouterOutputs["post"]["getPosts"][number];
+type GetDiscussionOutput =
+  RouterOutputs["discussion"]["getDiscussions"][number];
 
-const Post: React.FC<GetPostOutput> = ({
+const Post: React.FC<GetDiscussionOutput> = ({
   title,
   contents,
   createdAt,
