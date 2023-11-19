@@ -1,4 +1,4 @@
-import type { RouterOutputs } from "@cfd/api";
+import type { RouterOutputs } from "../utils/api";
 
 type GetDiscussionOutput =
   RouterOutputs["discussion"]["getDiscussions"][number];
