@@ -15,9 +15,6 @@ Notifications.setNotificationHandler({
     }),
 });
 
-// const imageUrl = 'https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857';
-// const imageSourceProp: ImageSourcePropType = { uri: imageUrl };
-
 const Index = () => {
   const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
     null,
@@ -35,7 +32,6 @@ const Index = () => {
       <View className="h-full w-full p-4">
         <Text> Index</Text>
       </View>
-      {/* <Announcement title="hell0" author='hi' date="Nov 15" summary="helooo" profile_picture={imageSourceProp} post_media={imageSourceProp}></Announcement> */}
     </SafeAreaView>
   );
 };
