@@ -30,7 +30,7 @@ const Index = () => {
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text> Index</Text>
+        <Text> Index </Text>
       </View>
     </SafeAreaView>
   );
