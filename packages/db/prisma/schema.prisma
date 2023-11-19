@@ -63,7 +63,7 @@ model Absence {
 model Participant {
   id       Int       @id @default(autoincrement())
   name     String
-  user     User[]
+  users    User[]
   absences Absence[]
 }
 
