@@ -221,7 +221,6 @@ pnpm typecheck
 - [@1zhaohel](https://github.com/1zhaohel)
 - [@RyanL123](https://github.com/RyanL123)
 - [@helenaglow](https://github.com/helenaglow)
-- [@LevOzay](https://www.github.com/LevOzay)
 - [@nm-le](https://github.com/nm-le)
 - [@sarinali](https://github.com/sarinali)
 - [@Ram-Raghav-S](https://github.com/Ram-Raghav-S)
