@@ -1,7 +1,7 @@
 import React from "react";
 
-import CreateActivity from "./create_activity";
-import ViewActivities from "./view_activites";
+import CreateActivity from "./activityform";
+import ViewActivities from "./viewactivites";
 
 const Activities = () => {
   return (

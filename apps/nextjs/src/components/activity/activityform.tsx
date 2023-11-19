@@ -24,13 +24,12 @@ export default function CreateActivity() {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { mutate: createActivity, error } =
-    api.activity.createActivity.useMutation({
-      onSuccess: () => {
-        setIsSuccess(true);
-        reset();
-      },
-    });
+  const { mutate: createActivity } = api.activity.createActivity.useMutation({
+    onSuccess: () => {
+      setIsSuccess(true);
+      reset();
+    },
+  });
 
   const handleInputChange = () => {
     if (isSuccess) {
@@ -104,7 +103,7 @@ export default function CreateActivity() {
               selected={field.value}
               placeholderText="Day"
               onChange={(date) => field.onChange(date)}
-              dateFormat="MM/dd/yyyy" // Customize the date format as needed
+              dateFormat="MM/dd/yyyy"
             />
           )}
         />
