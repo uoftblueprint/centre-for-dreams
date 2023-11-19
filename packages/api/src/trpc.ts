@@ -120,6 +120,16 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
+  await ctx.db.participant.upsert({
+    where: {
+      id: 1,
+    },
+    update: {},
+    create: {
+      name: "Test",
+    },
+  });
+
   // If the user isn't in our database yet, insert them
   const userId = ctx.auth.userId;
   const user = await ctx.db.user.upsert({
@@ -129,6 +139,7 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     update: {},
     create: {
       clerkId: userId,
+      participantId: 1,
     },
   });
 
