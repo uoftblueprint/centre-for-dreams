@@ -53,9 +53,6 @@ export const notificationRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.userId;
-      if (!userId) {
-        throw new Error("User not found");
-      }
       await ctx.db.pushToken.create({
         data: {
           token: input.pushToken,
