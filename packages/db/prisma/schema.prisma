@@ -13,10 +13,11 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  clerkId    String      @unique
-  absences   Absence[]
-  pushTokens PushToken[]
+  id            Int         @id @default(autoincrement())
+  clerkId       String      @unique
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId Int         @unique
+  pushTokens    PushToken[]
 }
 
 model Developers {
@@ -52,11 +53,19 @@ model Activity {
 }
 
 model Absence {
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id])
-  absenceDate DateTime @db.Date
+  participant   Participant @relation(fields: participantId, references: id)
+  participantId Int
+  absenceDate   DateTime    @db.Date
 
-  @@unique([absenceDate, userId])
+  @@unique([absenceDate, participantId])
+}
+
+// A participant can be linked to multiple users (i.e. two users can have the same participant)
+model Participant {
+  id       Int       @id @default(autoincrement())
+  name     String
+  users    User[]
+  absences Absence[]
 }
 
 model PushToken {

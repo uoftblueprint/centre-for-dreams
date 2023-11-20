@@ -6,14 +6,14 @@ export const absenceRouter = createTRPCRouter({
   createAbsence: protectedProcedure
     .input(
       z.object({
-        userId: z.number().nonnegative(),
+        participantId: z.number().nonnegative(),
         absenceDate: z.date(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
       await ctx.db.absence.create({
         data: {
-          userId: input.userId,
+          participantId: input.participantId,
           absenceDate: input.absenceDate,
         },
       });
@@ -26,13 +26,13 @@ export const absenceRouter = createTRPCRouter({
   getAbsences: protectedProcedure
     .input(
       z.object({
-        userId: z.number().nonnegative(),
+        participantId: z.number().nonnegative(),
       }),
     )
     .query(async ({ input, ctx }) => {
       return await ctx.db.absence.findMany({
         where: {
-          userId: input.userId,
+          participantId: input.participantId,
         },
       });
     }),
@@ -40,14 +40,14 @@ export const absenceRouter = createTRPCRouter({
   deleteAbsence: protectedProcedure
     .input(
       z.object({
-        userId: z.number().nonnegative(),
+        participantId: z.number().nonnegative(),
         absenceDate: z.date(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
       await ctx.db.absence.deleteMany({
         where: {
-          userId: input.userId,
+          participantId: input.participantId,
           absenceDate: input.absenceDate,
         },
       });
