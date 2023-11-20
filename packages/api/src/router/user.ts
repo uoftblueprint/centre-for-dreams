@@ -1,11 +1,7 @@
-import { Clerk } from "@clerk/backend";
+import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-
-const clerk = Clerk({
-  secretKey: process.env.CLERK_SECRET_KEY,
-});
 
 export const userRouter = createTRPCRouter({
   getAllUsers: protectedProcedure.query(async ({ ctx }) => {
@@ -15,7 +11,7 @@ export const userRouter = createTRPCRouter({
   // Fetches the clerk data of every user that has signed up and returns a mapping of the form:
   // <clerkId, userData>
   getAllClerkUsers: protectedProcedure.query(async () => {
-    const users = await clerk.users.getUserList();
+    const users = await clerkClient.users.getUserList();
     return new Map(users.map((user) => [user.id, user]));
   }),
 
