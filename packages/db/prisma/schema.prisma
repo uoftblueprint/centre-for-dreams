@@ -60,6 +60,7 @@ model Absence {
   @@unique([absenceDate, participantId])
 }
 
+// A participant can be linked to multiple users (i.e. two users can have the same participant)
 model Participant {
   id       Int       @id @default(autoincrement())
   name     String
