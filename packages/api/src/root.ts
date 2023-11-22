@@ -5,6 +5,7 @@ import { commentRouter } from "./router/comment";
 import { developerRouter } from "./router/developer";
 import { discussionRouter } from "./router/discussion";
 import { notificationRouter } from "./router/notification";
+import { userRouter } from "./router/user";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
   absence: absenceRouter,
   notification: notificationRouter,
   comment: commentRouter,
+  user: userRouter,
 });
 
 // export type definition of API
