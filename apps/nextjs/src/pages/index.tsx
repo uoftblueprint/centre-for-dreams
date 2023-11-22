@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
@@ -21,6 +22,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <div className="m-10 flex flex-row content-center justify-evenly align-middle">
+          {isSignedIn ? "" : <SignInButton />}
+          <UserButton afterSignOutUrl="/" />
+          <Link href="admindashboard">Admin Dashboard</Link>
+        </div>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>
         <RyanLi />
@@ -30,10 +36,6 @@ export default function Home() {
         <HelenaGlowacki />
         <RamRaghavSharma />
         <MinhLe />
-        <div>
-          {isSignedIn ? "" : <SignInButton />}
-          <UserButton afterSignOutUrl="/" />
-        </div>
       </main>
     </>
   );

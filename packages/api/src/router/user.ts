@@ -1,9 +1,19 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
+  findUserWithClerkId: protectedProcedure
+    .input(z.string())
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.user.findUniqueOrThrow({
+        where: {
+          clerkId: input,
+        },
+      });
+    }),
+
   getAllUsers: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.user.findMany();
   }),
@@ -20,7 +30,7 @@ export const userRouter = createTRPCRouter({
   //
   // Although we can use the clerkId, we enforce fetching user the id in our database
   // since the approval attribute is a concept associated with our user model rather than clerk
-  changeApprovalStatus: protectedProcedure
+  changeApprovalStatus: adminProcedure
     .input(
       z.object({
         id: z.number(),
