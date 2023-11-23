@@ -12,27 +12,24 @@ export const commentRouter = createTRPCRouter({
       }),
     )
     .query(async ({ input, ctx }) => {
-      try {
-        return await ctx.db.comment.findMany({
-          where: { postId: input.postId },
-          orderBy: { createdAt: "desc" },
-          select: {
-            id: true,
-            text: true,
-            createdAt: true,
-          },
+      const post = await ctx.db.post.findUnique({
+        where: { id: input.postId },
+      });
+      if (!post) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Post not found",
         });
-      } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          if (e.code === "P2025") {
-            throw new TRPCError({
-              code: "NOT_FOUND",
-              message: "Post not found",
-            });
-          }
-        }
-        throw e;
       }
+      return await ctx.db.comment.findMany({
+        where: { postId: input.postId },
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          text: true,
+          createdAt: true,
+        },
+      });
     }),
   create: protectedProcedure
     .input(
