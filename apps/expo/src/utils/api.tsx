@@ -5,7 +5,7 @@ import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import superjson from "superjson";
 
-import type { AppRouter, RouterInputs } from "@cfd/api";
+import type { AppRouter } from "@cfd/api";
 
 /**
  * A set of typesafe hooks for consuming your API.
