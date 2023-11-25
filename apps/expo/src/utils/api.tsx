@@ -70,5 +70,3 @@ export function TRPCProvider(props: { children: React.ReactNode }) {
     </api.Provider>
   );
 }
-
-export type AnnouncementComponent = RouterInputs["announcement"]["createAnnouncement"]

@@ -1,8 +1,9 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import type { RouterInputs } from "~/utils/api";
 
-import type { AnnouncementComponent } from "~/utils/api";
+type AnnouncementComponent = RouterInputs["announcement"]["createAnnouncement"]
 
 export default function Announcement({
   title,
