@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
 
+import type { CreateAnnouncement } from "~/utils/api";
 import { api } from "~/utils/api";
 
-interface ActivityData {
-  name: string;
-  duration: string;
-  leader: string;
-  location: string;
-  selectedDate: Date;
-  startDate: Date;
-}
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function CreateActivity() {
   const {
@@ -20,7 +14,7 @@ export default function CreateActivity() {
     formState: { errors },
     control,
     reset,
-  } = useForm<ActivityData>();
+  } = useForm<CreateAnnouncement>();
 
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -38,15 +32,14 @@ export default function CreateActivity() {
     }
   };
 
-  const onSubmit = (data: ActivityData) => {
-    const duration = parseInt(data.duration, 10);
+  const onSubmit = (data: CreateAnnouncement) => {
     createActivity({
       name: data.name,
-      durationMinutes: duration,
+      durationMinutes: parseInt(data.durationMinutes, 10),
       leader: data.leader,
       location: data.location,
-      day: data.selectedDate,
-      startTime: data.startDate,
+      day: data.day,
+      startTime: data.startTime,
     });
   };
 
@@ -64,13 +57,13 @@ export default function CreateActivity() {
       <div>
         <input
           className="mt-4 rounded-md border border-gray-300 p-2 text-sm transition duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          {...register("duration", { required: true })}
+          {...register("durationMinutes", { required: true })}
           type="number"
           min="15"
           placeholder="Duration (15+ minutes)"
           onChange={handleInputChange}
         />
-        {errors.duration && <span>Duration is required</span>}
+        {errors.durationMinutes && <span>Duration is required</span>}
       </div>
 
       <div>
@@ -95,7 +88,7 @@ export default function CreateActivity() {
 
       <div>
         <Controller
-          name="selectedDate"
+          name="day"
           control={control}
           render={({ field }) => (
             <DatePicker
@@ -107,12 +100,12 @@ export default function CreateActivity() {
             />
           )}
         />
-        {errors.selectedDate && <span>Day is required</span>}
+        {errors.day && <span>Day is required</span>}
       </div>
 
       <div>
         <Controller
-          name="startDate"
+          name="startTime"
           control={control}
           render={({ field }) => (
             <DatePicker
@@ -126,7 +119,7 @@ export default function CreateActivity() {
             />
           )}
         />
-        {errors.startDate && <span>Start time is required</span>}
+        {errors.startTime && <span>Start time is required</span>}
       </div>
 
       <button

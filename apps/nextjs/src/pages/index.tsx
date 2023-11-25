@@ -10,8 +10,6 @@ import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
 
-// import CreateActivity1 from "~/components/activity/create_activity1";
-
 export default function Home() {
   const developerCount = api.developer.count.useQuery();
   const { isSignedIn } = useAuth();
