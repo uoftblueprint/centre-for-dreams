@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
@@ -6,14 +7,17 @@ export const absenceRouter = createTRPCRouter({
   createAbsence: protectedProcedure
     .input(
       z.object({
-        participantId: z.number().nonnegative(),
         absenceDate: z.date(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
+      const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
       await ctx.db.absence.create({
         data: {
-          participantId: input.participantId,
+          participantId: user.participantId,
           absenceDate: input.absenceDate,
         },
       });
@@ -23,31 +27,32 @@ export const absenceRouter = createTRPCRouter({
     return await ctx.db.absence.findMany();
   }),
 
-  getAbsences: protectedProcedure
-    .input(
-      z.object({
-        participantId: z.number().nonnegative(),
-      }),
-    )
-    .query(async ({ input, ctx }) => {
-      return await ctx.db.absence.findMany({
-        where: {
-          participantId: input.participantId,
-        },
-      });
-    }),
+  getAbsences: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+    if (!user) {
+      throw new TRPCError({ code: "NOT_FOUND" });
+    }
+    return await ctx.db.absence.findMany({
+      where: {
+        participantId: user.participantId,
+      },
+    });
+  }),
 
   deleteAbsence: protectedProcedure
     .input(
       z.object({
-        participantId: z.number().nonnegative(),
         absenceDate: z.date(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
+      const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
       await ctx.db.absence.deleteMany({
         where: {
-          participantId: input.participantId,
+          participantId: user.participantId,
           absenceDate: input.absenceDate,
         },
       });
