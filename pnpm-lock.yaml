@@ -218,7 +218,7 @@ importers:
         specifier: ^4.19.3
         version: 4.19.3(react-dom@18.2.0)(react@18.2.0)
       '@types/react-dom':
-        specifier: ^18.2.16
+        specifier: ^18.2.17
         version: 18.2.17
       dotenv-cli:
         specifier: ^7.3.0
