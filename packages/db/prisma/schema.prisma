@@ -18,6 +18,8 @@ model User {
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId Int         @unique
   pushTokens    PushToken[]
+  comments      Comment[]
+  posts         Post[]
 }
 
 model Developers {
@@ -32,6 +34,8 @@ model Post {
   createdAt DateTime  @default(now())
   comments  Comment[]
   postType  PostType
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
 }
 
 model Comment {
@@ -40,6 +44,8 @@ model Comment {
   post      Post     @relation(fields: [postId], references: [id])
   text      String
   createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Activity {

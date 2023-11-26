@@ -24,11 +24,13 @@ export const discussionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId;
       await ctx.db.post.create({
         data: {
           title: input.title,
           contents: input.contents,
           postType: "Discussion",
+          user: { connect: { id: userId } },
         },
       });
     }),
