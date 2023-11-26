@@ -7,12 +7,13 @@ import type { RouterInputs } from "~/utils/api";
 type AnnouncementComponent = RouterInputs["announcement"]["createAnnouncement"];
 
 export default function Announcement({
-  title,
-  contents,
-}: AnnouncementComponent) {
+  announcement,
+}: {
+  announcement: AnnouncementComponent;
+}) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
-      <Text className="text-xl font-bold">{title}</Text>
+      <Text className="text-xl font-bold">{announcement.title}</Text>
       <View className="mt-2 flex-row items-center">
         <Image
           source={{
@@ -33,7 +34,7 @@ export default function Announcement({
         />
       </View>
       <View>
-        <Text className="mt-2 text-lg">{contents}</Text>
+        <Text className="mt-2 text-lg">{announcement.contents}</Text>
       </View>
       <View className="flex-row items-center justify-end">
         <Entypo name="reply" size={24} color="black" />
