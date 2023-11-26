@@ -15,10 +15,17 @@ export const absenceRouter = createTRPCRouter({
       if (!user) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
-      await ctx.db.absence.create({
-        data: {
-          participantId: user.participantId,
+      await ctx.db.absence.upsert({
+        create: {
           absenceDate: input.absenceDate,
+          participantId: user.participantId,
+        },
+        update: {},
+        where: {
+          absenceDate_participantId: {
+            absenceDate: input.absenceDate,
+            participantId: user.participantId,
+          },
         },
       });
     }),
