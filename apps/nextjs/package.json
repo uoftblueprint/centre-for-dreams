@@ -23,7 +23,7 @@
     "@trpc/server": "^10.43.7",
     "next": "13.4.12",
     "react": "18.2.0",
-    "react-datepicker": "^4.21.0",
+    "react-datepicker": "^4.23.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.48.2",
     "superjson": "2.2.1",
