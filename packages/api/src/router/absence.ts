@@ -11,7 +11,7 @@ export const absenceRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+      const user = await ctx.db.user.findUnique({ where: { id: ctx.userId } });
       if (!user) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
@@ -28,7 +28,7 @@ export const absenceRouter = createTRPCRouter({
   }),
 
   getAbsences: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+    const user = await ctx.db.user.findUnique({ where: { id: ctx.userId } });
     if (!user) {
       throw new TRPCError({ code: "NOT_FOUND" });
     }
@@ -46,7 +46,7 @@ export const absenceRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.db.user.findFirst({ where: { id: ctx.userId } });
+      const user = await ctx.db.user.findUnique({ where: { id: ctx.userId } });
       if (!user) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
