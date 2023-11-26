@@ -33,13 +33,13 @@ importers:
         specifier: ^4.36.1
         version: 4.36.1(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
       '@trpc/client':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@trpc/server@10.44.0)
       '@trpc/react-query':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@tanstack/react-query@4.36.1)(@trpc/client@10.44.0)(@trpc/server@10.44.0)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0
       expo:
         specifier: ^49.0.20
@@ -160,16 +160,16 @@ importers:
         specifier: ^4.36.1
         version: 4.36.1(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
       '@trpc/client':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@trpc/server@10.44.0)
       '@trpc/next':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@tanstack/react-query@4.36.1)(@trpc/client@10.44.0)(@trpc/react-query@10.44.0)(@trpc/server@10.44.0)(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/react-query':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@tanstack/react-query@4.36.1)(@trpc/client@10.44.0)(@trpc/server@10.44.0)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0
       next:
         specifier: 13.4.12
@@ -248,10 +248,10 @@ importers:
         specifier: ^4.27.1
         version: 4.27.1(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0(@trpc/server@10.44.0)
       '@trpc/server':
-        specifier: ^10.43.6
+        specifier: ^10.43.7
         version: 10.44.0
       date-fns:
         specifier: ^2.30.0
