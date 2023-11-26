@@ -57,10 +57,12 @@ export const absenceRouter = createTRPCRouter({
       if (!user) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
-      await ctx.db.absence.deleteMany({
+      await ctx.db.absence.delete({
         where: {
-          participantId: user.participantId,
-          absenceDate: input.absenceDate,
+          absenceDate_participantId: {
+            absenceDate: input.absenceDate,
+            participantId: user.participantId,
+          },
         },
       });
     }),
