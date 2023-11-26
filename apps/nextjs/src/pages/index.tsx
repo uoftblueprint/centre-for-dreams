@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
-import CreateActivity from "~/components/activity/activityform";
 import HelenaGlowacki from "~/components/developers/helenaglowacki";
 import HelenZhao from "~/components/developers/helenzhao";
 import JasonWangCard from "~/components/developers/jasonwang";
