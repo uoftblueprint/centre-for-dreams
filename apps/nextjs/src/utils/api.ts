@@ -4,7 +4,6 @@
  *
  * We also create a few inference helpers for input and output types.
  */
-import Router from "next/dist/server/router";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
@@ -75,5 +74,3 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  * @example type HelloOutput = RouterOutputs['example']['hello']
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
-
-export type CreateAnnouncement = RouterInputs["activity"]["createActivity"];

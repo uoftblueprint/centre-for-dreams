@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
 
-import type { CreateAnnouncement } from "~/utils/api";
 import { api } from "~/utils/api";
+import type { RouterInputs } from "~/utils/api";
 
 import "react-datepicker/dist/react-datepicker.css";
+
+export type CreateAnnouncement = RouterInputs["activity"]["createActivity"];
 
 export default function CreateActivity() {
   const {
@@ -33,9 +35,10 @@ export default function CreateActivity() {
   };
 
   const onSubmit = (data: CreateAnnouncement) => {
+    data.durationMinutes = parseInt(data.durationMinutes.toString(), 10);
     createActivity({
       name: data.name,
-      durationMinutes: parseInt(data.durationMinutes, 10),
+      durationMinutes: data.durationMinutes,
       leader: data.leader,
       location: data.location,
       day: data.day,
