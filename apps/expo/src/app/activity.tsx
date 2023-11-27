@@ -35,7 +35,7 @@ export default function Activity({
 
       {attending !== undefined && (
         <View className="flex-row items-center justify-start">
-          <Text className="font-inter text-base font-normal text-black mr-3">
+          <Text className="font-inter mr-3 text-base font-normal text-black">
             Attendance:
           </Text>
           <View className=" flex-row items-center justify-start gap-2">
