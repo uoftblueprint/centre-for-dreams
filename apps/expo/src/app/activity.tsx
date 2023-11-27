@@ -2,21 +2,26 @@ import React from "react";
 import { Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-interface ActivityComponent {
-  activityName: string;
+// Props specific for the Activity component
+interface ActivityProps {
+  name: string;
   location?: string;
   attending?: boolean;
+  activityHeight?: number;
 }
 
 export default function Activity({
-  activityName,
+  name,
   location,
   attending,
-}: ActivityComponent) {
+  activityHeight,
+}: ActivityProps) {
   return (
-    <View className="mb-4 w-8/12 flex-col rounded-md bg-zinc-300 p-3">
+    <View
+      className={`flex-col h-[${activityHeight}px] rounded-md bg-zinc-300 p-2.5`}
+    >
       <Text className="font-inter text-base font-semibold text-black">
-        {activityName}
+        {name}
       </Text>
 
       {location !== undefined && (
@@ -30,10 +35,10 @@ export default function Activity({
 
       {attending !== undefined && (
         <View className="flex-row items-center justify-start">
-          <Text className="font-inter text-base font-normal text-black">
+          <Text className="font-inter text-base font-normal text-black mr-3">
             Attendance:
           </Text>
-          <View className="ml-3 flex-row items-center justify-start gap-2">
+          <View className=" flex-row items-center justify-start gap-2">
             {attending ? (
               <>
                 <AntDesign name="checkcircleo" size={20} color="#22AB00" />
