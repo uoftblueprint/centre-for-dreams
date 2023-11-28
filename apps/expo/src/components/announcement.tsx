@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import type { RouterInputs } from "~/utils/api";
 
@@ -37,9 +36,9 @@ export default function Announcement({
         <Text className="mt-2 text-lg">{announcement.contents}</Text>
       </View>
       <View className="flex-row items-center justify-end">
-        <Entypo name="reply" size={24} color="black" />
+        <Text>icon</Text>
         <Text className="ml-2 mr-2 text-lg">Reply</Text>
-        <MaterialCommunityIcons name="read" size={24} color="black" />
+        <Text>icon</Text>
         <Text className="ml-2 text-lg">Read</Text>
       </View>
     </View>
