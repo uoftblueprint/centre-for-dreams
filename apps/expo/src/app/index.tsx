@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
-import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
+import { Poppins_400Regular, useFonts } from "@expo-google-fonts/poppins";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
@@ -39,7 +39,7 @@ const Index = () => {
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text style={{ fontFamily: 'Poppins_400Regular' }}> Index </Text>
+        <Text style={{ fontFamily: "Poppins_400Regular" }}> Index </Text>
       </View>
     </SafeAreaView>
   );
