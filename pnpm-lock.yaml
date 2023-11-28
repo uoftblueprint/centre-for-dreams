@@ -26,6 +26,9 @@ importers:
 
   apps/expo:
     dependencies:
+      '@expo-google-fonts/poppins':
+        specifier: ^0.2.3
+        version: 0.2.3
       '@expo/metro-config':
         specifier: ^0.10.7
         version: 0.10.7
@@ -53,6 +56,9 @@ importers:
       expo-device:
         specifier: ~5.4.0
         version: 5.4.0(expo@49.0.20)
+      expo-font:
+        specifier: ~11.4.0
+        version: 11.4.0(expo@49.0.20)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.20)
@@ -2129,6 +2135,10 @@ packages:
   /@eslint/js@8.54.0:
     resolution: {integrity: sha512-ut5V+D+fOoWPgGGNj83GGjnntO39xDy6DWxO0wb7Jp3DcMX0TfIqdzHF85VTQkerdyGmuuMD9AKAo5KiNlf/AQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  /@expo-google-fonts/poppins@0.2.3:
+    resolution: {integrity: sha512-PXkur1ZY/puy1PwVFYPJx8qiI3dtBzC2ig1bo53swCt7/sI7krCGYRO6hLBNp15M0kcNh2J4cCR9ZQyFxsving==}
+    dev: false
 
   /@expo/bunyan@4.0.0:
     resolution: {integrity: sha512-Ydf4LidRB/EBI+YrB+cVLqIseiRfjUI/AeHBgjGMtq3GroraDu81OV7zqophRgupngoL3iS3JUMDMnxO7g39qA==}
