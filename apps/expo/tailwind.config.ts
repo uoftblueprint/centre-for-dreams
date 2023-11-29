@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
+        p: {
           0: "#090F1D",
           10: "#0F1A30",
           20: "#172648",
@@ -23,7 +23,7 @@ export default {
           99: "#F7F8FD",
           100: "#FFFFFF",
         },
-        secondary: {
+        s: {
           0: "#2C1A0E",
           10: "#4A2C17",
           20: "#6F4222",
@@ -38,7 +38,7 @@ export default {
           99: "#FCF3EE",
           100: "#FFFFFF",
         },
-        tertiary: {
+        t: {
           0: "#000000",
           10: "#2A1E33",
           20: "#473255",
@@ -53,7 +53,7 @@ export default {
           99: "#F6EAFF",
           100: "#FFFFFF",
         },
-        error: {
+        e: {
           0: "#000000",
           10: "#410E0B",
           20: "#601410",
@@ -68,7 +68,7 @@ export default {
           99: "#FFFBF9",
           100: "#FFFFFF",
         },
-        neutral: {
+        n: {
           0: "#000000",
           10: "#1D1B20",
           20: "#322F35",
@@ -80,21 +80,6 @@ export default {
           80: "#CAC5CD",
           90: "#E6E0E9",
           95: "#F5EFF7",
-          99: "#FFFBFE",
-          100: "#FFFFFF",
-        },
-        "neutral-variant": {
-          0: "#000000",
-          10: "#1D1A22",
-          20: "#322F37",
-          30: "#49454F",
-          40: "#605D66",
-          50: "#79747E",
-          60: "#938F99",
-          70: "#AEA9B4",
-          80: "#CAC4D0",
-          90: "#E7E0EC",
-          95: "#F5EEFA",
           99: "#FFFBFE",
           100: "#FFFFFF",
         },
