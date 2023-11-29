@@ -5,7 +5,6 @@ import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
-import { FONTFAMILY } from "~/utils/theme";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -32,7 +31,7 @@ const Index = () => {
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text style={{ ...FONTFAMILY.poppins }}> Index </Text>
+        <Text className="font-poppins"> Index </Text>
       </View>
     </SafeAreaView>
   );
