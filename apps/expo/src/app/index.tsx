@@ -3,9 +3,9 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
-import { Poppins_400Regular, useFonts } from "@expo-google-fonts/poppins";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+import { FONTFAMILY } from "~/utils/theme";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -20,9 +20,6 @@ const Index = () => {
   const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
     null,
   );
-  const [fontsLoaded, fontError] = useFonts({
-    Poppins_400Regular,
-  });
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -30,16 +27,12 @@ const Index = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
-
   return (
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text style={{ fontFamily: "Poppins_400Regular" }}> Index </Text>
+        <Text style={{ ...FONTFAMILY.poppins }}> Index </Text>
       </View>
     </SafeAreaView>
   );
