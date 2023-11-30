@@ -6,6 +6,7 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+import { clerkClient } from "@clerk/nextjs";
 import { getAuth } from "@clerk/nextjs/server";
 import type { PrismaClient } from "@prisma/client";
 import { initTRPC, TRPCError } from "@trpc/server";
@@ -151,6 +152,28 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
   });
 });
 
+const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
+  if (!ctx.auth.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  // we have to fetch using clerkClient since auth.user is undefined for some reason
+  const clerkId = ctx.auth.userId;
+  const user = await clerkClient.users.getUser(clerkId);
+
+  // protect every route
+  if (user.publicMetadata.isAdmin !== true) {
+    // we should probably let user know they're not authorized
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      auth: ctx.auth,
+      userId: user.id, // the user id within OUR database, a monotonically increasing integer
+    },
+  });
+});
+
 export const protectedProcedure = t.procedure.use(isAuthed);
 
 /**
@@ -160,4 +183,4 @@ export const protectedProcedure = t.procedure.use(isAuthed);
  * Should be used for all admin dashboard functionality.
  *
  */
-export const adminProcedure = t.procedure.use(isAuthed);
+export const adminProcedure = t.procedure.use(isAdminAuthed);

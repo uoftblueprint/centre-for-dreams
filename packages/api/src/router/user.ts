@@ -1,16 +1,16 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter } from "../trpc";
 
 export const userRouter = createTRPCRouter({
-  getAllUsers: protectedProcedure.query(async ({ ctx }) => {
+  getAllUsers: adminProcedure.query(async ({ ctx }) => {
     return await ctx.db.user.findMany();
   }),
 
   // Fetches the clerk data of every user that has signed up and returns a mapping of the form:
   // <clerkId, userData>
-  getAllClerkUsers: protectedProcedure.query(async () => {
+  getAllClerkUsers: adminProcedure.query(async () => {
     const users = await clerkClient.users.getUserList();
     return new Map(users.map((user) => [user.id, user]));
   }),
