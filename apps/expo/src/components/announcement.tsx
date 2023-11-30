@@ -3,12 +3,12 @@ import { Image, Text, View } from "react-native";
 
 import type { RouterInputs } from "~/utils/api";
 
-type AnnouncementComponent = RouterInputs["announcement"]["createAnnouncement"];
+type AnnouncementProps = RouterInputs["announcement"]["createAnnouncement"];
 
 export default function Announcement({
   announcement,
 }: {
-  announcement: AnnouncementComponent;
+  announcement: AnnouncementProps;
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
