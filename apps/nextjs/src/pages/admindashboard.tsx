@@ -19,7 +19,7 @@ export default function AdminDashboard() {
           <button
             onClick={() =>
               changeApprovalStatusMutation.mutate({
-                id: user.id,
+                clerkId: user.clerkId,
                 isApproved: true,
               })
             }
@@ -29,7 +29,7 @@ export default function AdminDashboard() {
           <button
             onClick={() =>
               changeApprovalStatusMutation.mutate({
-                id: user.id,
+                clerkId: user.clerkId,
                 isApproved: false,
               })
             }

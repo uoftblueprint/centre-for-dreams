@@ -15,26 +15,15 @@ export const userRouter = createTRPCRouter({
     return new Map(users.map((user) => [user.id, user]));
   }),
 
-  // This will change the approval status of the user with the given id in our database,
-  // and on clerk. When we retrieve this data we'll retrieve it from clerk, but we want
-  // to keep these two fields consistent in case we want to migrate off of clerk some day
   changeApprovalStatus: adminProcedure
     .input(
       z.object({
-        id: z.number(),
+        clerkId: z.string(),
         isApproved: z.boolean(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
-      const user = await ctx.db.user.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          isApproved: input.isApproved,
-        },
-      });
-      await clerkClient.users.updateUserMetadata(user.clerkId, {
+    .mutation(async ({ input }) => {
+      await clerkClient.users.updateUserMetadata(input.clerkId, {
         publicMetadata: {
           isApproved: input.isApproved,
         },
