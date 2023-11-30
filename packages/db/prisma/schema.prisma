@@ -15,8 +15,6 @@ datasource db {
 model User {
   id            Int         @id @default(autoincrement())
   clerkId       String      @unique
-  isApproved    Boolean     @default(false)
-  isAdmin       Boolean     @default(false)
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId Int         @unique
   pushTokens    PushToken[]
