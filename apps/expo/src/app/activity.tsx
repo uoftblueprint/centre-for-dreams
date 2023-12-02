@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
 
-// Activity output from router
+// Activity type from router
 type GetActivityOutput = RouterOutputs["activity"]["getSchedule"][number];
 
 /*
@@ -12,25 +12,20 @@ ActivityProps is the information necessary for an Activity Component
 activity: the activity to be shown
 showLocation: whether the component should show the location
 attending: whether the user is attending (True: Join, False: Maybe, Null: Nothing is shown)
-activityHeight: if the activity component requires specific height (like for schedule), input it here
 */
 interface ActivityProps {
   activity: GetActivityOutput;
   showLocation?: boolean;
   attending?: boolean;
-  activityHeight?: number;
 }
 
 export default function Activity({
   activity,
   showLocation,
   attending,
-  activityHeight,
 }: ActivityProps) {
   return (
-    <View
-      className={`flex-col h-[${activityHeight}px] rounded-md bg-zinc-300 p-2.5`}
-    >
+    <View className={`flex-col rounded-md bg-zinc-300 p-2.5`}>
       <Text className="font-inter text-base font-semibold text-black">
         {activity.name}
       </Text>
