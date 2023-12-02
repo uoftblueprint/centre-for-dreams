@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 
 // Props specific for the Activity component
 interface ActivityProps {
@@ -26,7 +25,7 @@ export default function Activity({
 
       {location !== undefined && (
         <View className="flex-row items-center justify-start gap-2">
-          <AntDesign name="enviromento" size={20} color="black" />
+           <Text className="text-black">?</Text> 
           <Text className="font-inter text-base font-normal text-black">
             {location}
           </Text>
@@ -41,14 +40,14 @@ export default function Activity({
           <View className=" flex-row items-center justify-start gap-2">
             {attending ? (
               <>
-                <AntDesign name="checkcircleo" size={20} color="#22AB00" />
-                <Text className="text-checkGreen font-inter text-base font-normal">
+                <Text className="text-lime-7">?</Text> 
+                <Text className="text-lime-7 font-inter text-base font-normal">
                   Join
                 </Text>
               </>
             ) : (
               <>
-                <AntDesign name="questioncircleo" size={20} color="black" />
+                <Text className="text-black">?</Text> 
                 <Text className="font-inter text-base font-normal text-black">
                   Maybe
                 </Text>
