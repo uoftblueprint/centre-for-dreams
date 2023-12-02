@@ -1,17 +1,30 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-// Props specific for the Activity component
+import type { RouterOutputs } from "~/utils/api";
+
+// Activity output from router
+type GetActivityOutput = RouterOutputs["activity"]["getSchedule"][number];
+
+/*
+ActivityProps is the information necessary for an Activity Component
+
+activity: the activity to be shown
+showLocation: whether the component should show the location
+attending: whether the user is attending (True: Join, False: Maybe, Null: Nothing is shown)
+activityHeight: if the activity component requires specific height (like for schedule), 
+                input it here
+*/
 interface ActivityProps {
-  name: string;
-  location?: string;
+  activity: GetActivityOutput;
+  showLocation?: boolean;
   attending?: boolean;
   activityHeight?: number;
 }
 
 export default function Activity({
-  name,
-  location,
+  activity,
+  showLocation,
   attending,
   activityHeight,
 }: ActivityProps) {
@@ -20,14 +33,14 @@ export default function Activity({
       className={`flex-col h-[${activityHeight}px] rounded-md bg-zinc-300 p-2.5`}
     >
       <Text className="font-inter text-base font-semibold text-black">
-        {name}
+        {activity.name}
       </Text>
 
-      {location !== undefined && (
+      {showLocation !== undefined && showLocation && (
         <View className="flex-row items-center justify-start gap-2">
-           <Text className="text-black">?</Text> 
+          <Text className="text-black">?</Text>
           <Text className="font-inter text-base font-normal text-black">
-            {location}
+            {activity.location}
           </Text>
         </View>
       )}
@@ -40,14 +53,14 @@ export default function Activity({
           <View className=" flex-row items-center justify-start gap-2">
             {attending ? (
               <>
-                <Text className="text-lime-7">?</Text> 
-                <Text className="text-lime-7 font-inter text-base font-normal">
+                <Text className="text-lime-700">?</Text>
+                <Text className="font-inter text-base font-normal text-lime-700">
                   Join
                 </Text>
               </>
             ) : (
               <>
-                <Text className="text-black">?</Text> 
+                <Text className="text-black">?</Text>
                 <Text className="font-inter text-base font-normal text-black">
                   Maybe
                 </Text>
