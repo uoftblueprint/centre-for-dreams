@@ -12,8 +12,7 @@ ActivityProps is the information necessary for an Activity Component
 activity: the activity to be shown
 showLocation: whether the component should show the location
 attending: whether the user is attending (True: Join, False: Maybe, Null: Nothing is shown)
-activityHeight: if the activity component requires specific height (like for schedule), 
-                input it here
+activityHeight: if the activity component requires specific height (like for schedule), input it here
 */
 interface ActivityProps {
   activity: GetActivityOutput;
