@@ -51,7 +51,7 @@
     "@cfd/tsconfig": "^0.1.0",
     "@expo/config-plugins": "^7.2.5",
     "@types/babel__core": "^7.20.5",
-    "@types/react": "^18.2.38",
+    "@types/react": "^18.2.39",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.54.0",
     "expo-doctor": "^1.1.3",
