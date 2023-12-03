@@ -10,12 +10,12 @@ const MAX_TIME = 18;
 const MIN_TIME = 9;
 const LINE_HEIGHT = 12;
 
-// Activity type based on query of get schedule
-type GetActivityOutput = RouterOutputs["activity"]["getSchedule"][number];
+// Schedule type based on query of get schedule
+type GetScheduleOutput = RouterOutputs["activity"]["getSchedule"];
 
-//
+
 interface ScheduleProps {
-  activities: GetActivityOutput[];
+  activities: GetScheduleOutput;
 }
 
 /*
@@ -24,12 +24,12 @@ schdeuleEndTime calculates schedules last hour based on schedule
 
 param activites: array of activites for the schedule
 */
-function scheduleEndTime(activities: GetActivityOutput[]): number {
+function scheduleEndTime(activities: GetScheduleOutput): number {
   if (activities.length == 0) {
     return MAX_TIME;
   }
   const latestActivity = activities.reduce(
-    (max: GetActivityOutput, current: GetActivityOutput) =>
+    (max: GetScheduleOutput[number], current: GetScheduleOutput[number]) =>
       addMinutes(current.startTime, current.durationMinutes) >
       addMinutes(current.startTime, current.durationMinutes)
         ? current
@@ -48,12 +48,12 @@ schdeuleStartTime calculates schedules first hour based on schedule
 
 param activites: array of activites for the schedule
 */
-function scheduleStartTime(activities: GetActivityOutput[]): number {
+function scheduleStartTime(activities: GetScheduleOutput): number {
   if (activities.length == 0) {
     return MIN_TIME;
   }
   const earliestActivity = activities.reduce(
-    (min: GetActivityOutput, current: GetActivityOutput) =>
+    (min: GetScheduleOutput[number], current: GetScheduleOutput[number]) =>
       current.startTime < min.startTime ? current : min,
     activities[0]!,
   );
