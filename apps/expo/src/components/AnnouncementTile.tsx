@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Image, Text, View } from "react-native";
 import type { ImageSourcePropType } from "react-native";
 
