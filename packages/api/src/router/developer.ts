@@ -1,4 +1,9 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const developerRouter = createTRPCRouter({
   count: publicProcedure
@@ -7,7 +12,7 @@ export const developerRouter = createTRPCRouter({
       return await ctx.db.developers.count();
     }),
 
-  ryanli_info: publicProcedure.query(async ({ ctx }) => {
+  ryanli_info: adminProcedure.query(async ({ ctx }) => {
     await ctx.db.developers.upsert({
       where: {
         name: "Ryan Li",
