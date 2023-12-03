@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { Image, Text, View } from "react-native";
 import type { ImageSourcePropType } from "react-native";
 
@@ -7,15 +6,20 @@ import type { RouterOutputs } from "~/utils/api";
 type GetAnnouncementOutput =
   RouterOutputs["announcement"]["getAnnouncements"][number];
 
-const AnnouncementTile: React.FC<GetAnnouncementOutput> = ({
-  title,
-  createdAt,
+interface AnnouncementTileProps {
+  announcement: GetAnnouncementOutput;
+}
+
+const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
+  announcement: { title, createdAt },
 }) => {
   const createdBy = "Placeholder User";
-  const userImageSrc: ImageSourcePropType =
-    require("./user_image_placeholder.jpg") as ImageSourcePropType;
-  const titleImageSrc: ImageSourcePropType =
-    require("./title_image_placeholder.jpg") as ImageSourcePropType;
+  const userImageSrc: ImageSourcePropType = {
+    uri: "https://placehold.co/600x400",
+  };
+  const titleImageSrc: ImageSourcePropType = {
+    uri: "https://placehold.co/600x400",
+  };
 
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
