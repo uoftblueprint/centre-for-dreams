@@ -15,10 +15,10 @@ const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
 }) => {
   const createdBy = "Placeholder User";
   const userImageSrc: ImageSourcePropType = {
-    uri: "https://placehold.co/600x400",
+    uri: "https://csncollision.com/wp-content/uploads/2019/10/placeholder-circle.png",
   };
   const titleImageSrc: ImageSourcePropType = {
-    uri: "https://placehold.co/600x400",
+    uri: "https://dummyimage.com/640x360/fff/aaa",
   };
 
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
@@ -47,6 +47,7 @@ const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
               source={userImageSrc}
               accessibilityLabel={`${createdBy}'s picture`}
               resizeMode="cover"
+              className="outline-3 h-4 w-4 outline-black"
             />
             <Text className="text-base">{createdBy}</Text>
           </View>
