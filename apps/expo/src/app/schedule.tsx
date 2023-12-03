@@ -13,7 +13,6 @@ const LINE_HEIGHT = 12;
 // Schedule type based on query of get schedule
 type GetScheduleOutput = RouterOutputs["activity"]["getSchedule"];
 
-
 interface ScheduleProps {
   activities: GetScheduleOutput;
 }
