@@ -91,7 +91,7 @@ function formatHour(hour: number): string {
 /*
 calculateHeight based on duration calculate height of activity box
 
-param durationMinutes?: gets the 
+param durationMinutes?: duration of activity
 */
 function calculateHeight(durationMinutes: number): number {
   // Find how much of the precentage of line
