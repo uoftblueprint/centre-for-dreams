@@ -96,6 +96,7 @@ param durationMinutes?: gets the
 function calculateHeight(durationMinutes: number): number {
   // Find how much of the precentage of line
   const height_px = Math.floor((durationMinutes / 60) * LINE_HEIGHT) * 4;
+
   return height_px;
 }
 
@@ -138,9 +139,10 @@ const Schedule: React.FC<ScheduleProps> = ({ activities }) => {
                 absolute
                 ml-14
                 w-full
+                h-[${activityHeight}px]
               `}
           >
-            <Activity name={activity.name} activityHeight={activityHeight} />
+            <Activity activity={activity} />
           </View>
         );
       })}
