@@ -152,8 +152,10 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
   });
 });
 
+// only intended to be called after calling isAuthed()
 const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
-  if (!ctx.auth.userId) {
+  // prior to this the user should've been inserted into our database already
+  if (!ctx.auth.userId || !ctx.userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   // we have to fetch using clerkClient since auth.user is undefined for some reason
@@ -166,8 +168,11 @@ const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
+  // need to update userId here even though it didn't change to make eslint realize it can't be null
   return next({
-    ctx,
+    ctx: {
+      userId: ctx.userId, // the user id within OUR database, a monotonically increasing integer
+    },
   });
 });
 
