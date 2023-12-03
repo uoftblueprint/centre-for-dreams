@@ -166,23 +166,8 @@ const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  // If the user isn't in our database yet, insert them
-  const user = await ctx.db.user.upsert({
-    where: {
-      clerkId: clerkId,
-    },
-    update: {},
-    create: {
-      clerkId: clerkId,
-      participantId: 1,
-    },
-  });
-
   return next({
-    ctx: {
-      auth: ctx.auth,
-      userId: user.id, // the user id within OUR database, a monotonically increasing integer
-    },
+    ctx,
   });
 });
 
@@ -195,4 +180,4 @@ export const protectedProcedure = t.procedure.use(isAuthed);
  * Should be used for all admin dashboard functionality.
  *
  */
-export const adminProcedure = t.procedure.use(isAdminAuthed);
+export const adminProcedure = t.procedure.use(isAuthed).use(isAdminAuthed);

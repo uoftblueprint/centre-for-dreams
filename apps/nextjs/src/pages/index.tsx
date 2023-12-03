@@ -13,7 +13,8 @@ import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
   const { userId } = useAuth();
-  const changeAdminStatusMutation = api.user.changeAdminStatus.useMutation();
+  const changeAdminStatusMutation =
+    api.user.changeCurrentUserAdminStatus.useMutation();
   if (!userId) {
     return <div>Not logged in!</div>;
   }
@@ -23,7 +24,6 @@ const ToggleAdmin = () => {
         className="mx-4"
         onClick={() =>
           changeAdminStatusMutation.mutate({
-            clerkId: userId,
             isAdmin: true,
           })
         }
@@ -34,7 +34,6 @@ const ToggleAdmin = () => {
         className="mx-4"
         onClick={() =>
           changeAdminStatusMutation.mutate({
-            clerkId: userId,
             isAdmin: false,
           })
         }

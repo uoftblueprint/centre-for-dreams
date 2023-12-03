@@ -31,15 +31,14 @@ export const userRouter = createTRPCRouter({
     }),
 
   // This is strictly used for internal testing and should be removed in the future
-  changeAdminStatus: protectedProcedure
+  changeCurrentUserAdminStatus: protectedProcedure
     .input(
       z.object({
-        clerkId: z.string(),
         isAdmin: z.boolean(),
       }),
     )
-    .mutation(async ({ input }) => {
-      await clerkClient.users.updateUserMetadata(input.clerkId, {
+    .mutation(async ({ input, ctx }) => {
+      await clerkClient.users.updateUserMetadata(ctx.auth.userId, {
         publicMetadata: {
           isAdmin: input.isAdmin,
         },
