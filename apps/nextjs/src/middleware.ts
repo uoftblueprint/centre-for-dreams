@@ -19,8 +19,8 @@ export default authMiddleware({
 
     // we have to fetch using clerkClient since auth.user is undefined for some reason
     const user = await clerkClient.users.getUser(auth.userId);
-    
-    // protect every route 
+
+    // protect every route
     if (user.publicMetadata.isAdmin !== true) {
       // we should probably let user know they're not authorized
       return NextResponse.redirect(new URL("/", req.url));
