@@ -158,13 +158,25 @@ const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
   }
   // we have to fetch using clerkClient since auth.user is undefined for some reason
   const clerkId = ctx.auth.userId;
-  const user = await clerkClient.users.getUser(clerkId);
+  const clerkUser = await clerkClient.users.getUser(clerkId);
 
   // protect every route
-  if (user.publicMetadata.isAdmin !== true) {
+  if (clerkUser.publicMetadata.isAdmin !== true) {
     // we should probably let user know they're not authorized
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
+
+  // If the user isn't in our database yet, insert them
+  const user = await ctx.db.user.upsert({
+    where: {
+      clerkId: clerkId,
+    },
+    update: {},
+    create: {
+      clerkId: clerkId,
+      participantId: 1,
+    },
+  });
 
   return next({
     ctx: {
