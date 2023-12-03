@@ -25,7 +25,7 @@ export default function Activity({
   attending,
 }: ActivityProps) {
   return (
-    <View className={`flex-col h-full w-full rounded-md bg-zinc-300 p-2.5`}>
+    <View className={`h-full w-full flex-col rounded-md bg-zinc-300 p-2.5`}>
       <Text className="font-inter text-base font-semibold text-black">
         {activity.name}
       </Text>
