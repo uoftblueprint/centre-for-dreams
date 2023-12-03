@@ -11,8 +11,10 @@ const AnnouncementTile: React.FC<GetAnnouncementOutput> = ({
   createdAt,
 }) => {
   const createdBy = "Placeholder User";
-  const userImageSrc: ImageSourcePropType = require("./user_image_placeholder.jpg");
-  const titleImageSrc: ImageSourcePropType = require("./title_image_placeholder.jpg");
+  const userImageSrc: ImageSourcePropType =
+    require("./user_image_placeholder.jpg") as ImageSourcePropType;
+  const titleImageSrc: ImageSourcePropType =
+    require("./title_image_placeholder.jpg") as ImageSourcePropType;
 
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
