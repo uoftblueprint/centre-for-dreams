@@ -11,6 +11,40 @@ import RyanLi from "~/components/developers/ryanli";
 import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
 
+const ToggleAdmin = () => {
+  const { userId } = useAuth();
+  const changeAdminStatusMutation = api.user.changeAdminStatus.useMutation();
+  if (!userId) {
+    return <div>Not logged in!</div>;
+  }
+  return (
+    <div>
+      <button
+        className="mx-4"
+        onClick={() =>
+          changeAdminStatusMutation.mutate({
+            clerkId: userId,
+            isAdmin: true,
+          })
+        }
+      >
+        Set current user as admin
+      </button>
+      <button
+        className="mx-4"
+        onClick={() =>
+          changeAdminStatusMutation.mutate({
+            clerkId: userId,
+            isAdmin: false,
+          })
+        }
+      >
+        Unset current user as admin
+      </button>
+    </div>
+  );
+};
+
 export default function Home() {
   const developerCount = api.developer.count.useQuery();
   const { isSignedIn } = useAuth();
@@ -26,6 +60,7 @@ export default function Home() {
           {isSignedIn ? "" : <SignInButton />}
           <UserButton afterSignOutUrl="/" />
           <Link href="admindashboard">Admin Dashboard</Link>
+          <ToggleAdmin />
         </div>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome devs on our team! </div>

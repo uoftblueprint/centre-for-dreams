@@ -1,7 +1,7 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getAllUsers: adminProcedure.query(async ({ ctx }) => {
@@ -26,6 +26,22 @@ export const userRouter = createTRPCRouter({
       await clerkClient.users.updateUserMetadata(input.clerkId, {
         publicMetadata: {
           isApproved: input.isApproved,
+        },
+      });
+    }),
+
+  // This is strictly used for internal testing and should be removed in the future
+  changeAdminStatus: protectedProcedure
+    .input(
+      z.object({
+        clerkId: z.string(),
+        isAdmin: z.boolean(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      await clerkClient.users.updateUserMetadata(input.clerkId, {
+        publicMetadata: {
+          isAdmin: input.isAdmin,
         },
       });
     }),
