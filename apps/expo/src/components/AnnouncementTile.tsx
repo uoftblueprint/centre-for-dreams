@@ -1,21 +1,19 @@
 import { Image, Text, View } from "react-native";
 import type { ImageSourcePropType } from "react-native";
 
-interface Props {
-  title: string;
-  titleImageSrc: ImageSourcePropType;
-  createdAt: Date;
-  createdBy: string;
-  userImageSrc: ImageSourcePropType;
-}
+import type { RouterOutputs } from "~/utils/api";
 
-function AnouncementTile({
+type GetAnnouncementOutput =
+  RouterOutputs["announcement"]["getAnnouncements"][number];
+
+const AnnouncementTile: React.FC<GetAnnouncementOutput> = ({
   title,
-  titleImageSrc,
   createdAt,
-  createdBy,
-  userImageSrc,
-}: Props) {
+}) => {
+  const createdBy = "Placeholder User";
+  const userImageSrc: ImageSourcePropType = require("./user_image_placeholder.jpg");
+  const titleImageSrc: ImageSourcePropType = require("./title_image_placeholder.jpg");
+
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "2-digit",
@@ -50,6 +48,6 @@ function AnouncementTile({
       </View>
     </View>
   );
-}
+};
 
-export default AnouncementTile;
+export default AnnouncementTile;
