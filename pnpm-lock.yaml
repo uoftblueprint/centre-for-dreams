@@ -58,7 +58,7 @@ importers:
         version: 5.4.0(expo@49.0.21)
       expo-font:
         specifier: ~11.4.0
-        version: 11.4.0(expo@49.0.20)
+        version: 11.4.0(expo@49.0.21)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.21)
