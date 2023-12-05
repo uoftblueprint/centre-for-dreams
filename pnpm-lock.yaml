@@ -57,8 +57,8 @@ importers:
         specifier: ~5.4.0
         version: 5.4.0(expo@49.0.21)
       expo-font:
-        specifier: ~11.4.0
-        version: 11.4.0(expo@49.0.21)
+        specifier: ~11.6.0
+        version: 11.6.0(expo@49.0.21)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.21)
@@ -5690,6 +5690,15 @@ packages:
 
   /expo-font@11.4.0(expo@49.0.21):
     resolution: {integrity: sha512-nkmezCFD7gR/I6R+e3/ry18uEfF8uYrr6h+PdBJu+3dawoLOpo+wFb/RG9bHUekU1/cPanR58LR7G5MEMKHR2w==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.5)
+      fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-font@11.6.0(expo@49.0.21):
+    resolution: {integrity: sha512-ekfU0MN7vzJNGwQCJhxnhF2M9Fq/RtVF5xSQpr8+f4ISPimmKfEcArMHKCl4oG3saFVjSRX7fLbo38WOv3z5Mw==}
     peerDependencies:
       expo: '*'
     dependencies:
