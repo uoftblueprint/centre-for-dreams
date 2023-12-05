@@ -14,7 +14,7 @@
   "dependencies": {
     "@cfd/db": "^0.1.0",
     "@cfd/logger": "^0.1.0",
-    "@clerk/nextjs": "^4.27.1",
+    "@clerk/nextjs": "^4.27.2",
     "@trpc/client": "^10.44.1",
     "@trpc/server": "^10.44.1",
     "date-fns": "^2.30.0",
