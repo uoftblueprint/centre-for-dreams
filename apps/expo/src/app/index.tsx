@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
 import { SignedIn, SignedOut } from "@clerk/clerk-expo";
 
-import SignInScreen from "~/components/SignInScreen";
 import SignInWithOAuth from "~/components/SignInWithOAuth";
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 

@@ -21,7 +21,7 @@ export default function SignInScreen() {
       // This is an important step,
       // This indicates the user is signed in
       await setActive({ session: completeSignIn.createdSessionId });
-    } catch (err: any) {
+    } catch (err) {
       console.log(err);
     }
   };

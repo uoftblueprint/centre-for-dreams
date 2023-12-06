@@ -31,7 +31,7 @@ export default function SignUpScreen() {
 
       // change the UI to our pending section.
       setPendingVerification(true);
-    } catch (err: any) {
+    } catch (err) {
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -48,7 +48,7 @@ export default function SignUpScreen() {
       });
 
       await setActive({ session: completeSignUp.createdSessionId });
-    } catch (err: any) {
+    } catch (err) {
       console.error(JSON.stringify(err, null, 2));
     }
   };

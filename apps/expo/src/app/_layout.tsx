@@ -22,7 +22,7 @@ const RootLayout = () => {
 
   return (
     <ClerkProvider
-      publishableKey={Constants.expoConfig?.extra?.clerkPublishableKey}
+      publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
     >
       <TRPCProvider>
         {/*
