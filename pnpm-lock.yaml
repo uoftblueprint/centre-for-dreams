@@ -130,8 +130,8 @@ importers:
         specifier: ^7.20.5
         version: 7.20.5
       '@types/react':
-        specifier: ^18.2.41
-        version: 18.2.41
+        specifier: ^18.2.42
+        version: 18.2.43
       dotenv-cli:
         specifier: ^7.3.0
         version: 7.3.0
@@ -218,8 +218,8 @@ importers:
         specifier: ^18.19.2
         version: 18.19.2
       '@types/react':
-        specifier: ^18.2.41
-        version: 18.2.41
+        specifier: ^18.2.42
+        version: 18.2.43
       '@types/react-datepicker':
         specifier: ^4.19.3
         version: 4.19.3(react-dom@18.2.0)(react@18.2.0)
@@ -3525,7 +3525,7 @@ packages:
     resolution: {integrity: sha512-85F9eKWu9fGiD9r4KVVMPYAdkJJswR3Wci9PvqplmB6T+D+VbUqPeKtifg96NZ4nEhufjehW+SX4JLrEWVplWw==}
     dependencies:
       '@popperjs/core': 2.11.8
-      '@types/react': 18.2.41
+      '@types/react': 18.2.43
       date-fns: 2.30.0
       react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
@@ -3536,11 +3536,11 @@ packages:
   /@types/react-dom@18.2.17:
     resolution: {integrity: sha512-rvrT/M7Df5eykWFxn6MYt5Pem/Dbyc1N8Y0S9Mrkw2WFCRiqUgw9P7ul2NpwsXCSM1DVdENzdG9J5SreqfAIWg==}
     dependencies:
-      '@types/react': 18.2.41
+      '@types/react': 18.2.43
     dev: true
 
-  /@types/react@18.2.41:
-    resolution: {integrity: sha512-CwOGr/PiLiNBxEBqpJ7fO3kocP/2SSuC9fpH5K7tusrg4xPSRT/193rzolYwQnTN02We/ATXKnb6GqA5w4fRxw==}
+  /@types/react@18.2.43:
+    resolution: {integrity: sha512-nvOV01ZdBdd/KW6FahSbcNplt2jCJfyWdTos61RYHV+FVv5L/g9AOX1bmbVcWcLFL8+KHQfh1zVIQrud6ihyQA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
