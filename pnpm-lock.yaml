@@ -130,7 +130,7 @@ importers:
         specifier: ^7.20.5
         version: 7.20.5
       '@types/react':
-        specifier: ^18.2.42
+        specifier: ^18.2.43
         version: 18.2.43
       dotenv-cli:
         specifier: ^7.3.0
@@ -218,7 +218,7 @@ importers:
         specifier: ^18.19.2
         version: 18.19.2
       '@types/react':
-        specifier: ^18.2.42
+        specifier: ^18.2.43
         version: 18.2.43
       '@types/react-datepicker':
         specifier: ^4.19.3
