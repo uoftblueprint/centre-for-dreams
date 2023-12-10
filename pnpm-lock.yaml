@@ -18,7 +18,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       turbo:
-        specifier: ^1.11.0
+        specifier: ^1.11.1
         version: 1.11.1
       typescript:
         specifier: ^5.3.2
@@ -393,7 +393,7 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.55.0)
       eslint-config-turbo:
-        specifier: ^1.11.0
+        specifier: ^1.11.1
         version: 1.11.1(eslint@8.55.0)
       eslint-plugin-import:
         specifier: ^2.29.0
