@@ -35,7 +35,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tailwind-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
-    "@types/node": "^18.19.3",
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.43",
     "@types/react-datepicker": "^4.19.3",
     "@types/react-dom": "^18.2.17",
