@@ -24,7 +24,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
     "eslint": "^8.55.0",
-    "prettier": "^3.1.0",
+    "prettier": "^3.1.1",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {
