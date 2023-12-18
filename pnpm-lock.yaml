@@ -350,7 +350,7 @@ importers:
   packages/logger:
     dependencies:
       pino:
-        specifier: ^8.17.0
+        specifier: ^8.17.1
         version: 8.17.1
       pino-pretty:
         specifier: ^10.2.3
