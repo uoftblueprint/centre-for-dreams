@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "pino": "^8.17.1",
-    "pino-pretty": "^10.2.3"
+    "pino-pretty": "^10.3.0"
   },
   "devDependencies": {
     "@cfd/eslint-config": "^0.2.0",
