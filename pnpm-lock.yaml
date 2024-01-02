@@ -260,8 +260,8 @@ importers:
         specifier: ^10.45.0
         version: 10.45.0
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
+        specifier: ^3.0.6
+        version: 3.0.6
       expo-server-sdk:
         specifier: ^3.7.0
         version: 3.7.0
@@ -4942,6 +4942,10 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.23.6
+
+  /date-fns@3.0.6:
+    resolution: {integrity: sha512-W+G99rycpKMMF2/YD064b2lE7jJGUe+EjOES7Q8BIGY8sbNdbgcs9XFTZwvzc9Jx1f3k7LB7gZaZa7f8Agzljg==}
+    dev: false
 
   /dateformat@4.6.3:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
