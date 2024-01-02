@@ -21,7 +21,7 @@
     "@neondatabase/serverless": "^0.6.1",
     "@prisma/adapter-neon": "^5.7.1",
     "@prisma/client": "^5.7.1",
-    "ws": "^8.15.1"
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@cfd/eslint-config": "^0.2.0",
