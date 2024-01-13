@@ -157,7 +157,7 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/api
       '@clerk/nextjs':
-        specifier: ^4.29.2
+        specifier: ^4.29.3
         version: 4.29.3(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
       '@t3-oss/env-nextjs':
         specifier: ^0.7.1
@@ -251,7 +251,7 @@ importers:
         specifier: ^0.1.0
         version: link:../logger
       '@clerk/nextjs':
-        specifier: ^4.29.2
+        specifier: ^4.29.3
         version: 4.29.3(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
         specifier: ^10.45.0
