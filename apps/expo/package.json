@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.7",
-    "@babel/runtime": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/runtime": "^7.23.8",
     "@cfd/api": "^0.1.0",
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
