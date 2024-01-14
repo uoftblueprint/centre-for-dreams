@@ -7,7 +7,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
-const splashImage = require("../../assets/landing_page.png");
+const splashImage = require("../../assets/landing_page.svg");
 
 SplashScreen.preventAutoHideAsync();
 
