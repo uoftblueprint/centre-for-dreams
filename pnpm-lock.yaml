@@ -44,6 +44,9 @@ importers:
       '@trpc/server':
         specifier: ^10.45.0
         version: 10.45.0
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       expo:
         specifier: ^49.0.21
         version: 49.0.21(@babel/core@7.23.7)
