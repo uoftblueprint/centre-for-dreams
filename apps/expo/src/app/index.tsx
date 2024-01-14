@@ -25,12 +25,13 @@ const Index = () => {
       .then((token) => setExpoPushToken(token ?? null))
       .catch((err) => console.error(err));
   }, []);
+
   return (
     <SafeAreaView className="">
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text> Index </Text>
+        <Text className="font-poppins"> Index </Text>
       </View>
     </SafeAreaView>
   );
