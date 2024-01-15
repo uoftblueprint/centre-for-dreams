@@ -45,10 +45,10 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
           className="h-8 w-8 rounded-full"
           resizeMode="cover"
         />
-        <Text className="ml-2 mr-2 text-base">{comment.userId}</Text>
-        <Text>Icon</Text>
-        <Text className="ml-2 text-base">{formatElapsed()}</Text>
+        <Text className="ml-2 text-base">John Doe</Text>
+        
       </View>
+      <Text className="ml-10 text-slate-500">{formatElapsed()}</Text>
       <Text className="ml-10 mt-2">{comment.text}</Text>
     </View>
   );
