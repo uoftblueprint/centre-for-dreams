@@ -19,20 +19,20 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
 
     if (weeks >= 52) {
       const years = Math.floor(weeks / 52);
-      return years + (years === 1 ? " year" : " years") + " ago";
+      return years + "y ago";
     } else if (weeks >= 4) {
       const months = Math.floor(weeks / 4);
-      return months + (months === 1 ? " month" : " months") + " ago";
+      return months + "mo ago";
     } else if (days >= 7) {
-      return weeks + (weeks === 1 ? " week" : " weeks") + " ago";
+      return weeks + "w ago";
     } else if (hours >= 24) {
-      return days + (days === 1 ? " day" : " days") + " ago";
+      return days + "d ago";
     } else if (minutes >= 60) {
-      return hours + (hours === 1 ? " hour" : " hours") + " ago";
+      return hours + "h ago";
     } else if (seconds >= 60) {
-      return minutes + (minutes === 1 ? " minute" : " minutes") + " ago";
+      return minutes + "m ago";
     } else {
-      return seconds + (seconds === 1 ? " second" : " seconds") + " ago";
+      return seconds + "s ago";
     }
   }
   return (
@@ -42,14 +42,18 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
           source={{
             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
           }}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full"
           resizeMode="cover"
         />
-        <Text className="ml-2 text-base">John Doe</Text>
-        
+        <View>
+          <Text className="font-poppins400 ml-4 text-base">John Doe</Text>
+          <Text className="font-poppins400 ml-4 text-slate-500">
+            {formatElapsed()}
+          </Text>
+        </View>
       </View>
-      <Text className="ml-10 text-slate-500">{formatElapsed()}</Text>
-      <Text className="ml-10 mt-2">{comment.text}</Text>
+
+      <Text className="font-poppins400 ml-16 mt-2">{comment.text}</Text>
     </View>
   );
 }
