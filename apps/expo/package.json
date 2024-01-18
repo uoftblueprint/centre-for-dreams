@@ -25,7 +25,7 @@
     "@trpc/server": "^10.45.0",
     "date-fns": "^2.30.0",
     "expo": "^49.0.22",
-    "expo-constants": "~14.4.2",
+    "expo-constants": "~14.5.1",
     "expo-dev-client": "~2.4.12",
     "expo-device": "~5.4.0",
     "expo-font": "~11.4.0",
