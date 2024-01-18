@@ -26,7 +26,7 @@ export default function Announcement({
         />
         <View>
           <Text className="font-title-lg ml-4">El Gato</Text>
-          <Text className="ml-4 text-lg">
+          <Text className="ml-4 font-body-lg">
             Posted {TimeFormatter.formatTime(announcement.createdAt)}
           </Text>
         </View>
