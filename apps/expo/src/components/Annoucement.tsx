@@ -1,9 +1,13 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
+import * as Icons from "react-native-heroicons/outline";
 
-import type { RouterInputs } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
+import { TimeFormatter } from "~/utils/format";
 
-type AnnouncementProps = RouterInputs["announcement"]["createAnnouncement"];
+type AnnouncementProps =
+  RouterOutputs["announcement"]["getAnnouncements"][number];
+// type GetAnnouncementOutput =
 
 export default function Announcement({
   announcement,
@@ -12,34 +16,42 @@ export default function Announcement({
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
-      <Text className="text-xl font-bold">{announcement.title}</Text>
       <View className="mt-2 flex-row items-center">
         <Image
           source={{
             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
           }}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full"
           resizeMode="cover"
         />
-        <Text className="ml-2 text-lg">Placeholder Author</Text>
-        <Text className="ml-4 text-lg">Nov 3</Text>
-      </View>
-      <View className="mt-2">
-        <Image
-          source={{
-            uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
-          }}
-          className="h-60 w-fit"
-        />
+        <View>
+          <Text className="font-title-lg ml-4">El Gato</Text>
+          <Text className="ml-4 text-lg">
+            Posted {TimeFormatter.formatTime(announcement.createdAt)}
+          </Text>
+        </View>
       </View>
       <View>
-        <Text className="mt-2 text-lg">{announcement.contents}</Text>
+        <Text className="font-body-md mt-4">{announcement.contents}</Text>
+        <View className="mt-2">
+          <Image
+            source={{
+              uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
+            }}
+            className="h-60 w-fit"
+          />
+        </View>
       </View>
-      <View className="flex-row items-center justify-end">
-        <Text>icon</Text>
-        <Text className="ml-2 mr-2 text-lg">Reply</Text>
-        <Text>icon</Text>
-        <Text className="ml-2 text-lg">Read</Text>
+      <View className="mt-2 flex-row items-center justify-center gap-3">
+        <Icons.HandThumbUpIcon color="black" size={16}></Icons.HandThumbUpIcon>
+        <Text className="font-body-md">Like</Text>
+        <Icons.ChatBubbleOvalLeftIcon
+          color="black"
+          size={16}
+        ></Icons.ChatBubbleOvalLeftIcon>
+        <Text className="font-body-md">Comment</Text>
+        <Icons.PencilIcon color="black" size={16}></Icons.PencilIcon>
+        <Text className="font-body-md">Edit</Text>
       </View>
     </View>
   );
