@@ -7,7 +7,6 @@ import { TimeFormatter } from "~/utils/format";
 
 type AnnouncementProps =
   RouterOutputs["announcement"]["getAnnouncements"][number];
-// type GetAnnouncementOutput =
 
 export default function Announcement({
   announcement,
@@ -26,7 +25,7 @@ export default function Announcement({
         />
         <View>
           <Text className="font-title-lg ml-4">El Gato</Text>
-          <Text className="ml-4 font-body-lg">
+          <Text className="font-body-lg ml-4">
             Posted {TimeFormatter.formatTime(announcement.createdAt)}
           </Text>
         </View>
