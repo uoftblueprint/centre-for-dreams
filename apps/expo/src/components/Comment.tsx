@@ -46,14 +46,12 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
           resizeMode="cover"
         />
         <View>
-          <Text className="font-poppins400 ml-4 text-base">John Doe</Text>
-          <Text className="font-poppins400 ml-4 text-slate-500">
-            {formatElapsed()}
-          </Text>
+          <Text className="font-title-md ml-4">John Doe</Text>
+          <Text className="font-body-md text-n-60 ml-4">{formatElapsed()}</Text>
         </View>
       </View>
 
-      <Text className="font-poppins400 ml-16 mt-2">{comment.text}</Text>
+      <Text className="ffont-body-md ml-16 mt-2">{comment.text}</Text>
     </View>
   );
 }
