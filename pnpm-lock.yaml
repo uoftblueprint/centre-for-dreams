@@ -60,8 +60,8 @@ importers:
         specifier: ~5.4.0
         version: 5.4.0(expo@49.0.22)
       expo-font:
-        specifier: ~11.4.0
-        version: 11.4.0(expo@49.0.22)
+        specifier: ~11.10.1
+        version: 11.10.2(expo@49.0.22)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.22)
@@ -5707,6 +5707,15 @@ packages:
     dependencies:
       expo: 49.0.22(@babel/core@7.23.7)
       uuid: 3.4.0
+    dev: false
+
+  /expo-font@11.10.2(expo@49.0.22):
+    resolution: {integrity: sha512-AE0Q0LiWiVosQ/jlKUPoWoob7p3GwYM2xmLoUkuopO9RYh9NL1hZKHiMKcWBZyDG8Gww1GtBQwh7ZREST8+jjQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.22(@babel/core@7.23.7)
+      fontfaceobserver: 2.3.0
     dev: false
 
   /expo-font@11.4.0(expo@49.0.22):
