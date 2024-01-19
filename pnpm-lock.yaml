@@ -57,8 +57,8 @@ importers:
         specifier: ~2.4.12
         version: 2.4.12(expo@49.0.22)
       expo-device:
-        specifier: ~5.4.0
-        version: 5.4.0(expo@49.0.22)
+        specifier: ~5.9.2
+        version: 5.9.3(expo@49.0.22)
       expo-font:
         specifier: ~11.4.0
         version: 11.4.0(expo@49.0.22)
@@ -5686,8 +5686,8 @@ packages:
       semver: 7.5.4
     dev: false
 
-  /expo-device@5.4.0(expo@49.0.22):
-    resolution: {integrity: sha512-TQxSVPrC6njCbzZ9Cqpc1lGLIjPmO1zBIbqW7CTqBPD1dOIMrgQvt7lZZhkHh3pWzoZznH283sSYqCvy3XcURw==}
+  /expo-device@5.9.3(expo@49.0.22):
+    resolution: {integrity: sha512-azH5rz8krDZUJb/arqkcA6oZGaX2T5s4aaXIMFsDDzvq8TW0CttZZy2HFp6itmFdiKGdRpFX3/Gj0n6ZmPoJ/w==}
     peerDependencies:
       expo: '*'
     dependencies:
