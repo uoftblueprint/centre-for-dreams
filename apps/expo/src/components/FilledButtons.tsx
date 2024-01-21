@@ -28,8 +28,6 @@ const FilledButton: React.FC<FilledButtonProps> = ({
 
 const baseButtonStyle = {
   height: 40,
-  top: 145.24,
-  left: 36.2,
   borderRadius: 100,
   gap: 8,
   paddingHorizontal: 24,
