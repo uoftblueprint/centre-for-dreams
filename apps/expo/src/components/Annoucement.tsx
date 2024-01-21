@@ -41,7 +41,7 @@ export default function Announcement({
           />
         </View>
       </View>
-      <View className="mt-2 flex-row items-center justify-center gap-3">
+      <View className="mt-2 flex-row items-center justify-center  gap-x-3">
         <Icons.HandThumbUpIcon color="black" size={16}></Icons.HandThumbUpIcon>
         <Text className="font-body-md">Like</Text>
         <Icons.ChatBubbleOvalLeftIcon
