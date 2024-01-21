@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback } from "react";
 import { Button } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { useOAuth } from "@clerk/clerk-expo";
@@ -14,7 +14,7 @@ const SignInWithOAuth = () => {
 
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
-  const onPress = React.useCallback(async () => {
+  const onPress = useCallback(async () => {
     try {
       const { createdSessionId, setActive } = await startOAuthFlow();
 

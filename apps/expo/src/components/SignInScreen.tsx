@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-root-toast";
 import { useSignIn } from "@clerk/clerk-expo";
@@ -6,8 +6,8 @@ import { useSignIn } from "@clerk/clerk-expo";
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn();
 
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSignInPress = async () => {
     if (!isLoaded) {

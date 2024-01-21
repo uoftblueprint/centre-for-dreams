@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-root-toast";
 import { useSignUp } from "@clerk/clerk-expo";
@@ -6,12 +6,12 @@ import { useSignUp } from "@clerk/clerk-expo";
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
 
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [pendingVerification, setPendingVerification] = React.useState(false);
-  const [code, setCode] = React.useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [code, setCode] = useState("");
 
   // start the sign up process.
   const onSignUpPress = async () => {

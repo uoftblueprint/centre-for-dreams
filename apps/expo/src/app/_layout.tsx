@@ -1,4 +1,5 @@
 import React from "react";
+import { RootSiblingParent } from "react-native-root-siblings";
 import Constants from "expo-constants";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -24,14 +25,16 @@ const RootLayout = () => {
     <ClerkProvider
       publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
     >
-      <TRPCProvider>
-        {/*
+      <RootSiblingParent>
+        <TRPCProvider>
+          {/*
         The Stack component displays the current page.
         It also allows you to configure your screens 
       */}
-        <Stack />
-        <StatusBar />
-      </TRPCProvider>
+          <Stack />
+          <StatusBar />
+        </TRPCProvider>
+      </RootSiblingParent>
     </ClerkProvider>
   );
 };
