@@ -6,11 +6,11 @@ import type { RouterOutputs } from "~/utils/api";
 type GetAnnouncementOutput =
   RouterOutputs["announcement"]["getAnnouncements"][number];
 
-interface AnnouncementTileProps {
+interface AnnouncementCardProps {
   announcement: GetAnnouncementOutput;
 }
 
-const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
+const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   announcement: { title, createdAt },
 }) => {
   const createdBy = "Michelle C.";
@@ -62,4 +62,4 @@ const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
   );
 };
 
-export default AnnouncementTile;
+export default AnnouncementCard;
