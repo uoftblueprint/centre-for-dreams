@@ -33,6 +33,7 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: process.env.EXPO_PROJECT_ID,
     },
+    clerkPublishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
   experiments: {
     tsconfigPaths: true,
