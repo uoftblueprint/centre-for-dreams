@@ -18,5 +18,5 @@
   "ignoreDeps": ["next"],
   "rangeStrategy": "bump",
   "minimumReleaseAge": "5 days",
-  "schedule": ["schedule:monthly"],
+  "schedule": ["schedule:monthly"]
 }
