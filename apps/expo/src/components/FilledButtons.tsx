@@ -12,61 +12,31 @@ const FilledButton: React.FC<FilledButtonProps> = ({
   disabled = false,
   children,
 }) => {
-  return (
-    <TouchableOpacity onPress={onClick} disabled={disabled}>
-      <View style={disabled ? styles.disabledButton : styles.enabledButton}>
-        <Text
-          style={disabled ? styles.disabledText : styles.enabledText}
-          className="font-poppins"
-        >
-          {children}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
+  if (disabled) {
+    return (
+      <TouchableOpacity onPress={onClick} disabled={disabled}>
+        <View className="inline-flex h-12 items-center justify-center gap-2">
+          <View className="bg-n-10/10 rounded-full px-6 py-2.5">
+            <Text className="font-title-md text-n-10/40 text-center">
+              {children}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  } else {
+    return (
+      <TouchableOpacity onPress={onClick} disabled={disabled}>
+        <View className="inline-flex h-12 items-center justify-center gap-2">
+          <View className="bg-p-40 rounded-full px-6 py-2.5">
+            <Text className="font-title-md text-e-100 text-center">
+              {children}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 };
-
-const baseButtonStyle = {
-  height: 40,
-  borderRadius: 100,
-  gap: 8,
-  paddingHorizontal: 24,
-  paddingVertical: 10,
-};
-
-const styles = StyleSheet.create({
-  enabledButton: {
-    ...baseButtonStyle,
-    backgroundColor: "#2E4D90",
-    alignSelf: "flex-start",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  disabledButton: {
-    ...baseButtonStyle,
-    backgroundColor: "#1D1B201F",
-    alignSelf: "flex-start",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  enabledText: {
-    fontSize: 16,
-    fontWeight: "500",
-    lineHeight: 24,
-    letterSpacing: 0.15,
-    textAlign: "center",
-    color: "white",
-  },
-  disabledText: {
-    fontSize: 16,
-    fontWeight: "500",
-    lineHeight: 24,
-    letterSpacing: 0.15,
-    textAlign: "center",
-    color: "rgba(29, 27, 32, 0.38)",
-  },
-});
 
 export default FilledButton;
