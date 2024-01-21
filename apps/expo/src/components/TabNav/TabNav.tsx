@@ -14,7 +14,7 @@ const TabNav: React.FC<TabNavProps> & { Tab: typeof Tab } = ({ children }) => {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
-        <StyledView className="flex-row w-full bg-p-99">
+        <StyledView className="flex-row w-full bg-p-99 rounded-full">
             {
                 React.Children.map(children, (child, index) =>
                     React.cloneElement(child as React.ReactElement, {
