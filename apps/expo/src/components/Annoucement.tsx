@@ -24,7 +24,7 @@ export default function Announcement({
           resizeMode="cover"
         />
         <View>
-          <Text className="font-title-lg ml-4">El Gato</Text>
+          <Text className="font-title-lg ml-4">{announcement.title}</Text>
           <Text className="font-body-lg ml-4">
             posted {TimeFormatter.formatTime(announcement.createdAt)}
           </Text>
