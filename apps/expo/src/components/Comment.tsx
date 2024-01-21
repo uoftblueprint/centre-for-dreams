@@ -51,7 +51,7 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
         </View>
       </View>
 
-      <Text className="ffont-body-md ml-16 mt-2">{comment.text}</Text>
+      <Text className="font-body-md ml-16 mt-2">{comment.text}</Text>
     </View>
   );
 }
