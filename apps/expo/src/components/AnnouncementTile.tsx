@@ -13,47 +13,51 @@ interface AnnouncementTileProps {
 const AnnouncementTile: React.FC<AnnouncementTileProps> = ({
   announcement: { title, createdAt },
 }) => {
-  const createdBy = "Placeholder User";
+  const createdBy = "Michelle C.";
   const userImageSrc: ImageSourcePropType = {
     uri: "https://csncollision.com/wp-content/uploads/2019/10/placeholder-circle.png",
   };
   const titleImageSrc: ImageSourcePropType = {
-    uri: "https://dummyimage.com/640x360/fff/aaa",
+    uri: "https://s3-alpha-sig.figma.com/img/f246/82fa/befee9f4978b6cc8b351a2f3b81d456d?Expires=1706486400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fPv06M5fmTfRNUsxZoeLLUUsdCK2ISw6gt6qir1vkJp-xIWN6mKFegXWCWTKTfFvQYHMPPCxKRT7-vLH0NkKPm~Nj2s~AFwHgXunypaS0nhLeecpbEBMBSysfkwFRjN5vK-dUSiGArjau-DQ6v262W6bCg-4L85Ykj5-4Ii0Bu0scVsNjSSRkM1r00OzJChy-hpgsHGuT-V3DwT0Pta~Hs2KT44TM3p1IK3tIgIZuvc6hoQJXmPCctSm1EV1Oxhs~hARLqbkUtVDGxFbUAoew0xjRC1B1Xc7qZEB-v0HFYEC0gTv9SQx9GdswPtJYFvb1BgVl1alkaWpV7ZGTJujWA__",
   };
 
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
+    year: "2-digit",
     month: "2-digit",
     day: "2-digit",
   }).format(createdAt);
 
   return (
-    <View className="flex flex-row items-center justify-evenly rounded-xl bg-gray-200 bg-opacity-40 py-4">
+    <View className="border-nv-80 flex flex-row items-center justify-start rounded-xl border py-[10px]">
       <View className="flex-[0.3] items-center">
         <Image
           source={titleImageSrc}
           accessibilityLabel={`Announcement title image`}
-          className="h-20 w-20"
-          resizeMode="stretch"
+          className="h-14 w-14"
+          resizeMode="cover"
         />
       </View>
-      <View className="bg-pink flex-[0.7] justify-evenly gap-3">
-        <Text className="flex-wrap font-serif text-base font-semibold">
+      <View className="flex-[0.7] gap-4 p-4 pl-0">
+        <Text
+          numberOfLines={1}
+          className="text-base font-medium tracking-[0.15px]"
+        >
           {title}
         </Text>
-        <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center gap-0.5">
+        <View className="flex-row justify-between">
+          <View className="flex-row items-center gap-[5px]">
             <Image
               source={userImageSrc}
               accessibilityLabel={`${createdBy}'s picture`}
               resizeMode="cover"
-              className="outline-3 h-4 w-4 outline-black"
+              className="outline-3 h-5 w-5 outline-black"
             />
-            <Text className="text-base">{createdBy}</Text>
+            <Text className="text-sm">{createdBy}</Text>
           </View>
-          <Text className="flex-[0.8] text-base">{createdAtFormatted}</Text>
+          <Text className="text-sm">{createdAtFormatted}</Text>
         </View>
       </View>
+      <View className="w-1 flex-[0.05]"></View>
     </View>
   );
 };
