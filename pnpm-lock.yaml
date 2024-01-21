@@ -303,7 +303,7 @@ importers:
         specifier: ^0.1.0
         version: link:../logger
       '@neondatabase/serverless':
-        specifier: ^0.7.1
+        specifier: ^0.7.2
         version: 0.7.2
       '@prisma/adapter-neon':
         specifier: ^5.8.1
