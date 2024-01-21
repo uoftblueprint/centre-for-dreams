@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement } from 'react';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { styled } from 'nativewind';
@@ -7,7 +7,7 @@ import Tab from './Tab';
 const StyledView = styled(View)
 
 interface TabNavProps {
-    children: ReactNode[];
+    children: ReactElement<typeof Tab>[]
 }
 
 const TabNav: React.FC<TabNavProps> & { Tab: typeof Tab } = ({ children }) => {
@@ -19,7 +19,7 @@ const TabNav: React.FC<TabNavProps> & { Tab: typeof Tab } = ({ children }) => {
                 React.Children.map(children, (child, index) =>
                     React.cloneElement(child as React.ReactElement, {
                         isActive: index === activeTab,
-                        onPress: () => setActiveTab(index),
+                        onChange: () => setActiveTab(index),
                     }),
                 )
             }
