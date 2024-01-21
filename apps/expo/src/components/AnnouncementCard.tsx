@@ -38,10 +38,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
         />
       </View>
       <View className="flex-[0.7] gap-4 p-4 pl-0">
-        <Text
-          numberOfLines={1}
-          className="text-base font-medium tracking-[0.15px]"
-        >
+        <Text numberOfLines={1} className="font-title-md">
           {title}
         </Text>
         <View className="flex-row justify-between">
@@ -52,9 +49,9 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
               resizeMode="cover"
               className="outline-3 h-5 w-5 outline-black"
             />
-            <Text className="text-sm">{createdBy}</Text>
+            <Text className="font-body-m">{createdBy}</Text>
           </View>
-          <Text className="text-sm">{createdAtFormatted}</Text>
+          <Text className="font-body-m">{createdAtFormatted}</Text>
         </View>
       </View>
       <View className="w-1 flex-[0.05]"></View>
