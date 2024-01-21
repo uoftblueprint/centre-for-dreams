@@ -14,16 +14,18 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
           source={{
             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
           }}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full"
           resizeMode="cover"
         />
-        <Text className="ml-2 mr-2 text-base">{comment.userId}</Text>
-        <Text>Icon</Text>
-        <Text className="ml-2 text-base">
-          {TimeFormatter.formatTime(comment.createdAt)}
-        </Text>
+        <View>
+          <Text className="font-title-md ml-4">John Doe</Text>
+          <Text className="font-body-md text-n-60 ml-4">
+            {TimeFormatter.formatTime(comment.createdAt)}
+          </Text>
+        </View>
       </View>
-      <Text className="ml-10 mt-2">{comment.text}</Text>
+
+      <Text className="font-body-md ml-16 mt-2">{comment.text}</Text>
     </View>
   );
 }

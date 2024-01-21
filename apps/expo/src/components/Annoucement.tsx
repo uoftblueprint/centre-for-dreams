@@ -26,12 +26,12 @@ export default function Announcement({
         <View>
           <Text className="font-title-lg ml-4">El Gato</Text>
           <Text className="font-body-lg ml-4">
-            Posted {TimeFormatter.formatTime(announcement.createdAt)}
+            posted {TimeFormatter.formatTime(announcement.createdAt)}
           </Text>
         </View>
       </View>
       <View>
-        <Text className="font-body-md mt-4">{announcement.contents}</Text>
+        <Text className="font-body-lg mt-4">{announcement.contents}</Text>
         <View className="mt-2">
           <Image
             source={{
