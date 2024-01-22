@@ -2,13 +2,13 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 interface TabProps {
-  label: string;
   onChange?: () => void;
   isActive?: boolean;
   onPress?: () => void;
+  children?: React.ReactNode;
 }
 
-const Tab: React.FC<TabProps> = ({ label, onChange, isActive, onPress }) => {
+const Tab: React.FC<TabProps> = ({ onChange, isActive, onPress, children }) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -20,7 +20,7 @@ const Tab: React.FC<TabProps> = ({ label, onChange, isActive, onPress }) => {
       }`}
     >
       <Text className={`text-p-0 font-title-md text-center text-sm`}>
-        {label}
+        {children}
       </Text>
     </TouchableOpacity>
   );
