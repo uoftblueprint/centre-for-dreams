@@ -43,6 +43,7 @@
     "react-native-root-toast": "^3.5.1",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.1",
+    "react-native-svg": "^14.1.0",
     "superjson": "2.2.1"
   },
   "devDependencies": {

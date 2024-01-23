@@ -6,7 +6,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
-import splashImage from "../../assets/landing_page.svg";
+import SplashImage from "../../assets/landing_page.svg";
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -32,9 +32,6 @@ const Index = () => {
         await registerForPushNotificationsAsync()
           .then((token) => setExpoPushToken(token ?? null))
           .catch((err) => console.error(err));
-
-        // Load the splash image
-        await Image.prefetch(splashImage);
       } catch (e) {
         console.warn(e);
       } finally {
@@ -60,7 +57,7 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page" }} />
 
       <View style={styles.container}>
-        <Image source={splashImage} style={styles.splashImage} />
+        <SplashImage style={styles.splashImage} />
         <Text> Index </Text>
       </View>
 
