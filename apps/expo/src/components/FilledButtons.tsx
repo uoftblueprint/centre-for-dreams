@@ -15,11 +15,9 @@ const FilledButton: React.FC<FilledButtonProps> = ({
   if (disabled) {
     return (
       <TouchableOpacity onPress={onClick} disabled={disabled}>
-        <View className="inline-flex h-12 items-center justify-center gap-2">
+        <View className="h-12 items-start gap-2">
           <View className="bg-n-10/10 rounded-full px-6 py-2.5">
-            <Text className="font-title-md text-n-10/40 text-center">
-              {children}
-            </Text>
+            <Text className="font-title-md text-n-10/40">{children}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -27,11 +25,9 @@ const FilledButton: React.FC<FilledButtonProps> = ({
   } else {
     return (
       <TouchableOpacity onPress={onClick} disabled={disabled}>
-        <View className="inline-flex h-12 items-center justify-center gap-2">
+        <View className="h-12 items-start gap-2">
           <View className="bg-p-40 rounded-full px-6 py-2.5">
-            <Text className="font-title-md text-e-100 text-center">
-              {children}
-            </Text>
+            <Text className="font-title-md text-e-100">{children}</Text>
           </View>
         </View>
       </TouchableOpacity>
