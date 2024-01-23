@@ -46,6 +46,7 @@ const Index = () => {
     void prepare();
   }, []);
 
+
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
@@ -59,9 +60,14 @@ const Index = () => {
   return (
     <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Stack.Screen options={{ title: "Home Page" }} />
+
       <View style={styles.container}>
         <Image source={splashImage} style={styles.splashImage} />
         <Text> Index </Text>
+      </View>
+
+      <View className="h-full w-full p-4">
+        <Text className="font-poppins400"> Index </Text>
       </View>
     </SafeAreaView>
   );

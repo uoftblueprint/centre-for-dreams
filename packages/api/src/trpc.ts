@@ -6,6 +6,7 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+import { clerkClient } from "@clerk/nextjs";
 import { getAuth } from "@clerk/nextjs/server";
 import type { PrismaClient } from "@prisma/client";
 import { initTRPC, TRPCError } from "@trpc/server";
@@ -120,6 +121,16 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
+  await ctx.db.participant.upsert({
+    where: {
+      id: 1,
+    },
+    update: {},
+    create: {
+      name: "Test",
+    },
+  });
+
   // If the user isn't in our database yet, insert them
   const userId = ctx.auth.userId;
   const user = await ctx.db.user.upsert({
@@ -129,6 +140,7 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     update: {},
     create: {
       clerkId: userId,
+      participantId: 1,
     },
   });
 
@@ -136,6 +148,30 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
     ctx: {
       auth: ctx.auth,
       userId: user.id, // the user id within OUR database, a monotonically increasing integer
+    },
+  });
+});
+
+// only intended to be called after calling isAuthed()
+const isAdminAuthed = t.middleware(async ({ next, ctx }) => {
+  // prior to this the user should've been inserted into our database already
+  if (!ctx.auth.userId || !ctx.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  // we have to fetch using clerkClient since auth.user is undefined for some reason
+  const clerkId = ctx.auth.userId;
+  const clerkUser = await clerkClient.users.getUser(clerkId);
+
+  // protect every route
+  if (clerkUser.publicMetadata.isAdmin !== true) {
+    // we should probably let user know they're not authorized
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  // need to update userId here even though it didn't change to make eslint realize it can't be null
+  return next({
+    ctx: {
+      userId: ctx.userId, // the user id within OUR database, a monotonically increasing integer
     },
   });
 });
@@ -149,4 +185,4 @@ export const protectedProcedure = t.procedure.use(isAuthed);
  * Should be used for all admin dashboard functionality.
  *
  */
-export const adminProcedure = t.procedure.use(isAuthed);
+export const adminProcedure = t.procedure.use(isAuthed).use(isAdminAuthed);
