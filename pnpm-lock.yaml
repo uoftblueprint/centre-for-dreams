@@ -105,8 +105,8 @@ importers:
         specifier: ~3.22.1
         version: 3.22.1(react-native@0.72.6)(react@18.2.0)
       react-native-svg:
-        specifier: ^14.1.0
-        version: 14.1.0(react-native@0.72.6)(react@18.2.0)
+        specifier: 13.9.0
+        version: 13.9.0(react-native@0.72.6)(react@18.2.0)
       superjson:
         specifier: 2.2.1
         version: 2.2.1
@@ -136,7 +136,7 @@ importers:
         specifier: ^0.1.0
         version: link:../../tooling/typescript
       '@expo/config-plugins':
-        specifier: ^7.2.5
+        specifier: ~7.2.2
         version: 7.2.5
       '@types/babel__core':
         specifier: ^7.20.5
@@ -9737,8 +9737,8 @@ packages:
       warn-once: 0.1.1
     dev: false
 
-  /react-native-svg@14.1.0(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-HeseElmEk+AXGwFZl3h56s0LtYD9HyGdrpg8yd9QM26X+d7kjETrRQ9vCjtxuT5dCZEIQ5uggU1dQhzasnsCWA==}
+  /react-native-svg@13.9.0(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-Ey18POH0dA0ob/QiwCBVrxIiwflhYuw0P0hBlOHeY4J5cdbs8ngdKHeWC/Kt9+ryP6fNoEQ1PUgPYw2Bs/rp5Q==}
     peerDependencies:
       react: '*'
       react-native: '*'
