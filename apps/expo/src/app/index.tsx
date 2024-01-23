@@ -46,7 +46,6 @@ const Index = () => {
     void prepare();
   }, []);
 
-
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
