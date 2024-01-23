@@ -6,10 +6,9 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+import splashImage from "../../assets/landing_page.svg";
 
-const splashImage = require("../../assets/landing_page.svg");
-
-SplashScreen.preventAutoHideAsync();
+void SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
