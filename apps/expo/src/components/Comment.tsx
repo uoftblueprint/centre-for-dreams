@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
-import { TimeFormatter } from "~/utils/format";
+import { formatTime } from "~/utils/format";
 
 type CommentComponent = RouterOutputs["comment"]["create"];
 
@@ -20,7 +20,7 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
         <View>
           <Text className="font-title-md ml-4">John Doe</Text>
           <Text className="font-body-md text-n-60 ml-4">
-            {TimeFormatter.formatTime(comment.createdAt)}
+            {formatTime(comment.createdAt)}
           </Text>
         </View>
       </View>

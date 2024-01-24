@@ -40,13 +40,20 @@ export default function Announcement({
           />
         </View>
       </View>
-      <View className="mt-2 flex-row items-center justify-center  gap-x-3">
-        <Text>o</Text>
-        <Text className="font-body-md">Like</Text>
-        <Text>o</Text>
-        <Text className="font-body-md">Comment</Text>
-        <Text>o</Text>
-        <Text className="font-body-md">Edit</Text>
+      <View className="mt-2 flex-row items-center justify-center  gap-x-6">
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Like</Text>
+        </View>
+
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Comment</Text>
+        </View>
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Edit</Text>
+        </View>
       </View>
     </View>
   );
