@@ -1,9 +1,8 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import * as Icons from "react-native-heroicons/outline";
 
 import type { RouterOutputs } from "~/utils/api";
-import { TimeFormatter } from "~/utils/format";
+import { formatTime } from "~/utils/format";
 
 type AnnouncementProps =
   RouterOutputs["announcement"]["getAnnouncements"][number];
@@ -24,9 +23,9 @@ export default function Announcement({
           resizeMode="cover"
         />
         <View>
-          <Text className="font-title-lg ml-4">{announcement.title}</Text>
+          <Text className="font-title-lg ml-4 mr-4">{announcement.title}</Text>
           <Text className="font-body-lg ml-4">
-            posted {TimeFormatter.formatTime(announcement.createdAt)}
+            posted {formatTime(announcement.createdAt)}
           </Text>
         </View>
       </View>
@@ -42,14 +41,11 @@ export default function Announcement({
         </View>
       </View>
       <View className="mt-2 flex-row items-center justify-center  gap-x-3">
-        <Icons.HandThumbUpIcon color="black" size={16}></Icons.HandThumbUpIcon>
+        <Text>o</Text>
         <Text className="font-body-md">Like</Text>
-        <Icons.ChatBubbleOvalLeftIcon
-          color="black"
-          size={16}
-        ></Icons.ChatBubbleOvalLeftIcon>
+        <Text>o</Text>
         <Text className="font-body-md">Comment</Text>
-        <Icons.PencilIcon color="black" size={16}></Icons.PencilIcon>
+        <Text>o</Text>
         <Text className="font-body-md">Edit</Text>
       </View>
     </View>
