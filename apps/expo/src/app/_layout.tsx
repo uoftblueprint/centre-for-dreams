@@ -11,6 +11,7 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import { TRPCProvider } from "~/utils/api";
+import NavBar from "../components/NavBar/NavBar";
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need
@@ -33,6 +34,7 @@ const RootLayout = () => {
       */}
           <Stack />
           <StatusBar />
+          <NavBar />
         </TRPCProvider>
       </RootSiblingParent>
     </ClerkProvider>
