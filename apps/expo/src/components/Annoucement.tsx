@@ -1,9 +1,11 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-import type { RouterInputs } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
+import { formatTime } from "~/utils/dateformatter";
 
-type AnnouncementProps = RouterInputs["announcement"]["createAnnouncement"];
+type AnnouncementProps =
+  RouterOutputs["announcement"]["getAnnouncements"][number];
 
 export default function Announcement({
   announcement,
@@ -12,34 +14,46 @@ export default function Announcement({
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
-      <Text className="text-xl font-bold">{announcement.title}</Text>
       <View className="mt-2 flex-row items-center">
         <Image
           source={{
             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
           }}
-          className="h-8 w-8 rounded-full"
+          className="h-12 w-12 rounded-full"
           resizeMode="cover"
         />
-        <Text className="ml-2 text-lg">Placeholder Author</Text>
-        <Text className="ml-4 text-lg">Nov 3</Text>
-      </View>
-      <View className="mt-2">
-        <Image
-          source={{
-            uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
-          }}
-          className="h-60 w-fit"
-        />
+        <View>
+          <Text className="font-title-lg ml-4 mr-4">{announcement.title}</Text>
+          <Text className="font-body-lg ml-4">
+            posted {formatTime(announcement.createdAt)}
+          </Text>
+        </View>
       </View>
       <View>
-        <Text className="mt-2 text-lg">{announcement.contents}</Text>
+        <Text className="font-body-lg mt-4">{announcement.contents}</Text>
+        <View className="mt-2">
+          <Image
+            source={{
+              uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
+            }}
+            className="h-60 w-fit"
+          />
+        </View>
       </View>
-      <View className="flex-row items-center justify-end">
-        <Text>icon</Text>
-        <Text className="ml-2 mr-2 text-lg">Reply</Text>
-        <Text>icon</Text>
-        <Text className="ml-2 text-lg">Read</Text>
+      <View className="mt-2 flex-row items-center justify-center  gap-x-6">
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Like</Text>
+        </View>
+
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Comment</Text>
+        </View>
+        <View className="flex-row gap-2">
+          <Text>o</Text>
+          <Text className="font-body-md">Edit</Text>
+        </View>
       </View>
     </View>
   );
