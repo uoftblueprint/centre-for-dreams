@@ -34,7 +34,7 @@ const NavBar = () => {
   ];
   return (
     <View>
-      <View className="bottom-0 h-20 w-fit flex-row items-center justify-evenly rounded-t-3xl bg-slate-300">
+      <View className="bottom-0 h-20 w-fit flex-row items-center justify-evenly rounded-t-2xl bg-slate-300">
         {tabs.map((item, index) => (
           <NavTab
             key={index}
