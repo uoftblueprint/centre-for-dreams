@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
-import { formatTime } from "~/utils/format";
+import { formatTime } from "~/utils/dateformatter";
 
 type AnnouncementProps =
   RouterOutputs["announcement"]["getAnnouncements"][number];
