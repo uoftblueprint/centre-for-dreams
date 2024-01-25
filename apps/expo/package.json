@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "pnpm with-env expo start --go",
+    "dev:tunnel": "pnpm with-env expo start --go",
     "dev:android": "pnpm with-env expo start --android",
     "dev:ios": "pnpm with-env expo start --ios",
     "lint": "eslint .",
