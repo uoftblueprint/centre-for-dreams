@@ -2,12 +2,10 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Tabs } from "expo-router";
 
-import { TAB_ROUTES } from "./TabRoutes";
-
 const NavBar = () => {
   return (
     <Tabs
-      screenOptions={({ route }) => ({
+      screenOptions={{
         headerShown: false,
         tabBarStyle: {
           height: "10%",
@@ -17,6 +15,12 @@ const NavBar = () => {
           backgroundColor: "#D5DBE9",
           position: "absolute",
         },
+        tabBarLabelStyle: {
+          fontFamily: "Poppins_500Medium",
+          fontSize: 14,
+          color: "#2E4D90",
+          top: 10,
+        },
         tabBarIcon: ({ focused }) => (
           <View
             className={`top-2 h-9 w-[68px] flex-1 items-center justify-center ${
@@ -25,23 +29,14 @@ const NavBar = () => {
           >
             <View className="h-9 w-9 items-center justify-center">
               {/* Add icon here for tab */}
-              <Text
-                className={`font-poppins500 text-sm font-medium text-blue-900`}
-              >
+              <Text className={`font-poppins500 text-p-40 text-sm font-medium`}>
                 {" "}
                 ?{" "}
               </Text>
             </View>
           </View>
         ),
-        tabBarLabel: () => (
-          <Text
-            className={`font-poppins500 top-3 text-sm font-medium text-blue-900`}
-          >
-            {route.name}
-          </Text>
-        ),
-      })}
+      }}
     >
       <Tabs.Screen
         // Name of the route to hide.
@@ -51,27 +46,31 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name={TAB_ROUTES.CALENDAR}
+        name="calendar"
         options={{
-          href: TAB_ROUTES.CALENDAR,
+          href: "/calendar",
+          tabBarLabel: "Calendar",
         }}
       />
       <Tabs.Screen
-        name={TAB_ROUTES.NOTICES}
+        name="notices"
         options={{
-          href: TAB_ROUTES.NOTICES,
+          href: "/notices",
+          tabBarLabel: "Notices",
         }}
       />
       <Tabs.Screen
-        name={TAB_ROUTES.FORUM}
+        name="forum"
         options={{
-          href: TAB_ROUTES.FORUM,
+          href: "/forum",
+          tabBarLabel: "Forum",
         }}
       />
       <Tabs.Screen
-        name={TAB_ROUTES.ACCOUNT}
+        name="account"
         options={{
-          href: TAB_ROUTES.ACCOUNT,
+          href: "/account",
+          tabBarLabel: "Account",
         }}
       />
     </Tabs>

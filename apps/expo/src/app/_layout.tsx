@@ -9,7 +9,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
-import NavBar from "~/components/NavBar/NavBar";
+import NavBar from "~/components/NavBar";
 import { TRPCProvider } from "~/utils/api";
 
 // This is the main layout of the app
