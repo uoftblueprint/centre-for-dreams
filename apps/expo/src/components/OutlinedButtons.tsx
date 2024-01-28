@@ -4,21 +4,21 @@ import { Text, TouchableOpacity, View } from "react-native";
 interface OutlinedButtonProps {
   onClick: () => void;
   children: React.ReactNode;
-  focused?: boolean;
+  dark_blue: boolean;
   // icon to be added
 }
 
 const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   onClick,
   children,
-  focused = true,
+  dark_blue,
 }) => {
   return (
-    <TouchableOpacity onPress={onClick} disabled={!focused}>
+    <TouchableOpacity onPress={onClick}>
       <View className="h-12 items-start gap-2">
         <View
           className={`border-p-40 rounded-full border bg-white px-6 py-2.5 ${
-            focused ? "bg-white" : "bg-p-80"
+            dark_blue ? "bg-p-80" : "bg-white"
           }`}
         >
           <Text className="font-title-md text-p-40">{children}</Text>
