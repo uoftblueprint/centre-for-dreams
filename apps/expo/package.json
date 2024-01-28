@@ -55,7 +55,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tailwind-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
-    "@expo/config-plugins": "~7.2.2",
+    "@expo/config-plugins": "^7.2.5",
     "@types/babel__core": "^7.20.5",
     "@types/react": "^18.2.48",
     "dotenv-cli": "^7.3.0",
