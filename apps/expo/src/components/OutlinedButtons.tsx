@@ -2,19 +2,19 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 interface OutlinedButtonProps {
-  onClick: () => void;
+  onPress: () => void;
   children: React.ReactNode;
   fill: boolean;
   // icon to be added
 }
 
 const OutlinedButton: React.FC<OutlinedButtonProps> = ({
-  onClick,
+  onPress,
   children,
   fill,
 }) => {
   return (
-    <TouchableOpacity onPress={onClick}>
+    <TouchableOpacity onPress={onPress}>
       <View className="h-12 items-start gap-2">
         <View
           className={`border-p-40 rounded-full border bg-white px-6 py-2.5 ${
