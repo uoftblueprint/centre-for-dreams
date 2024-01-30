@@ -15,9 +15,9 @@ const OutlinedButton: React.FC<OutlinedButtonProps> = ({
 }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View className="h-12 items-start gap-2">
+      <View className="h-12 flex-auto items-start gap-2">
         <View
-          className={`border-p-40 rounded-full border bg-white px-6 py-2.5 ${
+          className={`border-p-40 rounded-full border bg-white px-6 py-2 ${
             fill ? "bg-p-80" : "bg-white"
           }`}
         >
