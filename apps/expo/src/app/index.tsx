@@ -1,11 +1,10 @@
 import * as Notifications from "expo-notifications";
 
+import { Link, Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import SignIn from "./signin";
-import { Stack } from "expo-router";
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
 Notifications.setNotificationHandler({
@@ -34,7 +33,7 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="font-poppins400"> Index </Text>
-        <SignIn />
+        <Link href="/signin">Sign In</Link>
       </View>
     </SafeAreaView>
   );

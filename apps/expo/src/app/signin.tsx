@@ -5,8 +5,8 @@ import FilledButton from "~/components/FilledButtons";
 
 const SignIn = () => {
   return (
-    <View>
-      <View className="h-max content-center">
+    <View className="flex-1">
+      <View className="flex h-screen items-center bg-red-400 p-4">
         <Text aria-label="Label for Email">Email</Text>
         <TextInput
           placeholder="Enter Email"
