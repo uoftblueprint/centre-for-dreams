@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { RootSiblingParent } from "react-native-root-siblings";
 import Constants from "expo-constants";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { ClerkProvider } from "@clerk/clerk-expo";
