@@ -11,6 +11,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
+import NavBar from "~/components/NavBar";
 import { TRPCProvider } from "~/utils/api";
 
 void SplashScreen.preventAutoHideAsync();
@@ -49,7 +50,7 @@ const RootLayout = () => {
         The Stack component displays the current page.
         It also allows you to configure your screens 
       */}
-          <Stack />
+          <NavBar />
           <StatusBar />
         </TRPCProvider>
       </RootSiblingParent>
