@@ -8,7 +8,7 @@ export const TextInput: React.FC<CustomTextInputProps> & { RightElement: typeof 
     return (
         <View className="position-relative">
             <UnstyledTextInput
-                className="border border-p-40 rounded-[8px] p-[12px] font-body-lg leading-[0px] text-p-0"
+                className={`border border-p-40 rounded-[8px] p-[12px] font-body-lg leading-[0px] text-p-0 ${props.className}`}
                 placeholderTextColor={"#79767D"}
                 {...props}
             />
