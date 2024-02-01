@@ -4,13 +4,12 @@ import { Image, Text, View } from "react-native";
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 
-type AnnouncementProps =
-  RouterOutputs["announcement"]["getAnnouncements"][number];
+type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
-export default function Announcement({
-  announcement,
+export default function Discussion({
+  discussion,
 }: {
-  announcement: AnnouncementProps;
+  discussion: DiscussionProps;
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
@@ -23,14 +22,14 @@ export default function Announcement({
           resizeMode="cover"
         />
         <View>
-          <Text className="font-title-lg ml-4 mr-4">{announcement.title}</Text>
+          <Text className="font-title-lg ml-4 mr-4">{discussion.title}</Text>
           <Text className="font-body-lg ml-4">
-            posted {formatTime(announcement.createdAt)}
+            posted {formatTime(discussion.createdAt)}
           </Text>
         </View>
       </View>
       <View>
-        <Text className="font-body-lg mt-4">{announcement.contents}</Text>
+        <Text className="font-body-lg mt-4">{discussion.contents}</Text>
         <View className="mt-2">
           <Image
             source={{
