@@ -13,7 +13,10 @@ export default function Discussion({
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
-      <View className="mt-2 flex-row items-center">
+      <View className="border-b">
+        <Text className="font-headline-lg pb-4 pt-4">{discussion.title}</Text>
+      </View>
+      <View className="mt-2 flex-row items-center pt-4">
         <Image
           source={{
             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
@@ -22,7 +25,7 @@ export default function Discussion({
           resizeMode="cover"
         />
         <View>
-          <Text className="font-title-lg ml-4 mr-4">{discussion.title}</Text>
+          <Text className="font-title-lg ml-4 mr-4">{discussion.userId}</Text>
           <Text className="font-body-lg ml-4">
             posted {formatTime(discussion.createdAt)}
           </Text>
@@ -39,19 +42,15 @@ export default function Discussion({
           />
         </View>
       </View>
-      <View className="mt-2 flex-row items-center justify-center  gap-x-6">
-        <View className="flex-row gap-2">
-          <Text>o</Text>
+      <View className="mt-2 flex-row items-center justify-center p-2">
+        <View className="w-1/2 flex-row justify-center">
+          <Text className="mr-2">o</Text>
           <Text className="font-body-md">Like</Text>
         </View>
-
-        <View className="flex-row gap-2">
-          <Text>o</Text>
-          <Text className="font-body-md">Comment</Text>
-        </View>
-        <View className="flex-row gap-2">
-          <Text>o</Text>
-          <Text className="font-body-md">Edit</Text>
+        <View className="h-10 w-px bg-gray-300" />
+        <View className="w-1/2 flex-row justify-center">
+          <Text className="mr-2">o</Text>
+          <Text className="font-body-md">Reply</Text>
         </View>
       </View>
     </View>
