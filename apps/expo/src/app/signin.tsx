@@ -27,7 +27,7 @@ const SignIn = () => {
       </View>
       <View className="flex flex-1 flex-col items-center justify-start">
         <View className="w-32">
-          <FilledButton>Sign In</FilledButton>
+          <FilledButton onClick={() => undefined}>Sign In</FilledButton>
         </View>
       </View>
     </View>
