@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
+import { Image, Text, TextInput, View } from "react-native";
+import type { ImageSourcePropType } from "react-native";
 
 import FilledButton from "~/components/FilledButtons";
+import Logo from "../../assets/logo.png";
 
 const SignIn = () => {
   return (
     <View className="flex h-full p-4">
-      <View className="flex-1 bg-green-400"></View>
-      <View className="flex-1 justify-center bg-red-400">
+      <View className="flex-1 items-center justify-center ">
+        <Image
+          source={Logo as ImageSourcePropType}
+          className="w-3/5"
+          resizeMode="contain"
+        />
+      </View>
+      <View className="flex-1 justify-center">
         <View className="gap-2">
           <Text aria-label="Label for Email">Email</Text>
           <TextInput
@@ -18,9 +25,9 @@ const SignIn = () => {
           />
         </View>
       </View>
-      <View className="flex flex-1 flex-col items-center justify-center bg-blue-400">
+      <View className="flex flex-1 flex-col items-center justify-start">
         <View className="w-32">
-          <FilledButton onClick={() => {}}>Sign In</FilledButton>
+          <FilledButton>Sign In</FilledButton>
         </View>
       </View>
     </View>
