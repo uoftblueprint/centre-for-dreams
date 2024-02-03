@@ -12,27 +12,19 @@ const FilledButton: React.FC<FilledButtonProps> = ({
   disabled = false,
   children,
 }) => {
-  if (disabled) {
-    return (
-      <TouchableOpacity onPress={onClick} disabled={disabled}>
-        <View className="h-12 items-start gap-2">
-          <View className="bg-n-10/10 rounded-full px-6 py-2.5">
-            <Text className="font-title-md text-n-10/40">{children}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  } else {
-    return (
-      <TouchableOpacity onPress={onClick} disabled={disabled}>
-        <View className="h-12 items-start gap-2">
-          <View className="bg-p-40 rounded-full px-6 py-2.5">
-            <Text className="font-title-md text-e-100">{children}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+  const bgColor = disabled ? "bg-n-10/10" : "bg-p-40";
+  const textColor = disabled ? "text-n-10/40" : "text-e-100";
+  return (
+    <TouchableOpacity
+      onPress={onClick}
+      disabled={disabled}
+      className={`${bgColor} h-12 justify-center rounded-full px-6 py-2.5`}
+    >
+      <Text className={`font-title-md ${textColor} text-center`}>
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
 };
 
 export default FilledButton;

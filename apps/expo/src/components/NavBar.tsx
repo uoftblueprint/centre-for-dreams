@@ -73,6 +73,13 @@ const NavBar = () => {
           tabBarLabel: "Account",
         }}
       />
+      <Tabs.Screen
+        name="signin"
+        options={{
+          href: "/signin",
+          tabBarLabel: "Sign In",
+        }}
+      />
     </Tabs>
   );
 };
