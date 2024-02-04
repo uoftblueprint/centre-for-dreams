@@ -46,12 +46,12 @@ export default function Announcement({
       <View className="mt-2 flex-row items-center justify-center p-2">
         <View className="w-1/2 flex-row justify-center">
           <Text className="mr-2">o</Text>
-          <Text className="font-body-md">Like</Text>
+          <Text className="font-body-md">Reply</Text>
         </View>
         <View className="h-10 w-px bg-gray-300" />
         <View className="w-1/2 flex-row justify-center">
           <Text className="mr-2">o</Text>
-          <Text className="font-body-md">Reply</Text>
+          <Text className="font-body-md">Read</Text>
         </View>
       </View>
     </View>
