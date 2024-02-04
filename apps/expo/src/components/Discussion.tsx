@@ -8,8 +8,10 @@ type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
 export default function Discussion({
   discussion,
+  canEdit,
 }: {
   discussion: DiscussionProps;
+  canEdit: boolean;
 }) {
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
@@ -49,10 +51,12 @@ export default function Discussion({
           <Text>o</Text>
           <Text className="font-body-md">Comment</Text>
         </View>
-        <View className="flex-row gap-2">
-          <Text>o</Text>
-          <Text className="font-body-md">Edit</Text>
-        </View>
+        {canEdit && (
+          <View className="flex-row gap-2">
+            <Text>o</Text>
+            <Text className="font-body-md">Edit</Text>
+          </View>
+        )}
       </View>
     </View>
   );
