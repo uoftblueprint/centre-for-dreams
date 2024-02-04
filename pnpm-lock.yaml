@@ -2561,7 +2561,7 @@ packages:
   /@expo/package-manager@1.1.1:
     resolution: {integrity: sha512-NxtfIA25iEiNwMT+s8PEmdKzjyfWd2qkCLJkf6jKZGaH9c06YXyOAi2jvCyM8XuSzJz4pcEH8kz1HkJAInjB7Q==}
     dependencies:
-      '@expo/json-file': 8.2.37
+      '@expo/json-file': 8.3.0
       '@expo/spawn-async': 1.5.0
       ansi-regex: 5.0.1
       chalk: 4.1.2
