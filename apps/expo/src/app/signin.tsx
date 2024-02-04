@@ -5,7 +5,7 @@ import type { ImageSourcePropType } from "react-native";
 import FilledButton from "~/components/FilledButtons";
 import Logo from "../../assets/logo.png";
 
-const SignIn = () => {
+const SignInScreen = () => {
   return (
     <View className="flex h-full p-4">
       <View className="flex-1 items-center justify-center ">
@@ -34,4 +34,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInScreen;
