@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
 interface OutlinedButtonProps {
   onPress: () => void;
@@ -13,17 +13,13 @@ const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   children,
   fill,
 }) => {
+  const bgColor = fill ? "bg-p-80" : "bg-white";
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View className="h-12 flex-auto items-start gap-2">
-        <View
-          className={`border-p-40 rounded-full border bg-white px-6 py-2 ${
-            fill ? "bg-p-80" : "bg-white"
-          }`}
-        >
-          <Text className="font-title-md text-p-40">{children}</Text>
-        </View>
-      </View>
+    <TouchableOpacity
+      onPress={onPress}
+      className={`${bgColor} border-p-40 h-10 justify-center rounded-full border px-6 py-2`}
+    >
+      <Text className="font-title-md text-p-40 text-center">{children}</Text>
     </TouchableOpacity>
   );
 };
