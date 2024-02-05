@@ -3,18 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-root-toast";
 import { useSignIn } from "@clerk/clerk-expo";
 
-interface IClerkError {
-  status: number;
-  clerkError: boolean;
-  errors: {
-    code: string;
-    message: string;
-    longMessage: string;
-    meta: {
-      paramName: string;
-    };
-  }[];
-}
+import type IClerkError from "~/interface/IClerkError";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
