@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Image, Text, TextInput, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import type { ImageSourcePropType } from "react-native";
 import Toast from "react-native-root-toast";
 import { useSignIn } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
+import { TextInput } from "~/components/inputs";
 import type IClerkError from "~/interface/IClerkError";
 import Logo from "../../assets/logo.png";
 
