@@ -133,7 +133,7 @@ importers:
         specifier: ^0.1.0
         version: link:../../tooling/typescript
       '@expo/config-plugins':
-        specifier: ^7.2.5s
+        specifier: ^7.2.5
         version: 7.2.5
       '@types/babel__core':
         specifier: ^7.20.5
@@ -347,11 +347,11 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       prettier:
-        specifier: ^3.1.1
-        version: 3.1.1
-      prisma:
         specifier: ^3.2.2
         version: 3.2.4
+      prisma:
+        specifier: ^5.8.1
+        version: 5.8.1
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
