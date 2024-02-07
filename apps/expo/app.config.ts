@@ -10,7 +10,7 @@ const defineConfig = (): ExpoConfig => ({
   // icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/logo.png", // Path to your splash screen image
+    image: "./assets/landing_page.png", // Path to your splash screen image
     resizeMode: "contain",
     backgroundColor: "#1F104A",
   },
