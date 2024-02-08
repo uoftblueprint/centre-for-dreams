@@ -25,6 +25,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.1",
     "prettier": "^3.2.2",
+    "react-native-svg": "^14.1.0",
     "turbo": "^1.11.3",
     "typescript": "^5.3.3"
   },
