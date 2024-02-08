@@ -12,35 +12,31 @@ import Logo from "../../assets/logo.png";
 
 const SignInScreen = () => {
   const router = useRouter();
-  const { signIn, isLoaded } = useSignIn();
-  const [emailAddress, setEmailAddress] = useState("");
+  const { signIn, setActive, isLoaded } = useSignIn();
 
-  /**
-   * Sends a one-time passcode to the email provided and redirects users to the next page to
-   * authenticate with the code. If there is an error, the user will not be redirected,
-   * and a toast will be displayed showing the error.
-   */
-  const getEmailCode = () => {
+  const [code, setCode] = useState("");
+
+  const onSignInPress = async () => {
     if (!isLoaded) {
       return;
     }
-    signIn
-      .create({
-        identifier: emailAddress,
+
+    try {
+      const completeSignIn = await signIn.attemptFirstFactor({
         strategy: "email_code",
-      })
-      .then(() => {
-        router.push("/signincode");
-      })
-      .catch((err) => {
-        const clerkError = err as IClerkError;
-        const errorMessage = `Error signing in: ${
-          clerkError ? clerkError.errors[0]?.longMessage : "unknown error"
-        }`;
-        Toast.show(errorMessage, {
-          duration: Toast.durations.LONG,
-        });
+        code: code,
       });
+      await setActive({ session: completeSignIn.createdSessionId });
+      router.replace("/account");
+    } catch (err) {
+      const clerkError = err as IClerkError;
+      const errorMessage = `Error signing in: ${
+        clerkError ? clerkError.errors[0]?.longMessage : "unknown error"
+      }`;
+      Toast.show(errorMessage, {
+        duration: Toast.durations.LONG,
+      });
+    }
   };
 
   return (
@@ -55,20 +51,23 @@ const SignInScreen = () => {
         </View>
         <View className="flex-1 justify-center">
           <View className="gap-2">
-            <Text aria-label="Label for Email">Email</Text>
+            <Text aria-label="Label for Verfication Code">Code</Text>
             <TextInput
               autoCapitalize="none"
-              value={emailAddress}
-              placeholder="Email..."
+              value={code}
+              placeholder="Verification Code"
               className="w-100 rounded-lg border p-2"
-              onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+              onChangeText={(code) => setCode(code)}
               aria-label="input"
             />
           </View>
         </View>
         <View className="flex flex-1 flex-col items-center justify-start">
           <View className="w-32">
-            <FilledButton onClick={getEmailCode}>Sign In</FilledButton>
+            <FilledButton onClick={() => router.replace("/signin")}>
+              Back
+            </FilledButton>
+            <FilledButton onClick={onSignInPress}>Sign In</FilledButton>
           </View>
         </View>
       </View>
