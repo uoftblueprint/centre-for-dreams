@@ -16,6 +16,10 @@ const SignInScreen = () => {
 
   const [code, setCode] = useState("");
 
+  /**
+   * Attempts to log the user in with the one-time passcode provided. The email used is the one provided in the
+   * signin.tsx page prior to this.
+   */
   const onSignInPress = async () => {
     if (!isLoaded) {
       return;
@@ -62,11 +66,13 @@ const SignInScreen = () => {
             />
           </View>
         </View>
-        <View className="flex flex-1 flex-col items-center justify-start">
-          <View className="w-32">
+        <View className="flex flex-1 flex-row items-start justify-center gap-x-5">
+          <View className="w-30">
             <FilledButton onClick={() => router.replace("/signin")}>
               Back
             </FilledButton>
+          </View>
+          <View className="w-30">
             <FilledButton onClick={onSignInPress}>Sign In</FilledButton>
           </View>
         </View>

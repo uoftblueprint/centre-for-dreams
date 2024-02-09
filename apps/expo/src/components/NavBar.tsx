@@ -74,7 +74,13 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="signin" // the signin screen should not be shown as a tab
+        name="signin"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="signincode"
         options={{
           href: null,
         }}
