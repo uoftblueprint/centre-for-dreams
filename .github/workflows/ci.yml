@@ -147,6 +147,12 @@ jobs:
         cache: 'pnpm'
         cache-dependency-path: 'pnpm-lock.yaml'
 
+    - name: Setup Cocoapods
+      if: github.event_name != 'pull_request'
+      uses: maxim-lobanov/setup-cocoapods@v1 
+      with:
+        version: latest
+
     - name: Setup Expo and EAS
       if: github.event_name != 'pull_request'
       uses: expo/expo-github-action@v8
