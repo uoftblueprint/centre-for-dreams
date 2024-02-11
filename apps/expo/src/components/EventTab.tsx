@@ -12,9 +12,7 @@ interface EventProps {
 
 export default function EventTab({ activity, attending }: EventProps) {
   return (
-    <View
-      className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}
-    >
+    <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
       <Text className=" text-p-10 font-poppins500 text-base">
         {activity.name}
       </Text>
