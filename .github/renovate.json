@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "schedule:monthly"
   ],
   "ignorePresets": ["group:expoMonorepo"],
   "packageRules": [
@@ -17,6 +18,5 @@
   ],
   "ignoreDeps": ["next"],
   "rangeStrategy": "bump",
-  "minimumReleaseAge": "5 days",
-  "schedule": ["schedule:monthly"]
+  "minimumReleaseAge": "5 days"
 }
