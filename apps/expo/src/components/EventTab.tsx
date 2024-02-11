@@ -20,7 +20,7 @@ export default function EventTab({ activity, attending }: EventProps) {
         <Text className="text-n-40 font-body-md mr-3">Attendance:</Text>
 
         {/*TO-DO: Change to be chips when they are ready */}
-        <Text className="text-base font-normal">
+        <Text className="text-n-40 font-body-md">
           {attending === undefined ? "Maybe" : attending ? "Join" : "Not Join"}
         </Text>
       </View>
