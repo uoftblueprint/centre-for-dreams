@@ -7,19 +7,6 @@ import Discussion from "~/components/Discussion";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 
-// const date = Date.now();
-
-// const data = {
-//   id: 0,
-//   title: "new title",
-//   contents: "this is a very cool post",
-//   createdAt: new Date(date),
-//   postType: 0,
-//   userId: 0,
-// };
-
-// const posts = [data, data, data];
-
 const Forum = () => {
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   return (
