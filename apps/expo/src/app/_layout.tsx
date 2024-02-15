@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { RootSiblingParent } from "react-native-root-siblings";
 import Constants from "expo-constants";
+import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { ClerkProvider } from "@clerk/clerk-expo";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import {
   Poppins_400Regular,
   Poppins_500Medium,
@@ -45,12 +46,13 @@ const RootLayout = () => {
     >
       <RootSiblingParent>
         <TRPCProvider>
-          {/*
-        The Stack component displays the current page.
-        It also allows you to configure your screens 
-      */}
-          <NavBar />
-          <StatusBar />
+          <SignedOut>
+            <Slot />
+          </SignedOut>
+          <SignedIn>
+            <NavBar />
+            <StatusBar />
+          </SignedIn>
         </TRPCProvider>
       </RootSiblingParent>
     </ClerkProvider>
