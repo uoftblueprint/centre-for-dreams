@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack } from "expo-router";
+import A from '../../assets/a.svg';
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
 
@@ -32,6 +33,7 @@ const Index = () => {
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="font-poppins400"> Index </Text>
+        <A />
       </View>
     </SafeAreaView>
   );
