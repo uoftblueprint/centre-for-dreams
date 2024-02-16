@@ -13,6 +13,7 @@ interface AnnouncementCardProps {
 const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   announcement: { title, createdAt },
 }) => {
+  // TODO: replace with actual information when endpoint is updated
   const createdBy = "Michelle C.";
   const userImageSrc: ImageSourcePropType = {
     uri: "https://csncollision.com/wp-content/uploads/2019/10/placeholder-circle.png",
