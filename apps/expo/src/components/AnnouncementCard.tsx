@@ -18,7 +18,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
     uri: "https://csncollision.com/wp-content/uploads/2019/10/placeholder-circle.png",
   };
   const titleImageSrc: ImageSourcePropType = {
-    uri: "https://s3-alpha-sig.figma.com/img/f246/82fa/befee9f4978b6cc8b351a2f3b81d456d?Expires=1706486400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fPv06M5fmTfRNUsxZoeLLUUsdCK2ISw6gt6qir1vkJp-xIWN6mKFegXWCWTKTfFvQYHMPPCxKRT7-vLH0NkKPm~Nj2s~AFwHgXunypaS0nhLeecpbEBMBSysfkwFRjN5vK-dUSiGArjau-DQ6v262W6bCg-4L85Ykj5-4Ii0Bu0scVsNjSSRkM1r00OzJChy-hpgsHGuT-V3DwT0Pta~Hs2KT44TM3p1IK3tIgIZuvc6hoQJXmPCctSm1EV1Oxhs~hARLqbkUtVDGxFbUAoew0xjRC1B1Xc7qZEB-v0HFYEC0gTv9SQx9GdswPtJYFvb1BgVl1alkaWpV7ZGTJujWA__",
+    uri: "https://i.ibb.co/dQCWCSQ/media.png",
   };
 
   const createdAtFormatted = new Intl.DateTimeFormat("en-US", {
@@ -28,7 +28,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   }).format(createdAt);
 
   return (
-    <View className="border-nv-80 flex flex-row items-center justify-start rounded-xl border py-[10px]">
+    <View className="border-nv-80 bg-p-95 flex flex-row items-center justify-start rounded-xl border py-[10px]">
       <View className="flex-[0.3] items-center">
         <Image
           source={titleImageSrc}
@@ -38,7 +38,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
         />
       </View>
       <View className="flex-[0.7] gap-4 p-4 pl-0">
-        <Text numberOfLines={1} className="font-title-md">
+        <Text numberOfLines={1} className="font-title-medium">
           {title}
         </Text>
         <View className="flex-row justify-between">
