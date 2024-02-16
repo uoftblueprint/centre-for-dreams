@@ -17,9 +17,7 @@ const Notices = () => {
       <View className="px-5 pb-[10%]">
         <View className="flex-row items-center justify-between pb-2 pt-6">
           <View className="w-24px h-24px" />
-          <Text className="font-poppins500 text-center text-[28px] leading-[128.571%]">
-            Announcement
-          </Text>
+          <Text className="font-headline-md text-center">Announcement</Text>
           <Filter width={24} height={24} />
         </View>
         <FlatList
