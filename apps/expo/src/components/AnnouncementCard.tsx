@@ -55,7 +55,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
           <Text className="font-body-m">{createdAtFormatted}</Text>
         </View>
       </View>
-      <View className="w-1 flex-[0.05]"></View>
+      <View className="w-1 flex-[0.05]" />
     </View>
   );
 };
