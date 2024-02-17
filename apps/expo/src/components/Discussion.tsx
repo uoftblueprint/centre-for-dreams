@@ -3,6 +3,9 @@ import { Image, Text, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
+import CommentIcon from "../../assets/comment.svg";
+import EditIcon from "../../assets/edit.svg";
+import LikeIcon from "../../assets/like.svg";
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
@@ -41,20 +44,23 @@ export default function Discussion({
           />
         </View>
       </View>
-      <View className="mt-2 flex-row items-center justify-center  gap-x-6">
+      <View className="mb-4 mt-6 flex-row items-center justify-center gap-x-5">
         <View className="flex-row gap-2">
-          <Text>o</Text>
+          <LikeIcon width={15} height={18}></LikeIcon>
           <Text className="font-body-md">Like</Text>
         </View>
-
+        <View className="h-10 w-px bg-gray-300" />
         <View className="flex-row gap-2">
-          <Text>o</Text>
+          <CommentIcon width={13} height={18}></CommentIcon>
           <Text className="font-body-md">Comment</Text>
         </View>
         {canEdit && (
-          <View className="flex-row gap-2">
-            <Text>o</Text>
-            <Text className="font-body-md">Edit</Text>
+          <View className="flex-row items-center justify-center gap-x-2">
+            <View className="h-10 w-px bg-gray-300" />
+            <View className="flex-row gap-2">
+              <EditIcon width={13} height={18}></EditIcon>
+              <Text className="font-body-md">Edit</Text>
+            </View>
           </View>
         )}
       </View>
