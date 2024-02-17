@@ -1,5 +1,7 @@
-import { Button, View } from "react-native";
+import { View } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
+
+import FilledButton from "./FilledButtons";
 
 const SignOut = () => {
   const { isLoaded, signOut } = useAuth();
@@ -8,12 +10,13 @@ const SignOut = () => {
   }
   return (
     <View>
-      <Button
-        title="Sign Out"
-        onPress={async () => {
+      <FilledButton
+        onClick={async () => {
           await signOut();
         }}
-      />
+      >
+        Sign Out
+      </FilledButton>
     </View>
   );
 };
