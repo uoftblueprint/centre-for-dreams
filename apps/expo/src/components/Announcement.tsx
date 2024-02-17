@@ -3,6 +3,8 @@ import { Image, Text, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
+import ReadIcon from "../../assets/read.svg";
+import ReplyIcon from "../../assets/reply.svg";
 
 type AnnoucementProps =
   RouterOutputs["announcement"]["getAnnouncements"][number];
@@ -45,13 +47,13 @@ export default function Announcement({
       </View>
       <View className="mt-2 flex-row items-center justify-center p-2">
         <View className="w-1/2 flex-row justify-center">
-          <Text className="mr-2">o</Text>
-          <Text className="font-body-md">Reply</Text>
+          <ReplyIcon width={15} height={18}></ReplyIcon>
+          <Text className="font-body-md ml-2">Reply</Text>
         </View>
         <View className="h-10 w-px bg-gray-300" />
         <View className="w-1/2 flex-row justify-center">
-          <Text className="mr-2">o</Text>
-          <Text className="font-body-md">Read</Text>
+          <ReadIcon width={15} height={18}></ReadIcon>
+          <Text className="font-body-md ml-2">Read</Text>
         </View>
       </View>
     </View>
