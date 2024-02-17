@@ -44,26 +44,37 @@ export default function Discussion({
           />
         </View>
       </View>
-      <View className="mb-4 mt-6 flex-row items-center justify-center gap-x-5">
-        <View className="flex-row gap-2">
-          <LikeIcon width={15} height={18}></LikeIcon>
-          <Text className="font-body-md">Like</Text>
-        </View>
-        <View className="h-10 w-px bg-gray-300" />
-        <View className="flex-row gap-2">
-          <CommentIcon width={13} height={18}></CommentIcon>
-          <Text className="font-body-md">Comment</Text>
-        </View>
-        {canEdit && (
-          <View className="flex-row items-center justify-center gap-x-2">
-            <View className="h-10 w-px bg-gray-300" />
-            <View className="flex-row gap-2">
-              <EditIcon width={13} height={18}></EditIcon>
-              <Text className="font-body-md">Edit</Text>
-            </View>
+      {canEdit && (
+        <View className="mt-2 flex-row items-center justify-center p-2">
+          <View className="w-1/3 flex-row justify-center">
+            <LikeIcon width={15} height={18}></LikeIcon>
+            <Text className="font-body-md ml-2">Like</Text>
           </View>
-        )}
-      </View>
+          <View className="h-10 w-px bg-gray-300" />
+          <View className="w-5/12 flex-row justify-center">
+            <CommentIcon width={13} height={18}></CommentIcon>
+            <Text className="font-body-md ml-2">Comment</Text>
+          </View>
+          <View className="h-10 w-px bg-gray-300" />
+          <View className="w-1/3 flex-row justify-center">
+            <EditIcon width={13} height={18}></EditIcon>
+            <Text className="font-body-md ml-2">Edit</Text>
+          </View>
+        </View>
+      )}
+      {!canEdit && (
+        <View className="mt-2 flex-row items-center justify-center p-2">
+          <View className="w-1/2 flex-row justify-center">
+            <LikeIcon width={15} height={18}></LikeIcon>
+            <Text className="font-body-md ml-2">Like</Text>
+          </View>
+          <View className="h-10 w-px bg-gray-300" />
+          <View className="w-1/2 flex-row justify-center">
+            <CommentIcon width={13} height={18}></CommentIcon>
+            <Text className="font-body-md ml-2">Comment</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
