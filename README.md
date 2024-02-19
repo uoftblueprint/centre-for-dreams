@@ -100,7 +100,7 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
 
 #### Testing with Clerk Test Email
 
-To test signing in with a one-time passcode for the expo project, manually create a user on the Clerk Dashboard with the same email as `CLERK_TEST_EMAIL` in `.env.example`. This email, along with `CLERK_TEST_CODE`, will allow users to log into the application during development mode without having to receive a one-time passcode.
+To test signing in with a one-time passcode for the expo project, manually create a user on the Clerk Dashboard with the same email as `CLERK_TEST_EMAIL` in `.env.example`. This email, along with `CLERK_TEST_CODE`, will allow users to log into the application during development mode without having to receive a one-time passcode. For more information, see [Testing with Clerk](https://clerk.com/docs/testing/test-emails-and-phones)
 
 ### Database Setup
 
