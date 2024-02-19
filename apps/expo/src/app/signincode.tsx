@@ -28,7 +28,10 @@ const SignInScreen = () => {
     try {
       const completeSignIn = await signIn.attemptFirstFactor({
         strategy: "email_code",
-        code: code,
+        code:
+          __DEV__ && code === "" && process.env.EXPO_PUBLIC_CLERK_TEST_CODE
+            ? process.env.EXPO_PUBLIC_CLERK_TEST_CODE
+            : code,
       });
       await setActive({ session: completeSignIn.createdSessionId });
       router.replace("/account");

@@ -26,7 +26,12 @@ const SignInScreen = () => {
     }
     signIn
       .create({
-        identifier: emailAddress,
+        identifier:
+          __DEV__ &&
+          emailAddress === "" &&
+          process.env.EXPO_PUBLIC_CLERK_TEST_EMAIL
+            ? process.env.EXPO_PUBLIC_CLERK_TEST_EMAIL
+            : emailAddress,
         strategy: "email_code",
       })
       .then(() => {
