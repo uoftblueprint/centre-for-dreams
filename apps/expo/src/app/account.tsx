@@ -2,10 +2,8 @@ import React from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { useAuth } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
-import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string;
@@ -65,19 +63,6 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 };
 
 const Account = () => {
-  const { isSignedIn, sessionId, userId } = useAuth();
-
-  if (!isSignedIn) {
-    return;
-  }
-
-  const clerkUser = api.user.findClerkUserById.useQuery({
-    userClerkId: userId,
-  });
-
-  console.log(userId);
-  console.log(clerkUser);
-
   return (
     <SafeAreaView className="flex">
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
@@ -86,10 +71,10 @@ const Account = () => {
       </View>
       <View className="p-4">
         <ProfileCard
-          email={clerkUser.data?.primaryEmailAddressId ?? ""}
-          firstName={clerkUser.data?.firstName ?? ""}
-          lastName={clerkUser.data?.lastName ?? ""}
-          phone={clerkUser.data?.primaryPhoneNumberId ?? ""}
+          email="someone@example.com"
+          firstName="First"
+          lastName="Last"
+          phone="123 456 7890"
         />
       </View>
       <View className="p-4 pb-0">

@@ -1,12 +1,7 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import {
-  adminProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getAllUsers: adminProcedure.query(async ({ ctx }) => {
@@ -19,17 +14,6 @@ export const userRouter = createTRPCRouter({
     const users = await clerkClient.users.getUserList();
     return new Map(users.map((user) => [user.id, user]));
   }),
-
-  findClerkUserById: publicProcedure
-    .input(
-      z.object({
-        userClerkId: z.string(),
-      }),
-    )
-    .query(async ({ input }) => {
-      const userClerkId = input.userClerkId;
-      return await clerkClient.users.getUser(userClerkId);
-    }),
 
   changeApprovalStatus: adminProcedure
     .input(
