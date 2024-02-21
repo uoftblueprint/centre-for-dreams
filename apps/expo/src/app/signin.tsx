@@ -7,7 +7,7 @@ import { SignedOut, useSignIn } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
 import { TextInput } from "~/components/inputs";
-import type IClerkError from "~/interface/IClerkError";
+import { getErrorMessage } from "~/utils/errorUtils";
 import Logo from "../../assets/logo.png";
 
 const SignInScreen = () => {
@@ -37,11 +37,8 @@ const SignInScreen = () => {
       .then(() => {
         router.push("/signincode");
       })
-      .catch((err) => {
-        const clerkError = err as IClerkError;
-        const errorMessage = `Error signing in: ${
-          clerkError ? clerkError.errors[0]?.longMessage : "unknown error"
-        }`;
+      .catch((err: unknown) => {
+        const errorMessage = `Error signing in: ${getErrorMessage(err)}`;
         Toast.show(errorMessage, {
           duration: Toast.durations.LONG,
         });
