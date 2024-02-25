@@ -1,68 +1,79 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
+import type { ImageSourcePropType } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import TabNav from "../components/TabNav/TabNav";
+
 import EventTab from "~/components/EventTab";
-
-
+import Logo from "../../assets/logo.png";
+import TabNav from "../components/TabNav/TabNav";
 
 const Calendar = () => {
   return (
-    <SafeAreaView className="flex-1 px-4">
+    <SafeAreaView className="flex-1 items-center px-4">
       <Stack.Screen options={{ title: "Calendar", headerShown: false }} />
 
       {/* logo */}
-      
 
-      <View className="w-full mt-20">
+      <Image
+        source={Logo as ImageSourcePropType}
+        className="-mt-10 w-2/5"
+        resizeMode="contain"
+      />
+
+      <View className="-mt-10 w-full">
         <Text className="text-p-0 font-headline-sm">Hello Kelly!</Text>
       </View>
-      <View className="w-full h-auto mx-auto mt-5">
+      <View className="mx-auto mt-5 h-auto w-full">
         <TabNav>
-          <TabNav.Tab><Text className="text-p-0 font-title-md">Week</Text></TabNav.Tab>
-          <TabNav.Tab><Text className="font-title-md">Day</Text></TabNav.Tab>
+          <TabNav.Tab>
+            <Text className="text-p-0 font-title-md">Week</Text>
+          </TabNav.Tab>
+          <TabNav.Tab>
+            <Text className="font-title-md">Day</Text>
+          </TabNav.Tab>
         </TabNav>
       </View>
 
-      <View className="w-full mt-5">
+      <View className="mt-5 w-full">
         <Text className="text-p-0 font-title-md">November 1</Text>
       </View>
 
-      
-      <View className="mt-5 justify-end w-4/5">  
-        <EventTab
-          activity={{ name: 'Day Program' }}
-          attending={true}
-        />
+      <View className="mt-2 w-full flex-row">
+        <Text className="text-p-0 font-body-sm mr-2 mt-1">8 AM - 4 PM</Text>
+
+        <View className="w-4/5 rounded-lg">
+          <EventTab activity={{ name: "Day Program" }} attending={true} />
+        </View>
       </View>
 
-      <View className="mt-2">
-        <EventTab
-          activity={{ name: 'Movie Night' }}
-          attending={undefined}
-        />
+      <View className="mt-2 w-full flex-row">
+        <Text className="text-p-0 font-body-sm mr-2 mt-1">7 PM - 8 PM</Text>
+
+        <View className="w-4/5 rounded-lg">
+          <EventTab activity={{ name: "Movie Night" }} attending={true} />
+        </View>
       </View>
 
-      <View className="w-full mt-5">
+      <View className="mt-5 w-full">
         <Text className="text-p-0 font-title-md">November 2</Text>
       </View>
 
-      <View className="mt-5">
-        <EventTab
-          activity={{ name: 'Day Program' }}
-          attending={true}
-        />
+      <View className="mt-2 w-full flex-row">
+        <Text className="text-p-0 font-body-sm mr-2 mt-1">8 AM - 4 PM</Text>
+
+        <View className="w-4/5 rounded-lg">
+          <EventTab activity={{ name: "Day Program" }} attending={true} />
+        </View>
       </View>
 
-      <View className="mt-2">
-        <EventTab
-          activity={{ name: 'Dinner Night' }}
-          attending={false}
-        />
-      </View>
-      
+      <View className="mt-2 w-full flex-row">
+        <Text className="text-p-0 font-body-sm mr-2 mt-1">5 PM - 7 PM</Text>
 
+        <View className="w-4/5 rounded-lg">
+          <EventTab activity={{ name: "Dinner Night" }} attending={true} />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
