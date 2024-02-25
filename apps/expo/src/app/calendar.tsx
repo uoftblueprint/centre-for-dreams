@@ -1,28 +1,31 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import type { ImageSourcePropType } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 import EventTab from "~/components/EventTab";
 import Logo from "../../assets/logo.png";
 import TabNav from "../components/TabNav/TabNav";
 
 const Calendar = () => {
+  const { isSignedIn, user } = useUser();
+
+  if (!isSignedIn) {
+    throw new Error("Not signed in!");
+  }
+
   return (
     <SafeAreaView className="flex-1 items-center px-4">
       <Stack.Screen options={{ title: "Calendar", headerShown: false }} />
 
       {/* logo */}
-
-      <Image
-        source={Logo as ImageSourcePropType}
-        className="-mt-10 w-2/5"
-        resizeMode="contain"
-      />
+      <Image source={Logo} className="-mt-10 w-2/5" resizeMode="contain" />
 
       <View className="-mt-10 w-full">
-        <Text className="text-p-0 font-headline-sm">Hello Kelly!</Text>
+        <Text className="text-p-0 font-headline-sm">
+          Hello {user.firstName}!
+        </Text>
       </View>
       <View className="mx-auto mt-5 h-auto w-full">
         <TabNav>
