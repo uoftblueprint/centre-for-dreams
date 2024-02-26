@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Image, Text, View } from "react-native";
-import type { ImageSourcePropType } from "react-native";
 import Toast from "react-native-root-toast";
 import { useRouter } from "expo-router";
 import { SignedOut, useSignIn } from "@clerk/clerk-expo";
@@ -49,11 +48,7 @@ const SignInScreen = () => {
     <SignedOut>
       <View className="flex h-full p-4">
         <View className="flex-1 items-center justify-center ">
-          <Image
-            source={Logo as ImageSourcePropType}
-            className="w-3/5"
-            resizeMode="contain"
-          />
+          <Image source={Logo} className="w-3/5" resizeMode="contain" />
         </View>
         <View className="flex-1 justify-center">
           <View className="gap-2">
