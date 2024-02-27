@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371825710696",
+    "project_id": "center-for-dreams",
+    "storage_bucket": "center-for-dreams.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371825710696:android:925c1c7319bedec6b18ddd",
+        "android_client_info": {
+          "package_name": "com.ryanl123.cfd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuI4ZK6DqCQwuuLeQ4QrI9Ho-9sZYzkrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "expo",
+    "slug": "expo",
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.ryanl123.cfd"
+    },
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.ryanl123.cfd"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
+  }
+}
