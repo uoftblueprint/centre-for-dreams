@@ -5,11 +5,15 @@ import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import EventTab from "~/components/EventTab";
-import * as Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import TabNav from "../components/TabNav/TabNav";
 
 const Calendar = () => {
-  const { user } = useUser();
+  const { isSignedIn, user } = useUser();
+
+  if (!isSignedIn) {
+    throw new Error("Not signed in!");
+  }
 
   return (
     <SafeAreaView className="flex-1 items-center px-4">
