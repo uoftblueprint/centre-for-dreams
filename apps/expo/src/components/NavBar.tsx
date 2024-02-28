@@ -1,11 +1,27 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Text, View } from "react-native";
 import { Tabs } from "expo-router";
+import CalendarSvg from './../../assets/calendar.svg';
+import NoticeSvg from './../../assets/speakerphone.svg';
+import ForumSvg from './../../assets/chatbubble.svg';
+import AccountSvg from './../../assets/user.svg';
+
+
+interface Icons {
+  [key: string] : ReactElement;
+}
+
+const icons: Icons = {
+  "calendar": CalendarSvg,
+  "notices": <NoticeSvg/>,
+  "forum": <ForumSvg/>,
+  "account": <AccountSvg/> 
+}
 
 const NavBar = () => {
   return (
     <Tabs
-      screenOptions={{
+      screenOptions={({ route })=> ({
         headerShown: false,
         tabBarStyle: {
           height: "10%",
@@ -29,14 +45,11 @@ const NavBar = () => {
           >
             <View className="h-9 w-9 items-center justify-center">
               {/* Add icon here for tab */}
-              <Text className={`font-poppins500 text-p-40 text-sm font-medium`}>
-                {" "}
-                ?{" "}
-              </Text>
+              icons[route.name]
             </View>
           </View>
         ),
-      }}
+      })}
     >
       <Tabs.Screen
         // Name of the route to hide.
