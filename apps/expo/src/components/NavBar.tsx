@@ -76,6 +76,18 @@ const NavBar = () => {
           tabBarLabel: "Account",
         }}
       />
+      <Tabs.Screen
+        name="signin"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="signincode"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 };
