@@ -1,22 +1,11 @@
 import React, { ReactElement } from "react";
 import { Text, View } from "react-native";
 import { Tabs } from "expo-router";
-import CalendarSvg from './../../assets/calendar.svg';
-import NoticeSvg from './../../assets/speakerphone.svg';
-import ForumSvg from './../../assets/chatbubble.svg';
-import AccountSvg from './../../assets/user.svg';
+import CalendarSvg from '../../assets/calendar.svg';
+
+import RedXCircle from "../../assets/red-x-circle.svg";
 
 
-interface Icons {
-  [key: string] : ReactElement;
-}
-
-const icons: Icons = {
-  "calendar": CalendarSvg,
-  "notices": <NoticeSvg/>,
-  "forum": <ForumSvg/>,
-  "account": <AccountSvg/> 
-}
 
 const NavBar = () => {
   return (
@@ -43,9 +32,10 @@ const NavBar = () => {
               focused ? "rounded-[22px] bg-white" : ""
             }`}
           >
+            <RedXCircle />
             <View className="h-9 w-9 items-center justify-center">
               {/* Add icon here for tab */}
-              icons[route.name]
+              {/* {route.name == "calendar" ? <CalendarSvg/> : route.name == "notices" ? <NoticeSvg /> : route.name == "forum" ? <ForumSvg /> : <AccountSvg />} */}
             </View>
           </View>
         ),
