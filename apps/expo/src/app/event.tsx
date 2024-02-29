@@ -6,8 +6,8 @@ import { Stack } from "expo-router";
 import { addMinutes, getHours, getMinutes } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
-import type { EventTemp } from "~/components/EventDay";
-import EventDayTab from "~/components/EventDay";
+import type { EventTemp } from "~/components/EventDayTab";
+import EventDayTab from "~/components/EventDayTab";
 import JoinOutlinedChip from "~/components/JoinOutlinedChip";
 import MaybeOutlinedChip from "~/components/MaybeOutlinedChip";
 import LeftArrow from "../../assets/arrow-left.svg";
