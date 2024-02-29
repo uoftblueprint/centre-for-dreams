@@ -2,7 +2,25 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
+import { createCaller } from "../../index";
+import type { innerTRPCContext } from "../trpc";
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+
+const sendNotification = async (
+  pushTokens: string[],
+  ctx: innerTRPCContext,
+  title?: string,
+  body?: string,
+  subtitle?: string,
+) => {
+  const caller = createCaller(ctx);
+  await caller.notification.push({
+    pushTokens,
+    title,
+    body,
+    subtitle,
+  });
+};
 
 export const announcementRouter = createTRPCRouter({
   getAnnouncementByID: protectedProcedure
@@ -31,11 +49,12 @@ export const announcementRouter = createTRPCRouter({
       z.object({
         title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
+        sendNotification: z.boolean().optional().default(true),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      await ctx.db.post.create({
+      const res = await ctx.db.post.create({
         data: {
           title: input.title,
           contents: input.contents,
@@ -43,6 +62,17 @@ export const announcementRouter = createTRPCRouter({
           user: { connect: { id: userId } },
         },
       });
+      if (res.id && input.sendNotification) {
+        const pushTokens = await ctx.db.pushToken.findMany({
+          where: { userId: { not: userId } },
+        });
+        await sendNotification(
+          pushTokens.map((pt) => pt.token),
+          ctx,
+          input.title,
+          input.contents,
+        );
+      }
     }),
   updateAnnouncementByID: adminProcedure
     .input(
