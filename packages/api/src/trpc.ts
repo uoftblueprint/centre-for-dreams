@@ -36,7 +36,7 @@ import { db } from "@cfd/db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-interface innerTRPCContext {
+export interface innerTRPCContext {
   db: PrismaClient;
   auth: ReturnType<typeof getAuth>;
   userId: number | null; // the user id within OUR database, a monotonically increasing integer
@@ -97,7 +97,7 @@ const t = initTRPC
  * This is how you create new routers and subrouters in your tRPC API
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router;
+export const { createCallerFactory, router: createTRPCRouter } = t;
 
 /**
  * Public (unauthed) procedure
