@@ -3,8 +3,10 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Redirect, Stack } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 
 import registerForPushNotificationsAsync from "~/notifications/registerNotifications";
+import { api } from "~/utils/api";
 
 Notifications.setNotificationHandler({
   handleNotification: () =>
@@ -19,12 +21,17 @@ const Index = () => {
   const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
     null,
   );
+  const registerToken = api.notification.register.useMutation();
+  const { user } = useUser();
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? null))
+      .then((token) => {
+        setExpoPushToken(token ?? null);
+        registerToken.mutate({ pushToken: token, userId: user?.id });
+      })
       .catch((err) => console.error(err));
-  }, []);
+  }, [registerToken, user?.id]);
 
   return (
     <SafeAreaView className="">
