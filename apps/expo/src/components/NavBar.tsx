@@ -85,6 +85,12 @@ const NavBar = () => {
           href: null,
         }}
       />
+      <Tabs.Screen
+        name="event"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 };
