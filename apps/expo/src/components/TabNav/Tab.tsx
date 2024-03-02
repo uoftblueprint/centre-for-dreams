@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface TabProps {
   onChange?: () => void;
@@ -19,9 +19,11 @@ const Tab: React.FC<TabProps> = ({ onChange, isActive, onPress, children }) => {
         isActive ? "bg-p-80" : "bg-p-99"
       }`}
     >
-      <Text className={`text-p-0 font-title-md text-center text-sm`}>
-        {children}
-      </Text>
+      <View className="relative flex-1 items-center justify-center">
+        <Text className={`text-p-0 font-title-md text-center text-sm`}>
+          {children}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 };
