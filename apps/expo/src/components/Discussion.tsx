@@ -1,13 +1,20 @@
-import React from "react";
-import { Image, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import CommentIcon from "../../assets/comment.svg";
 import EditIcon from "../../assets/edit.svg";
 import LikeIcon from "../../assets/like.svg";
+import Comment from "./Comment";
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
+
+interface RenderItemProps {
+  item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
+  index: number;
+  totalComments: number;
+};
 
 export default function Discussion({
   discussion,
@@ -16,6 +23,33 @@ export default function Discussion({
   discussion: DiscussionProps;
   canEdit: boolean;
 }) {
+  const [showMoreComments, setShowMoreComments] = useState(false);
+
+  const handleViewMore = () => {
+    setShowMoreComments(true);
+  };
+
+  const handleViewLess = () => {
+    setShowMoreComments(false);
+  };
+
+  const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
+    <View key={item.id} style={{ marginTop: 2 }}>
+      {/* Display the first comment */}
+      {index === 0 && <Comment comment={item}></Comment>}
+      {/* Display "View More" button after the first comment */}
+      {index === 0 && discussion.comments.length > 1 && !showMoreComments && (
+        <TouchableOpacity onPress={handleViewMore}>
+          <Text className=" color-t-0 ml-3 underline">
+            {"View all " + totalComments.toString() + " comments"}
+          </Text>
+        </TouchableOpacity>
+      )}
+      {/* Display additional comments if showMoreComments is true */}
+      {index !== 0 && showMoreComments && <Comment comment={item}></Comment>}
+    </View>
+  );
+
   return (
     <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-4">
       <View className="mt-2 flex-row items-center">
@@ -74,6 +108,19 @@ export default function Discussion({
             <Text className="font-body-md ml-2">Comment</Text>
           </View>
         </View>
+      )}
+      <FlatList
+        data={discussion.comments?.slice().reverse()}
+        renderItem={({ item, index }) =>
+          renderItem({ item, index, totalComments: discussion.comments.length })
+        }
+        keyExtractor={(item) => item.id.toString()}
+      />
+      {/* Display "View Less" button if "View More" was pressed */}
+      {showMoreComments && (
+        <TouchableOpacity onPress={handleViewLess}>
+          <Text className="color-t-0 ml-3 mt-10 underline">View Less</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
