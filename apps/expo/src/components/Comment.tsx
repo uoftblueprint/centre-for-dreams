@@ -4,11 +4,11 @@ import { Image, Text, View } from "react-native";
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 
-type CommentComponent = RouterOutputs["comment"]["create"];
+type CommentComponent = RouterOutputs["comment"]["list"][number];
 
 export default function Comment({ comment }: { comment: CommentComponent }) {
   return (
-    <View className="h-25 mx-auto w-11/12 rounded-lg bg-white p-6">
+    <View className="h-25 mx-auto w-full rounded-lg bg-white">
       <View className="flex-row items-center justify-start">
         <Image
           source={{
@@ -25,7 +25,7 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
         </View>
       </View>
 
-      <Text className="font-body-md ml-16 mt-2">{comment.text}</Text>
+      <Text className="font-body-lg ml-16 mt-2">{comment.text}</Text>
     </View>
   );
 }
