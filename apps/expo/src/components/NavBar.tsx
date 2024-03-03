@@ -44,9 +44,7 @@ const NavBar = () => {
               focused ? "bg-p-40 rounded-[22px]" : ""
             }`}
           >
-            <View
-              className={`h-9 w-9 items-center justify-center ${focused ? "text-white" : "text-p-40"}`}
-            >
+            <View className="h-9 w-9 items-center justify-center">
               {focused ? icons[route.name]![1] : icons[route.name]![0]}
             </View>
           </View>
