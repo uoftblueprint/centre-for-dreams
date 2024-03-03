@@ -1,36 +1,35 @@
+import type { ReactNode } from "react";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-import Bookmark from "../../assets/bookmark.svg";
-import LeftArrow from "../../assets/left-arrow.svg";
+interface IconProps {
+  onPress: () => void;
+  icon: ReactNode;
+}
 
 interface HeadingProps {
-  leftArrow?: {
-    onPress: () => void;
-  };
-  bookmark?: {
-    onPress: () => void;
-  };
+  leftIcon?: IconProps;
+  rightIcon?: IconProps;
   children: React.ReactNode;
 }
 
-const Heading: React.FC<HeadingProps> = ({ leftArrow, bookmark, children }) => {
+const Heading: React.FC<HeadingProps> = ({ leftIcon, rightIcon, children }) => {
   return (
     <View className="h-[111px] flex-row items-center justify-between bg-white px-4 pb-3.5 pt-[61px]">
-      {leftArrow ? (
-        <TouchableOpacity onPress={leftArrow.onPress} className="items-start">
-          <LeftArrow height={16.8} width={19.2}></LeftArrow>
+      {leftIcon ? (
+        <TouchableOpacity onPress={leftIcon.onPress}>
+          {leftIcon.icon}
         </TouchableOpacity>
       ) : (
-        <View className="h-[16.8px] w-[19.2px]" />
+        <View className="h-6 w-6" />
       )}
       <Text className="font-headline-md text-black">{children}</Text>
-      {bookmark ? (
-        <TouchableOpacity onPress={bookmark.onPress}>
-          <Bookmark height={16} width={16}></Bookmark>
+      {rightIcon ? (
+        <TouchableOpacity onPress={rightIcon.onPress}>
+          {rightIcon.icon}
         </TouchableOpacity>
       ) : (
-        <View className="h-4 w-4" />
+        <View className="h-6 w-6" />
       )}
     </View>
   );
