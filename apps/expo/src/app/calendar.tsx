@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import EventTab from "~/components/EventTab";
-import * as Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import TabNav from "../components/TabNav/TabNav";
 
 const Calendar = () => {
