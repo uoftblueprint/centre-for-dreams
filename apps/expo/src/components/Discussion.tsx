@@ -14,7 +14,7 @@ interface RenderItemProps {
   item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
   index: number;
   totalComments: number;
-};
+}
 
 export default function Discussion({
   discussion,
