@@ -1,16 +1,24 @@
-import React, { ReactElement } from "react";
-import { Text, View } from "react-native";
+import type { ReactElement } from "react";
+import React from "react";
+import { View } from "react-native";
 import { Tabs } from "expo-router";
-import CalendarSvg from '../../assets/calendar.svg';
 
-import RedXCircle from "../../assets/red-x-circle.svg";
+import Calendar from "../../assets/calendar.svg";
+import Forum from "../../assets/chatbubble.svg";
+import Notices from "../../assets/speakerphone.svg";
+import Account from "../../assets/user.svg";
 
-
+const icons: Record<string, ReactElement> = {
+  calendar: <Calendar />,
+  notices: <Notices />,
+  forum: <Forum />,
+  account: <Account />,
+};
 
 const NavBar = () => {
   return (
     <Tabs
-      screenOptions={({ route })=> ({
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
           height: "10%",
@@ -32,10 +40,8 @@ const NavBar = () => {
               focused ? "rounded-[22px] bg-white" : ""
             }`}
           >
-            <RedXCircle />
             <View className="h-9 w-9 items-center justify-center">
-              {/* Add icon here for tab */}
-              {/* {route.name == "calendar" ? <CalendarSvg/> : route.name == "notices" ? <NoticeSvg /> : route.name == "forum" ? <ForumSvg /> : <AccountSvg />} */}
+              {icons[route.name]}
             </View>
           </View>
         ),
