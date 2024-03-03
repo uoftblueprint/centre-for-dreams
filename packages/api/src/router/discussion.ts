@@ -2,10 +2,10 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const discussionRouter = createTRPCRouter({
-  getDiscussions: protectedProcedure.query(async ({ ctx }) => {
+  getDiscussions: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       where: { postType: "Discussion" },
