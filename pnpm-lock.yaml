@@ -532,6 +532,7 @@ packages:
 
   /@babel/core@7.24.0:
     resolution: {integrity: sha512-fQfkg0Gjkza3nf0c7/w6Xf34BW4YvzNfACRLmmb7XRLa6XHdR+K9AlJlxneFfWYf6uhOzuzZVTjF/8KfndZANw==}
+    engines: {node: '>=6.9.0'}
     dependencies:
       '@ampproject/remapping': 2.2.1
       '@babel/code-frame': 7.23.5
@@ -3366,10 +3367,10 @@ packages:
       expo:
         optional: true
     dependencies:
-      expo: 49.0.22(@babel/core@7.23.7)
+      expo: 49.0.22(@babel/core@7.24.0)
       opencollective-postinstall: 2.0.3
       react: 18.2.0
-      react-native: 0.72.10(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
+      react-native: 0.72.10(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
       superstruct: 0.6.2
     dev: false
 
@@ -6286,7 +6287,7 @@ packages:
       expo: '*'
     dependencies:
       ajv: 8.12.0
-      expo: 49.0.22(@babel/core@7.23.7)
+      expo: 49.0.22(@babel/core@7.24.0)
       semver: 7.5.4
     dev: false
 
