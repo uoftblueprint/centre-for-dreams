@@ -19,11 +19,13 @@ const defineConfig = (): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "your.bundle.identifier",
+    googleServicesFile: "./GoogleService-Info.plist",
+    bundleIdentifier: "com.ryanl123.cfd",
     supportsTablet: true,
   },
   android: {
-    package: "your.bundle.identifier",
+    googleServicesFile: "./google-services.json",
+    package: "com.ryanl123.cfd",
     adaptiveIcon: {
       // foregroundImage: "./assets/icon.png",
       backgroundColor: "#1F104A",
@@ -31,7 +33,7 @@ const defineConfig = (): ExpoConfig => ({
   },
   extra: {
     eas: {
-      projectId: process.env.EXPO_PROJECT_ID,
+      projectId: "d652f9e3-c7a0-4496-8342-30aeaf00305e",
     },
     clerkPublishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
@@ -39,7 +41,19 @@ const defineConfig = (): ExpoConfig => ({
     tsconfigPaths: true,
     typedRoutes: true,
   },
-  plugins: ["expo-router", "./expo-plugins/with-modify-gradle.js"],
+  plugins: [
+    "expo-router",
+    "./expo-plugins/with-modify-gradle.js",
+    "@react-native-firebase/app",
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          useFrameworks: "static",
+        },
+      },
+    ],
+  ],
 });
 
 export default defineConfig;

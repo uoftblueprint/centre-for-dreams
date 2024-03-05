@@ -56,6 +56,9 @@ importers:
       expo:
         specifier: ^49.0.22
         version: 49.0.22(@babel/core@7.24.0)
+      expo-build-properties:
+        specifier: ~0.8.3
+        version: 0.8.3(expo@49.0.22)
       expo-constants:
         specifier: ~14.4.2
         version: 14.4.2(expo@49.0.22)
@@ -529,7 +532,6 @@ packages:
 
   /@babel/core@7.24.0:
     resolution: {integrity: sha512-fQfkg0Gjkza3nf0c7/w6Xf34BW4YvzNfACRLmmb7XRLa6XHdR+K9AlJlxneFfWYf6uhOzuzZVTjF/8KfndZANw==}
-    engines: {node: '>=6.9.0'}
     dependencies:
       '@ampproject/remapping': 2.2.1
       '@babel/code-frame': 7.23.5
@@ -6276,6 +6278,16 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-build-properties@0.8.3(expo@49.0.22):
+    resolution: {integrity: sha512-kEDDuAadHqJTkvCGK4fXYHVrePiJO1DjyW95AicmwuGwQvGJydYFbuoauf9ybAU+4UH4arhbce8gHI3ZpIj3Jw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      ajv: 8.12.0
+      expo: 49.0.22(@babel/core@7.23.7)
+      semver: 7.5.4
     dev: false
 
   /expo-constants@14.4.2(expo@49.0.22):
