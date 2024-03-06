@@ -13,7 +13,10 @@ import AccountFocused from "../../assets/user-white.svg";
 import Account from "../../assets/user.svg";
 
 const icons: Record<string, ReactElement[]> = {
-  calendar: [<Calendar key="normal" />, <CalendarFocused key="focused" />],
+  "calendar/index": [
+    <Calendar key="normal" />,
+    <CalendarFocused key="focused" />,
+  ],
   notices: [<Notices key="normal" />, <NoticesFocused key="focused" />],
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
@@ -105,7 +108,6 @@ const NavBar = () => {
         }}
       />
     </Tabs>
-    
   );
 };
 

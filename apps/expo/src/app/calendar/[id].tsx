@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { addMinutes, getMinutes, format } from "date-fns";
+import { addMinutes, format, getMinutes } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
 import type { EventTemp } from "~/components/EventDayTab";
@@ -13,14 +13,38 @@ import MaybeOutlinedChip from "~/components/MaybeOutlinedChip";
 import LeftArrow from "../../../assets/arrow-left.svg";
 
 // Temp Data
-const eventData: EventListTemp[] = [{
-  name: "Event Name",
-  venue: "CFD Center", 
-  startTime: new Date("2023-10-09T08:00:00.000"),
-  duration: 480, 
-  events: [{name: "Event Name", startTime: new Date("2023-10-09T08:00:00.000"), duration: 85}, {name: "Event Name", startTime: new Date("2023-10-09T10:00:15.000"), duration: 55, venue:"Venue"}, {name: "Event Name", startTime: new Date("2023-10-09T11:00:15.000"), duration: 55, venue: "Venue"}, {name: "Event Name", startTime: new Date("2023-10-09T15:00:15.000"), duration: 90}]
-  
-}]
+const eventData: EventListTemp[] = [
+  {
+    name: "Event Name",
+    venue: "CFD Center",
+    startTime: new Date("2023-10-09T08:00:00.000"),
+    duration: 480,
+    events: [
+      {
+        name: "Event Name",
+        startTime: new Date("2023-10-09T08:00:00.000"),
+        duration: 85,
+      },
+      {
+        name: "Event Name",
+        startTime: new Date("2023-10-09T10:00:15.000"),
+        duration: 55,
+        venue: "Venue",
+      },
+      {
+        name: "Event Name",
+        startTime: new Date("2023-10-09T11:00:15.000"),
+        duration: 55,
+        venue: "Venue",
+      },
+      {
+        name: "Event Name",
+        startTime: new Date("2023-10-09T15:00:15.000"),
+        duration: 90,
+      },
+    ],
+  },
+];
 
 export interface EventListTemp {
   name: string;
@@ -35,18 +59,17 @@ export interface EventListProps {
 }
 
 function formatHour(date: Date): string {
-  var time = "";
-  if (getMinutes(date) == 0){
-    time = format(date, "h a")
+  let time = "";
+  if (getMinutes(date) == 0) {
+    time = format(date, "h a");
   } else {
-    time = format(date, "p")
+    time = format(date, "p");
   }
   return time;
 }
 
 function formatHourOnly(date: Date): string {
-  
-  const time = format(date, "h:mm")
+  const time = format(date, "h:mm");
   return time;
 }
 
@@ -103,14 +126,8 @@ function Event() {
               Time
             </Text>
             <Text className="text-b-0 font-body-lg leading-normal tracking-wide">
-              {formatHourOnly(
-                event!.startTime,
-               
-              )}{" "}
-              -{" "}
-              {formatHourOnly(
-                addMinutes(event!.startTime, event!.duration)
-              )}
+              {formatHourOnly(event!.startTime)} -{" "}
+              {formatHourOnly(addMinutes(event!.startTime, event!.duration))}
             </Text>
           </View>
           <View className="inline-flex flex-row items-start justify-start gap-x-7 gap-y-4">
@@ -152,13 +169,8 @@ function Event() {
               <View key={index} className="mb-3">
                 <View className="inline-flex w-max items-start justify-start">
                   <Text className="text-p-0  font-body-lg leading-normal tracking-tight">
-                    {formatHour(
-                      e.startTime!,
-                    )}{" "}
-                    -{" "}
-                    {formatHour(
-                      addMinutes(e.startTime!, e.duration!),
-                    )}
+                    {formatHour(e.startTime!)} -{" "}
+                    {formatHour(addMinutes(e.startTime!, e.duration!))}
                   </Text>
                 </View>
                 <EventDayTab name={e.name} venue={e.venue} />
@@ -169,6 +181,6 @@ function Event() {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 export default Event;

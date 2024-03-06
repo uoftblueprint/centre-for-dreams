@@ -5,8 +5,8 @@ import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import EventTab from "~/components/EventTab";
-import Logo from "../../assets/logo.png";
-import TabNav from "../../components/TabNav/TabNav";
+import TabNav from "~/components/TabNav/TabNav";
+import Logo from "../../../assets/logo.png";
 
 const Calendar = () => {
   const { isSignedIn, user } = useUser();
@@ -21,7 +21,6 @@ const Calendar = () => {
 
       {/* logo */}
       <Image source={Logo} className="-mt-10 w-2/5" resizeMode="contain" />
-
       <View className="-mt-10 w-full">
         <Text className="text-p-0 font-headline-sm">
           Hello {user.firstName}!
