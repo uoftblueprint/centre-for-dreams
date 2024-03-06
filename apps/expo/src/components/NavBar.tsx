@@ -13,7 +13,10 @@ import AccountFocused from "../../assets/user-white.svg";
 import Account from "../../assets/user.svg";
 
 const icons: Record<string, ReactElement[]> = {
-  calendar: [<Calendar key="normal" />, <CalendarFocused key="focused" />],
+  "calendar/index": [
+    <Calendar key="normal" />,
+    <CalendarFocused key="focused" />,
+  ],
   notices: [<Notices key="normal" />, <NoticesFocused key="focused" />],
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
@@ -59,9 +62,9 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="calendar"
+        name="calendar/index"
         options={{
-          href: "/calendar",
+          href: "/calendar/",
           tabBarLabel: "Calendar",
         }}
       />
@@ -94,6 +97,12 @@ const NavBar = () => {
       />
       <Tabs.Screen
         name="signincode"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="calendar/[id]"
         options={{
           href: null,
         }}
