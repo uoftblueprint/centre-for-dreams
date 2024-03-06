@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { addMinutes, getHours, getMinutes } from "date-fns";
+import { addMinutes, format, getMinutes } from "date-fns";
 
 import LocationMarker from "../../assets/location-marker.svg";
 
@@ -18,22 +18,14 @@ formatHour formats hour to be in the format "HH:MM"
 param hour: number representing the hour (0-24)
 param minutes: number representing the minutes (0-59)
 */
-function formatHour(hour: number, minutes: number): string {
-  const formattedHour = hour < 10 ? `0${hour}` : `${hour}`;
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+
+function formatHour(date: Date): string {
   let time = "";
-  if (minutes == 0) {
-    time = `${formattedHour}`;
+  if (getMinutes(date) == 0) {
+    time = format(date, "ha");
   } else {
-    time = `${formattedHour}:${formattedMinutes}`;
+    time = format(date, "h:mma");
   }
-
-  if (hour < 12) {
-    time += "AM";
-  } else {
-    time += "PM";
-  }
-
   return time;
 }
 
@@ -47,15 +39,17 @@ export default function EventDayTab({
     <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
       <Text className="text-p-10 font-title-md">{name}</Text>
       {venue !== undefined && (
-        <View className="mt-1 flex-row items-center justify-start">
+        <View className="mt-1 flex-row items-center justify-start ">
           <LocationMarker className="" />
           <Text className="text-n-40 font-body-md mx-2">{venue} </Text>
-          <Text className="text-p-0 font-body-sm px-4">
-            {" "}
-            {startTime === undefined
-              ? ""
-              : `${formatHour(getHours(startTime), getMinutes(startTime))} ${duration === undefined ? "" : `- ${formatHour(addMinutes(startTime, duration).getHours(), addMinutes(startTime, duration).getMinutes())}`}`}
-          </Text>
+          <View className="flex-row ">
+            <Text className="text-p-0 font-body-sm px-2">
+              {" "}
+              {startTime === undefined
+                ? ""
+                : `${formatHour(startTime)} ${duration === undefined ? "" : `- ${formatHour(addMinutes(startTime, duration))}`}`}
+            </Text>
+          </View>
         </View>
       )}
     </View>
