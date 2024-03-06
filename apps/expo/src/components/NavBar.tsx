@@ -46,9 +46,9 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="calendar"
+        name="calendar/index"
         options={{
-          href: "/calendar",
+          href: "/calendar/",
           tabBarLabel: "Calendar",
         }}
       />
@@ -86,12 +86,13 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="event"
+        name="calendar/[id]"
         options={{
           href: null,
         }}
       />
     </Tabs>
+    
   );
 };
 
