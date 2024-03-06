@@ -12,13 +12,6 @@ export interface EventTemp {
   duration?: number;
 }
 
-/*
-formatHour formats hour to be in the format "HH:MM"
-
-param hour: number representing the hour (0-24)
-param minutes: number representing the minutes (0-59)
-*/
-
 function formatHour(date: Date): string {
   let time = "";
   if (getMinutes(date) == 0) {
