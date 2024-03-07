@@ -19,7 +19,7 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
       : comment.text;
 
   return (
-    <View className="h-25 mx-auto w-11/12 rounded-l pb-2 pr-2 pt-2">
+    <View className="h-25 mx-auto w-11/12 pb-2 pr-2 pt-2">
       <View className="flex-row items-center justify-start">
         <Image
           source={{
