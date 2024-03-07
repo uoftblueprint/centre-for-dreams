@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 
@@ -38,13 +38,15 @@ const Forum = () => {
             </TabNav.Tab>
           </TabNav>
         </View>
-        <View className="mb-16">
-          {forumPosts?.map((data) => (
-            <View key={data.id} className="mt-2">
-              <Discussion discussion={data} canEdit={false} />
+        <FlatList
+          data={forumPosts}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View key={item.id} className="mt-2">
+              <Discussion discussion={item} canEdit={false} />
             </View>
-          ))}
-        </View>
+          )}
+        />
       </ScrollView>
     </SafeAreaView>
   );
