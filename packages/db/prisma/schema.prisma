@@ -77,11 +77,11 @@ model Participant {
 }
 
 model Likes {
-  id       Int       @id @default(autoincrement())
-  postId   Int
-  userId   Int
-  post     Post      @relation(fields: postId, references: id)
-  user     User      @relation(fields: userId, references: id)
+  id     Int  @id @default(autoincrement())
+  postId Int
+  userId Int
+  post   Post @relation(fields: postId, references: id)
+  user   User @relation(fields: userId, references: id)
 }
 
 model PushToken {
