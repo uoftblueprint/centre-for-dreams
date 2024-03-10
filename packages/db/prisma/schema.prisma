@@ -20,6 +20,7 @@ model User {
   pushTokens    PushToken[]
   comments      Comment[]
   posts         Post[]
+  likes         Likes[]
 }
 
 model Developers {
@@ -36,6 +37,7 @@ model Post {
   postType  PostType
   userId    Int
   user      User      @relation(fields: [userId], references: [id])
+  likes     Likes[]
 }
 
 model Comment {
@@ -72,6 +74,14 @@ model Participant {
   name     String
   users    User[]
   absences Absence[]
+}
+
+model Likes {
+  id     Int  @id @default(autoincrement())
+  postId Int
+  userId Int
+  post   Post @relation(fields: postId, references: id)
+  user   User @relation(fields: userId, references: id)
 }
 
 model PushToken {
