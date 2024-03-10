@@ -56,16 +56,17 @@ model Activity {
   durationMinutes Int
   leader          String
   location        String
-  subevents       Subevent[]
+  subactivities   Subactivity[]
 }
 
-model Subevent {
-  id         Int      @id @default(autoincrement())
-  name       String
-  startTime  DateTime @db.Time()
-  endTime    DateTime @db.Time()
-  activity   Activity @relation(fields: [activityId], references: [id])
-  activityId Int
+model Subactivity {
+  id              Int      @id @default(autoincrement())
+  name            String
+  startTime       DateTime @db.Time()
+  durationMinutes Int
+  location        String?
+  activity        Activity @relation(fields: [activityId], references: [id])
+  activityId      Int
 }
 
 model Absence {
