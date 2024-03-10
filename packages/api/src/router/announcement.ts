@@ -2,10 +2,10 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
 export const announcementRouter = createTRPCRouter({
-  getAnnouncementByID: publicProcedure
+  getAnnouncementByID: protectedProcedure
     .input(z.number().nonnegative())
     .query(async ({ ctx, input }) => {
       return await ctx.db.post.findUnique({
