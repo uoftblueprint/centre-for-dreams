@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 
 import Comment from "~/components/Comment";
+import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import ArrowLeft from "../../../assets/arrow-left.svg";
@@ -13,10 +14,11 @@ import Bookmark from "../../../assets/bookmark-alt.svg";
 import CommentCloud from "../../../assets/comment-cloud.svg";
 import TickMark from "../../../assets/tick.svg";
 
+type Comment = RouterOutputs["comment"]["create"];
+
 function AnnouncementPage() {
   const postID = parseInt(useLocalSearchParams().id as string);
   const announcement = api.announcement.getAnnouncementByID.useQuery(postID);
-  const comments = api.comment.list.useQuery({ postId: postID });
 
   // TODO: replace with actual info once endpoint is updated
   const createdBy = "Kelly Smith";
@@ -81,7 +83,9 @@ function AnnouncementPage() {
         <View className="my-3 flex h-8 flex-row items-center gap-3 px-3">
           <View className="flex flex-row items-center gap-0.5">
             <CommentCloud className="h-[12px] w-[13px]" />
-            <Text className="font-body-md">{comments.data?.length}</Text>
+            <Text className="font-body-md">
+              {announcement.data?.comments.length}
+            </Text>
           </View>
           <View className="flex flex-row items-center gap-0.5">
             <TickMark className="h-[9.8px] w-[9-px]" />
@@ -111,7 +115,7 @@ function AnnouncementPage() {
         </View>
         <View className="h-100 w-full" />
 
-        {comments.data?.map((c) => (
+        {announcement.data?.comments.map((c) => (
           <View key={c.id} className="px-4 py-5">
             <Comment comment={c} />
           </View>

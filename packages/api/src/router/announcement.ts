@@ -18,6 +18,11 @@ export const announcementRouter = createTRPCRouter({
           id: input,
           postType: "Announcement",
         },
+        include: {
+          comments: {
+            orderBy: { createdAt: "asc" },
+          },
+        },
       });
     }),
   getAnnouncements: publicProcedure.query(async ({ ctx }) => {

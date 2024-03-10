@@ -17,7 +17,7 @@ const icons: Record<string, ReactElement[]> = {
     <Calendar key="normal" />,
     <CalendarFocused key="focused" />,
   ],
-  notices: [<Notices key="normal" />, <NoticesFocused key="focused" />],
+  "notices/index": [<Notices key="normal" />, <NoticesFocused key="focused" />],
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
 };
