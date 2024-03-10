@@ -24,7 +24,7 @@ const icons: Record<string, ReactElement[]> = {
 
 const labels: Record<string, string> = {
   "calendar/index": "Calendar",
-  notices: "Notices",
+  "notices/index": "Notices",
   forum: "Forum",
   account: "Account",
 };
@@ -85,7 +85,6 @@ const NavBar = () => {
         name="notices/index"
         options={{
           href: "/notices/",
-          tabBarLabel: "Notices",
         }}
       />
       <Tabs.Screen
