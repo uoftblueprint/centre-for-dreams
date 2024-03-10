@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const announcementRouter = createTRPCRouter({
   getAnnouncementByID: protectedProcedure
@@ -20,7 +20,7 @@ export const announcementRouter = createTRPCRouter({
         },
       });
     }),
-  getAnnouncements: publicProcedure.query(async ({ ctx }) => {
+  getAnnouncements: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       where: { postType: "Announcement" },
