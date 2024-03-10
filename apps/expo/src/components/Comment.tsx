@@ -4,7 +4,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 
-type CommentComponent = RouterOutputs["comment"]["list"][number];
+type CommentComponent = RouterOutputs["comment"]["create"];
 
 export default function Comment({ comment }: { comment: CommentComponent }) {
   const [showFullText, setShowFullText] = useState(false);
@@ -19,7 +19,7 @@ export default function Comment({ comment }: { comment: CommentComponent }) {
       : comment.text;
 
   return (
-    <View className="h-25 mx-auto w-11/12 rounded-lg bg-white pb-2 pr-2 pt-2">
+    <View className="h-25 mx-auto w-11/12 pb-2 pr-2 pt-2">
       <View className="flex-row items-center justify-start">
         <Image
           source={{
