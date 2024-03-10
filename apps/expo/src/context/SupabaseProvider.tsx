@@ -54,6 +54,7 @@ export function SupabaseProvider({ children }: { children?: ReactNode }) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    setLoading(true);
     const fetchTokenAndInitializeClient = async () => {
       const token = await getToken({ template: "supabase" });
       if (!token) {
