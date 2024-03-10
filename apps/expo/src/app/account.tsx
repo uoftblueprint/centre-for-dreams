@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
+import { useAuth, useUser } from "@clerk/clerk-expo";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 import FilledButton from "~/components/FilledButtons";
+import { createClerkSupabaseClient } from "~/utils/supabase";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -67,6 +69,16 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
+  const { getToken } = useAuth();
+  const [supabaseClient, setSupabaseClient] = useState<SupabaseClient>();
+
+  useEffect(() => {
+    const getClerkToken = async () => {
+      const clerkSessionToken = await getToken({ template: "supabase" });
+      setSupabaseClient(createClerkSupabaseClient(clerkSessionToken ?? ""));
+    };
+    getClerkToken();
+  }, [getToken, user]);
 
   // Realistically this should never happen, since the user should never end up on this screen
   if (!isSignedIn) {
