@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { Tabs } from "expo-router";
 
 import CalendarFocused from "../../assets/calendar-white.svg";
@@ -22,34 +22,42 @@ const icons: Record<string, ReactElement[]> = {
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
 };
 
+const labels: Record<string, string> = {
+  "calendar/index": "Calendar",
+  notices: "Notices",
+  forum: "Forum",
+  account: "Account",
+};
+
 const NavBar = () => {
   return (
     <Tabs
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          height: "10%",
+          height: "11%",
           width: "100%",
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           backgroundColor: "#D5DBE9",
           position: "absolute",
         },
-        tabBarLabelStyle: {
-          fontFamily: "Poppins_500Medium",
-          fontSize: 14,
-          color: "#2E4D90",
-          top: 10,
-        },
+        tabBarShowLabel: false,
         tabBarIcon: ({ focused }) => (
-          <View
-            className={`top-2 h-9 w-[68px] flex-1 items-center justify-center ${
-              focused ? "bg-p-40 rounded-[22px]" : ""
-            }`}
-          >
-            <View className="h-9 w-9 items-center justify-center">
-              {focused ? icons[route.name]![1] : icons[route.name]![0]}
+          <View className="h-full items-center justify-center">
+            <View
+              className={`mt-1.5 h-10 w-16 items-center justify-center pb-0 ${
+                focused ? "bg-p-40 rounded-full" : ""
+              }`}
+            >
+              <View className="h-9 w-9 items-center justify-center">
+                {focused ? icons[route.name]![1] : icons[route.name]![0]}
+              </View>
             </View>
+
+            <Text className="text-p-40 font-label-lg mt-0.5 ">
+              {labels[route.name]!}
+            </Text>
           </View>
         ),
       })}
@@ -65,28 +73,24 @@ const NavBar = () => {
         name="calendar/index"
         options={{
           href: "/calendar/",
-          tabBarLabel: "Calendar",
         }}
       />
       <Tabs.Screen
         name="notices"
         options={{
           href: "/notices",
-          tabBarLabel: "Notices",
         }}
       />
       <Tabs.Screen
         name="forum"
         options={{
           href: "/forum",
-          tabBarLabel: "Forum",
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
           href: "/account",
-          tabBarLabel: "Account",
         }}
       />
       <Tabs.Screen
