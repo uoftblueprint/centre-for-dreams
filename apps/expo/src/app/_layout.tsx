@@ -45,19 +45,19 @@ const RootLayout = () => {
     <ClerkProvider
       publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
     >
-      <SupabaseProvider>
-        <RootSiblingParent>
-          <TRPCProvider>
-            <SignedOut>
-              <Slot />
-            </SignedOut>
-            <SignedIn>
+      <RootSiblingParent>
+        <TRPCProvider>
+          <SignedOut>
+            <Slot />
+          </SignedOut>
+          <SignedIn>
+            <SupabaseProvider>
               <NavBar />
               <StatusBar />
-            </SignedIn>
-          </TRPCProvider>
-        </RootSiblingParent>
-      </SupabaseProvider>
+            </SupabaseProvider>
+          </SignedIn>
+        </TRPCProvider>
+      </RootSiblingParent>
     </ClerkProvider>
   );
 };
