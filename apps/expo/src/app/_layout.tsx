@@ -12,6 +12,7 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import NavBar from "~/components/NavBar";
+import { SupabaseProvider } from "~/context/SupabaseProvider";
 import { TRPCProvider } from "~/utils/api";
 
 void SplashScreen.preventAutoHideAsync();
@@ -44,17 +45,19 @@ const RootLayout = () => {
     <ClerkProvider
       publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
     >
-      <RootSiblingParent>
-        <TRPCProvider>
-          <SignedOut>
-            <Slot />
-          </SignedOut>
-          <SignedIn>
-            <NavBar />
-            <StatusBar />
-          </SignedIn>
-        </TRPCProvider>
-      </RootSiblingParent>
+      <SupabaseProvider>
+        <RootSiblingParent>
+          <TRPCProvider>
+            <SignedOut>
+              <Slot />
+            </SignedOut>
+            <SignedIn>
+              <NavBar />
+              <StatusBar />
+            </SignedIn>
+          </TRPCProvider>
+        </RootSiblingParent>
+      </SupabaseProvider>
     </ClerkProvider>
   );
 };
