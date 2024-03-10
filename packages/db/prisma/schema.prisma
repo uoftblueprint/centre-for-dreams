@@ -51,13 +51,24 @@ model Comment {
 }
 
 model Activity {
-  id              Int      @id @default(autoincrement())
+  id              Int           @id @default(autoincrement())
   name            String
-  day             DateTime @db.Date
-  startTime       DateTime @db.Time()
+  day             DateTime      @db.Date
+  startTime       DateTime      @db.Time()
   durationMinutes Int
   leader          String
   location        String
+  subactivities   Subactivity[]
+}
+
+model Subactivity {
+  id              Int      @id @default(autoincrement())
+  name            String
+  startTime       DateTime @db.Time()
+  durationMinutes Int
+  location        String?
+  activity        Activity @relation(fields: [activityId], references: [id])
+  activityId      Int
 }
 
 model Absence {
