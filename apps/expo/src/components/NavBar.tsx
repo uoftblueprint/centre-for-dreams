@@ -17,14 +17,14 @@ const icons: Record<string, ReactElement[]> = {
     <Calendar key="normal" />,
     <CalendarFocused key="focused" />,
   ],
-  notices: [<Notices key="normal" />, <NoticesFocused key="focused" />],
+  "notices/index": [<Notices key="normal" />, <NoticesFocused key="focused" />],
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
 };
 
 const labels: Record<string, string> = {
   "calendar/index": "Calendar",
-  notices: "Notices",
+  "notices/index": "Notices",
   forum: "Forum",
   account: "Account",
 };
@@ -76,9 +76,15 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="notices"
+        name="notices/[id]"
         options={{
-          href: "/notices",
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="notices/index"
+        options={{
+          href: "/notices/",
         }}
       />
       <Tabs.Screen

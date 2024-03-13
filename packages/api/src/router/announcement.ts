@@ -5,6 +5,21 @@ import { z } from "zod";
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const announcementRouter = createTRPCRouter({
+  getAnnouncementByID: protectedProcedure
+    .input(z.number().nonnegative())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.post.findUnique({
+        where: {
+          id: input,
+          postType: "Announcement",
+        },
+        include: {
+          comments: {
+            orderBy: { createdAt: "asc" },
+          },
+        },
+      });
+    }),
   getAnnouncements: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
