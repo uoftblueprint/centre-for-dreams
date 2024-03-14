@@ -40,7 +40,7 @@ const Forum = () => {
   return (
     <SafeAreaView className="">
       <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-
+      <View className="mb-16">
       <FlatList
         data={forumPosts}
         ListHeaderComponent={renderHeader}
@@ -51,6 +51,7 @@ const Forum = () => {
           </View>
         )}
       />
+      </View>
     </SafeAreaView>
   );
 };
