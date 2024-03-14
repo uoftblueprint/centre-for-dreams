@@ -41,16 +41,16 @@ const Forum = () => {
     <SafeAreaView className="">
       <Stack.Screen options={{ title: "Forum", headerShown: false }} />
       <View className="mb-16">
-      <FlatList
-        data={forumPosts}
-        ListHeaderComponent={renderHeader}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View key={item.id} className="mt-2">
-            <Discussion discussion={item} canEdit={false} />
-          </View>
-        )}
-      />
+        <FlatList
+          data={forumPosts}
+          ListHeaderComponent={renderHeader}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View key={item.id} className="mt-2">
+              <Discussion discussion={item} canEdit={false} />
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
