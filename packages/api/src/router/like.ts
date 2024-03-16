@@ -17,7 +17,6 @@ export const likeRouter = createTRPCRouter({
         },
       });
     }),
-
   unlikePost: protectedProcedure
     .input(
       z.object({
