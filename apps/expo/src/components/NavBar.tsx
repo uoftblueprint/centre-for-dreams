@@ -20,7 +20,10 @@ const icons: Record<string, ReactElement[]> = {
   "notices/index": [<Notices key="normal" />, <NoticesFocused key="focused" />],
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
+  createpost: [<Account key="normal" />, <AccountFocused key="focused" />],
 };
+
+const pagesWOutTab: string[] = ["createpost"];
 
 const labels: Record<string, string> = {
   "calendar/index": "Calendar",
@@ -35,6 +38,7 @@ const NavBar = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
+          display: pagesWOutTab.includes(route.name) ? "none" : "flex",
           height: "11%",
           width: "100%",
           borderTopLeftRadius: 20,

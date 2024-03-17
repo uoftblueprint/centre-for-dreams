@@ -18,7 +18,7 @@ const FilledButton: React.FC<FilledButtonProps> = ({
     <TouchableOpacity
       onPress={onClick}
       disabled={disabled}
-      className={`${bgColor} h-12 justify-center rounded-full px-6 py-2.5`}
+      className={`${bgColor} h-10 justify-center rounded-full px-6 py-2.5`}
     >
       <Text className={`font-title-md ${textColor} text-center`}>
         {children}
