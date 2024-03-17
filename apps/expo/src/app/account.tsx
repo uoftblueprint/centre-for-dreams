@@ -7,7 +7,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 
 import FilledButton from "~/components/FilledButtons";
-import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -68,6 +67,7 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
+  const uploadImage = api.image.uploadImage.useMutation();
   const queryClient = useQueryClient();
   const { data: currentNotificationSettings } =
     api.user.getNotificationSettings.useQuery();

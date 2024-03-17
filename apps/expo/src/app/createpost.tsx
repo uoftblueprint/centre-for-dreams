@@ -16,8 +16,10 @@ import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const { back } = useRouter();
+
+  const uploadImage = api.discussion.createDiscussion.useMutation();
 
   const { mutate: createDiscussion } =
     api.discussion.createDiscussion.useMutation({
@@ -43,13 +45,12 @@ function CreatePost() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
+      base64: true,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const updatedImages = [...images, result.assets[0].uri];
+        const updatedImages = [...images, result.assets[0]];
         // Update the state with the new list
         setImages(updatedImages);
       }
@@ -101,7 +102,7 @@ function CreatePost() {
                   {images.map((i, index) => {
                     return (
                       <View key={index} className="mb-3 mr-4">
-                        <Image source={{ uri: i }} className="h-40 w-40" />
+                        <Image source={{ uri: i.uri }} className="h-40 w-40" />
                       </View>
                     );
                   })}
@@ -128,7 +129,18 @@ function CreatePost() {
             <TouchableOpacity
               className="w-44"
               onPress={() => {
-                createPost();
+                uploadImage.mutate({
+                  title: "test",
+                  contents: "test",
+                  images: images.flatMap((image) => {
+                    return {
+                      fileContents: image.base64,
+                      filePath: image.fileName,
+                      fileSize: image.fileSize,
+                    };
+                  }),
+                });
+                back();
               }}
             >
               <FilledButton
