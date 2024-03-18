@@ -35,6 +35,7 @@ const labels: Record<string, string> = {
 const NavBar = () => {
   return (
     <Tabs
+      backBehavior="history"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
@@ -117,6 +118,12 @@ const NavBar = () => {
       />
       <Tabs.Screen
         name="calendar/[id]"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="createpost"
         options={{
           href: null,
         }}
