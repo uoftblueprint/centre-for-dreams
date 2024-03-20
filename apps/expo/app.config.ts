@@ -12,7 +12,7 @@ const defineConfig = (): ExpoConfig => ({
   splash: {
     image: "./assets/landing_page.png", // Path to your splash screen image
     resizeMode: "contain",
-    backgroundColor: "#1F104A",
+    backgroundColor: "#FFFFFF",
   },
   updates: {
     fallbackToCacheTimeout: 0,
@@ -26,7 +26,7 @@ const defineConfig = (): ExpoConfig => ({
     package: "your.bundle.identifier",
     adaptiveIcon: {
       // foregroundImage: "./assets/icon.png",
-      backgroundColor: "#1F104A",
+      backgroundColor: "#FFFFFF",
     },
   },
   extra: {
