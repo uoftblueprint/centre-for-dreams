@@ -73,7 +73,7 @@ const Account = () => {
     throw new Error("Not signed in!");
   }
   return (
-    <SafeAreaView className="flex">
+    <SafeAreaView className="bg-p-100 flex-1">
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
       <View className="px-4 pb-6 pt-10">
         <Text className="w-full text-center text-3xl font-medium">Account</Text>

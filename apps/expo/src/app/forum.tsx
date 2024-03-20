@@ -12,7 +12,7 @@ import RedDot from "../../assets/reddot.svg";
 const Forum = () => {
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   return (
-    <SafeAreaView className="">
+    <SafeAreaView className="bg-p-100 flex-1">
       <ScrollView>
         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
 

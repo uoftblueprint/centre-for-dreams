@@ -16,7 +16,7 @@ const Calendar = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 items-center px-4">
+    <SafeAreaView className="bg-p-100 flex-1 items-center px-4">
       <Stack.Screen options={{ title: "Calendar", headerShown: false }} />
 
       {/* logo */}

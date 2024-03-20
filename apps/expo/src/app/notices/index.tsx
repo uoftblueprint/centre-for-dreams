@@ -12,7 +12,7 @@ const Notices = () => {
 
   const announcements = api.announcement.getAnnouncements.useQuery();
   return (
-    <SafeAreaView className="h-full bg-white pb-[10%]">
+    <SafeAreaView className="bg-p-100 h-full pb-[10%]">
       <Stack.Screen options={{ title: "Notices", headerShown: false }} />
 
       <View className="px-5">
