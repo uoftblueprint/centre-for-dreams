@@ -69,8 +69,8 @@ importers:
         specifier: ~11.4.0
         version: 11.4.0(expo@49.0.22)
       expo-image-picker:
-        specifier: ^14.7.1
-        version: 14.7.1(expo@49.0.22)
+        specifier: ^14.3.2
+        version: 14.3.2(expo@49.0.22)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.22)
@@ -6445,21 +6445,21 @@ packages:
       - react-dom
     dev: false
 
-  /expo-image-loader@4.6.0(expo@49.0.22):
-    resolution: {integrity: sha512-RHQTDak7/KyhWUxikn2yNzXL7i2cs16cMp6gEAgkHOjVhoCJQoOJ0Ljrt4cKQ3IowxgCuOrAgSUzGkqs7omj8Q==}
+  /expo-image-loader@4.3.0(expo@49.0.22):
+    resolution: {integrity: sha512-2kqJIO+oYM8J3GbvTUHLqTSpt1dLpOn/X0eB4U4RTuzz/faj8l/TyQELsMBLlGAkweNUuG9LqznbaBz+WuSFEw==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.22(@babel/core@7.24.0)
     dev: false
 
-  /expo-image-picker@14.7.1(expo@49.0.22):
-    resolution: {integrity: sha512-ILQVOJgI3aEzrDmCFGDPtpAepYkn8mot8G7vfQ51BfFdQbzL6N3Wm1fS/ofdWlAZJl/qT2DwaIh5xYmf3SyGZA==}
+  /expo-image-picker@14.3.2(expo@49.0.22):
+    resolution: {integrity: sha512-xr/YeQMIYheXecWP033F2SPwpBlBR5xVCx7YSfSCTH8Y9pw7Z886agqKGbS9QBVGlzJ5qecJktZ6ASSzeslDVg==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.22(@babel/core@7.24.0)
-      expo-image-loader: 4.6.0(expo@49.0.22)
+      expo-image-loader: 4.3.0(expo@49.0.22)
     dev: false
 
   /expo-json-utils@0.7.1:
