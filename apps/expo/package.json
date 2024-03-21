@@ -32,6 +32,7 @@
     "expo-dev-client": "~2.4.13",
     "expo-device": "~5.4.0",
     "expo-font": "~11.4.0",
+    "expo-image-picker": "^14.3.2",
     "expo-linking": "~5.0.2",
     "expo-notifications": "~0.20.1",
     "expo-router": "2.0.14",
