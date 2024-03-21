@@ -52,7 +52,7 @@ export async function uploadImage(
     .upload(filePath, decode(fileContents), {
       upsert: false,
     });
-  if (error || !data) {
+  if (error ?? !data) {
     throw error;
   }
   return data;
