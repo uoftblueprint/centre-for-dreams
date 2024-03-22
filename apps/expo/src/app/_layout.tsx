@@ -14,6 +14,7 @@ import {
 import NavBar from "~/components/NavBar";
 import { SupabaseProvider } from "~/context/SupabaseProvider";
 import { TRPCProvider } from "~/utils/api";
+import { tokenCache } from "~/utils/cache";
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -44,6 +45,7 @@ const RootLayout = () => {
   return (
     <ClerkProvider
       publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
+      tokenCache={tokenCache}
     >
       <RootSiblingParent>
         <TRPCProvider>
