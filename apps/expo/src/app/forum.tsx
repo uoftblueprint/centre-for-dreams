@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
@@ -22,12 +22,8 @@ const Forum = () => {
       </View>
       <View className="ml-4 mr-4 mt-4 flex-1 items-center justify-center">
         <TabNav>
-          <TabNav.Tab onPress={() => setSelectedTab(1)}>
-            Feed
-          </TabNav.Tab>
-          <TabNav.Tab onPress={() => setSelectedTab(2)}>
-            My Posts
-          </TabNav.Tab>
+          <TabNav.Tab onPress={() => setSelectedTab(1)}>Feed</TabNav.Tab>
+          <TabNav.Tab onPress={() => setSelectedTab(2)}>My Posts</TabNav.Tab>
           <TabNav.Tab onPress={() => setSelectedTab(3)}>
             <View className="relative">
               <Bell width={20} height={20}></Bell>
@@ -61,4 +57,3 @@ const Forum = () => {
 };
 
 export default Forum;
-
