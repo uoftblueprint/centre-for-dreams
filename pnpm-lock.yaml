@@ -286,6 +286,9 @@ importers:
       '@trpc/server':
         specifier: ^10.45.2
         version: 10.45.2
+      base64-arraybuffer:
+        specifier: ^1.0.2
+        version: 1.0.2
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
