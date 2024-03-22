@@ -324,11 +324,11 @@ importers:
         specifier: ^0.1.0
         version: link:../logger
       '@neondatabase/serverless':
-        specifier: ^0.7.2
-        version: 0.7.2
+        specifier: ^0.9.0
+        version: 0.9.0
       '@prisma/adapter-neon':
         specifier: ^5.11.0
-        version: 5.11.0(@neondatabase/serverless@0.7.2)
+        version: 5.11.0(@neondatabase/serverless@0.9.0)
       '@prisma/client':
         specifier: ^5.11.0
         version: 5.11.0(prisma@5.11.0)
@@ -2913,8 +2913,8 @@ packages:
       read-yaml-file: 1.1.0
     dev: false
 
-  /@neondatabase/serverless@0.7.2:
-    resolution: {integrity: sha512-wU3WA2uTyNO7wjPs3Mg0G01jztAxUxzd9/mskMmtPwPTjf7JKWi9AW5/puOGXLxmZ9PVgRFeBVRVYq5nBPhsCg==}
+  /@neondatabase/serverless@0.9.0:
+    resolution: {integrity: sha512-mmJnUAzlzvxNSZuuhI6kgJjH+JgFdBMYUWxihtq/nj0Tjt+Y5UU3W+SvRFoucnd5NObYkuLYQzk+zV5DGFKGJg==}
     dependencies:
       '@types/pg': 8.6.6
     dev: false
@@ -3094,12 +3094,12 @@ packages:
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  /@prisma/adapter-neon@5.11.0(@neondatabase/serverless@0.7.2):
+  /@prisma/adapter-neon@5.11.0(@neondatabase/serverless@0.9.0):
     resolution: {integrity: sha512-AcWMpyRrHk5yEqHELui3RrFAz3OtvZlyjxWAvnU6NJ6hfEUsLWoL7jM7rZXKQLLqmTeowXexmo1L6vCqaWSURw==}
     peerDependencies:
       '@neondatabase/serverless': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0
     dependencies:
-      '@neondatabase/serverless': 0.7.2
+      '@neondatabase/serverless': 0.9.0
       '@prisma/driver-adapter-utils': 5.11.0
       postgres-array: 3.0.2
     dev: false
