@@ -1,8 +1,10 @@
 import { Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+import { Base64 } from "js-base64";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { uploadImage } from "./utils/supabaseUtils";
 
 export const discussionRouter = createTRPCRouter({
   getDiscussions: protectedProcedure.query(async ({ ctx }) => {
@@ -21,10 +23,20 @@ export const discussionRouter = createTRPCRouter({
       z.object({
         title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
+        images: z.array(
+          z.object({
+            fileContents: z.string().refine(Base64.isValid),
+            filePath: z.string(),
+            fileSize: z.number(), // file size in bytes
+          }),
+        ),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
+
+      await uploadImage(ctx.auth, "test", input.images);
+
       await ctx.db.post.create({
         data: {
           title: input.title,

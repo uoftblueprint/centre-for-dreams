@@ -11,12 +11,15 @@ import { Stack, useRouter } from "expo-router";
 
 import FilledButton from "~/components/FilledButtons";
 import OutlinedButton from "~/components/OutlinedButtons";
+import { api } from "~/utils/api";
 import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
   const [post, setPost] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const { back } = useRouter();
+
+  const uploadImage = api.discussion.createDiscussion.useMutation();
 
   const clearState = () => {
     setPost("");
