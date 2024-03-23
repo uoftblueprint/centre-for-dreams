@@ -12,7 +12,6 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import NavBar from "~/components/NavBar";
-import { SupabaseProvider } from "~/context/SupabaseProvider";
 import { TRPCProvider } from "~/utils/api";
 import { tokenCache } from "~/utils/cache";
 
@@ -53,10 +52,8 @@ const RootLayout = () => {
             <Slot />
           </SignedOut>
           <SignedIn>
-            <SupabaseProvider>
-              <NavBar />
-              <StatusBar />
-            </SupabaseProvider>
+            <NavBar />
+            <StatusBar />
           </SignedIn>
         </TRPCProvider>
       </RootSiblingParent>

@@ -1,11 +1,10 @@
 import React from "react";
-import { Button, Image, Switch, Text, View } from "react-native";
+import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
-import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -69,7 +68,6 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
-  const uploadImage = api.image.uploadImage.useMutation();
 
   // Realistically this should never happen, since the user should never end up on this screen
   if (!isSignedIn) {
@@ -81,18 +79,6 @@ const Account = () => {
       <View className="px-4 pb-6 pt-10">
         <Text className="w-full text-center text-3xl font-medium">Account</Text>
       </View>
-      <FilledButton
-        onClick={() => {
-          uploadImage.mutate({
-            fileContents: "test",
-            filePath: "test.png",
-            bucketName: "images",
-          });
-          return null;
-        }}
-      >
-        Edit Profile
-      </FilledButton>
       <View className="p-4">
         <ProfileCard
           email={user.primaryEmailAddress?.emailAddress}
