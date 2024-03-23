@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
+import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
 
@@ -21,6 +21,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   lastName,
   profilePictureUri,
 }) => {
+  const { signOut } = useAuth();
   return (
     <View className="rounded-lg bg-slate-200 p-4">
       <View className="flex items-center  p-2">
@@ -37,7 +38,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <Text className="text-md text-center">{`Tel: ${phone ?? ""}`}</Text>
         <Text className="text-md text-center">{`Email: ${email ?? ""}`}</Text>
       </View>
-      <FilledButton onClick={() => null}>Edit Profile</FilledButton>
+      <FilledButton onClick={() => signOut()}>Sign Out</FilledButton>
     </View>
   );
 };
