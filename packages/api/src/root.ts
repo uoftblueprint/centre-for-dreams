@@ -18,6 +18,7 @@ export const appRouter = createTRPCRouter({
   notification: notificationRouter,
   comment: commentRouter,
   user: userRouter,
+  like: likeRouter,
 });
 
 // export type definition of API
