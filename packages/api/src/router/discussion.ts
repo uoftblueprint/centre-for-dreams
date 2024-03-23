@@ -16,23 +16,24 @@ export const discussionRouter = createTRPCRouter({
       },
     });
   }),
-  getDiscussionsByUser: protectedProcedure
-    .input(z.object({ userId: z.number() })) // Use zod for input validation
-    .query(async ({ ctx, input }) => {
-      const { userId } = input; // Extract userId from the input
-      return await ctx.db.post.findMany({
-        orderBy: { createdAt: "desc" },
-        where: {
-          postType: "Discussion",
-          userId: userId, // Use the userId to filter posts
+  getDiscussionsByUser: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.userId;
+    if (!userId) {
+      throw new Error("User ID Null");
+    }
+    return await ctx.db.post.findMany({
+      orderBy: { createdAt: "desc" },
+      where: {
+        postType: "Discussion",
+        userId: userId,
+      },
+      include: {
+        comments: {
+          orderBy: { createdAt: "asc" },
         },
-        include: {
-          comments: {
-            orderBy: { createdAt: "asc" },
-          },
-        },
-      });
-    }),
+      },
+    });
+  }),
   createDiscussion: protectedProcedure
     .input(
       z.object({

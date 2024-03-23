@@ -12,8 +12,10 @@ import RedDot from "../../assets/reddot.svg";
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
+  const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
 
-  const dataToDisplay = selectedTab === 1 ? forumPosts : [];
+  const dataToDisplay =
+    selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
 
   const renderHeader = () => (
     <View>
@@ -21,10 +23,26 @@ const Forum = () => {
         <Text className="font-display-sm">Forum</Text>
       </View>
       <View className="ml-4 mr-4 mt-4 flex-1 items-center justify-center">
-        <TabNav>
-          <TabNav.Tab onPress={() => setSelectedTab(1)}>Feed</TabNav.Tab>
-          <TabNav.Tab onPress={() => setSelectedTab(2)}>My Posts</TabNav.Tab>
-          <TabNav.Tab onPress={() => setSelectedTab(3)}>
+        <TabNav currentTab={selectedTab}>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(1);
+            }}
+          >
+            Feed
+          </TabNav.Tab>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(2);
+            }}
+          >
+            My Posts
+          </TabNav.Tab>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(3);
+            }}
+          >
             <View className="relative">
               <Bell width={20} height={20}></Bell>
               <View className="absolute left-3.5 top-0 ">
