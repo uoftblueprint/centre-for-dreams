@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
@@ -10,6 +10,7 @@ import Logo from "../../../assets/logo.png";
 
 const Calendar = () => {
   const { isSignedIn, user } = useUser();
+  const [tabState, setTabState] = useState(1);
 
   if (!isSignedIn) {
     throw new Error("Not signed in!");
@@ -27,11 +28,19 @@ const Calendar = () => {
         </Text>
       </View>
       <View className="mx-auto mt-5 h-auto w-full">
-        <TabNav>
-          <TabNav.Tab>
+        <TabNav currentTab={tabState}>
+          <TabNav.Tab
+            onPress={() => {
+              setTabState(1);
+            }}
+          >
             <Text className="text-p-0 font-title-md">Week</Text>
           </TabNav.Tab>
-          <TabNav.Tab>
+          <TabNav.Tab
+            onPress={() => {
+              setTabState(2);
+            }}
+          >
             <Text className="font-title-md">Day</Text>
           </TabNav.Tab>
         </TabNav>

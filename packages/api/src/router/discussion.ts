@@ -16,6 +16,21 @@ export const discussionRouter = createTRPCRouter({
       },
     });
   }),
+  getDiscussionsByUser: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.userId;
+    return await ctx.db.post.findMany({
+      orderBy: { createdAt: "desc" },
+      where: {
+        postType: "Discussion",
+        userId: userId,
+      },
+      include: {
+        comments: {
+          orderBy: { createdAt: "asc" },
+        },
+      },
+    });
+  }),
   createDiscussion: protectedProcedure
     .input(
       z.object({
