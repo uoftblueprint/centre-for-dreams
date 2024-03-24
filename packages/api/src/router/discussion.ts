@@ -25,9 +25,13 @@ export const discussionRouter = createTRPCRouter({
         contents: z.string().min(1),
         images: z.array(
           z.object({
-            fileContents: z.string().refine(Base64.isValid),
-            filePath: z.string(),
-            fileSize: z.number(), // file size in bytes
+            fileContents: z
+              .string()
+              .refine(Base64.isValid)
+              .or(z.null())
+              .or(z.undefined()),
+            filePath: z.string().or(z.null()).or(z.undefined()),
+            fileSize: z.number().or(z.null()).or(z.undefined()), // file size in bytes
           }),
         ),
       }),
@@ -35,7 +39,7 @@ export const discussionRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
 
-      await uploadImage(ctx.auth, "images", input.images);
+      await uploadImage(ctx.auth, "discussions", input.images);
 
       await ctx.db.post.create({
         data: {

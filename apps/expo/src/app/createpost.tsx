@@ -119,9 +119,9 @@ function CreatePost() {
                   contents: "test",
                   images: images.flatMap((image) => {
                     return {
-                      fileContents: image.base64 ?? "",
-                      filePath: image.fileName ?? "undefined",
-                      fileSize: image.fileSize ?? 0,
+                      fileContents: image.base64,
+                      filePath: image.fileName,
+                      fileSize: image.fileSize,
                     };
                   }),
                 });
