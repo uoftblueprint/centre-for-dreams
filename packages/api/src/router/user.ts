@@ -1,7 +1,12 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getAllUsers: adminProcedure.query(async ({ ctx }) => {
@@ -14,6 +19,29 @@ export const userRouter = createTRPCRouter({
     const users = await clerkClient.users.getUserList();
     return new Map(users.map((user) => [user.id, user]));
   }),
+
+  /**
+   * Checks if the user with the given email is approved in clerk.
+   * Since we want this to be callable when the user is not authenticated, it must
+   * remain public. Thus, we should not return sensitive data and only include the
+   * bare minimum in the return value.
+   * @returns an object of the form {userExists: bool, isApproved: bool}
+   */
+  isEmailApproved: publicProcedure
+    .input(z.string())
+    .query(async ({ input }) => {
+      const users = await clerkClient.users.getUserList({
+        emailAddress: [input],
+      });
+      if (users.length == 0) {
+        return { userExists: false, isApproved: false };
+      }
+      return {
+        userExists: true,
+        isApproved:
+          users.filter((user) => user.publicMetadata.isApproved).length >= 1,
+      };
+    }),
 
   changeApprovalStatus: adminProcedure
     .input(
