@@ -50,18 +50,6 @@ export const likeRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      const existingLike = await ctx.db.likes.findFirst({
-        where: {
-          postId: input.postId,
-          userId: ctx.userId,
-        },
-      });
-      if (!existingLike) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Like not found",
-        });
-      }
       await ctx.db.likes.deleteMany({
         where: {
           postId: input.postId,
