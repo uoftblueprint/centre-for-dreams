@@ -117,32 +117,33 @@ export const publicProcedure = t.procedure;
  */
 
 const isAuthed = t.middleware(async ({ next, ctx }) => {
-  if (!ctx.auth.userId) {
+  const clerkId = ctx.auth.userId;
+  if (!clerkId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  await ctx.db.participant.upsert({
+  let user = await ctx.db.user.findUnique({
     where: {
-      id: 1,
-    },
-    update: {},
-    create: {
-      name: "Test",
+      clerkId: clerkId,
     },
   });
 
   // If the user isn't in our database yet, insert them
-  const userId = ctx.auth.userId;
-  const user = await ctx.db.user.upsert({
-    where: {
-      clerkId: userId,
-    },
-    update: {},
-    create: {
-      clerkId: userId,
-      participantId: 1,
-    },
-  });
+  // Also creating a new participant that's linked to them
+  if (user == null) {
+    const participant = await ctx.db.participant.create({
+      data: {
+        name: "",
+      },
+    });
+
+    user = await ctx.db.user.create({
+      data: {
+        clerkId: clerkId,
+        participantId: participant.id,
+      },
+    });
+  }
 
   return next({
     ctx: {
