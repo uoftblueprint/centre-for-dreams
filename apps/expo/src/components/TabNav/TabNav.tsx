@@ -14,7 +14,7 @@ const TabNav: React.FC<TabNavProps> & { Tab: typeof Tab } = ({
   currentTab,
 }) => {
   return (
-    <View className="bg-p-99 w-full flex-row rounded-full">
+    <View className="bg-p-99 h-10 w-full flex-row rounded-full">
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child as React.ReactElement, {
           isActive: index === currentTab - 1,
