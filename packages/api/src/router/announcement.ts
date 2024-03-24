@@ -32,11 +32,13 @@ export const announcementRouter = createTRPCRouter({
       z.object({
         title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
-        images: z.object({
-          imageContent: z.string().refine(Base64.isValid),
-          imageName: z.string(),
-          imageSize: z.number(), // file size in bytes
-        }),
+        images: z.array(
+          z.object({
+            fileContents: z.string().refine(Base64.isValid),
+            filePath: z.string(),
+            fileSize: z.number(), // file size in bytes
+          }),
+        ),
       }),
     )
     .mutation(async ({ ctx, input }) => {

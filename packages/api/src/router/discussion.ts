@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { Base64 } from "js-base64";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { uploadImage } from "./utils/supabaseUtils";
 
 export const discussionRouter = createTRPCRouter({
@@ -35,7 +35,7 @@ export const discussionRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
 
-      await uploadImage(ctx.auth, "test", input.images);
+      await uploadImage(ctx.auth, "images", input.images);
 
       await ctx.db.post.create({
         data: {

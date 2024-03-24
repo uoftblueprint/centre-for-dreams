@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
@@ -77,6 +77,7 @@ const Account = () => {
     <SafeAreaView className="bg-p-100 flex-1">
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
       <View className="px-4 pb-6 pt-10">
+        <Link href="/createpost">Create post</Link>
         <Text className="w-full text-center text-3xl font-medium">Account</Text>
       </View>
       <View className="p-4">

@@ -52,7 +52,8 @@ export async function uploadImage(
   }[],
 ): Promise<string[]> {
   for (const image of images) {
-    if (image.fileSize >= 2048) {
+    // Limit size of images to 5mb
+    if (image.fileSize >= 1e6 * 5) {
       throw new TRPCError({
         message: "Image file size too big",
         code: "PAYLOAD_TOO_LARGE",
@@ -85,5 +86,6 @@ export async function uploadImage(
       imagePaths.push(data.path);
     }
   }
+  console.log("Successfully uploaded images: ", imagePaths);
   return imagePaths;
 }
