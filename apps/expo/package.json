@@ -26,6 +26,7 @@
     "@trpc/client": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
+    "base64-arraybuffer": "^1.0.2",
     "date-fns": "^2.30.0",
     "expo": "^49.0.22",
     "expo-constants": "~14.4.2",
