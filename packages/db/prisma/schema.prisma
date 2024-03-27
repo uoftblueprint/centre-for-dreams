@@ -13,14 +13,18 @@ datasource db {
 }
 
 model User {
-  id            Int         @id @default(autoincrement())
-  clerkId       String      @unique
-  participant   Participant @relation(fields: [participantId], references: [id])
-  participantId Int         @unique
-  pushTokens    PushToken[]
-  comments      Comment[]
-  posts         Post[]
-  likes         Likes[]
+  id                            Int         @id @default(autoincrement())
+  clerkId                       String      @unique
+  participant                   Participant @relation(fields: [participantId], references: [id])
+  participantId                 Int         @unique
+  pushTokens                    PushToken[]
+  comments                      Comment[]
+  posts                         Post[]
+  likes                         Likes[]
+  notificationOnPostLikes       Boolean     @default(false)
+  notificationOnPostComments    Boolean     @default(false)
+  notificationOnAnnoucements    Boolean     @default(false)
+  notificationOnScheduleUpdates Boolean     @default(false)
 }
 
 model Developers {

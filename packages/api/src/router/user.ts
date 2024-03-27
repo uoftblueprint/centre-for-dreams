@@ -44,4 +44,41 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
+
+  updateNotificationSettings: protectedProcedure
+    .input(
+      z.object({
+        notificationOnPostLikes: z.boolean(),
+        notificationOnPostComments: z.boolean(),
+        notificationOnAnnoucements: z.boolean(),
+        notificationOnScheduleUpdates: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.user.update({
+        where: {
+          clerkId: ctx.auth.userId,
+        },
+        data: {
+          notificationOnPostLikes: input.notificationOnPostLikes,
+          notificationOnPostComments: input.notificationOnPostComments,
+          notificationOnAnnoucements: input.notificationOnAnnoucements,
+          notificationOnScheduleUpdates: input.notificationOnScheduleUpdates,
+        },
+      });
+    }),
+
+  getNotificationSettings: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUniqueOrThrow({
+      where: {
+        clerkId: ctx.auth.userId,
+      },
+    });
+    return {
+      notificationOnPostLikes: user.notificationOnPostLikes,
+      notificationOnPostComments: user.notificationOnPostComments,
+      notificationOnAnnoucements: user.notificationOnAnnoucements,
+      notificationOnScheduleUpdates: user.notificationOnScheduleUpdates,
+    };
+  }),
 });
