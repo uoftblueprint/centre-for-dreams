@@ -74,20 +74,20 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 const Account = () => {
   const { isSignedIn, user } = useUser();
 
-  const notificationSettings = api.user.getNotificationSettings.useQuery().data;
+  const currentNotificationSettings =
+    api.user.getNotificationSettings.useQuery().data;
   const updateNotifications = api.user.updateNotificationSettings.useMutation();
 
-  const [notificationOnAnnoucements, setNotificationOnAnnoucements] = useState(
-    notificationSettings?.notificationOnAnnoucements ?? false,
-  );
-  const [notificationOnPostComments, setNotificationOnPostComments] = useState(
-    notificationSettings?.notificationOnPostComments ?? false,
-  );
-  const [notificationOnPostLikes, setNotificationOnPostLikes] = useState(
-    notificationSettings?.notificationOnPostLikes ?? false,
-  );
-  const [notificationOnScheduleUpdates, setNotificationOnScheduleUpdates] =
-    useState(notificationSettings?.notificationOnScheduleUpdates ?? false);
+  const [notifications, setNotifications] = useState({
+    [NotificationType.ANNOUCEMENTS]:
+      currentNotificationSettings?.notificationOnAnnoucements ?? false,
+    [NotificationType.COMMENTS_ON_POSTS]:
+      currentNotificationSettings?.notificationOnPostComments ?? false,
+    [NotificationType.LIKE_ON_POSTS]:
+      currentNotificationSettings?.notificationOnPostLikes ?? false,
+    [NotificationType.SCHEDULE_UPDATES]:
+      currentNotificationSettings?.notificationOnScheduleUpdates ?? false,
+  });
 
   // Realistically this should never happen, since the user should never end up on this screen
   if (!isSignedIn) {
@@ -95,38 +95,26 @@ const Account = () => {
   }
 
   const handleNotificationUpdate = (notificationType: NotificationType) => {
-    const pendingNotificationUpdates = {
-      [NotificationType.ANNOUCEMENTS]: notificationOnAnnoucements,
-      [NotificationType.COMMENTS_ON_POSTS]: notificationOnPostComments,
-      [NotificationType.LIKE_ON_POSTS]: notificationOnPostLikes,
-      [NotificationType.SCHEDULE_UPDATES]: notificationOnScheduleUpdates,
+    const newNotificationSettings = {
+      ...notifications,
+      [notificationType]: !notifications[notificationType],
     };
 
-    pendingNotificationUpdates[notificationType] =
-      !pendingNotificationUpdates[notificationType];
-
+    // persist the setting first before updating state
+    // this ensures we won't run into race conditions with data fetching
+    // and updates
     updateNotifications.mutate({
       notificationOnAnnoucements:
-        pendingNotificationUpdates[NotificationType.ANNOUCEMENTS],
+        newNotificationSettings[NotificationType.ANNOUCEMENTS],
       notificationOnPostComments:
-        pendingNotificationUpdates[NotificationType.COMMENTS_ON_POSTS],
+        newNotificationSettings[NotificationType.COMMENTS_ON_POSTS],
       notificationOnPostLikes:
-        pendingNotificationUpdates[NotificationType.LIKE_ON_POSTS],
+        newNotificationSettings[NotificationType.LIKE_ON_POSTS],
       notificationOnScheduleUpdates:
-        pendingNotificationUpdates[NotificationType.SCHEDULE_UPDATES],
+        newNotificationSettings[NotificationType.SCHEDULE_UPDATES],
     });
-    setNotificationOnAnnoucements(
-      pendingNotificationUpdates[NotificationType.ANNOUCEMENTS],
-    );
-    setNotificationOnPostComments(
-      pendingNotificationUpdates[NotificationType.COMMENTS_ON_POSTS],
-    );
-    setNotificationOnPostLikes(
-      pendingNotificationUpdates[NotificationType.LIKE_ON_POSTS],
-    );
-    setNotificationOnScheduleUpdates(
-      pendingNotificationUpdates[NotificationType.SCHEDULE_UPDATES],
-    );
+
+    setNotifications(newNotificationSettings);
   };
   return (
     <SafeAreaView className="bg-p-100 flex-1">
@@ -146,34 +134,16 @@ const Account = () => {
       <View className="p-4 pb-0">
         <Text className="text-2xl font-medium">Push Notifications</Text>
         <View className="py-4">
-          <NotificationContainer
-            notificationType={NotificationType.ANNOUCEMENTS}
-            value={notificationOnAnnoucements}
-            onValueChange={() =>
-              handleNotificationUpdate(NotificationType.ANNOUCEMENTS)
-            }
-          />
-          <NotificationContainer
-            notificationType={NotificationType.SCHEDULE_UPDATES}
-            value={notificationOnScheduleUpdates}
-            onValueChange={() =>
-              handleNotificationUpdate(NotificationType.SCHEDULE_UPDATES)
-            }
-          />
-          <NotificationContainer
-            notificationType={NotificationType.LIKE_ON_POSTS}
-            value={notificationOnPostLikes}
-            onValueChange={() =>
-              handleNotificationUpdate(NotificationType.LIKE_ON_POSTS)
-            }
-          />
-          <NotificationContainer
-            notificationType={NotificationType.COMMENTS_ON_POSTS}
-            value={notificationOnPostComments}
-            onValueChange={() =>
-              handleNotificationUpdate(NotificationType.COMMENTS_ON_POSTS)
-            }
-          />
+          {Object.values(NotificationType).map((notificationType, index) => {
+            return (
+              <NotificationContainer
+                notificationType={notificationType}
+                value={notifications[notificationType]}
+                onValueChange={() => handleNotificationUpdate(notificationType)}
+                key={index}
+              />
+            );
+          })}
         </View>
       </View>
     </SafeAreaView>
