@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 
 import FilledButton from "~/components/FilledButtons";
+import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -51,16 +52,20 @@ enum NotificationType {
 }
 
 interface NotificationContainerProps {
-  notificationType: NotificationType;
+  notificationType: string;
+  value: boolean;
+  onValueChange: (value: boolean) => void;
 }
 const NotificationContainer: React.FC<NotificationContainerProps> = ({
   notificationType,
+  value,
+  onValueChange,
 }) => {
   return (
     <View className="flex-row justify-between py-3">
       <Text className=" text-xl font-medium">{notificationType}</Text>
       <View>
-        <Switch />
+        <Switch value={value} onValueChange={onValueChange} />
       </View>
     </View>
   );
@@ -69,10 +74,48 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 const Account = () => {
   const { isSignedIn, user } = useUser();
 
+  const currentNotificationSettings =
+    api.user.getNotificationSettings.useQuery().data;
+  const updateNotifications = api.user.updateNotificationSettings.useMutation();
+
+  const [notifications, setNotifications] = useState({
+    [NotificationType.ANNOUCEMENTS]:
+      currentNotificationSettings?.notificationOnAnnoucements ?? false,
+    [NotificationType.COMMENTS_ON_POSTS]:
+      currentNotificationSettings?.notificationOnPostComments ?? false,
+    [NotificationType.LIKE_ON_POSTS]:
+      currentNotificationSettings?.notificationOnPostLikes ?? false,
+    [NotificationType.SCHEDULE_UPDATES]:
+      currentNotificationSettings?.notificationOnScheduleUpdates ?? false,
+  });
+
   // Realistically this should never happen, since the user should never end up on this screen
   if (!isSignedIn) {
     throw new Error("Not signed in!");
   }
+
+  const handleNotificationUpdate = (notificationType: NotificationType) => {
+    const newNotificationSettings = {
+      ...notifications,
+      [notificationType]: !notifications[notificationType],
+    };
+
+    // persist the setting first before updating state
+    // this ensures we won't run into race conditions with data fetching
+    // and updates
+    updateNotifications.mutate({
+      notificationOnAnnoucements:
+        newNotificationSettings[NotificationType.ANNOUCEMENTS],
+      notificationOnPostComments:
+        newNotificationSettings[NotificationType.COMMENTS_ON_POSTS],
+      notificationOnPostLikes:
+        newNotificationSettings[NotificationType.LIKE_ON_POSTS],
+      notificationOnScheduleUpdates:
+        newNotificationSettings[NotificationType.SCHEDULE_UPDATES],
+    });
+
+    setNotifications(newNotificationSettings);
+  };
   return (
     <SafeAreaView className="bg-p-100 flex-1">
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
@@ -91,14 +134,42 @@ const Account = () => {
       <View className="p-4 pb-0">
         <Text className="text-2xl font-medium">Push Notifications</Text>
         <View className="py-4">
+          {/* {Object.keys(NotificationType).map((notificationType, index) => {
+            return (
+              <NotificationContainer
+                notificationType={notificationType}
+                value={notifications[notificationType]}
+                onValueChange={() => handleNotificationUpdate(notificationType)}
+              />
+            );
+          })} */}
           <NotificationContainer
             notificationType={NotificationType.ANNOUCEMENTS}
+            value={notifications[NotificationType.ANNOUCEMENTS]}
+            onValueChange={() =>
+              handleNotificationUpdate(NotificationType.ANNOUCEMENTS)
+            }
           />
           <NotificationContainer
             notificationType={NotificationType.SCHEDULE_UPDATES}
+            value={notifications[NotificationType.SCHEDULE_UPDATES]}
+            onValueChange={() =>
+              handleNotificationUpdate(NotificationType.SCHEDULE_UPDATES)
+            }
           />
           <NotificationContainer
             notificationType={NotificationType.LIKE_ON_POSTS}
+            value={notifications[NotificationType.LIKE_ON_POSTS]}
+            onValueChange={() =>
+              handleNotificationUpdate(NotificationType.LIKE_ON_POSTS)
+            }
+          />
+          <NotificationContainer
+            notificationType={NotificationType.COMMENTS_ON_POSTS}
+            value={notifications[NotificationType.COMMENTS_ON_POSTS]}
+            onValueChange={() =>
+              handleNotificationUpdate(NotificationType.COMMENTS_ON_POSTS)
+            }
           />
         </View>
       </View>
