@@ -30,7 +30,7 @@ model Developers {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  title     String
+  title     String?
   contents  String
   createdAt DateTime  @default(now())
   comments  Comment[]
