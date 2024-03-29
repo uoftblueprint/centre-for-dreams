@@ -131,16 +131,14 @@ const isAuthed = t.middleware(async ({ next, ctx }) => {
   // If the user isn't in our database yet, insert them
   // Also creating a new participant that's linked to them
   if (user == null) {
-    const participant = await ctx.db.participant.create({
-      data: {
-        name: "",
-      },
-    });
-
     user = await ctx.db.user.create({
       data: {
         clerkId: clerkId,
-        participantId: participant.id,
+        participant: {
+          create: {
+            name: "",
+          },
+        },
       },
     });
   }
