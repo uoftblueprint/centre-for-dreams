@@ -11,12 +11,26 @@ import { Stack, useRouter } from "expo-router";
 
 import FilledButton from "~/components/FilledButtons";
 import OutlinedButton from "~/components/OutlinedButtons";
+import { api } from "~/utils/api";
 import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
   const [post, setPost] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const { back } = useRouter();
+
+  const { mutate: createAnnouncement } =
+    api.announcement.createAnnouncement.useMutation({
+      onSuccess: () => {
+        back();
+      },
+    });
+
+  const createPost = () => {
+    createAnnouncement({
+      contents: post,
+    });
+  };
 
   const clearState = () => {
     setPost("");
@@ -112,13 +126,13 @@ function CreatePost() {
             <TouchableOpacity
               className="w-44"
               onPress={() => {
-                console.log("Created post");
+                createPost();
                 back();
               }}
             >
               <FilledButton
                 onClick={() => {
-                  console.log("Created post");
+                  createPost();
                   back();
                 }}
               >
