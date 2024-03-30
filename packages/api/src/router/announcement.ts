@@ -29,6 +29,7 @@ export const announcementRouter = createTRPCRouter({
   createAnnouncement: adminProcedure
     .input(
       z.object({
+        title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
       }),
     )
@@ -36,6 +37,7 @@ export const announcementRouter = createTRPCRouter({
       const userId = ctx.userId;
       await ctx.db.post.create({
         data: {
+          title: input.title,
           contents: input.contents,
           postType: "Announcement",
           user: { connect: { id: userId } },
