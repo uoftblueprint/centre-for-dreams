@@ -21,26 +21,29 @@ export const userRouter = createTRPCRouter({
   }),
 
   /**
-   * Checks if the user with the given email is approved in clerk.
-   * Since we want this to be callable when the user is not authenticated, it must
-   * remain public. Thus, we should not return sensitive data and only include the
-   * bare minimum in the return value.
-   * @returns an object of the form {userExists: bool, isApproved: bool}
+   * Creates a user with the provided clerk id in our database.
+   * This is a no-op if the user already exists
+   * @returns Whether the user is approved or not
    */
-  isEmailApproved: publicProcedure
+  createUserWithClerkIdIfNotExists: publicProcedure
     .input(z.string())
-    .query(async ({ input }) => {
-      const users = await clerkClient.users.getUserList({
-        emailAddress: [input],
-      });
-      if (users.length == 0) {
-        return { userExists: false, isApproved: false };
-      }
-      return {
-        userExists: true,
-        isApproved:
-          users.filter((user) => user.publicMetadata.isApproved).length >= 1,
-      };
+    .mutation(async ({ ctx, input }) => {
+      return (
+        await ctx.db.user.upsert({
+          where: {
+            clerkId: input,
+          },
+          create: {
+            clerkId: input,
+            participant: {
+              create: {
+                name: "",
+              },
+            },
+          },
+          update: {},
+        })
+      ).isApproved;
     }),
 
   changeApprovalStatus: adminProcedure
