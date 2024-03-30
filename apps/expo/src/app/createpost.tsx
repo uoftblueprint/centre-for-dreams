@@ -127,13 +127,11 @@ function CreatePost() {
               className="w-44"
               onPress={() => {
                 createPost();
-                back();
               }}
             >
               <FilledButton
                 onClick={() => {
                   createPost();
-                  back();
                 }}
               >
                 Publish
