@@ -34,7 +34,6 @@ export const discussionRouter = createTRPCRouter({
   createDiscussion: protectedProcedure
     .input(
       z.object({
-        title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
       }),
     )
@@ -42,7 +41,6 @@ export const discussionRouter = createTRPCRouter({
       const userId = ctx.userId;
       await ctx.db.post.create({
         data: {
-          title: input.title,
           contents: input.contents,
           postType: "Discussion",
           user: { connect: { id: userId } },
