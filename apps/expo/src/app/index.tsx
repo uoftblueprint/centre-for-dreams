@@ -18,9 +18,8 @@ Notifications.setNotificationHandler({
 });
 
 const Index = () => {
-  const [expoPushToken, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
-    null,
-  );
+  const [expoPushToken, setExpoPushToken] =
+    useState<Notifications.ExpoPushToken | null>(null);
   const registerToken = api.notification.register.useMutation();
   const { user } = useUser();
 
