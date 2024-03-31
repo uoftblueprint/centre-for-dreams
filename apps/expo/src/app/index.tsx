@@ -18,20 +18,24 @@ Notifications.setNotificationHandler({
 });
 
 const Index = () => {
-  const [, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
+  const [expoPushToken, setExpoPushToken] = useState<Notifications.ExpoPushToken | null>(
     null,
   );
   const registerToken = api.notification.register.useMutation();
   const { user } = useUser();
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => {
-        setExpoPushToken(token ?? null);
-        registerToken.mutate({ pushToken: token, userId: user?.id });
-      })
-      .catch((err) => console.error(err));
-  }, [registerToken, user?.id]);
+    if (user?.id && !expoPushToken) {
+      registerForPushNotificationsAsync()
+        .then((token) => {
+          setExpoPushToken(token ?? null);
+          if (token?.data) {
+            registerToken.mutate({ pushToken: token?.data });
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [expoPushToken, registerToken, user?.id]);
 
   return (
     <SafeAreaView className="">
