@@ -48,14 +48,14 @@ export const userRouter = createTRPCRouter({
   updateNotificationSettings: protectedProcedure
     .input(
       z.object({
-        notificationOnPostLikes: z.boolean(),
-        notificationOnPostComments: z.boolean(),
-        notificationOnAnnoucements: z.boolean(),
-        notificationOnScheduleUpdates: z.boolean(),
+        notificationOnPostLikes: z.boolean().optional(),
+        notificationOnPostComments: z.boolean().optional(),
+        notificationOnAnnoucements: z.boolean().optional(),
+        notificationOnScheduleUpdates: z.boolean().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.user.update({
+      return await ctx.db.user.update({
         where: {
           clerkId: ctx.auth.userId,
         },

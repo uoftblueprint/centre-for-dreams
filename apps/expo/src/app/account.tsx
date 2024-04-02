@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
+import { useQueryClient } from "@tanstack/react-query";
+import { getQueryKey } from "@trpc/react-query";
 
 import FilledButton from "~/components/FilledButtons";
 import { api } from "~/utils/api";
@@ -44,13 +46,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   );
 };
 
-enum NotificationType {
-  ANNOUCEMENTS = "Annoucements",
-  SCHEDULE_UPDATES = "Schedule updates",
-  LIKE_ON_POSTS = "Likes on posts",
-  COMMENTS_ON_POSTS = "Comments on posts",
-}
-
 interface NotificationContainerProps {
   notificationType: string;
   value: boolean;
@@ -73,20 +68,39 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
+  const queryClient = useQueryClient();
+  const { data: currentNotificationSettings } =
+    api.user.getNotificationSettings.useQuery();
 
-  const currentNotificationSettings =
-    api.user.getNotificationSettings.useQuery().data;
-  const updateNotifications = api.user.updateNotificationSettings.useMutation();
+  const updateNotifications = api.user.updateNotificationSettings.useMutation({
+    onMutate: async (newSettings) => {
+      const queryKey = getQueryKey(
+        api.user.getNotificationSettings,
+        undefined,
+        "query",
+      );
 
-  const [notifications, setNotifications] = useState({
-    [NotificationType.ANNOUCEMENTS]:
-      currentNotificationSettings?.notificationOnAnnoucements ?? false,
-    [NotificationType.COMMENTS_ON_POSTS]:
-      currentNotificationSettings?.notificationOnPostComments ?? false,
-    [NotificationType.LIKE_ON_POSTS]:
-      currentNotificationSettings?.notificationOnPostLikes ?? false,
-    [NotificationType.SCHEDULE_UPDATES]:
-      currentNotificationSettings?.notificationOnScheduleUpdates ?? false,
+      await queryClient.cancelQueries({
+        queryKey,
+      });
+
+      const previousSettings = queryClient.getQueryData(queryKey);
+
+      queryClient.setQueryData(queryKey, newSettings);
+
+      return { previousSettings, newSettings };
+    },
+    onError: (err, newSettings, context) => {
+      queryClient.setQueryData(
+        getQueryKey(api.user.getNotificationSettings, undefined, "query"),
+        context?.previousSettings,
+      );
+    },
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({
+        queryKey: getQueryKey(api.user.getNotificationSettings),
+      });
+    },
   });
 
   // Realistically this should never happen, since the user should never end up on this screen
@@ -94,27 +108,16 @@ const Account = () => {
     throw new Error("Not signed in!");
   }
 
-  const handleNotificationUpdate = (notificationType: NotificationType) => {
-    const newNotificationSettings = {
-      ...notifications,
-      [notificationType]: !notifications[notificationType],
-    };
-
-    // persist the setting first before updating state
-    // this ensures we won't run into race conditions with data fetching
-    // and updates
+  const handleNotificationUpdate = (
+    notificationType:
+      | "notificationOnAnnoucements"
+      | "notificationOnPostComments"
+      | "notificationOnPostLikes"
+      | "notificationOnScheduleUpdates",
+  ) => {
     updateNotifications.mutate({
-      notificationOnAnnoucements:
-        newNotificationSettings[NotificationType.ANNOUCEMENTS],
-      notificationOnPostComments:
-        newNotificationSettings[NotificationType.COMMENTS_ON_POSTS],
-      notificationOnPostLikes:
-        newNotificationSettings[NotificationType.LIKE_ON_POSTS],
-      notificationOnScheduleUpdates:
-        newNotificationSettings[NotificationType.SCHEDULE_UPDATES],
+      [notificationType]: !currentNotificationSettings?.[notificationType],
     });
-
-    setNotifications(newNotificationSettings);
   };
   return (
     <SafeAreaView className="bg-p-100 flex-1">
@@ -134,16 +137,43 @@ const Account = () => {
       <View className="p-4 pb-0">
         <Text className="text-2xl font-medium">Push Notifications</Text>
         <View className="py-4">
-          {Object.values(NotificationType).map((notificationType, index) => {
-            return (
-              <NotificationContainer
-                notificationType={notificationType}
-                value={notifications[notificationType]}
-                onValueChange={() => handleNotificationUpdate(notificationType)}
-                key={index}
-              />
-            );
-          })}
+          <NotificationContainer
+            notificationType={"Annoucements"}
+            value={
+              currentNotificationSettings?.notificationOnAnnoucements ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnAnnoucements")
+            }
+          />
+          <NotificationContainer
+            notificationType={"Comments on Posts"}
+            value={
+              currentNotificationSettings?.notificationOnPostComments ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnPostComments")
+            }
+          />
+          <NotificationContainer
+            notificationType={"Likes on Posts"}
+            value={
+              currentNotificationSettings?.notificationOnPostLikes ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnPostLikes")
+            }
+          />
+          <NotificationContainer
+            notificationType={"Schedule Updates"}
+            value={
+              currentNotificationSettings?.notificationOnScheduleUpdates ??
+              false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnScheduleUpdates")
+            }
+          />
         </View>
       </View>
     </SafeAreaView>
