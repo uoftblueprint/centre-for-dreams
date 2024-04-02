@@ -116,7 +116,7 @@ export const discussionRouter = createTRPCRouter({
     return await ctx.db.comment.findMany({
       where: {
         postId: {
-          in: userPostIds, 
+          in: userPostIds,
         },
         userId: {
           not: userId,

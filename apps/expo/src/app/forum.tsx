@@ -15,8 +15,6 @@ const Forum = () => {
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
 
-  console.log(replies);
-
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
 
@@ -57,24 +55,46 @@ const Forum = () => {
       </View>
     </View>
   );
-
-  return (
-    <SafeAreaView className="">
+  
+  if (selectedTab == 3) {
+    return (
+      <SafeAreaView className="">
       <Stack.Screen options={{ title: "Forum", headerShown: false }} />
       <View className="mb-16">
         <FlatList
           ListHeaderComponent={renderHeader}
-          data={dataToDisplay}
+          data={replies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View className="mt-2">
-              <Discussion discussion={item} canEdit={false} />
+              <Text>{item.text}</Text>
             </View>
           )}
         />
       </View>
     </SafeAreaView>
-  );
+    );
+  } else {
+    return (
+      <SafeAreaView className="">
+        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+        <View className="mb-16">
+          <FlatList
+            ListHeaderComponent={renderHeader}
+            data={dataToDisplay}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View className="mt-2">
+                <Discussion discussion={item} canEdit={false} />
+              </View>
+            )}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  
 };
 
 export default Forum;
