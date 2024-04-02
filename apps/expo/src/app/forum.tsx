@@ -13,6 +13,9 @@ const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
+  const replies = api.discussion.getReplies.useQuery().data;
+
+  console.log(replies);
 
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
