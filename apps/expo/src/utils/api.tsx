@@ -11,7 +11,16 @@ import type { AppRouter } from "@cfd/api";
 /**
  * A set of typesafe hooks for consuming your API.
  */
-export const api = createTRPCReact<AppRouter>();
+export const api = createTRPCReact<AppRouter>({
+  overrides: {
+    useMutation: {
+      async onSuccess(opts) {
+        await opts.originalFn();
+        await opts.queryClient.invalidateQueries();
+      },
+    },
+  },
+});
 export { type RouterInputs, type RouterOutputs } from "@cfd/api";
 
 /**
