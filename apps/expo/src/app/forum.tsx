@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 
 import Discussion from "~/components/Discussion";
+import ReplyNotification from "~/components/ReplyNotification";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 import Bell from "../../assets/bell.svg";
@@ -14,6 +15,7 @@ const Forum = () => {
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
+  const replyLength = replies?.length;
 
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
@@ -55,30 +57,49 @@ const Forum = () => {
       </View>
     </View>
   );
-  
+
   if (selectedTab == 3) {
     return (
       <SafeAreaView className="">
-      <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-      <View className="mb-16">
-        <FlatList
-          ListHeaderComponent={renderHeader}
-          data={replies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View className="mt-2">
-              <Text>{item.text}</Text>
-            </View>
-          )}
-        />
-      </View>
-    </SafeAreaView>
+        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+        <View className="mb-16 h-full">
+          <FlatList
+            ListHeaderComponent={renderHeader}
+            data={replies}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item, index }) => {
+              if (index == 0) {
+                return (
+                  <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
+                    <Text className="font-headline-md pb-3">
+                      New Notifications
+                    </Text>
+                    <ReplyNotification comment={item}></ReplyNotification>
+                  </View>
+                );
+              } else if (index == replyLength! - 1) {
+                return (
+                  <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
+                    <ReplyNotification comment={item}></ReplyNotification>
+                  </View>
+                );
+              } else {
+                return (
+                  <View className="bg-p-90 ml-3 mr-3 p-4">
+                    <ReplyNotification comment={item}></ReplyNotification>
+                  </View>
+                );
+              }
+            }}
+          />
+        </View>
+      </SafeAreaView>
     );
   } else {
     return (
       <SafeAreaView className="">
         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        <View className="mb-16">
+        <View className="h-vh mb-16">
           <FlatList
             ListHeaderComponent={renderHeader}
             data={dataToDisplay}
@@ -93,8 +114,6 @@ const Forum = () => {
       </SafeAreaView>
     );
   }
-
-  
 };
 
 export default Forum;
