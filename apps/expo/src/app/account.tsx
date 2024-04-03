@@ -3,8 +3,11 @@ import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
+import { useQueryClient } from "@tanstack/react-query";
+import { getQueryKey } from "@trpc/react-query";
 
 import FilledButton from "~/components/FilledButtons";
+import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -43,24 +46,21 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   );
 };
 
-enum NotificationType {
-  ANNOUCEMENTS = "Annoucements",
-  SCHEDULE_UPDATES = "Schedule updates",
-  LIKE_ON_POSTS = "Likes on posts",
-  COMMENTS_ON_POSTS = "Comments on posts",
-}
-
 interface NotificationContainerProps {
-  notificationType: NotificationType;
+  notificationType: string;
+  value: boolean;
+  onValueChange: (value: boolean) => void;
 }
 const NotificationContainer: React.FC<NotificationContainerProps> = ({
   notificationType,
+  value,
+  onValueChange,
 }) => {
   return (
     <View className="flex-row justify-between py-3">
       <Text className=" text-xl font-medium">{notificationType}</Text>
       <View>
-        <Switch />
+        <Switch value={value} onValueChange={onValueChange} />
       </View>
     </View>
   );
@@ -68,11 +68,57 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
+  const queryClient = useQueryClient();
+  const { data: currentNotificationSettings } =
+    api.user.getNotificationSettings.useQuery();
+
+  const updateNotifications = api.user.updateNotificationSettings.useMutation({
+    onMutate: async (newSettings) => {
+      const queryKey = getQueryKey(
+        api.user.getNotificationSettings,
+        undefined,
+        "query",
+      );
+
+      await queryClient.cancelQueries({
+        queryKey,
+      });
+
+      const previousSettings = queryClient.getQueryData(queryKey);
+
+      queryClient.setQueryData(queryKey, newSettings);
+
+      return { previousSettings, newSettings };
+    },
+    onError: (err, newSettings, context) => {
+      queryClient.setQueryData(
+        getQueryKey(api.user.getNotificationSettings, undefined, "query"),
+        context?.previousSettings,
+      );
+    },
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({
+        queryKey: getQueryKey(api.user.getNotificationSettings),
+      });
+    },
+  });
 
   // Realistically this should never happen, since the user should never end up on this screen
   if (!isSignedIn) {
     throw new Error("Not signed in!");
   }
+
+  const handleNotificationUpdate = (
+    notificationType:
+      | "notificationOnAnnoucements"
+      | "notificationOnPostComments"
+      | "notificationOnPostLikes"
+      | "notificationOnScheduleUpdates",
+  ) => {
+    updateNotifications.mutate({
+      [notificationType]: !currentNotificationSettings?.[notificationType],
+    });
+  };
   return (
     <SafeAreaView className="bg-p-100 flex-1">
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
@@ -92,13 +138,41 @@ const Account = () => {
         <Text className="text-2xl font-medium">Push Notifications</Text>
         <View className="py-4">
           <NotificationContainer
-            notificationType={NotificationType.ANNOUCEMENTS}
+            notificationType={"Annoucements"}
+            value={
+              currentNotificationSettings?.notificationOnAnnoucements ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnAnnoucements")
+            }
           />
           <NotificationContainer
-            notificationType={NotificationType.SCHEDULE_UPDATES}
+            notificationType={"Comments on Posts"}
+            value={
+              currentNotificationSettings?.notificationOnPostComments ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnPostComments")
+            }
           />
           <NotificationContainer
-            notificationType={NotificationType.LIKE_ON_POSTS}
+            notificationType={"Likes on Posts"}
+            value={
+              currentNotificationSettings?.notificationOnPostLikes ?? false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnPostLikes")
+            }
+          />
+          <NotificationContainer
+            notificationType={"Schedule Updates"}
+            value={
+              currentNotificationSettings?.notificationOnScheduleUpdates ??
+              false
+            }
+            onValueChange={() =>
+              handleNotificationUpdate("notificationOnScheduleUpdates")
+            }
           />
         </View>
       </View>
