@@ -32,7 +32,7 @@ export const announcementRouter = createTRPCRouter({
       z.object({
         title: z.string().trim().min(1).max(300),
         contents: z.string().min(1),
-        sendNotification: z.boolean().optional().default(true),
+        sendNotification: z.boolean(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
