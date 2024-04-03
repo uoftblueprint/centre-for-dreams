@@ -23,12 +23,13 @@ const SignInScreen = () => {
     if (!isLoaded) {
       return;
     }
+
+    const isDevModeUsingTestEmail = __DEV__ && emailAddress === "";
+
     signIn
       .create({
         identifier:
-          __DEV__ &&
-          emailAddress === "" &&
-          process.env.EXPO_PUBLIC_CLERK_TEST_EMAIL
+          isDevModeUsingTestEmail && process.env.EXPO_PUBLIC_CLERK_TEST_EMAIL
             ? process.env.EXPO_PUBLIC_CLERK_TEST_EMAIL
             : emailAddress,
         strategy: "email_code",

@@ -1,7 +1,12 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getAllUsers: adminProcedure.query(async ({ ctx }) => {
@@ -14,6 +19,32 @@ export const userRouter = createTRPCRouter({
     const users = await clerkClient.users.getUserList();
     return new Map(users.map((user) => [user.id, user]));
   }),
+
+  /**
+   * Creates a user with the provided clerk id in our database.
+   * This is a no-op if the user already exists
+   * @returns Whether the user is approved or not
+   */
+  createUserWithClerkIdIfNotExists: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      return (
+        await ctx.db.user.upsert({
+          where: {
+            clerkId: input,
+          },
+          create: {
+            clerkId: input,
+            participant: {
+              create: {
+                name: "",
+              },
+            },
+          },
+          update: {},
+        })
+      ).isApproved;
+    }),
 
   changeApprovalStatus: adminProcedure
     .input(
