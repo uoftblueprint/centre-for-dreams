@@ -27,8 +27,8 @@ export default function ReplyNotification({
             <Text className="font-body-lg"> commented on your post:</Text>
           </View>
           <Text className="font-body-lg">{comment.text}</Text>
-          <Text className="font-body-lg">
-            posted {formatTime(comment.createdAt)}
+          <Text className="font-body-md mt-2">
+            {formatTime(comment.createdAt)}
           </Text>
         </View>
       </View>
