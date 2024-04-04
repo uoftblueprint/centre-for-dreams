@@ -17,6 +17,19 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
+
+  getActivity: protectedProcedure
+    .input(z.number().nonnegative())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.activity.findUnique({
+        where: { id: input },
+        include: {
+          subactivities: {
+            orderBy: { startTime: "asc" },
+          },
+        },
+      });
+    }),
   createActivity: adminProcedure
     .input(
       z.object({

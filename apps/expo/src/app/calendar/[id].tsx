@@ -6,57 +6,11 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { addMinutes, format, getMinutes } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
-import type { EventTemp } from "~/components/EventDayTab";
 import EventDayTab from "~/components/EventDayTab";
 import JoinOutlinedChip from "~/components/JoinOutlinedChip";
 import MaybeOutlinedChip from "~/components/MaybeOutlinedChip";
+import { api } from "~/utils/api";
 import LeftArrow from "../../../assets/arrow-left.svg";
-
-// Temp Data
-const eventData: EventListTemp[] = [
-  {
-    name: "Event Name",
-    venue: "CFD Center",
-    startTime: new Date("2023-10-09T08:00:00.000"),
-    duration: 480,
-    events: [
-      {
-        name: "Event Name",
-        startTime: new Date("2023-10-09T08:00:00.000"),
-        duration: 85,
-      },
-      {
-        name: "Event Name",
-        startTime: new Date("2023-10-09T10:00:15.000"),
-        duration: 55,
-        venue: "Venue",
-      },
-      {
-        name: "Event Name",
-        startTime: new Date("2023-10-09T11:00:15.000"),
-        duration: 55,
-        venue: "Venue",
-      },
-      {
-        name: "Event Name",
-        startTime: new Date("2023-10-09T15:00:15.000"),
-        duration: 90,
-      },
-    ],
-  },
-];
-
-export interface EventListTemp {
-  name: string;
-  venue: string;
-  startTime: Date;
-  duration: number;
-  events: EventTemp[];
-}
-
-export interface EventListProps {
-  event: EventListTemp;
-}
 
 function formatHour(date: Date): string {
   let time = "";
@@ -73,11 +27,12 @@ function formatHourOnly(date: Date): string {
   return time;
 }
 
-// Take out eventData once database structure is set up
 function Event() {
   const { id } = useLocalSearchParams();
   const eventId = parseInt(id as string);
-  const event = eventData[eventId];
+
+  const event = api.activity.getActivity.useQuery(eventId).data;
+
   const [join, setJoin] = React.useState(false);
   const [decline, setDecline] = React.useState(false);
   const [maybe, setMaybe] = React.useState(false);
@@ -127,7 +82,9 @@ function Event() {
             </Text>
             <Text className="text-b-0 font-body-lg leading-normal tracking-wide">
               {formatHourOnly(event!.startTime)} -{" "}
-              {formatHourOnly(addMinutes(event!.startTime, event!.duration))}
+              {formatHourOnly(
+                addMinutes(event!.startTime, event!.durationMinutes),
+              )}
             </Text>
           </View>
           <View className="inline-flex flex-row items-start justify-start gap-x-7 gap-y-4">
@@ -135,7 +92,7 @@ function Event() {
               Venue
             </Text>
             <Text className="text-b-0 font-body-lg leading-normal tracking-wide">
-              {event!.venue}
+              {event!.location}
             </Text>
           </View>
         </View>
@@ -164,16 +121,16 @@ function Event() {
           </Text>
         </View>
         <ScrollView>
-          {event!.events.map((e, index) => {
+          {event!.subactivities.map((e, index) => {
             return (
               <View key={index} className="mb-3">
                 <View className="inline-flex w-max items-start justify-start">
                   <Text className="text-p-0  font-body-lg leading-normal tracking-tight">
                     {formatHour(e.startTime!)} -{" "}
-                    {formatHour(addMinutes(e.startTime!, e.duration!))}
+                    {formatHour(addMinutes(e.startTime!, e.durationMinutes!))}
                   </Text>
                 </View>
-                <EventDayTab name={e.name} venue={e.venue} />
+                <EventDayTab name={e.name} venue={e.location!} />
               </View>
             );
           })}
