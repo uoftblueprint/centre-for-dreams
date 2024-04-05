@@ -52,7 +52,6 @@ export async function uploadImage(
 ): Promise<string[]> {
   for (const image of images) {
     const fileSize = (image.fileContents?.length ?? 0) * (3 / 4) - 1;
-    console.log(fileSize);
     // Limit size of images to 5mb
     if ((fileSize ?? 0) >= 1e6 * 5) {
       throw new TRPCError({

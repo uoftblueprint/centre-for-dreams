@@ -52,14 +52,29 @@ export const discussionRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
 
-      await uploadImage(ctx.auth, "discussions", input.images);
-
-      await ctx.db.post.create({
+      const post = await ctx.db.post.create({
         data: {
           contents: input.contents,
           postType: "Discussion",
           user: { connect: { id: userId } },
         },
+      });
+
+      const imagePaths = await uploadImage(
+        ctx.auth,
+        "discussions",
+        input.images.map((image) => {
+          return {
+            ...image,
+            filePath: `${post.id}/${image.filePath}`,
+          };
+        }),
+      );
+      await ctx.db.post.update({
+        where: {
+          id: post.id,
+        },
+        data: { images: imagePaths },
       });
     }),
   updateDiscussionByID: protectedProcedure
