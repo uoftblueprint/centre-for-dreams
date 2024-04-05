@@ -41,7 +41,6 @@ export const announcementRouter = createTRPCRouter({
               .or(z.null())
               .or(z.undefined()),
             filePath: z.string().or(z.null()).or(z.undefined()),
-            fileSize: z.number().or(z.null()).or(z.undefined()), // file size in bytes
           }),
         ),
       }),

@@ -30,6 +30,7 @@ const CreatePost = () => {
     createAnnouncement({
       title: data.title,
       contents: data.contents,
+      images: [],
     });
   };
 

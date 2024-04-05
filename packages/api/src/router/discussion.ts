@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { Base64 } from "js-base64";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { uploadImage } from "./utils/supabaseUtils";
 
 export const discussionRouter = createTRPCRouter({
@@ -45,7 +45,6 @@ export const discussionRouter = createTRPCRouter({
               .or(z.null())
               .or(z.undefined()),
             filePath: z.string().or(z.null()).or(z.undefined()),
-            fileSize: z.number().or(z.null()).or(z.undefined()), // file size in bytes
           }),
         ),
       }),

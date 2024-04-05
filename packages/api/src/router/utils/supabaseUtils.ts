@@ -48,12 +48,13 @@ export async function uploadImage(
   images: {
     fileContents?: string | null | undefined;
     filePath?: string | null | undefined;
-    fileSize?: number | null | undefined;
   }[],
 ): Promise<string[]> {
   for (const image of images) {
+    const fileSize = (image.fileContents?.length ?? 0) * (3 / 4) - 1;
+    console.log(fileSize);
     // Limit size of images to 5mb
-    if (image.fileSize ?? 0 >= 1e6 * 5) {
+    if ((fileSize ?? 0) >= 1e6 * 5) {
       throw new TRPCError({
         message: "Image file size too big",
         code: "PAYLOAD_TOO_LARGE",
@@ -75,7 +76,7 @@ export async function uploadImage(
   const imagePaths = [];
   for (const image of images) {
     // Skip bad images
-    if (!image.fileContents || !image.filePath || !image.fileSize) {
+    if (!image.fileContents || !image.filePath) {
       continue;
     }
     const { data, error } = await supabase.storage

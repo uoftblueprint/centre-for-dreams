@@ -6,6 +6,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Crypto from "expo-crypto";
+import type { ImageResult } from "expo-image-manipulator";
+import { manipulateAsync } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
 
@@ -16,10 +19,8 @@ import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
+  const [images, setImages] = useState<ImageResult[]>([]);
   const { back } = useRouter();
-
-  const uploadImage = api.discussion.createDiscussion.useMutation();
 
   const { mutate: createDiscussion } =
     api.discussion.createDiscussion.useMutation({
@@ -32,6 +33,15 @@ function CreatePost() {
     if (post != "") {
       createDiscussion({
         contents: post,
+        images: images.flatMap((image) => {
+          const fileExtension = image.uri.substring(
+            image.uri.lastIndexOf(".") + 1,
+          );
+          return {
+            fileContents: image.base64,
+            filePath: `${Crypto.randomUUID()}.${fileExtension}`,
+          };
+        }),
       });
     }
   };
@@ -50,7 +60,11 @@ function CreatePost() {
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const updatedImages = [...images, result.assets[0]];
+        const manipResult = await manipulateAsync(result.assets[0].uri, [], {
+          compress: 0.5,
+          base64: true,
+        });
+        const updatedImages = [...images, manipResult];
         // Update the state with the new list
         setImages(updatedImages);
       }
@@ -129,22 +143,13 @@ function CreatePost() {
             <TouchableOpacity
               className="w-44"
               onPress={() => {
-                uploadImage.mutate({
-                  title: "test",
-                  contents: "test",
-                  images: images.flatMap((image) => {
-                    return {
-                      fileContents: image.base64,
-                      filePath: image.fileName,
-                      fileSize: image.fileSize,
-                    };
-                  }),
-                });
-                back();
+                console.log("creat post");
+                createPost();
               }}
             >
               <FilledButton
                 onClick={() => {
+                  // console.log("creat post");
                   createPost();
                 }}
               >

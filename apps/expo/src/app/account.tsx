@@ -1,12 +1,13 @@
 import React from "react";
 import { Image, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 
 import FilledButton from "~/components/FilledButtons";
+import { api } from "~/utils/api";
 
 interface ProfileCardProps {
   email: string | undefined | null;
@@ -67,7 +68,6 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
 const Account = () => {
   const { isSignedIn, user } = useUser();
-  const uploadImage = api.image.uploadImage.useMutation();
   const queryClient = useQueryClient();
   const { data: currentNotificationSettings } =
     api.user.getNotificationSettings.useQuery();
@@ -124,6 +124,7 @@ const Account = () => {
       <Stack.Screen options={{ title: "Account", headerShown: false }} />
       <View className="px-4 pb-6 pt-10">
         <Text className="w-full text-center text-3xl font-medium">Account</Text>
+        <Link href="/createpost">Create post</Link>
       </View>
       <View className="p-4">
         <ProfileCard
