@@ -35,12 +35,8 @@ export const announcementRouter = createTRPCRouter({
         contents: z.string().min(1),
         images: z.array(
           z.object({
-            fileContents: z
-              .string()
-              .refine(Base64.isValid)
-              .or(z.null())
-              .or(z.undefined()),
-            filePath: z.string().or(z.null()).or(z.undefined()),
+            fileContents: z.string().refine(Base64.isValid).optional(),
+            filePath: z.string().optional(),
           }),
         ),
       }),
