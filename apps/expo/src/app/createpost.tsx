@@ -143,13 +143,11 @@ function CreatePost() {
             <TouchableOpacity
               className="w-44"
               onPress={() => {
-                console.log("creat post");
                 createPost();
               }}
             >
               <FilledButton
                 onClick={() => {
-                  // console.log("creat post");
                   createPost();
                 }}
               >
