@@ -149,8 +149,8 @@ function Event() {
               <View key={index} className="mb-3">
                 <View className="inline-flex w-max items-start justify-start">
                   <Text className="text-p-0  font-body-lg leading-normal tracking-tight">
-                    {formatHour(e.startTime!)} -{" "}
-                    {formatHour(addMinutes(e.startTime!, e.durationMinutes!))}
+                    {formatHour(e.startTime)} -{" "}
+                    {formatHour(addMinutes(e.startTime, e.durationMinutes))}
                   </Text>
                 </View>
                 <EventDayTab name={e.name} venue={e.location!} />
