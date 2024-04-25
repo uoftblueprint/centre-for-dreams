@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { addMinutes, format, getMinutes } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
@@ -28,14 +28,22 @@ function formatHourOnly(date: Date): string {
 }
 
 function Event() {
-  const { id } = useLocalSearchParams();
-  const eventId = parseInt(id as string);
+  const { back } = useRouter();
 
-  const event = api.activity.getActivity.useQuery(eventId).data;
+  const postID = parseInt(useLocalSearchParams().id as string);
+  const eventQuery = api.activity.getActivity.useQuery(postID);
+  const event = eventQuery.data;
 
   const [join, setJoin] = React.useState(false);
   const [decline, setDecline] = React.useState(false);
   const [maybe, setMaybe] = React.useState(false);
+
+  const clearState = () => {
+    setJoin(false);
+    setDecline(false);
+    setMaybe(false);
+  };
+
   const joinEvent = () => {
     setJoin(!join);
     setDecline(false);
@@ -53,12 +61,26 @@ function Event() {
     setJoin(false);
     setDecline(false);
   };
+
+  if (eventQuery.isFetching && eventQuery.isLoading) {
+    // Render loading indicator or return null
+    return (
+      <SafeAreaView className="h-full w-full bg-white">
+        <Stack.Screen options={{ title: "Event", headerShown: false }} />
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView className="bg-white">
       <Stack.Screen options={{ title: "Event", headerShown: false }} />
       <View className="inline-flex h-full flex-col justify-start  gap-2.5 px-4 pt-6">
         <View className="inline-flex flex-row items-center justify-between self-stretch">
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              clearState();
+              back();
+            }}
+          >
             <LeftArrow className="relative h-6 w-6" />
           </TouchableOpacity>
           <Text className="text-p-0 font-headline-md text-center leading-9">
@@ -114,12 +136,13 @@ function Event() {
             Maybe
           </MaybeOutlinedChip>
         </View>
-
-        <View className="inline-flex items-start  justify-start">
-          <Text className="text-p-0  font-title-md leading-normal tracking-tight">
-            Details
-          </Text>
-        </View>
+        {event!.subactivities[0] != null && (
+          <View className="inline-flex items-start  justify-start">
+            <Text className="text-p-0  font-title-md leading-normal tracking-tight">
+              Details
+            </Text>
+          </View>
+        )}
         <ScrollView>
           {event!.subactivities.map((e, index) => {
             return (
