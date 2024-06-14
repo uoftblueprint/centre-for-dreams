@@ -6,6 +6,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Crypto from "expo-crypto";
+import type { ImageResult } from "expo-image-manipulator";
+import { manipulateAsync } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
 
@@ -16,7 +19,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ImageResult[]>([]);
   const { back } = useRouter();
 
   const { mutate: createDiscussion } =
@@ -30,6 +33,15 @@ function CreatePost() {
     if (post != "") {
       createDiscussion({
         contents: post,
+        images: images.flatMap((image) => {
+          const fileExtension = image.uri.substring(
+            image.uri.lastIndexOf(".") + 1,
+          );
+          return {
+            fileContents: image.base64,
+            filePath: `${Crypto.randomUUID()}.${fileExtension}`,
+          };
+        }),
       });
     }
   };
@@ -43,13 +55,16 @@ function CreatePost() {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       quality: 1,
+      base64: true,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const updatedImages = [...images, result.assets[0].uri];
+        const manipResult = await manipulateAsync(result.assets[0].uri, [], {
+          compress: 0.5,
+          base64: true,
+        });
+        const updatedImages = [...images, manipResult];
         // Update the state with the new list
         setImages(updatedImages);
       }
@@ -101,7 +116,7 @@ function CreatePost() {
                   {images.map((i, index) => {
                     return (
                       <View key={index} className="mb-3 mr-4">
-                        <Image source={{ uri: i }} className="h-40 w-40" />
+                        <Image source={{ uri: i.uri }} className="h-40 w-40" />
                       </View>
                     );
                   })}
