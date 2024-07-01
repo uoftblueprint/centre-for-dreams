@@ -15,8 +15,8 @@ importers:
         specifier: ^0.21.3
         version: 0.21.3
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       turbo:
         specifier: ^1.12.5
         version: 1.13.0
@@ -166,8 +166,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2
@@ -257,8 +257,8 @@ importers:
         specifier: 8.4.33
         version: 8.4.33
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2
@@ -309,8 +309,8 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       trpc-panel:
         specifier: ^1.3.4
         version: 1.3.4(@trpc/server@10.45.2)(zod@3.22.4)
@@ -362,8 +362,8 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       prisma:
         specifier: ^5.11.0
         version: 5.11.0
@@ -393,8 +393,8 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       typescript:
         specifier: ^5.4.2
         version: 5.4.3
@@ -449,16 +449,16 @@ importers:
     dependencies:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.1.1
-        version: 4.1.1(prettier@3.2.5)
+        version: 4.1.1(prettier@3.3.2)
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       prettier-plugin-prisma:
         specifier: 5.0.0
-        version: 5.0.0(prettier@3.2.5)
+        version: 5.0.0(prettier@3.3.2)
       prettier-plugin-tailwindcss:
         specifier: ^0.5.11
-        version: 0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.2.5)
+        version: 0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.3.2)
     devDependencies:
       '@cfd/tsconfig':
         specifier: ^0.1.0
@@ -492,8 +492,8 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.2
+        version: 3.3.2
       typescript:
         specifier: ^5.4.2
         version: 5.4.3
@@ -3368,7 +3368,7 @@ packages:
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
 
-  /@ianvs/prettier-plugin-sort-imports@4.1.1(prettier@3.2.5):
+  /@ianvs/prettier-plugin-sort-imports@4.1.1(prettier@3.3.2):
     resolution: {integrity: sha512-kJhXq63ngpTQ2dxgf5GasbPJWsJA3LgoOdd7WGhpUSzLgLgI4IsIzYkbJf9kmpOHe7Vdm/o3PcRA3jmizXUuAQ==}
     peerDependencies:
       '@vue/compiler-sfc': '>=3.0.0'
@@ -3382,7 +3382,7 @@ packages:
       '@babel/parser': 7.23.3
       '@babel/traverse': 7.23.3
       '@babel/types': 7.23.3
-      prettier: 3.2.5
+      prettier: 3.3.2
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
@@ -10266,17 +10266,17 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /prettier-plugin-prisma@5.0.0(prettier@3.2.5):
+  /prettier-plugin-prisma@5.0.0(prettier@3.3.2):
     resolution: {integrity: sha512-jTJV04D9+yF7ziOOMs7CJe4ijgAH7DEGjt0SAWAToGNRy1H6BEhvcKA2UQH6gC6KVW5zeeOSAvsoiDDTt9oKXg==}
     engines: {node: '>=14', npm: '>=8'}
     peerDependencies:
       prettier: '>=2 || >=3'
     dependencies:
       '@prisma/prisma-schema-wasm': 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-      prettier: 3.2.5
+      prettier: 3.3.2
     dev: false
 
-  /prettier-plugin-tailwindcss@0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.2.5):
+  /prettier-plugin-tailwindcss@0.5.11(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.3.2):
     resolution: {integrity: sha512-AvI/DNyMctyyxGOjyePgi/gqj5hJYClZ1avtQvLlqMT3uDZkRbi4HhGUpok3DRzv9z7Lti85Kdj3s3/1CeNI0w==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -10325,12 +10325,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      '@ianvs/prettier-plugin-sort-imports': 4.1.1(prettier@3.2.5)
-      prettier: 3.2.5
+      '@ianvs/prettier-plugin-sort-imports': 4.1.1(prettier@3.3.2)
+      prettier: 3.3.2
     dev: false
 
-  /prettier@3.2.5:
-    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+  /prettier@3.3.2:
+    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
     engines: {node: '>=14'}
     hasBin: true
 
