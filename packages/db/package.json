@@ -30,7 +30,7 @@
     "@types/ws": "^8.5.10",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.3",
     "prisma": "^5.11.0",
     "typescript": "^5.4.2"
   },
