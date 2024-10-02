@@ -9,7 +9,7 @@ The Centre for Dreams is a day program that provides services for adults living 
 ```
 apps
   ├─ expo
-  |   ├─ Expo SDK 49
+  |   ├─ Expo SDK 51
   |   ├─ React Native using React 18
   |   └─ User facing mobile application
   └─ next.js
@@ -31,7 +31,7 @@ This project uses a monorepo that contains our API, React Native mobile applicat
 
 Before jumping into the project, install the following dependencies:
 
-- Node.js 18 / [nvm](https://github.com/nvm-sh/nvm)
+- Node.js 20 / [nvm](https://github.com/nvm-sh/nvm)
 - [pnpm](https://pnpm.io/)
 - [Watchman](https://github.com/facebook/watchman)
 - [eas-cli](https://github.com/expo/eas-cli)
@@ -43,7 +43,7 @@ brew install node nvm pnpm watchman
 npm install -g eas-cli
 ```
 
-This project uses Node 18, so use the command `nvm install 18` and `nvm use 18` to setup the correct version.
+This project uses Node 20, so use the command `nvm install 20` and `nvm use 20` to setup the correct version.
 
 ### Expo Go
 
