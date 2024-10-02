@@ -26,7 +26,6 @@ module.exports = function (api) {
           tailwindConfig: lazyLoadConfig(),
         },
       ],
-      require.resolve("expo-router/babel"),
     ],
   };
 };
