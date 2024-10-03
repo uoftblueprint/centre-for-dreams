@@ -151,6 +151,9 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           packager: pnpm
 
+      - name: Install python distutils
+        run: brew install python@3.12
+
       - name: Install deps
         run: pnpm i
 
