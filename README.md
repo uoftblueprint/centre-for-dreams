@@ -217,7 +217,7 @@ pnpm db:migrate
 pnpm typecheck
 ```
 
-## Contributors
+## Contributors (2023-2024)
 
 - [@BakerWJ](https://www.github.com/BakerWJ)
 - [@ganeshasapu](https://github.com/ganeshasapu)
@@ -228,6 +228,10 @@ pnpm typecheck
 - [@nm-le](https://github.com/nm-le)
 - [@sarinali](https://github.com/sarinali)
 - [@Ram-Raghav-S](https://github.com/Ram-Raghav-S)
+
+## Contributors (2024-2025)
+
+- [@sarinali](https://github.com/sarinali)
 
 ## License
 
