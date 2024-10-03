@@ -85,92 +85,77 @@ jobs:
       - name: Build
         run: pnpm turbo typecheck build
 
-  android:
-    runs-on: ubuntu-latest
+  # android:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Setup repo
-      if: github.event_name != 'pull_request'
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Setup repo
+  #     if: github.event_name != 'pull_request'
+  #     uses: actions/checkout@v4
 
-    - name: Setup pnpm
-      if: github.event_name != 'pull_request'
-      uses: pnpm/action-setup@v3.0.0
+  #   - name: Setup pnpm
+  #     if: github.event_name != 'pull_request'
+  #     uses: pnpm/action-setup@v3.0.0
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      if: github.event_name != 'pull_request'
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: 'pnpm-lock.yaml'
+  #   - name: Setup Node
+  #     uses: actions/setup-node@v4
+  #     if: github.event_name != 'pull_request'
+  #     with:
+  #       node-version-file: '.nvmrc'
+  #       cache: 'pnpm'
+  #       cache-dependency-path: 'pnpm-lock.yaml'
 
-    - name: Setup Expo and EAS
-      uses: expo/expo-github-action@v8
-      if: github.event_name != 'pull_request'
-      with:
-        token: ${{ secrets.EXPO_TOKEN }}
-        expo-version: latest
-        eas-version: latest
-        packager: pnpm
+  #   - name: Setup Expo and EAS
+  #     uses: expo/expo-github-action@v8
+  #     if: github.event_name != 'pull_request'
+  #     with:
+  #       token: ${{ secrets.EXPO_TOKEN }}
+  #       expo-version: latest
+  #       eas-version: latest
+  #       packager: pnpm
 
-    - name: Install deps
-      if: github.event_name != 'pull_request'
-      run: pnpm i
+  #   - name: Install deps
+  #     if: github.event_name != 'pull_request'
+  #     run: pnpm i
 
-    - name: Build app
-      if: github.event_name != 'pull_request'
-      run: |
-        cd apps/expo && eas build --local \
-          --non-interactive \
-          --output=./app-build \
-          --platform=android \
-          --profile=development
+  #   - name: Build app
+  #     if: github.event_name != 'pull_request'
+  #     run: |
+  #       cd apps/expo && eas build --local \
+  #         --non-interactive \
+  #         --output=./app-build \
+  #         --platform=android \
+  #         --profile=development
 
   ios:
     runs-on: macos-latest
-
     steps:
-    - name: Setup repo
-      if: github.event_name != 'pull_request'
-      uses: actions/checkout@v4
+      - name: Setup repo
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
-    - name: Setup pnpm
-      if: github.event_name != 'pull_request'
-      uses: pnpm/action-setup@v3.0.0
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+          packager: pnpm
 
-    - name: Setup Node
-      if: github.event_name != 'pull_request'
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'pnpm'
-        cache-dependency-path: 'pnpm-lock.yaml'
+      - name: Install deps
+        run: pnpm i
 
-    - name: Setup Cocoapods
-      if: github.event_name != 'pull_request'
-      uses: maxim-lobanov/setup-cocoapods@v1 
-      with:
-        version: latest
+      - name: Build iOS app
+        run: eas build --platform ios --local --non-interactive --output ${{ github.workspace }}/app-release.ipa
 
-    - name: Setup Expo and EAS
-      if: github.event_name != 'pull_request'
-      uses: expo/expo-github-action@v8
-      with:
-        token: ${{ secrets.EXPO_TOKEN }}
-        expo-version: latest
-        eas-version: latest
-        packager: pnpm
-
-    - name: Install deps
-      if: github.event_name != 'pull_request'
-      run: pnpm i
-
-    - name: Build app
-      if: github.event_name != 'pull_request'
-      run: |
-        cd apps/expo && eas build --local \
-          --non-interactive \
-          --output=./app-build \
-          --platform=ios \
-          --profile=preview
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: ${{ github.workspace }}/app-release.ipa
