@@ -26,5 +26,9 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
 
+      - name: Install Python setuptools using Homebrew
+        if: github.event_name != 'pull_request'
+        run: brew install python-setuptools
+
       - name: Install deps
         run: pnpm install
