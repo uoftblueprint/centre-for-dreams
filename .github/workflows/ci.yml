@@ -154,6 +154,11 @@ jobs:
       - name: Install Python setuptools using Homebrew
         run: brew install python-setuptools
 
+      - name: Setup Cocoapods
+        uses: maxim-lobanov/setup-cocoapods@v1 
+        with:
+          version: latest
+
       - name: Install deps
         run: pnpm i
 
@@ -163,4 +168,4 @@ jobs:
             --non-interactive \
             --output=./app-build \
             --platform=ios \
-            --profile=development
+            --profile=preview
