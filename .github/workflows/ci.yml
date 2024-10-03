@@ -151,8 +151,8 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           packager: pnpm
 
-      - name: Install Python setuptools
-        run: python3 -m pip install setuptools
+      - name: Install Python setuptools using Homebrew
+        run: brew install python-setuptools
 
       - name: Install deps
         run: pnpm i
