@@ -158,10 +158,9 @@ jobs:
         run: pnpm i
 
       - name: Build iOS app
-        run: cd apps/expo && eas build --platform ios --local --non-interactive --output ${{ github.workspace }}/app-release.ipa
-
-      - name: Upload IPA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: ${{ github.workspace }}/app-release.ipa
+        run: |
+          cd apps/expo && eas build --local \
+            --non-interactive \
+            --output=./app-build \
+            --platform=android \
+            --profile=development
