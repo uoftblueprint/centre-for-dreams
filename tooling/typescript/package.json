@@ -4,5 +4,8 @@
   "version": "0.1.0",
   "files": [
     "base.json"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
 }

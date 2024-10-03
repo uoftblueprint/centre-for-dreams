@@ -1,9 +1,9 @@
 import { api } from "~/utils/api";
 
-const HelenaGlowacki = () => {
-  const developerInfo = api.developer.helenaglowacki_info.useQuery().data;
+const EmilyZhou = () => {
+  const developerInfo = api.developer.emilyzhou_info.useQuery().data;
 
-  const upvote = api.developer.helenaglowacki_upvote.useMutation();
+  const upvote = api.developer.emilyzhou_update.useMutation();
 
   return (
     <div className="m4 bg-white-400 m-4 box-border max-w-sm border-4 border-indigo-100 p-4 shadow-sm">
@@ -32,4 +32,4 @@ const HelenaGlowacki = () => {
   );
 };
 
-export default HelenaGlowacki;
+export default EmilyZhou;
