@@ -30,7 +30,7 @@ const SarinaLi = () => {
         </Text>
       </View>
 
-      <View className="mt-2">
+      <View className="mt-2 mb-2">
         <Text>
           <Text className="font-bold">Favourite song: </Text>
           {sarinaliInfo?.fav_song}
