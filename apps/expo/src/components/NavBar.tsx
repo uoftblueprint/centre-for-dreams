@@ -21,6 +21,7 @@ const icons: Record<string, ReactElement[]> = {
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
   createpost: [<Account key="normal" />, <AccountFocused key="focused" />],
+  devcards: [<Account key="normal" />, <AccountFocused key="focused" />], // New entry for devcards tab
 };
 
 const pagesWOutTab: string[] = ["createpost"];
@@ -30,6 +31,7 @@ const labels: Record<string, string> = {
   "notices/index": "Notices",
   forum: "Forum",
   account: "Account",
+  devcards: "Developers",
 };
 
 const NavBar = () => {
@@ -68,7 +70,6 @@ const NavBar = () => {
       })}
     >
       <Tabs.Screen
-        // Name of the route to hide.
         name="index"
         options={{
           href: null,
@@ -102,6 +103,12 @@ const NavBar = () => {
         name="account"
         options={{
           href: "/account",
+        }}
+      />
+      <Tabs.Screen
+        name="devcards"
+        options={{
+          href: "/devcards",
         }}
       />
       <Tabs.Screen
