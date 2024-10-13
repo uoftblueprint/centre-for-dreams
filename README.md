@@ -232,6 +232,7 @@ pnpm typecheck
 ## Contributors (2024-2025)
 
 - [@sarinali](https://github.com/sarinali)
+- [@solarescarlos](https://github.com/solarescarlos)
 
 ## License
 
