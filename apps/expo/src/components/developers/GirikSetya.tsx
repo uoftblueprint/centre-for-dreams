@@ -8,7 +8,7 @@ const GirikSetya = () => {
   const mutation = api.developer.girik_upvote.useMutation();
 
   return (
-    <View className="m-4 rounded-lg border border-gray-200 bg-white p-4 shadow">
+    <View className="m-4 rounded-lg border border-black bg-white p-4 shadow">
       <View className="mb-2">
         <Text className="text-2xl font-semibold tracking-tight text-gray-900">
           {girikInfo?.name}
@@ -39,7 +39,7 @@ const GirikSetya = () => {
 
       <View className="mt-2 flex-row items-center gap-4">
         <TouchableOpacity
-          className="mt-4 rounded bg-blue-500 px-4 py-2"
+          className="mt-4 rounded bg-black px-10 py-2"
           onPress={() => mutation.mutate()}
         >
           <Text className="font-bold text-white">Upvote</Text>
