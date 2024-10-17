@@ -4,6 +4,7 @@ import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import EmilyZhou from "~/components/developers/emilyzhou";
 import SarinaLi from "~/components/developers/sarinali";
+import Jeff from "~/components/developers/jeff";
 import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
@@ -60,6 +61,7 @@ export default function Home() {
         <div> We have {developerCount.data} awesome team members! </div>
         <SarinaLi />
         <EmilyZhou />
+        <Jeff />
       </main>
     </>
   );

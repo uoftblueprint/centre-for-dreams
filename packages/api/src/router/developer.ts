@@ -82,4 +82,47 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+  jeff_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const jeffExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Jeff Huang",
+      },
+    });
+
+    // does not exist, add to table
+    if (!jeffExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Jeff Huang",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = jeffExists.upvotes;
+    }
+
+    return {
+      name: "Jeff Huang",
+      year: 4,
+      introduction:
+        "free is the puppet that loves their strings",
+      fav_food: "gin",
+      fav_song: "ed sheeran - bad habits",
+      upvotes: upvotes,
+    };
+  }),
+
+  jeff_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Girik Setya",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });

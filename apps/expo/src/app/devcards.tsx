@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 
 import EmilyZhou from "~/components/developers/EmilyZhou";
 import SarinaLi from "~/components/developers/SarinaLi";
+import Jeff from "~/components/developers/Jeff";
 
 const Developers = () => {
   return (
@@ -13,6 +14,7 @@ const Developers = () => {
         <View className="mb-16 space-y-4">
           <SarinaLi />
           <EmilyZhou />
+          <Jeff />
         </View>
       </ScrollView>
     </SafeAreaView>
