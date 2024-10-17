@@ -233,6 +233,8 @@ pnpm typecheck
 
 - [@sarinali](https://github.com/sarinali)
 - [@elsiezhu](https://github.com/elsiezhu)
+- [@jeffhcs](https://github.com/jeffhcs)
+- [@Ett05](https://github.com/Ett05)
 
 ## License
 
