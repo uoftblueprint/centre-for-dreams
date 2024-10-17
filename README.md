@@ -232,6 +232,7 @@ pnpm typecheck
 ## Contributors (2024-2025)
 
 - [@sarinali](https://github.com/sarinali)
+- [@jeffhcs](https://github.com/jeffhcs)
 - [@Ett05](https://github.com/Ett05)
 
 ## License
