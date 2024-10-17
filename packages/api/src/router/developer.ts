@@ -82,4 +82,47 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+  girik_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const girikExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Girik Setya",
+      },
+    });
+
+    // does not exist, add to table
+    if (!girikExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Girik Setya",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = girikExists.upvotes;
+    }
+
+    return {
+      name: "Girik Setya",
+      year: 2,
+      introduction:
+        "I am Second Year CS Specialist joining as a Junior Developer",
+      fav_food: "Pizza",
+      fav_song: "Thick of It - KSI",
+      upvotes: upvotes,
+    };
+  }),
+
+  girik_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Girik Setya",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });
