@@ -124,7 +124,7 @@ export const developerRouter = createTRPCRouter({
       },
     });
   }),
-  
+
   carlossolares_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
 
