@@ -2,10 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import CarlosSolares from "~/components/developers/carlossolares";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import SarinaLi from "~/components/developers/sarinali";
-import CarlosSolares from "~/components/developers/carlossolares";
 import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
