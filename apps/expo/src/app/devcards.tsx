@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
 
 import DanielXu from "~/components/developers/DanielXu";
+import ElsieZhu from "~/components/developers/ElsieZhu";
 import EmilyZhou from "~/components/developers/EmilyZhou";
 import SarinaLi from "~/components/developers/SarinaLi";
 
@@ -15,6 +16,7 @@ const Developers = () => {
           <SarinaLi />
           <EmilyZhou />
           <DanielXu />
+          <ElsieZhu />
         </View>
       </ScrollView>
     </SafeAreaView>
