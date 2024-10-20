@@ -83,7 +83,6 @@ export const developerRouter = createTRPCRouter({
     });
   }),
 
-
   danielxu_info: publicProcedure.query(async ({ ctx }) => {
     let developer = await ctx.db.developers.findFirst({
       where: { name: "Daniel Xu" },
@@ -114,6 +113,8 @@ export const developerRouter = createTRPCRouter({
     return await ctx.db.developers.update({
       where: { name: "Daniel Xu" },
       data: { upvotes: { increment: 1 } },
+    });
+  }),
 
   elsiezhu_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
