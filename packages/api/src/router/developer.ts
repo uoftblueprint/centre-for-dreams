@@ -85,6 +85,7 @@ export const developerRouter = createTRPCRouter({
 
   carlossolares_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
+
     // check if exist in table
     const carlosExists = await ctx.db.developers.findFirst({
       where: {
@@ -92,7 +93,6 @@ export const developerRouter = createTRPCRouter({
       },
     });
 
-    // Carlos
     if (!carlosExists) {
       await ctx.db.developers.create({
         data: {
@@ -107,15 +107,15 @@ export const developerRouter = createTRPCRouter({
     return {
       name: "Carlos Solares",
       year: 2,
-      introduction: "I'm a developer for CFD this year! Fun fact: I love scuba diving.",
+      introduction: 
+        "I'm a developer for CFD this year! Fun fact: I love scuba diving.",
       fav_food: "Pasta Carbonara",
-      fav_song: "Quiereme -- Mickey Taveras",
+      fav_song: "Quiereme - Mickey Taveras",
       upvotes: upvotes,
     };
   }),
 
   carlossolares_upvote: publicProcedure.mutation(async ({ ctx }) => {
-    // insert if not in table
     await ctx.db.developers.update({
       where: {
         name: "Carlos Solares",
