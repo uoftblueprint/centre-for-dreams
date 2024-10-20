@@ -83,6 +83,48 @@ export const developerRouter = createTRPCRouter({
     });
   }),
 
+  elsiezhu_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if developer exists in table
+    const elsieExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Elsie Zhu",
+      },
+    });
+
+    // create developer if doesn't exist
+    if (!elsieExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Elsie Zhu",
+        },
+      });
+    } else {
+      upvotes = elsieExists.upvotes;
+    }
+
+    return {
+      name: "Elsie Zhu",
+      year: 4,
+      introduction: "Hey! I am a Senior Dev on CFD this year",
+      fav_food: "lobster",
+      fav_song: "Casual by Chappell Roan",
+      upvotes: upvotes,
+    };
+  }),
+
+  elsiezhu_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Elsie Zhu",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
+  
   carlossolares_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
 
