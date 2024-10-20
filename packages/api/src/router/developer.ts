@@ -107,7 +107,7 @@ export const developerRouter = createTRPCRouter({
     return {
       name: "Carlos Solares",
       year: 2,
-      introduction: 
+      introduction:
         "I'm a developer for CFD this year! Fun fact: I love scuba diving.",
       fav_food: "Pasta Carbonara",
       fav_song: "Quiereme - Mickey Taveras",
