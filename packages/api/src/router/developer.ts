@@ -157,4 +157,47 @@ export const developerRouter = createTRPCRouter({
       },
     });
   }),
+
+  carlossolares_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+
+    // check if exist in table
+    const carlosExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Carlos Solares",
+      },
+    });
+
+    if (!carlosExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Carlos Solares",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = carlosExists.upvotes;
+    }
+
+    return {
+      name: "Carlos Solares",
+      year: 2,
+      introduction:
+        "I'm a developer for CFD this year! Fun fact: I love scuba diving.",
+      fav_food: "Pasta Carbonara",
+      fav_song: "Quiereme - Mickey Taveras",
+      upvotes: upvotes,
+    };
+  }),
+
+  carlossolares_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.developers.update({
+      where: {
+        name: "Carlos Solares",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });

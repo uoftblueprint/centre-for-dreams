@@ -6,6 +6,7 @@ import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import SarinaLi from "~/components/developers/sarinali";
+import CarlosSolares from "~/components/developers/carlossolares";
 import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
@@ -64,6 +65,7 @@ export default function Home() {
         <EmilyZhou />
         <DanielXu />
         <ElsieZhu />
+        <CarlosSolares />
       </main>
     </>
   );
