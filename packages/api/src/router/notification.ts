@@ -8,6 +8,38 @@ import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 const expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
 
+export const pushNotification = async (
+  pushTokens: string[],
+  title?: string,
+  body?: string,
+  subtitle?: string,
+) => {
+  // Create notification messages
+  const messages: ExpoPushMessage[] = pushTokens
+    .filter((pushToken) => Expo.isExpoPushToken(pushToken))
+    .map((pushToken) => ({
+      to: pushToken,
+      sound: "default",
+      title: title,
+      body: body,
+      subtitle: subtitle,
+    }));
+
+  // Send the messages
+  const chunks = expo.chunkPushNotifications(messages);
+  const tickets = [];
+  await (async () => {
+    for (const chunk of chunks) {
+      try {
+        const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+        tickets.push(...ticketChunk);
+      } catch (error) {
+        logger.error(error);
+      }
+    }
+  })();
+};
+
 export const notificationRouter = createTRPCRouter({
   push: adminProcedure
     .input(
@@ -20,30 +52,12 @@ export const notificationRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      // Create notification messages
-      const messages: ExpoPushMessage[] = input.pushTokens
-        .filter((pushToken) => Expo.isExpoPushToken(pushToken))
-        .map((pushToken) => ({
-          to: pushToken,
-          sound: "default",
-          title: input.title,
-          body: input.body,
-          subtitle: input.subtitle,
-        }));
-
-      // Send the messages
-      const chunks = expo.chunkPushNotifications(messages);
-      const tickets = [];
-      await (async () => {
-        for (const chunk of chunks) {
-          try {
-            const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-            tickets.push(...ticketChunk);
-          } catch (error) {
-            logger.error(error);
-          }
-        }
-      })();
+      await pushNotification(
+        input.pushTokens,
+        input.title,
+        input.body,
+        input.subtitle,
+      );
     }),
   register: protectedProcedure
     .input(
