@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { api } from "~/utils/api";
 
+// adding a comment
 const SarinaLi = () => {
   const { data: sarinaliInfo } = api.developer.sarinali_info.useQuery();
   const mutation = api.developer.sarinali_upvote.useMutation();
