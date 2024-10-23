@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import CarlosSolares from "~/components/developers/carlossolares";
 import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
@@ -64,6 +65,7 @@ export default function Home() {
         <EmilyZhou />
         <DanielXu />
         <ElsieZhu />
+        <CarlosSolares />
       </main>
     </>
   );
