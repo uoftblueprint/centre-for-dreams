@@ -5,7 +5,8 @@ import { api } from "~/utils/api";
 
 // adding a comment
 const CarlosSolares = () => {
-  const { data: carlossolaresInfo } = api.developer.carlossolares_info.useQuery();
+  const { data: carlossolaresInfo } =
+    api.developer.carlossolares_info.useQuery();
   const mutation = api.developer.carlossolares_upvote.useMutation();
 
   return (
@@ -47,7 +48,9 @@ const CarlosSolares = () => {
         </TouchableOpacity>
 
         <View className="pt-2">
-          <Text className="font-bold">Upvotes: {carlossolaresInfo?.upvotes}</Text>
+          <Text className="font-bold">
+            Upvotes: {carlossolaresInfo?.upvotes}
+          </Text>
         </View>
       </View>
     </View>
