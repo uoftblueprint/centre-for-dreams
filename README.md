@@ -237,6 +237,7 @@ pnpm typecheck
 - [@jeffhcs](https://github.com/jeffhcs)
 - [@Ett05](https://github.com/Ett05)
 - [@nolawiyonas1](https://github.com/nolawiyonas1)
+- [@solarescarlos](https://github.com/solarescarlos)
 
 ## License
 
