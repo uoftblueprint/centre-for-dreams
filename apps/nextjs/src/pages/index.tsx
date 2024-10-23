@@ -2,10 +2,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
-import CarlosSolares from "~/components/developers/carlossolares";
+import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import SarinaLi from "~/components/developers/sarinali";
+import CarlosSolares from "~/components/developers/carlossolares";
 import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
@@ -62,6 +63,7 @@ export default function Home() {
         <div> We have {developerCount.data} awesome team members! </div>
         <SarinaLi />
         <EmilyZhou />
+        <DanielXu />
         <ElsieZhu />
         <CarlosSolares />
       </main>
