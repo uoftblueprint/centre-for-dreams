@@ -184,7 +184,7 @@ export const developerRouter = createTRPCRouter({
       year: 2,
       introduction: "Hey! I'm a Junior Developer for CFD this year.",
       fav_food: "Wings",
-      fav_song: "Heartless by The Weeknd",
+      fav_song: "Timeless by The Weeknd",
       upvotes: upvotes,
     };
   }),
