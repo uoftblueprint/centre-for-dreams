@@ -44,6 +44,3 @@ yarn-error.log*
 
 # turbo
 .turbo
-
-# TypeScript config
-tsconfig.json
