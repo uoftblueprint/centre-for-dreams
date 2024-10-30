@@ -5,7 +5,7 @@ const Nolawi = () => {
     const mutation = api.developer.nolawi_upvote.useMutation();
     return (
         <div className="m-4 block max-w-sm rounded-lg border-2 border-blue-500 bg-white p-6 shadow-lg">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-800">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-800">
                 {nolawiInfo?.name}
             </h2>
             <h3 className="text-lg mb-4 text-gray-600">Year: {nolawiInfo?.year}</h3>
