@@ -18,7 +18,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^0.20.30",
+    "@clerk/clerk-expo": "^0.20.32",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-config": "^0.18.11",
     "@supabase/supabase-js": "^2.39.7",
