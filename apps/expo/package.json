@@ -52,9 +52,9 @@
     "superjson": "2.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.4",
-    "@babel/runtime": "^7.25.6",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/runtime": "^7.26.0",
     "@cfd/api": "^0.1.0",
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
