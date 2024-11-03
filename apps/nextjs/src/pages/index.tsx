@@ -6,8 +6,8 @@ import CarlosSolares from "~/components/developers/carlossolares";
 import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
-import SarinaLi from "~/components/developers/sarinali";
 import Jeff from "~/components/developers/jeff";
+import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
 
 const ToggleAdmin = () => {
