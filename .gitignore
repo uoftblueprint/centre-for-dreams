@@ -32,6 +32,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+
 # local env files
 .env
 .env*.local
@@ -46,4 +47,5 @@ yarn-error.log*
 .turbo
 
 # for emulator dev
-ios/
+ios/*
+app.json
