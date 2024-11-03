@@ -4,14 +4,18 @@ import { z } from "zod";
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
-  getSchedule: protectedProcedure
-    .input(z.object({ day: z.date() }))
+  getSchedule: publicProcedure
+    .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
+      if (!isValidDate(input.day)) {
+        throw new Error("Invalid date format. Expected YYYY-MM-DD");
+      }
+      const inputDay = new Date(input.day);
       return await ctx.db.activity.findMany({
         where: {
           day: {
-            gte: input.day,
-            lte: addWeeks(input.day, 1),
+            gte: inputDay.toISOString(),
+            lte: addWeeks(inputDay, 1).toISOString(),
           },
         },
         orderBy: { day: "desc" },
