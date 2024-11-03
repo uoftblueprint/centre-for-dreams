@@ -231,6 +231,7 @@ export const developerRouter = createTRPCRouter({
     });
   }),
 
+
   ericlu_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
     // check if exist in table

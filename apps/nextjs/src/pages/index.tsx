@@ -8,6 +8,7 @@ import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import EricLu from "~/components/developers/ericlu";
 import Jeff from "~/components/developers/jeff";
+import Nolawi from "~/components/developers/nolawi";
 import SarinaLi from "~/components/developers/sarinali";
 import { api } from "~/utils/api";
 
@@ -70,6 +71,7 @@ export default function Home() {
         <ElsieZhu />
         <CarlosSolares />
         <EricLu />
+        <Nolawi />
       </main>
     </>
   );
