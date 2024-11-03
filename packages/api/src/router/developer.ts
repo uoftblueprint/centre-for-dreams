@@ -107,10 +107,10 @@ export const developerRouter = createTRPCRouter({
       upvotes: developer.upvotes,
     };
   }),
-  jeff_update: publicProcedure.mutation(async ({ ctx }) => {
+  jeff_upvote: publicProcedure.mutation(async ({ ctx }) => {
     // Update!
     return await ctx.db.developers.update({
-      where: { name: "Emily Zhou" },
+      where: { name: "Jeff Huang" },
       data: { upvotes: { increment: 1 } },
     });
   }),
