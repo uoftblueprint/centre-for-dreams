@@ -38,12 +38,16 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
-  getDailySchedule: protectedProcedure
-    .input(z.object({ day: z.date() }))
+    getDailySchedule: publicProcedure
+    .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
+      if (!isValidDate(input.day)) {
+        throw new Error("Invalid date format. Expected YYYY-MM-DD");
+      }
+      const inputDay = new Date(input.day);
       return await ctx.db.activity.findMany({
         where: {
-          day: input.day,
+          day: inputDay.toISOString(),
         },
         orderBy: { day: "desc" },
       });
