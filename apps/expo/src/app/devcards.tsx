@@ -6,6 +6,7 @@ import CarlosSolares from "~/components/developers/CarlosSolares";
 import DanielXu from "~/components/developers/DanielXu";
 import ElsieZhu from "~/components/developers/ElsieZhu";
 import EmilyZhou from "~/components/developers/EmilyZhou";
+import EricLu from "~/components/developers/EricLu";
 import Jeff from "~/components/developers/Jeff";
 import Nolawi from "~/components/developers/Nolawi";
 import SarinaLi from "~/components/developers/SarinaLi";
@@ -22,6 +23,7 @@ const Developers = () => {
           <DanielXu />
           <ElsieZhu />
           <CarlosSolares />
+          <EricLu />
           <Nolawi />
         </View>
       </ScrollView>

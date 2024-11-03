@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function ViewActivities() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const viewAcitivtes = api.activity.getSchedule.useQuery({
-    day: selectedDate,
+    day: selectedDate.toISOString().slice(0, 10), // convert selectedDate (type date) into string 'YYYY-MM-DD'
   });
 
   return (
