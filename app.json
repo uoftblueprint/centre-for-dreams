@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "centre-for-dreams",
+    "slug": "centre-for-dreams",
+    "version": "1.0.0",
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.eric27.centre-for-dreams"
+    }
+  }
+}
