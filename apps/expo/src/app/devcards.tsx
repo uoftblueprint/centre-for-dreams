@@ -7,6 +7,7 @@ import DanielXu from "~/components/developers/DanielXu";
 import ElsieZhu from "~/components/developers/ElsieZhu";
 import EmilyZhou from "~/components/developers/EmilyZhou";
 import GirikSetya from "~/components/developers/GirikSetya";
+import Jeff from "~/components/developers/Jeff";
 import SarinaLi from "~/components/developers/SarinaLi";
 
 const Developers = () => {
@@ -18,6 +19,7 @@ const Developers = () => {
           <SarinaLi />
           <EmilyZhou />
           <GirikSetya />
+          <Jeff />
           <DanielXu />
           <ElsieZhu />
           <CarlosSolares />
