@@ -1,7 +1,24 @@
 import { addWeeks } from "date-fns";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
+
+function isValidDate(dateString: string): boolean {
+  const parsedDate = Date.parse(dateString);
+  if (isNaN(parsedDate)) {
+    return false;
+  }
+
+  const date = new Date(parsedDate);
+  const formattedDate = date.toISOString().split("T")[0];
+
+  return dateString === formattedDate;
+}
 
 export const activityRouter = createTRPCRouter({
   getSchedule: publicProcedure
