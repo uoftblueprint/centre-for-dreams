@@ -6,8 +6,8 @@ import CarlosSolares from "~/components/developers/CarlosSolares";
 import DanielXu from "~/components/developers/DanielXu";
 import ElsieZhu from "~/components/developers/ElsieZhu";
 import EmilyZhou from "~/components/developers/EmilyZhou";
-import SarinaLi from "~/components/developers/SarinaLi";
 import Jeff from "~/components/developers/Jeff";
+import SarinaLi from "~/components/developers/SarinaLi";
 
 const Developers = () => {
   return (
