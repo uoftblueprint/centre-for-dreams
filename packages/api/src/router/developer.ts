@@ -230,4 +230,47 @@ export const developerRouter = createTRPCRouter({
       },
     });
   }),
+
+  nolawi_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const nolawiExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Nolawi Teklehaimanot",
+      },
+    });
+
+    // does not exist, add to table
+    if (!nolawiExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Nolawi Teklehaimanot",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = nolawiExists.upvotes;
+    }
+
+    return {
+      name: "Nolawi Teklehaimanot",
+      year: 2,
+      introduction: "Hey! I'm a Junior Developer for CFD this year.",
+      fav_food: "Wings",
+      fav_song: "Timeless by The Weeknd",
+      upvotes: upvotes,
+    };
+  }),
+
+  nolawi_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Nolawi Teklehaimanot",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });
