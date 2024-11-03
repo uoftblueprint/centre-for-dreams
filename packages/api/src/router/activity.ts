@@ -1,12 +1,7 @@
 import { addWeeks } from "date-fns";
 import { z } from "zod";
 
-import {
-  adminProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 function isValidDate(dateString: string): boolean {
   const parsedDate = Date.parse(dateString);
@@ -38,7 +33,7 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
-    getDailySchedule: publicProcedure
+  getDailySchedule: publicProcedure
     .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
       if (!isValidDate(input.day)) {
