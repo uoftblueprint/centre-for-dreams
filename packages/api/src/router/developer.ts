@@ -83,20 +83,18 @@ export const developerRouter = createTRPCRouter({
     });
   }),
   jeff_info: publicProcedure.query(async ({ ctx }) => {
-    let upvotes = 0;
-    // check if exist in table
-    const jeffExists = await ctx.db.developers.findFirst({
-      where: {
-        name: "Jeff Huang",
-      },
+    let developer = await ctx.db.developers.findFirst({
+      where: { name: "Jeff Huang" },
     });
 
-    // does not exist, add to table
-    if (!jeffExists) {
-      await ctx.db.developers.create({
+    // Create developer if doesn't exist
+    if (developer === null) {
+      developer = await ctx.db.developers.create({
         data: {
           name: "Jeff Huang",
-          upvotes = jeffExists.upvotes;
+          upvotes: 0,
+        },
+      });
     }
 
     return {
@@ -106,17 +104,16 @@ export const developerRouter = createTRPCRouter({
         "free is the puppet that loves their strings",
       fav_food: "gin",
       fav_song: "ed sheeran - bad habits",
-        upvotes: developer.upvotes,
-            };
+      upvotes: developer.upvotes,
+    };
   }),
   jeff_update: publicProcedure.mutation(async ({ ctx }) => {
     // Update!
     return await ctx.db.developers.update({
-      where: { name: "Jeff Huang" },
+      where: { name: "Emily Zhou" },
       data: { upvotes: { increment: 1 } },
     });
   }),
-        
   danielxu_info: publicProcedure.query(async ({ ctx }) => {
     let developer = await ctx.db.developers.findFirst({
       where: { name: "Daniel Xu" },
