@@ -100,8 +100,7 @@ export const developerRouter = createTRPCRouter({
     return {
       name: "Jeff Huang",
       year: 4,
-      introduction:
-        "free is the puppet that loves their strings",
+      introduction: "free is the puppet that loves their strings",
       fav_food: "gin",
       fav_song: "ed sheeran - bad habits",
       upvotes: developer.upvotes,
@@ -207,7 +206,6 @@ export const developerRouter = createTRPCRouter({
         },
       });
     } else {
-
       upvotes = carlosExists.upvotes;
     }
 
@@ -221,8 +219,6 @@ export const developerRouter = createTRPCRouter({
       upvotes: upvotes,
     };
   }),
-
-
 
   carlossolares_upvote: publicProcedure.mutation(async ({ ctx }) => {
     await ctx.db.developers.update({
