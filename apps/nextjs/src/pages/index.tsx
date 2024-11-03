@@ -2,6 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import CarlosSolares from "~/components/developers/carlossolares";
+import DanielXu from "~/components/developers/danielxu";
+import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import GirikSetya from "~/components/developers/giriksetya";
 import SarinaLi from "~/components/developers/sarinali";
@@ -62,6 +65,9 @@ export default function Home() {
         <SarinaLi />
         <EmilyZhou />
         <GirikSetya />
+        <DanielXu />
+        <ElsieZhu />
+        <CarlosSolares />
       </main>
     </>
   );
