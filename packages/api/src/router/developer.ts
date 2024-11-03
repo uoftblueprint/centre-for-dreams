@@ -200,4 +200,45 @@ export const developerRouter = createTRPCRouter({
       },
     });
   }),
+
+  ericlu_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const ericExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Eric Lu",
+      },
+    });
+
+    if (!ericExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Eric Lu",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = ericExists.upvotes;
+    }
+
+    return {
+      name: "Eric Lu",
+      year: 3,
+      introduction: "My name is Eric! I love travelling and Japanese anime!",
+      fav_food: "Sashimi",
+      fav_song: "Kataware Doki",
+      upvotes: upvotes,
+    };
+  }),
+
+  ericlu_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.developers.update({
+      where: {
+        name: "Eric Lu",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
 });
