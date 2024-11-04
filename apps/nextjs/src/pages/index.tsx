@@ -7,6 +7,7 @@ import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
 import EmilyZhou from "~/components/developers/emilyzhou";
 import EricLu from "~/components/developers/ericlu";
+import GirikSetya from "~/components/developers/giriksetya";
 import Jeff from "~/components/developers/jeff";
 import Nolawi from "~/components/developers/nolawi";
 import SarinaLi from "~/components/developers/sarinali";
@@ -66,6 +67,7 @@ export default function Home() {
         <div> We have {developerCount.data} awesome team members! </div>
         <SarinaLi />
         <EmilyZhou />
+        <GirikSetya />
         <Jeff />
         <DanielXu />
         <ElsieZhu />
