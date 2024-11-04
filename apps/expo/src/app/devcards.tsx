@@ -18,7 +18,7 @@ const Developers = () => {
       <Stack.Screen options={{ title: "CFD Team 2024-2025!" }} />
       <ScrollView className="h-full w-full p-4">
         <View className="mb-16 space-y-4">
-          ß <SarinaLi />
+          <SarinaLi />
           <EmilyZhou />
           <GirikSetya />
           <Jeff />
