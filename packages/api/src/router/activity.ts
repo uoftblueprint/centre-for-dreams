@@ -76,4 +76,16 @@ export const activityRouter = createTRPCRouter({
         },
       });
     }),
+  getSubactivities: protectedProcedure // protectedProcedure because logged-in users should be able to use this
+    .input(z.object({ activityId: z.number() })) // I assumed "event" and "activity" are used interchangeably in the ticket
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.activity.findUnique({
+        where: {
+          id: input.activityId,
+        },
+        select: {
+          subactivities: true,
+        },
+      });
+    }),  
 });
