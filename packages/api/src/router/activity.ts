@@ -33,16 +33,6 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
-  getActivities: protectedProcedure
-    .input(z.object({ day: z.date() }))
-    .query(async ({ ctx, input }) => {
-      return await ctx.db.activity.findMany({
-        where: {
-          day: input.day,
-        },
-        orderBy: { day: "desc" },
-      });
-    }),
   getDailySchedule: protectedProcedure
     .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {

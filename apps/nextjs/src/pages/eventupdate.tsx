@@ -10,8 +10,8 @@ import { api } from "~/utils/api";
 
 export default function EventUpdatePage() {
   const [date, setDate] = useState<Date>(new Date());
-  const activities = api.activity.getActivities.useQuery({
-    day: date,
+  const activities = api.activity.getDailySchedule.useQuery({
+    day: date.toISOString().slice(0, 10),
   });
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>();
   const [isLoading, setIsLoading] = useState(false);
