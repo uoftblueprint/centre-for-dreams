@@ -3,15 +3,31 @@ import { z } from "zod";
 
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
+function isValidDate(dateString: string): boolean {
+  const parsedDate = Date.parse(dateString);
+  if (isNaN(parsedDate)) {
+    return false;
+  }
+
+  const date = new Date(parsedDate);
+  const formattedDate = date.toISOString().split("T")[0];
+
+  return dateString === formattedDate;
+}
+
 export const activityRouter = createTRPCRouter({
   getSchedule: protectedProcedure
-    .input(z.object({ day: z.date() }))
+    .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
+      if (!isValidDate(input.day)) {
+        throw new Error("Invalid date format. Expected YYYY-MM-DD");
+      }
+      const inputDay = new Date(input.day);
       return await ctx.db.activity.findMany({
         where: {
           day: {
-            gte: input.day,
-            lte: addWeeks(input.day, 1),
+            gte: inputDay.toISOString(),
+            lte: addWeeks(inputDay, 1).toISOString(),
           },
         },
         orderBy: { day: "desc" },
@@ -23,6 +39,20 @@ export const activityRouter = createTRPCRouter({
       return await ctx.db.activity.findMany({
         where: {
           day: input.day,
+        },
+        orderBy: { day: "desc" },
+      });
+    }),
+  getDailySchedule: protectedProcedure
+    .input(z.object({ day: z.string() }))
+    .query(async ({ ctx, input }) => {
+      if (!isValidDate(input.day)) {
+        throw new Error("Invalid date format. Expected YYYY-MM-DD");
+      }
+      const inputDay = new Date(input.day);
+      return await ctx.db.activity.findMany({
+        where: {
+          day: inputDay.toISOString(),
         },
         orderBy: { day: "desc" },
       });

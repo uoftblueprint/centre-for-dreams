@@ -82,6 +82,69 @@ export const developerRouter = createTRPCRouter({
       data: { upvotes: { increment: 1 } },
     });
   }),
+  jeff_info: publicProcedure.query(async ({ ctx }) => {
+    let developer = await ctx.db.developers.findFirst({
+      where: { name: "Jeff Huang" },
+    });
+
+    // Create developer if doesn't exist
+    if (developer === null) {
+      developer = await ctx.db.developers.create({
+        data: {
+          name: "Jeff Huang",
+          upvotes: 0,
+        },
+      });
+    }
+
+    return {
+      name: "Jeff Huang",
+      year: 4,
+      introduction: "free is the puppet that loves their strings",
+      fav_food: "gin",
+      fav_song: "ed sheeran - bad habits",
+      upvotes: developer.upvotes,
+    };
+  }),
+  jeff_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // Update!
+    return await ctx.db.developers.update({
+      where: { name: "Jeff Huang" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
+  danielxu_info: publicProcedure.query(async ({ ctx }) => {
+    let developer = await ctx.db.developers.findFirst({
+      where: { name: "Daniel Xu" },
+    });
+
+    // Create developer if doesn't exist
+    if (developer === null) {
+      developer = await ctx.db.developers.create({
+        data: {
+          name: "Daniel Xu",
+          upvotes: 0,
+        },
+      });
+    }
+
+    return {
+      name: "Daniel Xu",
+      year: 4,
+      introduction:
+        "I'm a senior developer on the team, and I playn't Pokemon Go.",
+      fav_food: "Sushi",
+      fav_song: "Cherry Wine by Grentperez",
+      upvotes: developer.upvotes,
+    };
+  }),
+
+  danielxu_update: publicProcedure.mutation(async ({ ctx }) => {
+    return await ctx.db.developers.update({
+      where: { name: "Daniel Xu" },
+      data: { upvotes: { increment: 1 } },
+    });
+  }),
 
   elsiezhu_info: publicProcedure.query(async ({ ctx }) => {
     let upvotes = 0;
@@ -118,6 +181,176 @@ export const developerRouter = createTRPCRouter({
     await ctx.db.developers.update({
       where: {
         name: "Elsie Zhu",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
+
+  carlossolares_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+
+    // check if exist in table
+    const carlosExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Carlos Solares",
+      },
+    });
+
+    if (!carlosExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Carlos Solares",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = carlosExists.upvotes;
+    }
+
+    return {
+      name: "Carlos Solares",
+      year: 2,
+      introduction:
+        "I'm a developer for CFD this year! Fun fact: I love scuba diving.",
+      fav_food: "Pasta Carbonara",
+      fav_song: "Quiereme - Mickey Taveras",
+      upvotes: upvotes,
+    };
+  }),
+
+  carlossolares_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.developers.update({
+      where: {
+        name: "Carlos Solares",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
+
+  ericlu_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const ericExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Eric Lu",
+      },
+    });
+
+    if (!ericExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Eric Lu",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = ericExists.upvotes;
+    }
+
+    return {
+      name: "Eric Lu",
+      year: 3,
+      introduction: "My name is Eric! I love travelling and Japanese anime!",
+      fav_food: "Sashimi",
+      fav_song: "Kataware Doki",
+      upvotes: upvotes,
+    };
+  }),
+
+  ericlu_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.developers.update({
+      where: {
+        name: "Eric Lu",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
+
+  nolawi_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const nolawiExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Nolawi Teklehaimanot",
+      },
+    });
+
+    // does not exist, add to table
+    if (!nolawiExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Nolawi Teklehaimanot",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = nolawiExists.upvotes;
+    }
+
+    return {
+      name: "Nolawi Teklehaimanot",
+      year: 2,
+      introduction: "Hey! I'm a Junior Developer for CFD this year.",
+      fav_food: "Wings",
+      fav_song: "Timeless by The Weeknd",
+      upvotes: upvotes,
+    };
+  }),
+
+  nolawi_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Nolawi Teklehaimanot",
+      },
+      data: {
+        upvotes: { increment: 1 },
+      },
+    });
+  }),
+  girik_info: publicProcedure.query(async ({ ctx }) => {
+    let upvotes = 0;
+    // check if exist in table
+    const girikExists = await ctx.db.developers.findFirst({
+      where: {
+        name: "Girik Setya",
+      },
+    });
+
+    // does not exist, add to table
+    if (!girikExists) {
+      await ctx.db.developers.create({
+        data: {
+          name: "Girik Setya",
+          upvotes: 0,
+        },
+      });
+    } else {
+      upvotes = girikExists.upvotes;
+    }
+
+    return {
+      name: "Girik Setya",
+      year: 2,
+      introduction:
+        "I am Second Year CS Specialist joining as a Junior Developer",
+      fav_food: "Pizza",
+      fav_song: "Thick of It - KSI",
+      upvotes: upvotes,
+    };
+  }),
+
+  girik_upvote: publicProcedure.mutation(async ({ ctx }) => {
+    // insert if not in table
+    await ctx.db.developers.update({
+      where: {
+        name: "Girik Setya",
       },
       data: {
         upvotes: { increment: 1 },
