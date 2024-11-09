@@ -1,58 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Activity, Subactivity } from "@prisma/client";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const fetchActivities = (date: Date) => {
-  console.log(date);
-  console.log(new Date());
-  return [
-    {
-      id: 1,
-      name: "Morning Yoga",
-      day: new Date(), // Example date
-      startTime: new Date(), // Example start time
-      durationMinutes: 60,
-      leader: "Alice",
-      location: "Gym",
-      subactivities: [],
-    },
-    {
-      id: 2,
-      name: "Team Meeting",
-      day: new Date(), // Example date
-      startTime: new Date(), // Example start time
-      durationMinutes: 30,
-      leader: "Bob",
-      location: "Conference Room",
-      subactivities: [],
-    },
-  ].filter((activity) => {
-    const activityDate = activity.day;
-
-    // Compare year, month, and day
-    return (
-      activityDate.getFullYear() === date.getFullYear() &&
-      activityDate.getMonth() === date.getMonth() &&
-      activityDate.getDate() === date.getDate()
-    );
-  });
-};
-
-const updateActivity = async (activityData: Activity) => {
-  // Simulating API call
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return { success: true };
-};
+import { api } from "~/utils/api";
 
 export default function EventUpdatePage() {
-  const [date, setDate] = useState<Date>();
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [selectedActivity, setSelectedActivity] = useState<Activity>();
+  const [date, setDate] = useState<Date>(new Date());
+  const activities = api.activity.getActivities.useQuery({
+    day: date,
+  });
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const { mutate: updateActivity } = api.activity.updateActivity.useMutation({
+    onSuccess: () => {
+      setIsSuccess(true);
+      setIsLoading(false);
+      setSelectedActivity(null);
+    },
+  });
   const [formData, setFormData] = useState<Activity>({
     id: 0,
     name: "",
@@ -65,22 +36,18 @@ export default function EventUpdatePage() {
 
   const handleDateSelect = (date: Date) => {
     setDate(date);
-    setIsLoading(true);
-    try {
-      const fetchedActivities = fetchActivities(date);
-      setActivities(fetchedActivities);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
+    setSelectedActivity(null);
   };
 
   const handleActivitySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = Number(e.target.value);
-    const selected = activities.find((activity) => activity.id === selectedId);
+    const selected = activities.data?.find(
+      (activity) => activity.id === selectedId,
+    );
 
     if (selected) {
       setSelectedActivity(selected);
+      console.log(selected.day);
       setFormData({
         ...selected,
       });
@@ -91,13 +58,15 @@ export default function EventUpdatePage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    const keyValue = name === "day" ? new Date(value) : value;
-    setFormData({ ...formData, [e.target.name]: keyValue });
-    console.log({ ...formData, [e.target.name]: keyValue });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formData);
+    setIsLoading(true);
+    formData.durationMinutes = Number(formData.durationMinutes);
+    updateActivity(formData);
   };
 
   return (
@@ -114,11 +83,12 @@ export default function EventUpdatePage() {
           <DatePicker
             id="calendar"
             selected={date}
-            placeholderText="Select a date"
-            isClearable={true}
             onChange={handleDateSelect}
             className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <p className="text-sm italic text-gray-400">
+            Choose a date to view a list of events scheduled for that day.
+          </p>
         </form>
 
         {date && (
@@ -135,17 +105,21 @@ export default function EventUpdatePage() {
               <option value="" disabled>
                 Select an option
               </option>
-              {activities.map((activity) => (
+              {activities.data?.map((activity: Activity) => (
                 <option key={activity.id} value={activity.id}>
                   {activity.name}
                 </option>
               ))}
             </select>
+            <p className="text-sm italic text-gray-400">
+              Select an event to update.
+            </p>
           </form>
         )}
 
         {selectedActivity && (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="w-2/3 space-y-4">
+            <hr></hr>
             <div className="space-y-2">
               <label htmlFor="name" className="text-lg font-semibold">
                 Event Name
@@ -157,7 +131,7 @@ export default function EventUpdatePage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="block w-2/3 appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -169,11 +143,16 @@ export default function EventUpdatePage() {
               <DatePicker
                 id="day"
                 name="day"
-                selected={formData.day}
-                onChange={(date) =>
-                  setFormData({ ...formData, ["day"]: date || new Date() })
+                selected={
+                  new Date(
+                    formData.day.getTime() +
+                      formData.day.getTimezoneOffset() * 60000,
+                  )
                 }
-                className="block w-2/3 appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(date) =>
+                  setFormData({ ...formData, ["day"]: date ?? new Date() })
+                }
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -193,10 +172,44 @@ export default function EventUpdatePage() {
                 onChange={(time) =>
                   setFormData({
                     ...formData,
-                    ["startTime"]: time || new Date(),
+                    ["startTime"]: time ?? new Date(),
                   })
                 }
-                className="block w-2/3 appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="durationMinutes"
+                className="text-lg font-semibold"
+              >
+                Duration
+              </label>
+              <input
+                id="durationMinutes"
+                name="durationMinutes"
+                type="number"
+                min={15}
+                value={Number(formData.durationMinutes)}
+                onChange={handleInputChange}
+                required
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="leader" className="text-lg font-semibold">
+                Leader
+              </label>
+              <input
+                id="leader"
+                name="leader"
+                type="text"
+                value={formData.leader}
+                onChange={handleInputChange}
+                required
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -211,7 +224,7 @@ export default function EventUpdatePage() {
                 value={formData.location}
                 onChange={handleInputChange}
                 required
-                className="block w-2/3 appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -223,6 +236,21 @@ export default function EventUpdatePage() {
               {isLoading ? "Updating..." : "Update Event"}
             </button>
           </form>
+        )}
+
+        {isSuccess && (
+          <div className="absolute left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black/40">
+            <div className="relative flex w-fit flex-col items-center justify-center gap-5 rounded-md bg-white px-16 py-8 text-center shadow-sm">
+              <h1 className="text-3xl font-bold">Success!</h1>
+              <p>The event has been updated.</p>
+              <button
+                className="w-full rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 p-3 text-sm text-white duration-100 hover:scale-105 active:scale-95"
+                onClick={() => setIsSuccess(false)}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>
