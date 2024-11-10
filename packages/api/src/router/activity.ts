@@ -1,7 +1,12 @@
 import { addWeeks } from "date-fns";
 import { z } from "zod";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const activityRouter = createTRPCRouter({
   getSchedule: protectedProcedure
@@ -89,10 +94,9 @@ export const activityRouter = createTRPCRouter({
           subactivities: true,
         },
       });
-  
-      console.log("Query result:", result);
-  
-      return result;
 
-    }),  
+      console.log("Query result:", result);
+
+      return result;
+    }),
 });
