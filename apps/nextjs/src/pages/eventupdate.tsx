@@ -70,12 +70,12 @@ export default function EventUpdatePage() {
   };
 
   return (
-    <div className="mx-64 my-32 flex flex-col">
+    <div className="mx-6 my-32 flex flex-col md:mx-16 lg:mx-64">
       <h1 className="text-3xl font-bold">Update Events</h1>
       <h2 className="mt-2 text-gray-500">Update event and activities.</h2>
       <hr className="mt-8"></hr>
-      <div className="mx-24 mt-12 flex flex-col gap-4">
-        <form className="flex w-2/3 flex-col gap-2">
+      <div className="mx-6 mt-12 flex flex-col gap-4 md:mx-12 xl:mx-24">
+        <form className="flex flex-col gap-2 xl:w-3/4">
           <label htmlFor="calendar" className="text-lg font-semibold">
             Date
           </label>
@@ -92,15 +92,15 @@ export default function EventUpdatePage() {
         </form>
 
         {date && (
-          <form className="flex flex-col gap-2">
+          <form className="flex flex-col gap-2 xl:w-3/4">
             <label htmlFor="activity" className="text-lg font-semibold">
-              Activity
+              Event/Activity
             </label>
             <select
               id="options"
               value={selectedActivity?.id ?? ""}
               onChange={handleActivitySelect}
-              className="block w-2/3 appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="" disabled>
                 Select an option
@@ -112,17 +112,17 @@ export default function EventUpdatePage() {
               ))}
             </select>
             <p className="text-sm italic text-gray-400">
-              Select an event to update.
+              Select an event or activity to update.
             </p>
           </form>
         )}
 
         {selectedActivity && (
-          <form onSubmit={handleSubmit} className="w-2/3 space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 xl:w-3/4">
             <hr></hr>
             <div className="space-y-2">
               <label htmlFor="name" className="text-lg font-semibold">
-                Event Name
+                Title
               </label>
               <input
                 id="name"
