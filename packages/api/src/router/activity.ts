@@ -1,12 +1,7 @@
 import { addWeeks } from "date-fns";
 import { z } from "zod";
 
-import {
-  adminProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../trpc";
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const activityRouter = createTRPCRouter({
   getSchedule: protectedProcedure
@@ -81,7 +76,7 @@ export const activityRouter = createTRPCRouter({
         },
       });
     }),
-  getSubactivities: publicProcedure
+  getSubactivities: protectedProcedure
     .input(z.object({ id: z.number() })) // I assumed "event" and "activity" are used interchangeably in the ticket
     .query(async ({ ctx, input }) => {
       const result = await ctx.db.activity.findUnique({
