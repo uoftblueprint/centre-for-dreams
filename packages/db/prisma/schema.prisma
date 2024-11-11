@@ -63,7 +63,7 @@ model Activity {
   leader          String
   location        String
   subactivities   Subactivity[]
-  Absence         Absence[]
+  absence         Absence[]
 }
 
 model Subactivity {
