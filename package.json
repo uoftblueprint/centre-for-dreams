@@ -11,6 +11,7 @@
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push",
+    "db:forcepush": "turbo db:push -- --accept-data-loss",
     "db:migrate": "(cd packages/db && pnpm db:migrate)",
     "db:migrate:prod": "(cd packages/db && pnpm db:migrate:prod)",
     "dev": "turbo dev --parallel",

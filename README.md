@@ -205,6 +205,12 @@ pnpm db:generate
 pnpm db:push
 ```
 
+#### Run this command when you get warnings using the previous command
+
+```zsh
+pnpm db:forcepush
+```
+
 #### Create a database migration
 
 ```zsh
