@@ -131,7 +131,7 @@ The command will see the schema change and provide a prompt for the new migratio
 
 #### Quick Schema Iteration
 
-While you are working on a ticket, you may want to try out multiple different schema options. You only want to make a migration when you have finalized a schema change, and each pr should contain at most one migration. To change your database schema during development, you can use
+While you are working on a ticket, you may want to try out multiple different schema options. You only want to make a migration when you have finalized a schema change, and each pr should contain at most one migration. To change your database schema during development, you can use 
 
 ```zsh
 pnpm db:push
