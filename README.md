@@ -205,7 +205,7 @@ pnpm db:generate
 pnpm db:push
 ```
 
-#### Run this command when you get warnings using the previous command
+#### To apply schema migrations with risk of losing data
 
 ```zsh
 pnpm db:forcepush
