@@ -93,8 +93,6 @@ export const activityRouter = createTRPCRouter({
         },
       });
 
-      console.log("Query result:", result);
-
       return result;
     }),
 });
