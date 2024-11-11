@@ -90,15 +90,15 @@ jobs:
 
     steps:
     - name: Setup repo
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/checkout@v4
 
     - name: Setup pnpm
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: pnpm/action-setup@v3.0.0
 
     - name: Setup Node
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -106,7 +106,7 @@ jobs:
         cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Setup Expo and EAS
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: expo/expo-github-action@v8
       with:
         token: ${{ secrets.EXPO_TOKEN }}
@@ -115,18 +115,18 @@ jobs:
         packager: pnpm
 
     - name: Setup Java 17
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
 
     - name: Install deps
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       run: pnpm i
 
     - name: Build app
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
