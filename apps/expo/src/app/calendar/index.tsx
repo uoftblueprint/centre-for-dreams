@@ -15,15 +15,19 @@ const Calendar = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   // Data fetching based on the current tab state (week/day overview)
-  const { data: events, refetch, isLoading, error } = 
-  tabState === 1 
+  const {
+    data: events,
+    refetch,
+    isLoading,
+    error,
+  } = tabState === 1
     ? api.activity.getSchedule.useQuery(
         { day: new Date().toISOString().split("T")[0] ?? "" },
-        { enabled: !!isSignedIn }
+        { enabled: !!isSignedIn },
       )
     : api.activity.getDailySchedule.useQuery(
         { day: new Date().toISOString().split("T")[0] ?? "" },
-        { enabled: !!isSignedIn }
+        { enabled: !!isSignedIn },
       );
 
   const onRefresh = useCallback(async () => {
@@ -41,9 +45,10 @@ const Calendar = () => {
       <Stack.Screen options={{ title: "Calendar", headerShown: false }} />
 
       <ScrollView
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
-
         {/* logo */}
         <Image source={Logo} className="-mt-10 w-2/5" resizeMode="contain" />
         <View className="-mt-10 w-full">
@@ -81,10 +86,13 @@ const Calendar = () => {
           events.map((event) => (
             <View key={event.id} className="mt-2 w-full flex-row">
               <Text className="text-p-0 font-body-sm mr-2 mt-1">
-                {event.day.toLocaleDateString("en-US", { month: "long", day: "numeric" })}
+                {event.day.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                })}
               </Text>
               <View className="w-4/5 rounded-lg">
-                <EventTab activity={{ name: event.name }} attending={event.attending} />
+                <EventTab activity={{ name: event.name }} />
               </View>
             </View>
           ))
