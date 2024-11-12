@@ -106,4 +106,18 @@ export const activityRouter = createTRPCRouter({
         },
       });
     }),
+  getSubactivities: protectedProcedure
+    .input(z.object({ id: z.number() })) // I assumed "event" and "activity" are used interchangeably in the ticket
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.db.activity.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          subactivities: true,
+        },
+      });
+
+      return result;
+    }),
 });
