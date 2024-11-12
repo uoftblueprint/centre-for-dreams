@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Image, Text, View } from "react-native";
+import React, { useCallback, useState } from "react";
+import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 
 import EventTab from "~/components/EventTab";
 import TabNav from "~/components/TabNav/TabNav";
+import { api } from "~/utils/api";
 import Logo from "../../../assets/logo.png";
 
 const Calendar = () => {
