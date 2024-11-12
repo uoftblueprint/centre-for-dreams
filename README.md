@@ -205,6 +205,12 @@ pnpm db:generate
 pnpm db:push
 ```
 
+#### To apply schema migrations with risk of losing data
+
+```zsh
+pnpm db:forcepush
+```
+
 #### Create a database migration
 
 ```zsh
