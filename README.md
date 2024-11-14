@@ -1,5 +1,29 @@
 # Centre for Dreams
+### Description
+- Fetch activities from the api and displays them on the mobile app in ascending order
+- converts 24 to 12 hour format and displays them in ascending order
+- loading animation while the activities are being fetched from the api
+- scrolling feature 
+- displays "No activities" if there are no activities for a week/day
 
+### Reason for Change
+https://linear.app/uoftblueprint/issue/CFD-152/display-activity-on-mobile-from-database
+
+<!--- Please delete options that are not relevant for linking your ticket. You likely only need one of these for your PR --->
+Completes CFD- 152
+
+- [x] New feature (non-breaking change which adds functionality)
+
+### Testing
+1. (Skip this step if you are signed in) change every "protectedProcedure" to "publicProcedure" in activity.ts
+
+2. add the following test data in http://localhost:5556/
+![image](https://github.com/user-attachments/assets/8de33b9f-d912-4b01-a772-65514fef1721)
+
+3. on the expo app, you should see the following (currently fetching the activities within 7 days of today (nov 11) and results may vary depending on when you run this):
+![image](https://github.com/user-attachments/assets/8f75b204-4c1d-4563-ae36-89e46897a053)
+![image](https://github.com/user-attachments/assets/ada55a4d-8324-4c9b-a89b-0ce76ecae26e)
+![image](https://github.com/user-attachments/assets/a8805ca4-bbe6-429d-ad4e-872e7a3e9758)
 ![CI Status](https://github.com/uoftblueprint/centre-for-dreams/actions/workflows/ci.yml/badge.svg?event=push&branch=main) [![Netlify Status](https://api.netlify.com/api/v1/badges/210c8d23-7ccc-4083-9d03-54d6a5c98ea2/deploy-status)](https://app.netlify.com/sites/centre-for-dreams/deploys) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 The Centre for Dreams is a day program that provides services for adults living with a developmental disability. UofT Blueprint is collaborating with the Centre for Dreams to build a centralized platform for announcements and program information.
