@@ -194,40 +194,40 @@ importers:
         version: link:../../packages/api
       '@clerk/nextjs':
         specifier: ^4.31.6
-        version: 4.31.6(next@13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 4.31.6(next@13.4.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@t3-oss/env-nextjs':
         specifier: ^0.7.3
         version: 0.7.3(typescript@5.6.3)(zod@3.23.8)
       '@tanstack/react-query':
         specifier: ^4.36.1
-        version: 4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+        version: 4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
       '@trpc/client':
         specifier: ^10.45.2
         version: 10.45.2(@trpc/server@10.45.2)
       '@trpc/next':
         specifier: ^10.45.2
-        version: 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@trpc/server@10.45.2)(next@13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/server@10.45.2)(next@13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/react-query':
         specifier: ^10.45.2
-        version: 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: ^10.45.2
         version: 10.45.2
       next:
         specifier: 13.4.12
-        version: 13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: 18.2.0
-        version: 18.2.0
+        specifier: 18.3.1
+        version: 18.3.1
       react-datepicker:
         specifier: ^4.25.0
-        version: 4.25.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 4.25.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
       react-hook-form:
         specifier: ^7.49.3
-        version: 7.53.1(react@18.2.0)
+        version: 7.53.1(react@18.3.1)
       superjson:
         specifier: 2.2.1
         version: 2.2.1
@@ -258,7 +258,7 @@ importers:
         version: 18.3.12
       '@types/react-datepicker':
         specifier: ^4.19.6
-        version: 4.19.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 4.19.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react-dom':
         specifier: ^18.2.19
         version: 18.3.1
@@ -1396,8 +1396,8 @@ packages:
   '@expo/code-signing-certificates@0.0.5':
     resolution: {integrity: sha512-BNhXkY1bblxKZpltzAx98G2Egj9g1Q+JRcvR7E99DOj862FTCX+ZPsAUtPTr7aHxwtrL7+fL3r0JSmM9kBm+Bw==}
 
-  '@expo/config-plugins@8.0.10':
-    resolution: {integrity: sha512-KG1fnSKRmsudPU9BWkl59PyE0byrE2HTnqbOrgwr2FAhqh7tfr9nRs6A9oLS/ntpGzmFxccTEcsV0L4apsuxxg==}
+  '@expo/config-plugins@8.0.11':
+    resolution: {integrity: sha512-oALE1HwnLFthrobAcC9ocnR9KXLzfWEjgIe4CPe+rDsfC6GDs8dGYCXfRFoCEzoLN4TGYs9RdZ8r0KoCcNrm2A==}
 
   '@expo/config-plugins@9.0.9':
     resolution: {integrity: sha512-pbgbY3SwCMwkijhfe163J05BrTx4MqzeaV+nVgUMs7vRcjHY1tfM57Pdv6SPtgeDvZ8fvdXFXXzkJva+a7C9Bw==}
@@ -2192,6 +2192,9 @@ packages:
 
   '@types/node@20.17.5':
     resolution: {integrity: sha512-n8FYY/pRxu496441gIcAQFZPKXbhsd6VZygcq+PTSZ75eMh/Ke0hCAROdUa21qiFqKNsPPYic46yXDO1JGiPBQ==}
+
+  '@types/node@22.9.0':
+    resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -3178,6 +3181,10 @@ packages:
 
   dotenv-expand@11.0.6:
     resolution: {integrity: sha512-8NHi73otpWsZGBSZwwknTXS5pqMOrk9+Ssrna8xCaxkzEpU9OTf9R5ArQGVw03//Zmk9MOwLPng9WwndvpAJ5g==}
+    engines: {node: '>=12'}
+
+  dotenv-expand@11.0.7:
+    resolution: {integrity: sha512-zIHwmZPRshsCdpMDyVsqGmgyP0yT8GAgXUnkdAoJisxvf33k7yO6OuoKmcTGuXPWSsm8Oh88nZicRLA9Y0rUeA==}
     engines: {node: '>=12'}
 
   dotenv@16.0.3:
@@ -5393,11 +5400,6 @@ packages:
   react-devtools-core@5.3.2:
     resolution: {integrity: sha512-crr9HkVrDiJ0A4zot89oS0Cgv0Oa4OG1Em4jit3P3ZxZSKPMYyMjfwMqgcJna9o625g8oN87rBm8SWWrSTBZxg==}
 
-  react-dom@18.2.0:
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -5513,10 +5515,6 @@ packages:
 
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
-    engines: {node: '>=0.10.0'}
-
-  react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
 
   react@18.3.1:
@@ -7505,20 +7503,6 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@clerk/backend@0.38.14(react@18.2.0)':
-    dependencies:
-      '@clerk/shared': 1.4.2(react@18.2.0)
-      '@clerk/types': 3.65.4
-      '@peculiar/webcrypto': 1.4.1
-      '@types/node': 16.18.6
-      cookie: 0.5.0
-      deepmerge: 4.2.2
-      node-fetch-native: 1.0.1
-      snakecase-keys: 5.4.4
-      tslib: 2.4.1
-    transitivePeerDependencies:
-      - react
-
   '@clerk/backend@0.38.14(react@18.3.1)':
     dependencies:
       '@clerk/shared': 1.4.2(react@18.3.1)
@@ -7574,33 +7558,12 @@ snapshots:
       - react-dom
       - supports-color
 
-  '@clerk/clerk-react@4.32.4(react@18.2.0)':
-    dependencies:
-      '@clerk/shared': 1.4.2(react@18.2.0)
-      '@clerk/types': 3.65.4
-      react: 18.2.0
-      tslib: 2.4.1
-
   '@clerk/clerk-react@4.32.4(react@18.3.1)':
     dependencies:
       '@clerk/shared': 1.4.2(react@18.3.1)
       '@clerk/types': 3.65.4
       react: 18.3.1
       tslib: 2.4.1
-
-  '@clerk/clerk-sdk-node@4.13.22(react@18.2.0)':
-    dependencies:
-      '@clerk/backend': 0.38.14(react@18.2.0)
-      '@clerk/shared': 1.4.2(react@18.2.0)
-      '@clerk/types': 3.65.4
-      '@types/cookies': 0.7.7
-      '@types/express': 4.17.14
-      '@types/node-fetch': 2.6.2
-      camelcase-keys: 6.2.2
-      snakecase-keys: 3.2.1
-      tslib: 2.4.1
-    transitivePeerDependencies:
-      - react
 
   '@clerk/clerk-sdk-node@4.13.22(react@18.3.1)':
     dependencies:
@@ -7621,18 +7584,6 @@ snapshots:
       '@clerk/types': 3.65.4
       react: 18.3.1
 
-  '@clerk/nextjs@4.31.6(next@13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@clerk/backend': 0.38.14(react@18.2.0)
-      '@clerk/clerk-react': 4.32.4(react@18.2.0)
-      '@clerk/clerk-sdk-node': 4.13.22(react@18.2.0)
-      '@clerk/shared': 1.4.2(react@18.2.0)
-      '@clerk/types': 3.65.4
-      next: 13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      tslib: 2.4.1
-
   '@clerk/nextjs@4.31.6(next@13.4.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@clerk/backend': 0.38.14(react@18.3.1)
@@ -7640,18 +7591,10 @@ snapshots:
       '@clerk/clerk-sdk-node': 4.13.22(react@18.3.1)
       '@clerk/shared': 1.4.2(react@18.3.1)
       '@clerk/types': 3.65.4
-      next: 13.4.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.4.1
-
-  '@clerk/shared@1.4.2(react@18.2.0)':
-    dependencies:
-      glob-to-regexp: 0.4.1
-      js-cookie: 3.0.1
-      swr: 2.2.0(react@18.2.0)
-    optionalDependencies:
-      react: 18.2.0
 
   '@clerk/shared@1.4.2(react@18.3.1)':
     dependencies:
@@ -7849,7 +7792,7 @@ snapshots:
       node-forge: 1.3.1
       nullthrows: 1.1.1
 
-  '@expo/config-plugins@8.0.10':
+  '@expo/config-plugins@8.0.11':
     dependencies:
       '@expo/config-types': 51.0.3
       '@expo/json-file': 8.3.3
@@ -7913,7 +7856,7 @@ snapshots:
   '@expo/config@9.0.4':
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@expo/config-plugins': 8.0.10
+      '@expo/config-plugins': 8.0.11
       '@expo/config-types': 51.0.3
       '@expo/json-file': 8.3.3
       getenv: 1.0.0
@@ -7948,7 +7891,7 @@ snapshots:
       chalk: 4.1.2
       debug: 4.3.7
       dotenv: 16.4.5
-      dotenv-expand: 11.0.6
+      dotenv-expand: 11.0.7
       getenv: 1.0.0
     transitivePeerDependencies:
       - supports-color
@@ -8239,7 +8182,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.17.5
+      '@types/node': 22.9.0
       '@types/yargs': 15.0.19
       chalk: 4.1.2
     optional: true
@@ -8618,16 +8561,6 @@ snapshots:
 
   '@react-native/normalize-colors@0.76.1': {}
 
-  '@react-native/virtualized-lists@0.76.1(@types/react@18.3.12)(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      invariant: 2.2.4
-      nullthrows: 1.1.1
-      react: 18.2.0
-      react-native: 0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.3.12
-    optional: true
-
   '@react-native/virtualized-lists@0.76.1(@types/react@18.3.12)(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)':
     dependencies:
       invariant: 2.2.4
@@ -8911,15 +8844,6 @@ snapshots:
 
   '@tanstack/query-core@4.36.1': {}
 
-  '@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@tanstack/query-core': 4.36.1
-      react: 18.2.0
-      use-sync-external-store: 1.2.2(react@18.2.0)
-    optionalDependencies:
-      react-dom: 18.2.0(react@18.2.0)
-      react-native: 0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0)
-
   '@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/query-core': 4.36.1
@@ -8933,23 +8857,15 @@ snapshots:
     dependencies:
       '@trpc/server': 10.45.2
 
-  '@trpc/next@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@trpc/server@10.45.2)(next@13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@trpc/next@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/server@10.45.2)(next@13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      '@tanstack/react-query': 4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1)
       '@trpc/client': 10.45.2(@trpc/server@10.45.2)
-      '@trpc/react-query': 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@trpc/react-query': 10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server': 10.45.2
-      next: 13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
-  '@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
-      '@trpc/client': 10.45.2(@trpc/server@10.45.2)
-      '@trpc/server': 10.45.2
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      next: 13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@trpc/react-query@10.45.2(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -9066,6 +8982,11 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/node@22.9.0':
+    dependencies:
+      undici-types: 6.19.8
+    optional: true
+
   '@types/parse-json@4.0.2': {}
 
   '@types/pg@8.11.6':
@@ -9082,12 +9003,12 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-datepicker@4.19.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@types/react-datepicker@4.19.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@popperjs/core': 2.11.8
       '@types/react': 18.3.12
       date-fns: 2.30.0
-      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -10182,6 +10103,10 @@ snapshots:
   dotenv-expand@10.0.0: {}
 
   dotenv-expand@11.0.6:
+    dependencies:
+      dotenv: 16.4.5
+
+  dotenv-expand@11.0.7:
     dependencies:
       dotenv: 16.4.5
 
@@ -12037,33 +11962,7 @@ snapshots:
 
   nested-error-stacks@2.0.1: {}
 
-  next@13.4.12(@babel/core@7.26.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      '@next/env': 13.4.12
-      '@swc/helpers': 0.5.1
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001676
-      postcss: 8.4.14
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.26.0)(react@18.2.0)
-      watchpack: 2.4.0
-      zod: 3.21.4
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 13.4.12
-      '@next/swc-darwin-x64': 13.4.12
-      '@next/swc-linux-arm64-gnu': 13.4.12
-      '@next/swc-linux-arm64-musl': 13.4.12
-      '@next/swc-linux-x64-gnu': 13.4.12
-      '@next/swc-linux-x64-musl': 13.4.12
-      '@next/swc-win32-arm64-msvc': 13.4.12
-      '@next/swc-win32-ia32-msvc': 13.4.12
-      '@next/swc-win32-x64-msvc': 13.4.12
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-
-  next@13.4.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@13.4.12(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 13.4.12
       '@swc/helpers': 0.5.1
@@ -12072,7 +11971,7 @@ snapshots:
       postcss: 8.4.14
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.1(react@18.3.1)
+      styled-jsx: 5.1.1(@babel/core@7.26.0)(react@18.3.1)
       watchpack: 2.4.0
       zod: 3.21.4
     optionalDependencies:
@@ -12671,16 +12570,16 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-datepicker@4.25.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-datepicker@4.25.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@popperjs/core': 2.11.8
       classnames: 2.5.1
       date-fns: 2.30.0
       prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-onclickoutside: 6.13.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-onclickoutside: 6.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   react-devtools-core@5.3.2(bufferutil@4.0.8):
     dependencies:
@@ -12689,12 +12588,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  react-dom@18.2.0(react@18.2.0):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.2
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -12718,9 +12611,9 @@ snapshots:
       react-fast-compare: 3.2.2
       shallowequal: 1.1.0
 
-  react-hook-form@7.53.1(react@18.2.0):
+  react-hook-form@7.53.1(react@18.3.1):
     dependencies:
-      react: 18.2.0
+      react: 18.3.1
 
   react-is@16.13.1: {}
 
@@ -12796,59 +12689,6 @@ snapshots:
       react-native: 0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)
       whatwg-url-without-unicode: 8.0.0-3
 
-  react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0):
-    dependencies:
-      '@jest/create-cache-key-function': 29.7.0
-      '@react-native/assets-registry': 0.76.1
-      '@react-native/codegen': 0.76.1(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-      '@react-native/community-cli-plugin': 0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(bufferutil@4.0.8)
-      '@react-native/gradle-plugin': 0.76.1
-      '@react-native/js-polyfills': 0.76.1
-      '@react-native/normalize-colors': 0.76.1
-      '@react-native/virtualized-lists': 0.76.1(@types/react@18.3.12)(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
-      abort-controller: 3.0.0
-      anser: 1.4.10
-      ansi-regex: 5.0.1
-      babel-jest: 29.7.0(@babel/core@7.26.0)
-      babel-plugin-syntax-hermes-parser: 0.23.1
-      base64-js: 1.5.1
-      chalk: 4.1.2
-      commander: 12.1.0
-      event-target-shim: 5.0.1
-      flow-enums-runtime: 0.0.6
-      glob: 7.2.3
-      invariant: 2.2.4
-      jest-environment-node: 29.7.0
-      jsc-android: 250231.0.0
-      memoize-one: 5.2.1
-      metro-runtime: 0.81.0
-      metro-source-map: 0.81.0
-      mkdirp: 0.5.6
-      nullthrows: 1.1.1
-      pretty-format: 29.7.0
-      promise: 8.3.0
-      react: 18.2.0
-      react-devtools-core: 5.3.2(bufferutil@4.0.8)
-      react-refresh: 0.14.2
-      regenerator-runtime: 0.13.11
-      scheduler: 0.24.0-canary-efb381bbf-20230505
-      semver: 7.6.3
-      stacktrace-parser: 0.1.10
-      whatwg-fetch: 3.6.20
-      ws: 6.2.3(bufferutil@4.0.8)
-      yargs: 17.7.2
-    optionalDependencies:
-      '@types/react': 18.3.12
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@babel/preset-env'
-      - '@react-native-community/cli-server-api'
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    optional: true
-
   react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9(bufferutil@4.0.8))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1):
     dependencies:
       '@jest/create-cache-key-function': 29.7.0
@@ -12901,24 +12741,20 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-onclickoutside@6.13.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-onclickoutside@6.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
-  react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@popperjs/core': 2.11.8
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
       react-fast-compare: 3.2.2
       warning: 4.0.3
 
   react-refresh@0.14.2: {}
-
-  react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
 
   react@18.3.1:
     dependencies:
@@ -13410,17 +13246,12 @@ snapshots:
 
   structured-headers@0.4.1: {}
 
-  styled-jsx@5.1.1(@babel/core@7.26.0)(react@18.2.0):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.2.0
-    optionalDependencies:
-      '@babel/core': 7.26.0
-
-  styled-jsx@5.1.1(react@18.3.1):
+  styled-jsx@5.1.1(@babel/core@7.26.0)(react@18.3.1):
     dependencies:
       client-only: 0.0.1
       react: 18.3.1
+    optionalDependencies:
+      '@babel/core': 7.26.0
 
   stylis@4.2.0: {}
 
@@ -13485,11 +13316,6 @@ snapshots:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.1.1
-
-  swr@2.2.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-      use-sync-external-store: 1.2.2(react@18.2.0)
 
   swr@2.2.0(react@18.3.1):
     dependencies:
@@ -13787,10 +13613,6 @@ snapshots:
   use-latest-callback@0.2.1(react@18.3.1):
     dependencies:
       react: 18.3.1
-
-  use-sync-external-store@1.2.2(react@18.2.0):
-    dependencies:
-      react: 18.2.0
 
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:
