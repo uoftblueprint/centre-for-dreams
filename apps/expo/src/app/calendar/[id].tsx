@@ -1,8 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { addMinutes, format, getMinutes } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
@@ -10,11 +9,13 @@ import type { EventTemp } from "~/components/EventDayTab";
 import EventDayTab from "~/components/EventDayTab";
 import JoinOutlinedChip from "~/components/JoinOutlinedChip";
 import MaybeOutlinedChip from "~/components/MaybeOutlinedChip";
+import { api } from "~/utils/api";
 import LeftArrow from "../../../assets/arrow-left.svg";
 
 // Temp Data
 const eventData: EventListTemp[] = [
   {
+    id: 1,
     name: "Event Name",
     venue: "CFD Center",
     startTime: new Date("2023-10-09T08:00:00.000"),
@@ -47,6 +48,7 @@ const eventData: EventListTemp[] = [
 ];
 
 export interface EventListTemp {
+  id: number;
   name: string;
   venue: string;
   startTime: Date;
@@ -75,12 +77,18 @@ function formatHourOnly(date: Date): string {
 
 // Take out eventData once database structure is set up
 function Event() {
+  const router = useRouter();
   const { id } = useLocalSearchParams();
   const eventId = parseInt(id as string);
-  const event = eventData[eventId];
+  const event = eventData.find((event) => (event.id = eventId));
+  const { data: subactivities } = api.activity.getSubactivities.useQuery({
+    id: eventId,
+  });
+
   const [join, setJoin] = React.useState(false);
   const [decline, setDecline] = React.useState(false);
   const [maybe, setMaybe] = React.useState(false);
+
   const joinEvent = () => {
     setJoin(!join);
     setDecline(false);
@@ -98,12 +106,13 @@ function Event() {
     setJoin(false);
     setDecline(false);
   };
+
   return (
     <SafeAreaView className="bg-white">
       <Stack.Screen options={{ title: "Event", headerShown: false }} />
       <View className="inline-flex h-full flex-col justify-start  gap-2.5 px-4 pt-6">
         <View className="inline-flex flex-row items-center justify-between self-stretch">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.back()}>
             <LeftArrow className="relative h-6 w-6" />
           </TouchableOpacity>
           <Text className="text-p-0 font-headline-md text-center leading-9">
@@ -160,20 +169,14 @@ function Event() {
 
         <View className="inline-flex items-start  justify-start">
           <Text className="text-p-0  font-title-md leading-normal tracking-tight">
-            Details
+            Subactivities
           </Text>
         </View>
         <ScrollView>
-          {event!.events.map((e, index) => {
+          {subactivities?.subactivities.map((e, index) => {
             return (
               <View key={index} className="mb-3">
-                <View className="inline-flex w-max items-start justify-start">
-                  <Text className="text-p-0  font-body-lg leading-normal tracking-tight">
-                    {formatHour(e.startTime!)} -{" "}
-                    {formatHour(addMinutes(e.startTime!, e.duration!))}
-                  </Text>
-                </View>
-                <EventDayTab name={e.name} venue={e.venue} />
+                <EventDayTab name={e.name} venue={e.location ?? ""} />
               </View>
             );
           })}

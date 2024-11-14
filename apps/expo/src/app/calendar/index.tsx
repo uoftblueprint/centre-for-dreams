@@ -54,7 +54,10 @@ const Calendar = () => {
         <Text className="text-p-0 font-body-sm mr-2 mt-1">8 AM - 4 PM</Text>
 
         <View className="w-4/5 rounded-lg">
-          <EventTab activity={{ name: "Day Program" }} attending={true} />
+          <EventTab
+            activity={{ name: "Day Program", id: 1 }}
+            attending={true}
+          />
         </View>
       </View>
 
@@ -62,7 +65,10 @@ const Calendar = () => {
         <Text className="text-p-0 font-body-sm mr-2 mt-1">7 PM - 8 PM</Text>
 
         <View className="w-4/5 rounded-lg">
-          <EventTab activity={{ name: "Movie Night" }} attending={true} />
+          <EventTab
+            activity={{ name: "Movie Night", id: 2 }}
+            attending={true}
+          />
         </View>
       </View>
 
@@ -74,7 +80,10 @@ const Calendar = () => {
         <Text className="text-p-0 font-body-sm mr-2 mt-1">8 AM - 4 PM</Text>
 
         <View className="w-4/5 rounded-lg">
-          <EventTab activity={{ name: "Day Program" }} attending={true} />
+          <EventTab
+            activity={{ name: "Day Program", id: 3 }}
+            attending={true}
+          />
         </View>
       </View>
 
@@ -82,7 +91,10 @@ const Calendar = () => {
         <Text className="text-p-0 font-body-sm mr-2 mt-1">5 PM - 7 PM</Text>
 
         <View className="w-4/5 rounded-lg">
-          <EventTab activity={{ name: "Dinner Night" }} attending={true} />
+          <EventTab
+            activity={{ name: "Dinner Night", id: 4 }}
+            attending={true}
+          />
         </View>
       </View>
     </SafeAreaView>
