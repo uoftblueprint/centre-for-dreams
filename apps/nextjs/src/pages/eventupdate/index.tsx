@@ -1,37 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import type { Activity, Subactivity } from "@prisma/client";
+import type { Activity } from "@prisma/client";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import { api } from "~/utils/api";
+import styles from "./EventUpdatePage.module.css";
 
 export default function EventUpdatePage() {
   const [date, setDate] = useState<Date>(new Date());
-  const activities = api.activity.getDailySchedule.useQuery({
-    day: date.toISOString().slice(0, 10),
-  });
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState<Activity>({
+    id: 0,
+    name: "",
+    day: new Date(),
+    startTime: new Date(),
+    durationMinutes: 15,
+    leader: "",
+    location: "",
+  });
 
+  const activities = api.activity.getDailySchedule.useQuery({
+    day: date.toISOString().slice(0, 10),
+  });
   const { mutate: updateActivity } = api.activity.updateActivity.useMutation({
     onSuccess: () => {
       setIsSuccess(true);
       setIsLoading(false);
       setSelectedActivity(null);
     },
-  });
-  const [formData, setFormData] = useState<Activity>({
-    id: 0,
-    name: "",
-    day: new Date(),
-    startTime: new Date(),
-    durationMinutes: 0,
-    leader: "",
-    location: "",
   });
 
   const handleDateSelect = (date: Date) => {
@@ -47,7 +48,6 @@ export default function EventUpdatePage() {
 
     if (selected) {
       setSelectedActivity(selected);
-      console.log(selected.day);
       setFormData({
         ...selected,
       });
@@ -63,7 +63,6 @@ export default function EventUpdatePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     setIsLoading(true);
     formData.durationMinutes = Number(formData.durationMinutes);
     updateActivity(formData);
@@ -84,7 +83,7 @@ export default function EventUpdatePage() {
             id="calendar"
             selected={date}
             onChange={handleDateSelect}
-            className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.form_input}
           />
           <p className="text-sm italic text-gray-400">
             Choose a date to view a list of events scheduled for that day.
@@ -100,10 +99,10 @@ export default function EventUpdatePage() {
               id="options"
               value={selectedActivity?.id ?? ""}
               onChange={handleActivitySelect}
-              className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.form_input}
             >
               <option value="" disabled>
-                Select an option
+                Select an event
               </option>
               {activities.data?.map((activity: Activity) => (
                 <option key={activity.id} value={activity.id}>
@@ -131,7 +130,7 @@ export default function EventUpdatePage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
@@ -152,7 +151,7 @@ export default function EventUpdatePage() {
                 onChange={(date) =>
                   setFormData({ ...formData, ["day"]: date ?? new Date() })
                 }
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
@@ -175,7 +174,7 @@ export default function EventUpdatePage() {
                     ["startTime"]: time ?? new Date(),
                   })
                 }
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
@@ -184,7 +183,7 @@ export default function EventUpdatePage() {
                 htmlFor="durationMinutes"
                 className="text-lg font-semibold"
               >
-                Duration
+                Duration (minutes)
               </label>
               <input
                 id="durationMinutes"
@@ -194,7 +193,7 @@ export default function EventUpdatePage() {
                 value={Number(formData.durationMinutes)}
                 onChange={handleInputChange}
                 required
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
@@ -209,7 +208,7 @@ export default function EventUpdatePage() {
                 value={formData.leader}
                 onChange={handleInputChange}
                 required
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
@@ -224,7 +223,7 @@ export default function EventUpdatePage() {
                 value={formData.location}
                 onChange={handleInputChange}
                 required
-                className="block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 pr-8 leading-tight text-gray-700 transition duration-200 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={styles.form_input}
               />
             </div>
 
