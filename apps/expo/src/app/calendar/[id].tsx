@@ -60,16 +60,6 @@ export interface EventListProps {
   event: EventListTemp;
 }
 
-function formatHour(date: Date): string {
-  let time = "";
-  if (getMinutes(date) == 0) {
-    time = format(date, "h a");
-  } else {
-    time = format(date, "p");
-  }
-  return time;
-}
-
 function formatHourOnly(date: Date): string {
   const time = format(date, "h:mm");
   return time;
@@ -81,9 +71,26 @@ function Event() {
   const { id } = useLocalSearchParams();
   const eventId = parseInt(id as string);
   const event = eventData.find((event) => (event.id = eventId));
-  const { data: subactivities } = api.activity.getSubactivities.useQuery({
-    id: eventId,
-  });
+  const subactivities = {
+    subactivities: [
+      {
+        id: 1,
+        name: "Subactivity 1",
+        location: "CFD Center",
+        startTime: new Date("2023-10-09T08:00:00.000"),
+        durationMinutes: 100,
+        activityId: 100,
+      },
+      {
+        id: 2,
+        name: "Subactivity 2",
+        location: "CFD Center",
+        startTime: new Date("2023-10-09T08:00:00.000"),
+        durationMinutes: 100,
+        activityId: 100,
+      },
+    ],
+  };
 
   const [join, setJoin] = React.useState(false);
   const [decline, setDecline] = React.useState(false);
