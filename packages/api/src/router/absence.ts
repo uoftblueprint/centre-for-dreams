@@ -8,6 +8,7 @@ export const absenceRouter = createTRPCRouter({
     .input(
       z.object({
         absenceDate: z.date(),
+        activityId: z.number(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -19,19 +20,25 @@ export const absenceRouter = createTRPCRouter({
         create: {
           absenceDate: input.absenceDate,
           participantId: user.participantId,
+          activityId: input.activityId,
         },
         update: {},
         where: {
-          absenceDate_participantId: {
+          absenceDate_participantId_activityId: {
             absenceDate: input.absenceDate,
             participantId: user.participantId,
+            activityId: input.activityId,
           },
         },
       });
     }),
 
   getAllAbsences: adminProcedure.query(async ({ ctx }) => {
-    return await ctx.db.absence.findMany();
+    return await ctx.db.absence.findMany({
+      include: {
+        activity: true,
+      },
+    });
   }),
 
   getAbsences: protectedProcedure.query(async ({ ctx }) => {
@@ -50,6 +57,7 @@ export const absenceRouter = createTRPCRouter({
     .input(
       z.object({
         absenceDate: z.date(),
+        activityId: z.number(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -59,9 +67,10 @@ export const absenceRouter = createTRPCRouter({
       }
       await ctx.db.absence.delete({
         where: {
-          absenceDate_participantId: {
+          absenceDate_participantId_activityId: {
             absenceDate: input.absenceDate,
             participantId: user.participantId,
+            activityId: input.activityId,
           },
         },
       });

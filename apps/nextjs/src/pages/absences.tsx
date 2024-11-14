@@ -27,6 +27,7 @@ export default function Absences() {
         key={index}
         userId={data.participantId}
         absenceDate={data.absenceDate}
+        activityName={data.activity.name}
       />
     ));
 

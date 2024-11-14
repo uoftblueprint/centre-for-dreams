@@ -63,6 +63,7 @@ model Activity {
   leader          String
   location        String
   subactivities   Subactivity[]
+  absence         Absence[]
 }
 
 model Subactivity {
@@ -76,11 +77,14 @@ model Subactivity {
 }
 
 model Absence {
+  id            Int         @id @default(autoincrement())
   participant   Participant @relation(fields: participantId, references: id)
   participantId Int
   absenceDate   DateTime    @db.Date
+  activity      Activity    @relation(fields: [activityId], references: id)
+  activityId    Int
 
-  @@unique([absenceDate, participantId])
+  @@unique([absenceDate, participantId, activityId])
 }
 
 // A participant can be linked to multiple users (i.e. two users can have the same participant)
