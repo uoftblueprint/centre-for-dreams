@@ -7,9 +7,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { api } from "~/utils/api";
-import styles from "./EventUpdatePage.module.css";
+import styles from "../../styles/activityupdate.module.css";
 
-export default function EventUpdatePage() {
+export default function ActivityUpdatePage() {
   const [date, setDate] = useState<Date>(new Date());
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>();
   const [isLoading, setIsLoading] = useState(false);
@@ -70,8 +70,7 @@ export default function EventUpdatePage() {
 
   return (
     <div className="mx-6 my-32 flex flex-col md:mx-16 lg:mx-64">
-      <h1 className="text-3xl font-bold">Update Events</h1>
-      <h2 className="mt-2 text-gray-500">Update event and activities.</h2>
+      <h1 className="text-3xl font-bold">Update Activities</h1>
       <hr className="mt-8"></hr>
       <div className="mx-6 mt-12 flex flex-col gap-4 md:mx-12 xl:mx-24">
         <form className="flex flex-col gap-2 xl:w-3/4">
@@ -86,14 +85,14 @@ export default function EventUpdatePage() {
             className={styles.form_input}
           />
           <p className="text-sm italic text-gray-400">
-            Choose a date to view a list of events scheduled for that day.
+            Choose a date to view a list of activities scheduled for that day.
           </p>
         </form>
 
         {date && (
           <form className="flex flex-col gap-2 xl:w-3/4">
             <label htmlFor="activity" className="text-lg font-semibold">
-              Event/Activity
+              Activity
             </label>
             <select
               id="options"
@@ -102,7 +101,7 @@ export default function EventUpdatePage() {
               className={styles.form_input}
             >
               <option value="" disabled>
-                Select an event
+                Select an activity
               </option>
               {activities.data?.map((activity: Activity) => (
                 <option key={activity.id} value={activity.id}>
@@ -111,7 +110,7 @@ export default function EventUpdatePage() {
               ))}
             </select>
             <p className="text-sm italic text-gray-400">
-              Select an event or activity to update.
+              Select an activity to update.
             </p>
           </form>
         )}
@@ -121,7 +120,7 @@ export default function EventUpdatePage() {
             <hr></hr>
             <div className="space-y-2">
               <label htmlFor="name" className="text-lg font-semibold">
-                Title
+                Activity Title
               </label>
               <input
                 id="name"
@@ -136,7 +135,7 @@ export default function EventUpdatePage() {
 
             <div className="flex flex-col space-y-2">
               <label htmlFor="day" className="text-lg font-semibold">
-                Event Date
+                Activity Date
               </label>
 
               <DatePicker
@@ -232,7 +231,7 @@ export default function EventUpdatePage() {
               disabled={isLoading}
               className="rounded bg-blue-500 p-2 text-white"
             >
-              {isLoading ? "Updating..." : "Update Event"}
+              {isLoading ? "Updating..." : "Update Activity"}
             </button>
           </form>
         )}
@@ -241,7 +240,7 @@ export default function EventUpdatePage() {
           <div className="absolute left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black/40">
             <div className="relative flex w-fit flex-col items-center justify-center gap-5 rounded-md bg-white px-16 py-8 text-center shadow-sm">
               <h1 className="text-3xl font-bold">Success!</h1>
-              <p>The event has been updated.</p>
+              <p>The activity has been updated.</p>
               <button
                 className="w-full rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 p-3 text-sm text-white duration-100 hover:scale-105 active:scale-95"
                 onClick={() => setIsSuccess(false)}
