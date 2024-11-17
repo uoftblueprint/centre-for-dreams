@@ -275,6 +275,7 @@ const Calendar = () => {
           <View className="h-20" />
         </ScrollView>
       )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
