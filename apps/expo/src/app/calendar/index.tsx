@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
@@ -209,72 +216,75 @@ const Calendar = () => {
           </TabNav>
         </View>
         {tabState === 1 && ( // Week
-        <ScrollView className="mt-5 w-full">
-          {sortedDays.length === 0 ? (
-            <Text className="text-p-0 font-title-md mt-5">
-              No activities this week
-            </Text>
-          ) : (
-            sortedDays.map((day, index) => (
-              <View key={index} className="mt-5 w-full">
-                <Text className="text-p-0 font-title-md">
-                  {formatDate(day)}
-                </Text>
-                {groupedWeeklySchedule[day]?.map((activity, idx) => (
-                  <View key={idx} className="mt-2 w-full flex-row">
-                    <View className="w-1/4">
-                      <Text className="text-p-0 font-body-sm mr-2 mt-1">
-                        {getTimeRange(
-                          activity.startTime,
-                          activity.durationMinutes,
-                        )}
-                      </Text>
-                    </View>
-                    <View className="w-3/4 rounded-lg">
-                      <EventTab
-                        activity={{ name: activity.name }}
-                        attending={true}
-                      />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            ))
-          )}
-          <View className="h-20" />
-        </ScrollView>
-      )}
-
-      {tabState === 2 && ( // Day
-        <ScrollView className="mt-5 w-full">
-          <View className="mt-5 w-full">
-            <Text className="text-p-0 font-title-md">{currentDate}</Text>
-          </View>
-
-          {sortedDailySchedule?.length === 0 ? (
-            <Text className="text-p-0 font-title-md mt-2">
-              No activities today
-            </Text>
-          ) : (
-            sortedDailySchedule?.map((activity, index) => (
-              <View key={index} className="mt-2 w-full flex-row">
-                <View className="w-1/4">
-                  <Text className="text-p-0 font-body-sm mr-2 mt-1">
-                    {getTimeRange(activity.startTime, activity.durationMinutes)}
+          <ScrollView className="mt-5 w-full">
+            {sortedDays.length === 0 ? (
+              <Text className="text-p-0 font-title-md mt-5">
+                No activities this week
+              </Text>
+            ) : (
+              sortedDays.map((day, index) => (
+                <View key={index} className="mt-5 w-full">
+                  <Text className="text-p-0 font-title-md">
+                    {formatDate(day)}
                   </Text>
+                  {groupedWeeklySchedule[day]?.map((activity, idx) => (
+                    <View key={idx} className="mt-2 w-full flex-row">
+                      <View className="w-1/4">
+                        <Text className="text-p-0 font-body-sm mr-2 mt-1">
+                          {getTimeRange(
+                            activity.startTime,
+                            activity.durationMinutes,
+                          )}
+                        </Text>
+                      </View>
+                      <View className="w-3/4 rounded-lg">
+                        <EventTab
+                          activity={{ name: activity.name }}
+                          attending={true}
+                        />
+                      </View>
+                    </View>
+                  ))}
                 </View>
-                <View className="w-3/4 rounded-lg">
-                  <EventTab
-                    activity={{ name: activity.name }}
-                    attending={true}
-                  />
+              ))
+            )}
+            <View className="h-20" />
+          </ScrollView>
+        )}
+
+        {tabState === 2 && ( // Day
+          <ScrollView className="mt-5 w-full">
+            <View className="mt-5 w-full">
+              <Text className="text-p-0 font-title-md">{currentDate}</Text>
+            </View>
+
+            {sortedDailySchedule?.length === 0 ? (
+              <Text className="text-p-0 font-title-md mt-2">
+                No activities today
+              </Text>
+            ) : (
+              sortedDailySchedule?.map((activity, index) => (
+                <View key={index} className="mt-2 w-full flex-row">
+                  <View className="w-1/4">
+                    <Text className="text-p-0 font-body-sm mr-2 mt-1">
+                      {getTimeRange(
+                        activity.startTime,
+                        activity.durationMinutes,
+                      )}
+                    </Text>
+                  </View>
+                  <View className="w-3/4 rounded-lg">
+                    <EventTab
+                      activity={{ name: activity.name }}
+                      attending={true}
+                    />
+                  </View>
                 </View>
-              </View>
-            ))
-          )}
-          <View className="h-20" />
-        </ScrollView>
-      )}
+              ))
+            )}
+            <View className="h-20" />
+          </ScrollView>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
