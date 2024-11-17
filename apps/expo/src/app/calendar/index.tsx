@@ -23,10 +23,10 @@ const Calendar = () => {
 
   // Data fetching based on the current tab state (week/day overview)
   const {
-    data: events,
-    refetch,
-    isLoading,
-    error,
+    data: refetch,
+    // events,
+    // isLoading,
+    // error,
   } = tabState === 1
     ? api.activity.getSchedule.useQuery(
         { day: new Date().toISOString().split("T")[0] ?? "" },
