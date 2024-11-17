@@ -22,21 +22,22 @@ const Calendar = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   // Data fetching based on the current tab state (week/day overview)
-  const { refetch } = tabState === 1
-    ? api.activity.getSchedule.useQuery(
-        { day: new Date().toISOString().split("T")[0] ?? "" },
-        { enabled: !!isSignedIn },
-      )
-    : api.activity.getDailySchedule.useQuery(
-        { day: new Date().toISOString().split("T")[0] ?? "" },
-        { enabled: !!isSignedIn },
-      );
+  const { refetch } =
+    tabState === 1
+      ? api.activity.getSchedule.useQuery(
+          { day: new Date().toISOString().split("T")[0] ?? "" },
+          { enabled: !!isSignedIn },
+        )
+      : api.activity.getDailySchedule.useQuery(
+          { day: new Date().toISOString().split("T")[0] ?? "" },
+          { enabled: !!isSignedIn },
+        );
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     if (refetch) {
       await refetch();
-    }; // Trigger data refetch from the backend
+    } // Trigger data refetch from the backend
     setRefreshing(false);
   }, [refetch]);
 
