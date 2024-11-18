@@ -1,9 +1,12 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
-// TO-DO : Change to be Activity type when structure is ready
-export interface Event {
+import { api } from "../utils/api";
+
+interface Event {
   name: string;
+  id: number;
+  day: Date;
 }
 
 interface EventProps {
@@ -12,6 +15,44 @@ interface EventProps {
 }
 
 export default function EventTab({ activity, attending }: EventProps) {
+  const [isAttending, setIsAttending] = useState(attending);
+  const utils = api.useContext();
+
+  const createAbsence = api.absence.createAbsence.useMutation({
+    onSuccess: () => {
+      utils.absence.getAbsences.invalidate();
+    },
+  });
+
+  const deleteAbsence = api.absence.deleteAbsence.useMutation({
+    onSuccess: () => {
+      utils.absence.getAbsences.invalidate();
+    },
+  });
+
+  const toggleAttendance = async () => {
+    const newAttendingState = !isAttending;
+    setIsAttending(newAttendingState);
+
+    try {
+      if (newAttendingState) {
+        await deleteAbsence.mutate({
+          absenceDate: activity.day,
+          activityId: activity.id,
+        });
+      } else {
+        await createAbsence.mutate({
+          absenceDate: activity.day,
+          activityId: activity.id,
+        });
+      }
+    } catch (error) {
+      setIsAttending(!newAttendingState);
+      console.error("Failed to update attendance:", error);
+    }
+  };
+  console.log(activity.name, isAttending);
+
   return (
     <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
       <Text className="text-p-10 font-title-md">{activity.name}</Text>
@@ -19,10 +60,22 @@ export default function EventTab({ activity, attending }: EventProps) {
       <View className="flex-row items-center justify-start">
         <Text className="text-n-40 font-body-md mr-3">Attendance:</Text>
 
-        {/*TO-DO: Change to be chips when they are ready */}
-        <Text className="text-n-40 font-body-md">
-          {attending === undefined ? "Maybe" : attending ? "Join" : "Not Join"}
-        </Text>
+        <TouchableOpacity
+          onPress={toggleAttendance}
+          disabled={createAbsence.isLoading || deleteAbsence.isLoading}
+        >
+          <Text
+            className={`font-body-md ${
+              isAttending ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {createAbsence.isLoading || deleteAbsence.isLoading
+              ? "Updating..."
+              : isAttending
+                ? "Present"
+                : "Absent"}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

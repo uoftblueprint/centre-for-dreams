@@ -30,6 +30,14 @@ const Calendar = () => {
       day: new Date().toISOString().split("T")[0] ?? "", // today's date
     });
 
+  // Absences
+  const { data: absences, isLoading: absencesLoading } =
+    api.absence.getAbsences.useQuery();
+
+  const absentActivityIds = new Set(
+    absences?.map((absence) => absence.activityId),
+  );
+
   useEffect(() => {
     if (!dailyLoading && !weeklyLoading) {
       setLoading(false);
@@ -203,8 +211,12 @@ const Calendar = () => {
                     </View>
                     <View className="w-3/4 rounded-lg">
                       <EventTab
-                        activity={{ name: activity.name }}
-                        attending={true}
+                        activity={{
+                          name: activity.name,
+                          id: activity.id,
+                          day: activity.day,
+                        }}
+                        attending={!absentActivityIds.has(activity.id)}
                       />
                     </View>
                   </View>
