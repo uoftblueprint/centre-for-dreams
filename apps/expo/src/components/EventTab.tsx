@@ -19,29 +19,37 @@ export default function EventTab({ activity, attending }: EventProps) {
   const utils = api.useContext();
 
   const createAbsence = api.absence.createAbsence.useMutation({
-    onSuccess: () => {
-      utils.absence.getAbsences.invalidate();
+    onSuccess: async () => {
+      try {
+        await utils.absence.getAbsences.invalidate();
+      } catch (error) {
+        console.error("Failed to invalidate absences:", error);
+      }
     },
   });
 
   const deleteAbsence = api.absence.deleteAbsence.useMutation({
-    onSuccess: () => {
-      utils.absence.getAbsences.invalidate();
+    onSuccess: async () => {
+      try {
+        await utils.absence.getAbsences.invalidate();
+      } catch (error) {
+        console.error("Failed to invalidate absences:", error);
+      }
     },
   });
 
-  const toggleAttendance = async () => {
+  const toggleAttendance = () => {
     const newAttendingState = !isAttending;
     setIsAttending(newAttendingState);
 
     try {
       if (newAttendingState) {
-        await deleteAbsence.mutate({
+        deleteAbsence.mutate({
           absenceDate: activity.day,
           activityId: activity.id,
         });
       } else {
-        await createAbsence.mutate({
+        createAbsence.mutate({
           absenceDate: activity.day,
           activityId: activity.id,
         });
