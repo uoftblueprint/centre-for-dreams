@@ -35,15 +35,28 @@ export const discussionRouter = createTRPCRouter({
     .input(
       z.object({
         contents: z.string().min(1),
+        images: z.array(z.string().min(1)).optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
+      const imageBuffers = input.images
+        ? input.images.map((uri) => {
+            // Convert the URI to base64 string
+            const base64Data = uri?.split(",")[1];
+            if (!base64Data) {
+              throw new Error("Invalid URI format");
+            }
+            return Buffer.from(base64Data, "base64");
+
+          })
+        : [];
       await ctx.db.post.create({
         data: {
           contents: input.contents,
           postType: "Discussion",
           user: { connect: { id: userId } },
+          images: imageBuffers.length > 0 ? imageBuffers : undefined,
         },
       });
     }),
