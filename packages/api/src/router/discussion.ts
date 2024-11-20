@@ -48,7 +48,6 @@ export const discussionRouter = createTRPCRouter({
               throw new Error("Invalid URI format");
             }
             return Buffer.from(base64Data, "base64");
-
           })
         : [];
       await ctx.db.post.create({
