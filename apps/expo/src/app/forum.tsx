@@ -115,15 +115,15 @@ const Forum = () => {
         <TouchableOpacity
           style={{
             position: "absolute",
-            bottom: 20,
+            bottom: 100,
             right: 20,
-            backgroundColor: "#6200EE",
+            backgroundColor: "#007BFF",
             borderRadius: 50,
             width: 56,
             height: 56,
             justifyContent: "center",
             alignItems: "center",
-            elevation: 11,
+            elevation: 5,
             shadowColor: "#000",
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.3,

@@ -1,15 +1,8 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
-  width="24"
-  height="24"
-  fill="none"
-  stroke="currentColor"
-  strokeWidth="2"
-  strokeLinecap="round"
-  strokeLinejoin="round"
->
-  <path d="M12 20h9" /> <!-- Line for the pencil base -->
-  <path d="M16.5 3.5l4 4-11 11H5v-4z" /> <!-- Pencil body -->
-  <path d="M14 6l3 3" /> <!-- Decorative pencil detail -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="56" height="56">
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="#007BFF" />
+  
+  <!-- Plus Sign -->
+  <line x1="20" y1="60" x2="100" y2="60" stroke="white" stroke-width="10" />
+  <line x1="60" y1="20" x2="60" y2="100" stroke="white" stroke-width="10" />
 </svg>
