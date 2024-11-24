@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
@@ -13,28 +20,48 @@ const Calendar = () => {
   const { isSignedIn, user } = useUser();
   const [tabState, setTabState] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   if (!isSignedIn) {
     throw new Error("Not signed in!");
   }
 
   // Daily Schedule for today
-  const { data: dailySchedule, isLoading: dailyLoading } =
-    api.activity.getDailySchedule.useQuery({
-      day: new Date().toISOString().split("T")[0] ?? "", // today's date in the format YYYY-MM-DD
-    });
+  const {
+    data: dailySchedule,
+    isLoading: dailyLoading,
+    refetch: refetchDaily,
+  } = api.activity.getDailySchedule.useQuery({
+    day: new Date().toISOString().split("T")[0] ?? "", // today's date in the format YYYY-MM-DD
+  });
 
   // Weekly Schedule starting from today
-  const { data: weeklySchedule, isLoading: weeklyLoading } =
-    api.activity.getSchedule.useQuery({
-      day: new Date().toISOString().split("T")[0] ?? "", // today's date
-    });
+  const {
+    data: weeklySchedule,
+    isLoading: weeklyLoading,
+    refetch: refetchWeekly,
+  } = api.activity.getSchedule.useQuery({
+    day: new Date().toISOString().split("T")[0] ?? "", // today's date
+  });
 
   useEffect(() => {
     if (!dailyLoading && !weeklyLoading) {
       setLoading(false);
     }
   }, [dailyLoading, weeklyLoading]);
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      // Refetch data for both views
+      await Promise.all([refetchDaily(), refetchWeekly()]);
+    } catch (error) {
+      console.error("Failed to refresh calendar:", error);
+      alert("Error refreshing calendar. Please try again.");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   // Displaying date (Ex. November 1)
   const formatDate = (dateString: string) => {
@@ -180,7 +207,12 @@ const Calendar = () => {
       </View>
 
       {tabState === 1 && ( // Week
-        <ScrollView className="mt-5 w-full">
+        <ScrollView
+          className="mt-5 w-full"
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+        >
           {sortedDays.length === 0 ? (
             <Text className="text-p-0 font-title-md mt-5">
               No activities this week
@@ -217,7 +249,12 @@ const Calendar = () => {
       )}
 
       {tabState === 2 && ( // Day
-        <ScrollView className="mt-5 w-full">
+        <ScrollView
+          className="mt-5 w-full"
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+        >
           <View className="mt-5 w-full">
             <Text className="text-p-0 font-title-md">{currentDate}</Text>
           </View>
