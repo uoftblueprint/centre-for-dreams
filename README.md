@@ -205,6 +205,12 @@ pnpm db:generate
 pnpm db:push
 ```
 
+#### To apply schema migrations with risk of losing data
+
+```zsh
+pnpm db:forcepush
+```
+
 #### Create a database migration
 
 ```zsh
@@ -238,6 +244,7 @@ pnpm typecheck
 - [@Ett05](https://github.com/Ett05)
 - [@nolawiyonas1](https://github.com/nolawiyonas1)
 - [@solarescarlos](https://github.com/solarescarlos)
+- [@Adventurer-E](https://github.com/Adventurer-E)
 
 ## License
 

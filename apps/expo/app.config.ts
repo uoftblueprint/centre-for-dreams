@@ -10,7 +10,7 @@ const defineConfig = (): ExpoConfig => ({
   // icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/landing_page.png", // Path to your splash screen image
+    image: "./assets/landing_page.png",
     resizeMode: "contain",
     backgroundColor: "#FFFFFF",
   },
@@ -21,6 +21,7 @@ const defineConfig = (): ExpoConfig => ({
   ios: {
     bundleIdentifier: "your.bundle.identifier",
     supportsTablet: true,
+    newArchEnabled: true, // Enable New Architecture for iOS
   },
   android: {
     package: "your.bundle.identifier",
@@ -28,6 +29,7 @@ const defineConfig = (): ExpoConfig => ({
       // foregroundImage: "./assets/icon.png",
       backgroundColor: "#FFFFFF",
     },
+    newArchEnabled: true, // Enable New Architecture for Android
   },
   extra: {
     eas: {
@@ -39,7 +41,12 @@ const defineConfig = (): ExpoConfig => ({
     tsconfigPaths: true,
     typedRoutes: true,
   },
-  plugins: ["expo-router", "./expo-plugins/with-modify-gradle.js"],
+  plugins: [
+    "expo-router",
+    "./expo-plugins/with-modify-gradle.js",
+    "expo-font",
+    "expo-secure-store",
+  ],
 });
 
 export default defineConfig;
