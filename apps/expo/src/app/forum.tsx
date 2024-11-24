@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 import Discussion from "~/components/Discussion";
 import ReplyNotification from "~/components/ReplyNotification";
@@ -9,9 +9,11 @@ import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 import Bell from "../../assets/bell.svg";
 import RedDot from "../../assets/reddot.svg";
+import FloatingButton from "../../assets/floating-button-icon.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
+  const router = useRouter();
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
@@ -58,6 +60,23 @@ const Forum = () => {
     </View>
   );
 
+  const renderFloatingButton = () => (
+    <TouchableOpacity
+      style={{
+        position: "absolute",
+        bottom: 20,
+        right: 20,
+        backgroundColor: "#6200EE",
+        borderRadius: 50,
+        padding: 15,
+        elevation: 5,
+      }}
+      onPress={() => router.push("/forum")} // Added navigation to the current page
+    >
+      <FloatingButton width={24} height={24} fill="#fff" />
+    </TouchableOpacity>
+  );
+
   if (selectedTab == 3) {
     return (
       <SafeAreaView className="">
@@ -92,6 +111,7 @@ const Forum = () => {
               }
             }}
           />
+          {renderFloatingButton()}
         </View>
       </SafeAreaView>
     );
