@@ -117,17 +117,21 @@ const Calendar = () => {
     startTime: Date;
     durationMinutes: number;
     name: string;
+    id: number;
   }
 
   const groupActivitiesByDay = (activities: Activity[] = []) => {
-    const grouped = activities.reduce((acc: Record, activity: Activity) => {
-      const date = activity.day.toISOString().split("T")[0] ?? "";
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(activity);
-      return acc;
-    }, {} as Record);
+    const grouped = activities.reduce(
+      (acc: Record<string, Activity[]>, activity: Activity) => {
+        const date = activity.day.toISOString().split("T")[0] ?? "";
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(activity);
+        return acc;
+      },
+      {} as Record<string, Activity[]>,
+    );
 
     // Sort activities by start time
     Object.keys(grouped).forEach((date) => {
