@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { addMinutes, format, getMinutes } from "date-fns";
+import { addMinutes, format } from "date-fns";
 
 import DeclineOutlinedChip from "~/components/DeclineOutlinedChip";
 import type { EventTemp } from "~/components/EventDayTab";
