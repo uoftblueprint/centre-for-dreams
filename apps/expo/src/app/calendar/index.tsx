@@ -117,6 +117,7 @@ const Calendar = () => {
     startTime: Date;
     durationMinutes: number;
     name: string;
+    id: number;
   }
 
   const groupActivitiesByDay = (activities: Activity[] = []) => {
@@ -235,7 +236,7 @@ const Calendar = () => {
                     </View>
                     <View className="w-3/4 rounded-lg">
                       <EventTab
-                        activity={{ name: activity.name }}
+                        activity={{ name: activity.name, id: activity.id }}
                         attending={true}
                       />
                     </View>
@@ -258,7 +259,6 @@ const Calendar = () => {
           <View className="mt-5 w-full">
             <Text className="text-p-0 font-title-md">{currentDate}</Text>
           </View>
-
           {sortedDailySchedule?.length === 0 ? (
             <Text className="text-p-0 font-title-md mt-2">
               No activities today
@@ -273,7 +273,7 @@ const Calendar = () => {
                 </View>
                 <View className="w-3/4 rounded-lg">
                   <EventTab
-                    activity={{ name: activity.name }}
+                    activity={{ name: activity.name, id: activity.id }}
                     attending={true}
                   />
                 </View>
