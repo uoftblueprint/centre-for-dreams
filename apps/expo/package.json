@@ -18,7 +18,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^0.20.32",
+    "@clerk/clerk-expo": "^0.20.33",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-config": "^0.19.4",
     "@expo/prebuild-config": "~8.0.20",
