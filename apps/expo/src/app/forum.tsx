@@ -129,7 +129,7 @@ const Forum = () => {
             shadowOpacity: 0.3,
             shadowRadius: 3,
           }}
-          onPress={() => router.push("/forum")}
+          onPress={() => router.push("/createpost")}
         >
           <FloatingButton width={24} height={24} fill="#fff" />
         </TouchableOpacity>
