@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import { api } from "../utils/api";
 
@@ -17,6 +18,7 @@ interface EventProps {
 export default function EventTab({ activity, attending }: EventProps) {
   const [isAttending, setIsAttending] = useState(attending);
   const utils = api.useUtils();
+  const router = useRouter();
 
   const createAbsence = api.absence.createAbsence.useMutation({
     onSuccess: async () => {
@@ -61,11 +63,16 @@ export default function EventTab({ activity, attending }: EventProps) {
   };
 
   return (
-    <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
-      <Text className="text-p-10 font-title-md">{activity.name}</Text>
+    <TouchableHighlight
+      onPress={() => {
+        router.push(`/calendar/${activity.id}`);
+      }}
+    >
+      <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
+        <Text className="text-p-10 font-title-md">{activity.name}</Text>
 
-      <View className="flex-row items-center justify-start">
-        <Text className="text-n-40 font-body-md mr-3">Attendance:</Text>
+        <View className="flex-row items-center justify-start">
+          <Text className="text-n-40 font-body-md mr-3">Attendance:</Text>
 
         <TouchableOpacity
           onPress={toggleAttendance}
