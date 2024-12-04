@@ -16,7 +16,7 @@ interface EventProps {
 
 export default function EventTab({ activity, attending }: EventProps) {
   const [isAttending, setIsAttending] = useState(attending);
-  const utils = api.useContext();
+  const utils = api.useUtils();
 
   const createAbsence = api.absence.createAbsence.useMutation({
     onSuccess: async () => {
@@ -59,7 +59,6 @@ export default function EventTab({ activity, attending }: EventProps) {
       console.error("Failed to update attendance:", error);
     }
   };
-  console.log(activity.name, isAttending);
 
   return (
     <View className={`w-fill bg-p-95 flex-col justify-center rounded-md p-4`}>
