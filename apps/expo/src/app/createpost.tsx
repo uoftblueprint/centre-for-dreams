@@ -16,6 +16,7 @@ import { api } from "~/utils/api";
 import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
+  const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const { back } = useRouter();
@@ -28,14 +29,16 @@ function CreatePost() {
     });
 
   const createPost = () => {
-    if (post != "") {
+    if (title !== "" && post != "") {
       createDiscussion({
+        title: title,
         contents: post,
       });
     }
   };
 
   const clearState = () => {
+    setTitle("");
     setPost("");
     setImages([]);
   };
@@ -78,6 +81,21 @@ function CreatePost() {
                 </Text>
                 <View className="relative h-6 w-6" />
               </View>
+
+              {/* Title Section */}
+              <View className="inline-flex flex-col gap-y-2">
+                <Text className="text-p-0 font-title-md leading-normal tracking-tight">
+                  Title
+                </Text>
+                <TextInput
+                  value={title}
+                  placeholder="Enter post title..."
+                  className="w-full border-p-40 h-12 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                  onChangeText={(text) => setTitle(text)}
+                />
+              </View>
+
+              {/* Description Section */}
               <View className="inline-flex flex-row items-start justify-start gap-y-4">
                 <Text className="text-p-0 font-title-md leading-normal tracking-tight">
                   Description
