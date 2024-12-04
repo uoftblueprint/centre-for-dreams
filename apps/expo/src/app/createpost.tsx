@@ -87,6 +87,9 @@ function CreatePost() {
                 <Text className="text-p-0 font-title-md leading-normal tracking-tight">
                   Title
                 </Text>
+                <Text className="text-e-40 font-title-md leading-normal tracking-tight">
+                  *
+                </Text>
                 <TextInput
                   value={title}
                   placeholder="Enter post title..."
