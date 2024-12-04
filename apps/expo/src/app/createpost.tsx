@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Image, Keyboard, Text, TextInput, View } from "react-native";
 import {
+  GestureHandlerRootView,
   ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
@@ -98,10 +98,9 @@ function CreatePost() {
               <TextInput
                 value={title}
                 placeholder="Enter post title..."
-                className="w-full border-p-40 h-12 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                className="border-p-40 h-12 w-full rounded-lg border bg-white p-2 shadow-inner shadow-sm"
                 onChangeText={(text) => setTitle(text)}
               />
-              
 
               {/* Description Section */}
               <View className="inline-flex flex-row items-start justify-start gap-y-4">
@@ -125,7 +124,7 @@ function CreatePost() {
 
               {/* Error Message */}
               {errorMessage ? (
-                <Text className="text-red-500 text-sm">{errorMessage}</Text>
+                <Text className="text-sm text-red-500">{errorMessage}</Text>
               ) : null}
 
               <View className={` ${images[0] == null}h-44`}>

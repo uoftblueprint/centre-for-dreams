@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Text, View, TouchableOpacity } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
@@ -8,8 +8,8 @@ import ReplyNotification from "~/components/ReplyNotification";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 import Bell from "../../assets/bell.svg";
-import RedDot from "../../assets/reddot.svg";
 import FloatingButton from "../../assets/floating-button-icon.svg";
+import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -142,14 +142,14 @@ const Forum = () => {
 //     return (
 //       <SafeAreaView className="">
 //         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        
+
 //       </SafeAreaView>
 //     );
 //   } else {
 //     return (
 //       <SafeAreaView className="">
 //         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        
+
 //         {/* Floating Button */}
 //         <TouchableOpacity
 //           style={{
