@@ -19,6 +19,7 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [images, setImages] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
   const { mutate: createDiscussion } =
@@ -29,7 +30,10 @@ function CreatePost() {
     });
 
   const createPost = () => {
-    if (title !== "" && post != "") {
+    if (title === "" || post === "") {
+      setErrorMessage("Title and Description are required.");
+    } else {
+      setErrorMessage("");
       createDiscussion({
         title: title,
         contents: post,
@@ -41,6 +45,7 @@ function CreatePost() {
     setTitle("");
     setPost("");
     setImages([]);
+    setErrorMessage("");
   };
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -54,7 +59,6 @@ function CreatePost() {
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
         const updatedImages = [...images, result.assets[0].uri];
-        // Update the state with the new list
         setImages(updatedImages);
       }
     }
@@ -83,20 +87,21 @@ function CreatePost() {
               </View>
 
               {/* Title Section */}
-              <View className="inline-flex flex-col gap-y-2">
+              <View className="inline-flex flex-row items-start justify-start gap-y-4">
                 <Text className="text-p-0 font-title-md leading-normal tracking-tight">
                   Title
                 </Text>
                 <Text className="text-e-40 font-title-md leading-normal tracking-tight">
                   *
                 </Text>
-                <TextInput
-                  value={title}
-                  placeholder="Enter post title..."
-                  className="w-full border-p-40 h-12 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
-                  onChangeText={(text) => setTitle(text)}
-                />
               </View>
+              <TextInput
+                value={title}
+                placeholder="Enter post title..."
+                className="w-full border-p-40 h-12 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                onChangeText={(text) => setTitle(text)}
+              />
+              
 
               {/* Description Section */}
               <View className="inline-flex flex-row items-start justify-start gap-y-4">
@@ -117,6 +122,11 @@ function CreatePost() {
                 onChangeText={(post) => setPost(post)}
                 aria-label="input"
               />
+
+              {/* Error Message */}
+              {errorMessage ? (
+                <Text className="text-red-500 text-sm">{errorMessage}</Text>
+              ) : null}
 
               <View className={` ${images[0] == null}h-44`}>
                 {images[0] && (
