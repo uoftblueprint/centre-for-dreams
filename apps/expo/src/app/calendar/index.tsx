@@ -125,7 +125,6 @@ const Calendar = () => {
     startTime: Date;
     durationMinutes: number;
     name: string;
-    id: number;
   }
 
   const groupActivitiesByDay = (activities: Activity[] = []) => {

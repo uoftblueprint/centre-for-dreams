@@ -74,23 +74,24 @@ export default function EventTab({ activity, attending }: EventProps) {
         <View className="flex-row items-center justify-start">
           <Text className="text-n-40 font-body-md mr-3">Attendance:</Text>
 
-        <TouchableOpacity
-          onPress={toggleAttendance}
-          disabled={createAbsence.isLoading || deleteAbsence.isLoading}
-        >
-          <Text
-            className={`font-body-md ${
-              isAttending ? "text-green-600" : "text-red-600"
-            }`}
+          <TouchableOpacity
+            onPress={toggleAttendance}
+            disabled={createAbsence.isLoading || deleteAbsence.isLoading}
           >
-            {createAbsence.isLoading || deleteAbsence.isLoading
-              ? "Updating..."
-              : isAttending
-                ? "Present"
-                : "Absent"}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              className={`font-body-md ${
+                isAttending ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {createAbsence.isLoading || deleteAbsence.isLoading
+                ? "Updating..."
+                : isAttending
+                  ? "Present"
+                  : "Absent"}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 }
