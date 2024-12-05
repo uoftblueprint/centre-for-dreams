@@ -44,5 +44,3 @@ yarn-error.log*
 
 # turbo
 .turbo
-
-pnpm-lock.yaml
