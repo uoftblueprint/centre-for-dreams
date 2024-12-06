@@ -44,6 +44,13 @@ const Calendar = () => {
     day: new Date().toISOString().split("T")[0] ?? "", // today's date
   });
 
+  // Absences
+  const { data: absences } = api.absence.getAbsences.useQuery();
+
+  const absentActivityIds = new Set(
+    absences?.map((absence) => absence.activityId),
+  );
+
   useEffect(() => {
     if (!dailyLoading && !weeklyLoading) {
       setLoading(false);
@@ -113,11 +120,11 @@ const Calendar = () => {
 
   // Group activities by day and sort by start time
   interface Activity {
+    id: number;
     day: Date;
     startTime: Date;
     durationMinutes: number;
     name: string;
-    id: number;
   }
 
   const groupActivitiesByDay = (activities: Activity[] = []) => {
@@ -236,8 +243,12 @@ const Calendar = () => {
                     </View>
                     <View className="w-3/4 rounded-lg">
                       <EventTab
-                        activity={{ name: activity.name, id: activity.id }}
-                        attending={true}
+                        activity={{
+                          name: activity.name,
+                          id: activity.id,
+                          day: activity.day,
+                        }}
+                        attending={!absentActivityIds.has(activity.id)}
                       />
                     </View>
                   </View>
@@ -273,8 +284,12 @@ const Calendar = () => {
                 </View>
                 <View className="w-3/4 rounded-lg">
                   <EventTab
-                    activity={{ name: activity.name, id: activity.id }}
-                    attending={true}
+                    activity={{
+                      name: activity.name,
+                      id: activity.id,
+                      day: activity.day,
+                    }}
+                    attending={!absentActivityIds.has(activity.id)}
                   />
                 </View>
               </View>
