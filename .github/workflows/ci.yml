@@ -123,7 +123,7 @@ jobs:
       # if: github.event_name != 'pull_request'
       run: pnpm i
 
-    - name: Build app
+    - name: Build app (Local Android)
       # if: github.event_name != 'pull_request'
       run: |
         cd apps/expo && eas build --local \
@@ -174,7 +174,7 @@ jobs:
         # if: github.event_name != 'pull_request'
         run: pnpm i
 
-      - name: Build iOS app
+      - name: Build app (Local iOS)
         # if: github.event_name != 'pull_request'
         run: |
           cd apps/expo && eas build --local \
@@ -182,3 +182,85 @@ jobs:
             --output=./app-build \
             --platform=ios \
             --profile=preview
+
+  cloud_android:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      # if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      # if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v3.0.0
+
+    - name: Setup Node
+      # if: github.event_name != 'pull_request'
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      # if: github.event_name != 'pull_request'
+      uses: expo/expo-github-action@v8
+      with:
+        token: ${{ secrets.EXPO_TOKEN_CFD }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      # if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app (Cloud Android)
+      # if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build \
+          --non-interactive \
+          --platform android \
+          --profile development
+
+  cloud_ios:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repo
+      # if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      # if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v3.0.0
+
+    - name: Setup Node
+      # if: github.event_name != 'pull_request'
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      # if: github.event_name != 'pull_request'
+      uses: expo/expo-github-action@v8
+      with:
+        token: ${{ secrets.EXPO_TOKEN_CFD }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      # if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app (Cloud iOS)
+      # if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build \
+          --non-interactive \
+          --platform ios \
+          --profile preview
