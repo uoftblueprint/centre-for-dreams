@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
 import { api } from "~/utils/api";
@@ -27,8 +27,19 @@ export default function Discussion({
   canEdit: boolean;
 }) {
   const [showMoreComments, setShowMoreComments] = useState(false);
-  const [isLiked, setIsLiked] = useState(discussion.isLikedByUser ?? false);
-  const [likesCount, setLikesCount] = useState(discussion.likesCount ?? 0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
+  const { data: likesData } = api.like.getLikesForDiscussion.useQuery({
+    postId: discussion.id,
+  });
+
+  useEffect(() => {
+    if (likesData) {
+      setIsLiked(likesData.isLikedByUser);
+      setLikesCount(likesData.likesCount);
+    }
+  }, [likesData]);
 
   const likeMutation = api.like.likePost.useMutation({
     onSuccess: () => {
