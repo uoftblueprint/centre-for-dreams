@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="56" height="56">
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="#007BFF" />
+  
+  <!-- Plus Sign -->
+  <line x1="20" y1="60" x2="100" y2="60" stroke="white" stroke-width="10" />
+  <line x1="60" y1="20" x2="60" y2="100" stroke="white" stroke-width="10" />
+</svg>
