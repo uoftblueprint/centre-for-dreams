@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import CommentIconBlue from "../../assets/comment-blue.svg";
 import CommentIcon from "../../assets/comment.svg";
@@ -26,6 +35,8 @@ export default function Discussion({
   canEdit: boolean;
 }) {
   const [showMoreComments, setShowMoreComments] = useState(false);
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [commentText, setCommentText] = useState("");
 
   const handleViewMore = () => {
     setShowMoreComments(true);
@@ -33,6 +44,27 @@ export default function Discussion({
 
   const handleViewLess = () => {
     setShowMoreComments(false);
+  };
+
+  const handleCommentPress = () => {
+    setShowCommentInput(!showCommentInput);
+  };
+
+  const commentMutation = api.comment.create.useMutation();
+
+  const handleCommentSubmit = async () => {
+    if (commentText.trim() === "") return;
+
+    try {
+      await commentMutation.mutateAsync({
+        postId: discussion.id,
+        text: commentText,
+      });
+      setCommentText("");
+      setShowCommentInput(false);
+    } catch (error) {
+      console.error("Failed to submit comment:", error);
+    }
   };
 
   const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
@@ -102,10 +134,13 @@ export default function Discussion({
             <LikeIcon width={15} height={18}></LikeIcon>
             <Text className="font-body-md ml-2">Like</Text>
           </View>
-          <View className="w-5/12 flex-row justify-center">
+          <TouchableOpacity
+            className="w-5/12 flex-row justify-center"
+            onPress={handleCommentPress}
+          >
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
-          </View>
+          </TouchableOpacity>
           <View className="w-1/3 flex-row justify-center">
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
@@ -118,10 +153,24 @@ export default function Discussion({
             <LikeIcon width={15} height={18}></LikeIcon>
             <Text className="font-body-md ml-2">Like</Text>
           </View>
-          <View className="w-1/2 flex-row justify-center">
+          <TouchableOpacity
+            className="w-1/2 flex-row justify-center"
+            onPress={handleCommentPress}
+          >
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
-          </View>
+          </TouchableOpacity>
+        </View>
+      )}
+      {showCommentInput && (
+        <View className="mb-4 mt-4 p-2">
+          <TextInput
+            value={commentText}
+            onChangeText={setCommentText}
+            placeholder="Write a comment..."
+            className="rounded border p-2"
+          />
+          <Button title="Submit" onPress={handleCommentSubmit} />
         </View>
       )}
       <View className="rounded-lg bg-white">
