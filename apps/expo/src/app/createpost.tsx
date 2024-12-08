@@ -30,6 +30,7 @@ function CreatePost() {
     if (post != "") {
       createDiscussion({
         contents: post,
+        images: images,
       });
     }
   };
@@ -49,9 +50,25 @@ function CreatePost() {
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const updatedImages = [...images, result.assets[0].uri];
-        // Update the state with the new list
-        setImages(updatedImages);
+        // const updatedImages = [...images, result.assets[0].uri];
+        // // Update the state with the new list
+        // setImages(updatedImages);
+
+        const uri = result.assets[0].uri;
+        const imageFormat = uri.split(".").pop();
+        const imageSize = result.assets[0].fileSize;
+
+        // Handle format and size validation
+        if (
+          imageFormat &&
+          ["jpg", "jpeg", "png"].includes(imageFormat) &&
+          (imageSize ?? 0) < 5000000
+        ) {
+          const updatedImages = [...images, uri];
+          setImages(updatedImages);
+        } else {
+          alert("Invalid image format or size too large");
+        }
       }
     }
   };
