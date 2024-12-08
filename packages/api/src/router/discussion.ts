@@ -119,7 +119,13 @@ export const discussionRouter = createTRPCRouter({
   getReplies: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
     const userPosts = await ctx.db.post.findMany({
-      where: { userId },
+      orderBy: { createdAt: "desc" },
+      where: {
+        userId: userId,
+      },
+      select: {
+        id: true,
+      },
     });
     const userPostIds = userPosts.map((post) => post.id);
     return await ctx.db.comment.findMany({

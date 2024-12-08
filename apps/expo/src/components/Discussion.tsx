@@ -133,7 +133,7 @@ export default function Discussion({
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/3 flex-row justify-center">
             <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like </Text>
+            <Text className="font-body-md ml-2">Like</Text>
           </View>
           <View className="w-5/12 flex-row justify-center">
             <CommentIcon width={13} height={18}></CommentIcon>
@@ -155,12 +155,12 @@ export default function Discussion({
                 <LikeIcon width={15} height={18} />
               )}
               <Text className="font-body-md ml-2">
-                {likesCount} {likesCount === 1 ? "Like" : "Likes"}
+                {isLiked ? "Liked" : "Like"}
               </Text>
             </TouchableOpacity>
           </View>
           <View className="w-1/2 flex-row justify-center">
-            <CommentIcon width={13} height={18} />
+            <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
           </View>
         </View>
