@@ -6,7 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   scheme: "expo",
   version: "1.0.0",
   orientation: "portrait",
-  owner: process.env.EXPO_OWNER,
+  owner: process.env.EXPO_OWNER_CFD,
   // icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   splash: {
