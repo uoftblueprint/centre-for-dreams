@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
-import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import CommentIconBlue from "../../assets/comment-blue.svg";
@@ -11,9 +10,7 @@ import LikeIconBlue from "../../assets/like-blue.svg";
 import LikeIcon from "../../assets/like.svg";
 import Comment from "./Comment";
 
-type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number] & {
-  likes: { userId: number }[];
-};
+type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
 interface RenderItemProps {
   item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
@@ -30,41 +27,12 @@ export default function Discussion({
 }) {
   const [showMoreComments, setShowMoreComments] = useState(false);
 
-  // For managing like and unlike actions
-  const likeMutation = api.like.likePost.useMutation({
-    onSuccess: () => {
-      // Re-fetch or locally update the like count after mutation
-      setIsLiked(true);
-    },
-  });
-
-  const unlikeMutation = api.like.unlikePost.useMutation({
-    onSuccess: () => {
-      // Re-fetch or locally update the like count after mutation
-      setIsLiked(false);
-    },
-  });
-
-  const [isLiked, setIsLiked] = useState(
-    discussion.likes.some((like) => like.userId === discussion.userId),
-  );
-
   const handleViewMore = () => {
     setShowMoreComments(true);
   };
 
   const handleViewLess = () => {
     setShowMoreComments(false);
-  };
-
-  const handleLike = (postId: number) => {
-    if (isLiked) {
-      unlikeMutation.mutate({ postId });
-      setIsLiked(false);
-    } else {
-      likeMutation.mutate({ postId });
-      setIsLiked(true);
-    }
   };
 
   const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
@@ -114,16 +82,12 @@ export default function Discussion({
           </View>
         </View>
         <View className="mt-2 flex-row">
-          <TouchableOpacity onPress={() => handleLike(discussion.id)}>
-            {isLiked ? (
-              <LikeIconBlue width={18} height={20} className="color-p-60" />
-            ) : (
-              <LikeIcon width={18} height={20} className="color-n-40" />
-            )}
-          </TouchableOpacity>
-          <Text className="font-body-lg text-n-50 ml-2">
-            {discussion.likes.length}
-          </Text>
+          <LikeIconBlue
+            width={18}
+            height={20}
+            className="color-p-60"
+          ></LikeIconBlue>
+          <Text className="font-body-lg text-n-50 ml-2">2</Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
