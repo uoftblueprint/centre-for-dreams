@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
+import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import CommentIconBlue from "../../assets/comment-blue.svg";
@@ -57,6 +58,7 @@ export default function Discussion({
     } else {
       likeMutation.mutate({ postId: discussion.id });
     }
+  };
 
   const handleViewMore = () => {
     setShowMoreComments(true);
@@ -113,12 +115,16 @@ export default function Discussion({
           </View>
         </View>
         <View className="mt-2 flex-row">
-          <LikeIconBlue
-            width={18}
-            height={20}
-            className="color-p-60"
-          ></LikeIconBlue>
-          <Text className="font-body-lg text-n-50 ml-2">2</Text>
+          <TouchableOpacity onPress={() => handleLike(discussion.id)}>
+            {isLiked ? (
+              <LikeIconBlue width={18} height={20} className="color-p-60" />
+            ) : (
+              <LikeIcon width={18} height={20} className="color-n-40" />
+            )}
+          </TouchableOpacity>
+          <Text className="font-body-lg text-n-50 ml-2">
+            {discussion.likes.length}
+          </Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
