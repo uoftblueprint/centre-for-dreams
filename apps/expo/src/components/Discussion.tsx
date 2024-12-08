@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   FlatList,
@@ -38,28 +38,30 @@ export default function Discussion({
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
+  const { data: likesCountData } = api.like.getLikesCountForDiscussion.useQuery(
+    {
+      postId: discussion.id,
+    },
+  );
 
-  const { data: likesData } = api.like.getLikesForDiscussion.useQuery({
+  const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
     postId: discussion.id,
   });
 
-  useEffect(() => {
-    if (likesData) {
-      setIsLiked(likesData.isLikedByUser);
-      setLikesCount(likesData.likesCount);
-    }
-  }, [likesData]);
+  const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
+  const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  if (!isInitialized && userLikesData && likesCountData) {
+    setIsLiked(userLikesData.isLikedByUser);
+    setLikesCount(likesCountData.likesCount);
+    setIsInitialized(true);
+  }
 
   const likeMutation = api.like.likePost.useMutation({
     onSuccess: () => {
       setIsLiked(true);
       setLikesCount((prev) => prev + 1);
-    },
-    onError: () => {
-      setIsLiked(false);
-      setLikesCount((prev) => prev - 1);
     },
   });
 
@@ -67,10 +69,6 @@ export default function Discussion({
     onSuccess: () => {
       setIsLiked(false);
       setLikesCount((prev) => prev - 1);
-    },
-    onError: () => {
-      setIsLiked(true);
-      setLikesCount((prev) => prev + 1);
     },
   });
 

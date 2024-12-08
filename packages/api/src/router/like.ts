@@ -5,21 +5,35 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const likeRouter = createTRPCRouter({
-  getLikesForDiscussion: protectedProcedure
+  getLikesCountForDiscussion: protectedProcedure
     .input(
       z.object({
         postId: z.number().nonnegative(),
       }),
     )
     .query(async ({ input, ctx }) => {
-      const likes = await ctx.db.likes.findMany({
+      const likesCount = await ctx.db.likes.count({
         where: { postId: input.postId },
       });
 
-      const isLikedByUser = likes.some((like) => like.userId === ctx.userId);
-      const likesCount = likes.length;
+      return { likesCount };
+    }),
 
-      return { isLikedByUser, likesCount };
+  hasUserLikedPost: protectedProcedure
+    .input(
+      z.object({
+        postId: z.number().nonnegative(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      const existingLike = await ctx.db.likes.findFirst({
+        where: {
+          postId: input.postId,
+          userId: ctx.userId,
+        },
+      });
+
+      return { isLikedByUser: !!existingLike };
     }),
   likePost: protectedProcedure
     .input(
