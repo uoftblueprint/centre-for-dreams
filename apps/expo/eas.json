@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 3.3.0"
+    "version": ">= 3.3.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "base": {
@@ -23,7 +24,8 @@
       }
     },
     "production": {
-      "extends": "base"
+      "extends": "base",
+      "autoIncrement": true
     }
   },
   "submit": {
