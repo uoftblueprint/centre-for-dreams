@@ -120,7 +120,7 @@ export default function Discussion({
             height={20}
             className="color-p-60"
           ></LikeIconBlue>
-          <Text className="font-body-lg text-n-50 ml-2">2</Text>
+          <Text className="font-body-lg text-n-50 ml-2">{likesCount}</Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
