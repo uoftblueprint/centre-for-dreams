@@ -115,16 +115,12 @@ export default function Discussion({
           </View>
         </View>
         <View className="mt-2 flex-row">
-          <TouchableOpacity onPress={() => handleLike(discussion.id)}>
-            {isLiked ? (
-              <LikeIconBlue width={18} height={20} className="color-p-60" />
-            ) : (
-              <LikeIcon width={18} height={20} className="color-n-40" />
-            )}
-          </TouchableOpacity>
-          <Text className="font-body-lg text-n-50 ml-2">
-            {discussion.likes.length}
-          </Text>
+          <LikeIconBlue
+            width={18}
+            height={20}
+            className="color-p-60"
+          ></LikeIconBlue>
+          <Text className="font-body-lg text-n-50 ml-2">2</Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
@@ -137,7 +133,7 @@ export default function Discussion({
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/3 flex-row justify-center">
             <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like</Text>
+            <Text className="font-body-md ml-2">Like </Text>
           </View>
           <View className="w-5/12 flex-row justify-center">
             <CommentIcon width={13} height={18}></CommentIcon>
@@ -152,11 +148,19 @@ export default function Discussion({
       {!canEdit && (
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/2 flex-row justify-center">
-            <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like</Text>
+            <TouchableOpacity onPress={handleLike}>
+              {isLiked ? (
+                <LikeIconBlue width={15} height={18} />
+              ) : (
+                <LikeIcon width={15} height={18} />
+              )}
+              <Text className="font-body-md ml-2">
+                {likesCount} {likesCount === 1 ? "Like" : "Likes"}
+              </Text>
+            </TouchableOpacity>
           </View>
           <View className="w-1/2 flex-row justify-center">
-            <CommentIcon width={13} height={18}></CommentIcon>
+            <CommentIcon width={13} height={18} />
             <Text className="font-body-md ml-2">Comment</Text>
           </View>
         </View>

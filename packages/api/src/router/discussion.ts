@@ -6,15 +6,26 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const discussionRouter = createTRPCRouter({
   getDiscussions: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.post.findMany({
+    const userId = ctx.userId;
+    const posts = await ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       where: { postType: "Discussion" },
       include: {
         comments: {
           orderBy: { createdAt: "asc" },
         },
+        likes: true,
+        _count: {
+          select: { likes: true },
+        },
       },
     });
+
+    return posts.map((post) => ({
+      ...post,
+      isLikedByUser: post.likes.some((like) => like.userId === userId),
+      likesCount: post._count.likes,
+    }));
   }),
   getDiscussionsByUser: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
@@ -27,6 +38,10 @@ export const discussionRouter = createTRPCRouter({
       include: {
         comments: {
           orderBy: { createdAt: "asc" },
+        },
+        likes: true,
+        _count: {
+          select: { likes: true },
         },
       },
     });
@@ -104,13 +119,7 @@ export const discussionRouter = createTRPCRouter({
   getReplies: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
     const userPosts = await ctx.db.post.findMany({
-      orderBy: { createdAt: "desc" },
-      where: {
-        userId: userId,
-      },
-      select: {
-        id: true,
-      },
+      where: { userId },
     });
     const userPostIds = userPosts.map((post) => post.id);
     return await ctx.db.comment.findMany({
