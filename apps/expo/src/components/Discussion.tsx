@@ -26,6 +26,37 @@ export default function Discussion({
   canEdit: boolean;
 }) {
   const [showMoreComments, setShowMoreComments] = useState(false);
+  const [isLiked, setIsLiked] = useState(discussion.isLikedByUser ?? false);
+  const [likesCount, setLikesCount] = useState(discussion.likesCount ?? 0);
+
+  const likeMutation = api.like.likePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(true);
+      setLikesCount((prev) => prev + 1);
+    },
+    onError: () => {
+      setIsLiked(false);
+      setLikesCount((prev) => prev - 1);
+    },
+  });
+
+  const unlikeMutation = api.like.unlikePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(false);
+      setLikesCount((prev) => prev - 1);
+    },
+    onError: () => {
+      setIsLiked(true);
+      setLikesCount((prev) => prev + 1);
+    },
+  });
+
+  const handleLike = () => {
+    if (isLiked) {
+      unlikeMutation.mutate({ postId: discussion.id });
+    } else {
+      likeMutation.mutate({ postId: discussion.id });
+    }
 
   const handleViewMore = () => {
     setShowMoreComments(true);
