@@ -39,6 +39,7 @@ function CreatePost() {
         contents: post,
       });
     }
+    clearState();
   };
 
   const clearState = () => {
