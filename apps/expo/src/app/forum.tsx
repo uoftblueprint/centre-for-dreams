@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 import Discussion from "~/components/Discussion";
 import ReplyNotification from "~/components/ReplyNotification";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 import Bell from "../../assets/bell.svg";
+import FloatingButton from "../../assets/floating-button-icon.svg";
 import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
+  const router = useRouter();
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
@@ -58,62 +60,121 @@ const Forum = () => {
     </View>
   );
 
-  if (selectedTab == 3) {
-    return (
-      <SafeAreaView className="">
-        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        <View className="mb-16 h-full">
-          <FlatList
-            ListHeaderComponent={renderHeader}
-            data={replies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => {
-              if (index == 0) {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
-                    <Text className="font-headline-md pb-3">
-                      New Notifications
-                    </Text>
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              } else if (index == replyLength! - 1) {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              } else {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 p-4">
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              }
-            }}
-          />
-        </View>
-      </SafeAreaView>
-    );
-  } else {
-    return (
-      <SafeAreaView className="">
-        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        <View className="h-vh mb-16">
-          <FlatList
-            ListHeaderComponent={renderHeader}
-            data={dataToDisplay}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View className="mt-2">
-                <Discussion discussion={item} canEdit={false} />
-              </View>
-            )}
-          />
-        </View>
-      </SafeAreaView>
-    );
-  }
+  return (
+    <SafeAreaView className="flex-1">
+      <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+      <View style={{ flex: 1, position: "relative" }}>
+        {selectedTab === 3 ? (
+          <View className="mb-16 h-full">
+            <FlatList
+              ListHeaderComponent={renderHeader}
+              data={replies}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => {
+                if (index == 0) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
+                      <Text className="font-headline-md pb-3">
+                        New Notifications
+                      </Text>
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else if (index == replyLength! - 1) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                }
+              }}
+            />
+          </View>
+        ) : (
+          <View className="h-vh mb-16">
+            <FlatList
+              ListHeaderComponent={renderHeader}
+              data={dataToDisplay}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <View className="mt-2">
+                  <Discussion discussion={item} canEdit={false} />
+                </View>
+              )}
+            />
+          </View>
+        )}
+
+        {/* Floating Button */}
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            bottom: 100,
+            right: 20,
+            backgroundColor: "#007BFF",
+            borderRadius: 50,
+            width: 56,
+            height: 56,
+            justifyContent: "center",
+            alignItems: "center",
+            elevation: 5,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 3,
+          }}
+          onPress={() => router.push("/createpost")}
+        >
+          <FloatingButton width={24} height={24} fill="#fff" />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 };
+
+//   if (selectedTab == 3) {
+//     return (
+//       <SafeAreaView className="">
+//         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+
+//       </SafeAreaView>
+//     );
+//   } else {
+//     return (
+//       <SafeAreaView className="">
+//         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+
+//         {/* Floating Button */}
+//         <TouchableOpacity
+//           style={{
+//             position: "absolute",
+//             bottom: 20,
+//             right: 20,
+//             backgroundColor: "#6200EE",
+//             borderRadius: 50,
+//             width: 56,
+//             height: 56,
+//             justifyContent: "center",
+//             alignItems: "center",
+//             elevation: 5,
+//             shadowColor: "#000",
+//             shadowOffset: { width: 0, height: 2 },
+//             shadowOpacity: 0.3,
+//             shadowRadius: 3,
+//           }}
+//           onPress={() => router.push("/forum")}
+//         >
+//           <FloatingButton width={24} height={24} fill="#fff" />
+//         </TouchableOpacity>
+//       </SafeAreaView>
+//     );
+//   }
+// };
 
 export default Forum;
