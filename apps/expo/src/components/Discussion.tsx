@@ -38,6 +38,54 @@ export default function Discussion({
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
 
+  const { data: likesCountData } = api.like.getLikesCountForDiscussion.useQuery(
+    {
+      postId: discussion.id,
+    },
+  );
+
+  const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
+    postId: discussion.id,
+  });
+
+  const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
+  const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  if (!isInitialized && userLikesData && likesCountData) {
+    setIsLiked(userLikesData.isLikedByUser);
+    setLikesCount(likesCountData.likesCount);
+    setIsInitialized(true);
+  }
+
+  const likeMutation = api.like.likePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(true);
+      setLikesCount((prev) => prev + 1);
+    },
+    onError: () => {
+      console.log("Failed to like post");
+    },
+  });
+
+  const unlikeMutation = api.like.unlikePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(false);
+      setLikesCount((prev) => prev - 1);
+    },
+    onError: () => {
+      console.log("Failed to unlike post");
+    },
+  });
+
+  const handleLike = () => {
+    if (isLiked) {
+      unlikeMutation.mutate({ postId: discussion.id });
+    } else {
+      likeMutation.mutate({ postId: discussion.id });
+    }
+  };
+
   const handleViewMore = () => {
     setShowMoreComments(true);
   };
@@ -119,7 +167,7 @@ export default function Discussion({
             height={20}
             className="color-p-60"
           ></LikeIconBlue>
-          <Text className="font-body-lg text-n-50 ml-2">2</Text>
+          <Text className="font-body-lg text-n-50 ml-2">{likesCount}</Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
@@ -150,8 +198,16 @@ export default function Discussion({
       {!canEdit && (
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/2 flex-row justify-center">
-            <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like</Text>
+            <TouchableOpacity onPress={handleLike}>
+              {isLiked ? (
+                <LikeIconBlue width={15} height={18} />
+              ) : (
+                <LikeIcon width={15} height={18} />
+              )}
+              <Text className="font-body-md ml-2">
+                {isLiked ? "Liked" : "Like"}
+              </Text>
+            </TouchableOpacity>
           </View>
           <TouchableOpacity
             className="w-1/2 flex-row justify-center"
