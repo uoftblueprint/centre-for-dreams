@@ -63,12 +63,18 @@ export default function Discussion({
       setIsLiked(true);
       setLikesCount((prev) => prev + 1);
     },
+    onError: () => {
+      console.log("Failed to like post");
+    },
   });
 
   const unlikeMutation = api.like.unlikePost.useMutation({
     onSuccess: () => {
       setIsLiked(false);
       setLikesCount((prev) => prev - 1);
+    },
+    onError: () => {
+      console.log("Failed to unlike post");
     },
   });
 
