@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import type { RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
 import { formatTime } from "~/utils/dateformatter";
 import CommentIconBlue from "../../assets/comment-blue.svg";
 import CommentIcon from "../../assets/comment.svg";
@@ -26,6 +35,56 @@ export default function Discussion({
   canEdit: boolean;
 }) {
   const [showMoreComments, setShowMoreComments] = useState(false);
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [commentText, setCommentText] = useState("");
+
+  const { data: likesCountData } = api.like.getLikesCountForDiscussion.useQuery(
+    {
+      postId: discussion.id,
+    },
+  );
+
+  const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
+    postId: discussion.id,
+  });
+
+  const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
+  const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  if (!isInitialized && userLikesData && likesCountData) {
+    setIsLiked(userLikesData.isLikedByUser);
+    setLikesCount(likesCountData.likesCount);
+    setIsInitialized(true);
+  }
+
+  const likeMutation = api.like.likePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(true);
+      setLikesCount((prev) => prev + 1);
+    },
+    onError: () => {
+      console.log("Failed to like post");
+    },
+  });
+
+  const unlikeMutation = api.like.unlikePost.useMutation({
+    onSuccess: () => {
+      setIsLiked(false);
+      setLikesCount((prev) => prev - 1);
+    },
+    onError: () => {
+      console.log("Failed to unlike post");
+    },
+  });
+
+  const handleLike = () => {
+    if (isLiked) {
+      unlikeMutation.mutate({ postId: discussion.id });
+    } else {
+      likeMutation.mutate({ postId: discussion.id });
+    }
+  };
 
   const handleViewMore = () => {
     setShowMoreComments(true);
@@ -33,6 +92,27 @@ export default function Discussion({
 
   const handleViewLess = () => {
     setShowMoreComments(false);
+  };
+
+  const handleCommentPress = () => {
+    setShowCommentInput(!showCommentInput);
+  };
+
+  const commentMutation = api.comment.create.useMutation();
+
+  const handleCommentSubmit = async () => {
+    if (commentText.trim() === "") return;
+
+    try {
+      await commentMutation.mutateAsync({
+        postId: discussion.id,
+        text: commentText,
+      });
+      setCommentText("");
+      setShowCommentInput(false);
+    } catch (error) {
+      console.error("Failed to submit comment:", error);
+    }
   };
 
   const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
@@ -87,7 +167,7 @@ export default function Discussion({
             height={20}
             className="color-p-60"
           ></LikeIconBlue>
-          <Text className="font-body-lg text-n-50 ml-2">2</Text>
+          <Text className="font-body-lg text-n-50 ml-2">{likesCount}</Text>
           <View className="w-2"></View>
           <CommentIconBlue width={16} height={20}></CommentIconBlue>
           <Text className="font-body-lg text-n-50 ml-2">
@@ -102,10 +182,13 @@ export default function Discussion({
             <LikeIcon width={15} height={18}></LikeIcon>
             <Text className="font-body-md ml-2">Like</Text>
           </View>
-          <View className="w-5/12 flex-row justify-center">
+          <TouchableOpacity
+            className="w-5/12 flex-row justify-center"
+            onPress={handleCommentPress}
+          >
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
-          </View>
+          </TouchableOpacity>
           <View className="w-1/3 flex-row justify-center">
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
@@ -115,13 +198,35 @@ export default function Discussion({
       {!canEdit && (
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/2 flex-row justify-center">
-            <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like</Text>
+            <TouchableOpacity onPress={handleLike}>
+              {isLiked ? (
+                <LikeIconBlue width={15} height={18} />
+              ) : (
+                <LikeIcon width={15} height={18} />
+              )}
+              <Text className="font-body-md ml-2">
+                {isLiked ? "Liked" : "Like"}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <View className="w-1/2 flex-row justify-center">
+          <TouchableOpacity
+            className="w-1/2 flex-row justify-center"
+            onPress={handleCommentPress}
+          >
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
-          </View>
+          </TouchableOpacity>
+        </View>
+      )}
+      {showCommentInput && (
+        <View className="mb-4 mt-4 p-2">
+          <TextInput
+            value={commentText}
+            onChangeText={setCommentText}
+            placeholder="Write a comment..."
+            className="rounded border p-2"
+          />
+          <Button title="Submit" onPress={handleCommentSubmit} />
         </View>
       )}
       <View className="rounded-lg bg-white">
