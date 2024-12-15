@@ -5,11 +5,9 @@ on:
   merge_group:
 
 env:
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-  EXPO_OWNER: ${{ secrets.EXPO_OWNER }}
-  EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+  EXPO_OWNER: ${{ secrets.EXPO_OWNER_CFD }}
+  EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID_CFD }}
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY_CFD }}
 
 jobs:
   lint:
@@ -20,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3.0.0
+        uses: pnpm/action-setup@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -47,8 +45,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3.0.0
+      - name: Setup pnpm 
+        uses: pnpm/action-setup@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -70,7 +68,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3.0.0
+        uses: pnpm/action-setup@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -90,15 +88,15 @@ jobs:
 
     steps:
     - name: Setup repo
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/checkout@v4
 
     - name: Setup pnpm
-      if: github.event_name != 'pull_request'
-      uses: pnpm/action-setup@v3.0.0
+      # if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v4
 
     - name: Setup Node
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -106,27 +104,27 @@ jobs:
         cache-dependency-path: 'pnpm-lock.yaml'
 
     - name: Setup Expo and EAS
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: expo/expo-github-action@v8
       with:
-        token: ${{ secrets.EXPO_TOKEN }}
+        token: ${{ secrets.EXPO_TOKEN_CFD }}
         expo-version: latest
         eas-version: latest
         packager: pnpm
 
     - name: Setup Java 17
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
 
     - name: Install deps
-      if: github.event_name != 'pull_request'
+      # if: github.event_name != 'pull_request'
       run: pnpm i
 
-    - name: Build app
-      if: github.event_name != 'pull_request'
+    - name: Build app (Local Android)
+      # if: github.event_name != 'pull_request'
       run: |
         cd apps/expo && eas build --local \
           --non-interactive \
@@ -138,15 +136,15 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Setup repo
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
 
       - name: Setup pnpm
-        if: github.event_name != 'pull_request'
-        uses: pnpm/action-setup@v3.0.0
+        # if: github.event_name != 'pull_request'
+        uses: pnpm/action-setup@v4
       
       - name: Setup Node
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
@@ -154,33 +152,115 @@ jobs:
           cache-dependency-path: 'pnpm-lock.yaml'
 
       - name: Setup Expo
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         uses: expo/expo-github-action@v8
         with:
           expo-version: latest
           eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN_CFD }}
           packager: pnpm
 
       - name: Install Python setuptools using Homebrew
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         run: brew install python-setuptools
 
       - name: Setup Cocoapods
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         uses: maxim-lobanov/setup-cocoapods@v1 
         with:
           version: latest
 
       - name: Install deps
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'
         run: pnpm i
 
-      - name: Build iOS app
-        if: github.event_name != 'pull_request'
+      - name: Build app (Local iOS)
+        # if: github.event_name != 'pull_request'
         run: |
           cd apps/expo && eas build --local \
             --non-interactive \
             --output=./app-build \
             --platform=ios \
             --profile=preview
+
+  cloud_android:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      # if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      # if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node
+      # if: github.event_name != 'pull_request'
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      # if: github.event_name != 'pull_request'
+      uses: expo/expo-github-action@v8
+      with:
+        token: ${{ secrets.EXPO_TOKEN_CFD }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      # if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app (Cloud Android)
+      # if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build \
+          --non-interactive \
+          --platform android \
+          --profile development
+
+  cloud_ios:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repo
+      # if: github.event_name != 'pull_request'
+      uses: actions/checkout@v4
+
+    - name: Setup pnpm
+      # if: github.event_name != 'pull_request'
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node
+      # if: github.event_name != 'pull_request'
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: Setup Expo and EAS
+      # if: github.event_name != 'pull_request'
+      uses: expo/expo-github-action@v8
+      with:
+        token: ${{ secrets.EXPO_TOKEN_CFD }}
+        expo-version: latest
+        eas-version: latest
+        packager: pnpm
+
+    - name: Install deps
+      # if: github.event_name != 'pull_request'
+      run: pnpm i
+
+    - name: Build app (Cloud iOS)
+      # if: github.event_name != 'pull_request'
+      run: |
+        cd apps/expo && eas build \
+          --non-interactive \
+          --platform ios \
+          --profile preview
