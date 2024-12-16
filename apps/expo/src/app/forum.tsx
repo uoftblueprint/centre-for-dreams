@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useState, useCallback } from "react";
+import { FlatList, Text, View, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 
@@ -12,13 +12,32 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
-  const forumPosts = api.discussion.getDiscussions.useQuery().data;
-  const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
-  const replies = api.discussion.getReplies.useQuery().data;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const { data: forumPosts, refetch: refetchForumPosts } = api.discussion.getDiscussions.useQuery();
+  const { data: myPosts, refetch: refetchMyPosts } = api.discussion.getDiscussionsByUser.useQuery();
+  const { data: replies, refetch: refetchReplies } = api.discussion.getReplies.useQuery();
+
+  // const forumPosts = api.discussion.getDiscussions.useQuery().data;
+  // const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
+  // const replies = api.discussion.getReplies.useQuery().data;
+
   const replyLength = replies?.length;
 
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
+
+    const onRefresh = useCallback(() => {
+      setRefreshing(true);
+      // Add your refresh logic here, for example, refetching data
+      Promise.all([
+        refetchForumPosts(),
+        refetchMyPosts(),
+        refetchReplies()
+      ]).then(() => {
+        setRefreshing(false);
+      });
+    }, [refetchForumPosts, refetchMyPosts, refetchReplies]);
 
   const renderHeader = () => (
     <View>
@@ -91,6 +110,9 @@ const Forum = () => {
                 );
               }
             }}
+            refreshControl={ // Added RefreshControl
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
       </SafeAreaView>
@@ -109,6 +131,9 @@ const Forum = () => {
                 <Discussion discussion={item} canEdit={false} />
               </View>
             )}
+            refreshControl={ // Added RefreshControl
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
       </SafeAreaView>
