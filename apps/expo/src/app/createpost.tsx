@@ -30,16 +30,16 @@ function CreatePost() {
     });
 
   const createPost = () => {
-    if (title === "" || post === "") {
-      setErrorMessage("Title and Description are required.");
+    if (title === "") {
+      setErrorMessage("Title is required.");
     } else {
       setErrorMessage("");
       createDiscussion({
         title: title,
         contents: post,
       });
+      clearState();
     }
-    clearState();
   };
 
   const clearState = () => {
@@ -108,9 +108,9 @@ function CreatePost() {
                 <Text className="text-p-0 font-title-md leading-normal tracking-tight">
                   Description
                 </Text>
-                <Text className="text-e-40 font-title-md leading-normal tracking-tight">
+                {/* <Text className="text-e-40 font-title-md leading-normal tracking-tight">
                   *
-                </Text>
+                </Text> */}
               </View>
               <></>
 
@@ -122,11 +122,6 @@ function CreatePost() {
                 onChangeText={(post) => setPost(post)}
                 aria-label="input"
               />
-
-              {/* Error Message */}
-              {errorMessage ? (
-                <Text className="text-sm text-red-500">{errorMessage}</Text>
-              ) : null}
 
               <View className={` ${images[0] == null}h-44`}>
                 {images[0] && (
@@ -146,6 +141,11 @@ function CreatePost() {
                   Add Photos
                 </OutlinedButton>
               </TouchableOpacity>
+
+              {/* Error Message */}
+              {errorMessage ? (
+                <Text className="text-sm text-red-500">{errorMessage}</Text>
+              ) : null}
             </View>
             <View className="flex-row justify-evenly">
               <TouchableOpacity
