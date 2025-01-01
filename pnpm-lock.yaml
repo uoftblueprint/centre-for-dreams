@@ -33,7 +33,7 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3
       '@expo/metro-config':
-        specifier: ^0.19.4
+        specifier: ^0.19.8
         version: 0.19.8
       '@expo/prebuild-config':
         specifier: ~8.0.20
@@ -658,7 +658,7 @@ packages:
     resolution: {integrity: sha512-0NFvs3VkuSYbFi1x2Vd6tKrywq+z/cLeYC/RJNFrIX/30Bf5aiGYbtvGXolEktzJH8o5E5KJ3tT+nkxuuZFVlA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.19.0
+      '@babel/types': 7.26.3
     dev: false
 
   /@babel/helper-module-imports@7.25.9:
@@ -2234,7 +2234,7 @@ packages:
 
   /@expo/bunyan@4.0.1:
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
     dependencies:
       uuid: 8.3.2
     dev: false
