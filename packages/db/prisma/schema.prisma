@@ -36,7 +36,6 @@ model Post {
   id        Int       @id @default(autoincrement())
   title     String?
   contents  String
-  images    Bytes[]
   createdAt DateTime  @default(now())
   comments  Comment[]
   postType  PostType

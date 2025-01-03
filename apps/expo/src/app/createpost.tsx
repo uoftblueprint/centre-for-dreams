@@ -37,7 +37,6 @@ function CreatePost() {
       createDiscussion({
         title: title,
         contents: post,
-        images: images,
       });
       clearState();
     }
@@ -60,20 +59,8 @@ function CreatePost() {
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const uri = result.assets[0].uri;
-        const imageFormat = uri.split(".").pop();
-        const imageSize = result.assets[0].fileSize;
-
-        if (
-          imageFormat &&
-          ["jpg", "jpeg", "png"].includes(imageFormat) &&
-          (imageSize ?? 0) < 5000000
-        ) {
-          const updatedImages = [...images, uri];
-          setImages(updatedImages);
-        } else {
-          alert("Invalid image format or size too large");
-        }
+        const updatedImages = [...images, result.assets[0].uri];
+        setImages(updatedImages);
       }
     }
   };
