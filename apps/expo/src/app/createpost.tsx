@@ -136,7 +136,7 @@ function CreatePost() {
                   </ScrollView>
                 )}
               </View>
-              <TouchableOpacity className="h-10 w-48" onPress={pickImage}>
+              <TouchableOpacity onPress={pickImage} className="h-10 w-48">
                 <OutlinedButton icon={true}>Add Photos</OutlinedButton>
               </TouchableOpacity>
 
@@ -148,10 +148,10 @@ function CreatePost() {
             <View className="flex-row justify-evenly">
               <TouchableOpacity
                 className="w-44"
-                onPress={() => {
-                  clearState();
-                  back();
-                }}
+                // onPress={() => {
+                //   clearState();
+                //   back();
+                // }}
               >
                 <OutlinedButton onPress={() => back()}>Cancel</OutlinedButton>
               </TouchableOpacity>
