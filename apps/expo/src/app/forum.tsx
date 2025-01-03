@@ -15,6 +15,7 @@ const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const router = useRouter();
   const forumPosts = api.discussion.getDiscussions.useQuery().data;
+  console.log(forumPosts);
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
   const replyLength = replies?.length;
