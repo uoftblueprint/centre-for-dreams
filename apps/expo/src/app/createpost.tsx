@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { Image, Keyboard, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
-  TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -74,18 +80,29 @@ function CreatePost() {
             <Stack.Screen options={{ title: "Event", headerShown: false }} />
             <View className="inline-flex  flex-col justify-start  gap-2.5 px-4 pt-6">
               <View className="inline-flex flex-row items-center justify-between self-stretch">
-                <TouchableOpacity
-                  onPress={() => {
-                    clearState();
-                    back();
-                  }}
-                >
-                  <LeftArrow className="relative h-6 w-6" />
-                </TouchableOpacity>
+                <View className="relative h-6 w-6">
+                  <TouchableOpacity
+                    onPress={() => {
+                      clearState();
+                      back();
+                    }}
+                  >
+                    <LeftArrow className="relative h-6 w-6" />
+                  </TouchableOpacity>
+                </View>
                 <Text className="text-p-0 font-headline-md text-center leading-9">
                   Create Post
                 </Text>
-                <View className="relative h-6 w-6" />
+                <View className="relative h-6 w-6">
+                  {/* <TouchableOpacity
+                    onPress={() => {
+                      clearState();
+                      back();
+                    }}
+                  >
+                    <LeftArrow className="relative h-6 w-6" />
+                  </TouchableOpacity> */}
+                </View>
               </View>
 
               {/* Title Section */}
