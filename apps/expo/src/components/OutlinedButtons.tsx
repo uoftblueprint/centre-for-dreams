@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 import Plus from "../../assets/plus.svg";
 
 interface OutlinedButtonProps {
-  onPress: () => void;
+  onPress?: () => void;
   children: React.ReactNode;
   fill?: boolean;
   icon?: boolean;

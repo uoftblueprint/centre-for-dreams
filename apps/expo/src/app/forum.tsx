@@ -4,11 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
 import Discussion from "~/components/Discussion";
+import FloatingButton from "~/components/FloatingButton";
 import ReplyNotification from "~/components/ReplyNotification";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
 import Bell from "../../assets/bell.svg";
-import FloatingButton from "../../assets/floating-button-icon.svg";
 import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
@@ -118,64 +118,16 @@ const Forum = () => {
             position: "absolute",
             bottom: 100,
             right: 20,
-            backgroundColor: "#007BFF",
-            borderRadius: 50,
-            width: 56,
-            height: 56,
-            justifyContent: "center",
-            alignItems: "center",
-            elevation: 5,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 3,
           }}
-          onPress={() => router.push("/createpost")}
         >
-          <FloatingButton width={24} height={24} fill="#fff" />
+          <FloatingButton
+            onPress={() => router.push("/createpost")}
+            icon={true}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
-
-//   if (selectedTab == 3) {
-//     return (
-//       <SafeAreaView className="">
-//         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-
-//       </SafeAreaView>
-//     );
-//   } else {
-//     return (
-//       <SafeAreaView className="">
-//         <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-
-//         {/* Floating Button */}
-//         <TouchableOpacity
-//           style={{
-//             position: "absolute",
-//             bottom: 20,
-//             right: 20,
-//             backgroundColor: "#6200EE",
-//             borderRadius: 50,
-//             width: 56,
-//             height: 56,
-//             justifyContent: "center",
-//             alignItems: "center",
-//             elevation: 5,
-//             shadowColor: "#000",
-//             shadowOffset: { width: 0, height: 2 },
-//             shadowOpacity: 0.3,
-//             shadowRadius: 3,
-//           }}
-//           onPress={() => router.push("/forum")}
-//         >
-//           <FloatingButton width={24} height={24} fill="#fff" />
-//         </TouchableOpacity>
-//       </SafeAreaView>
-//     );
-//   }
-// };
 
 export default Forum;

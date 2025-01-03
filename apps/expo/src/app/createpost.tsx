@@ -137,9 +137,7 @@ function CreatePost() {
                 )}
               </View>
               <TouchableOpacity className="h-10 w-48" onPress={pickImage}>
-                <OutlinedButton onPress={pickImage} icon={true}>
-                  Add Photos
-                </OutlinedButton>
+                <OutlinedButton icon={true}>Add Photos</OutlinedButton>
               </TouchableOpacity>
 
               {/* Error Message */}
@@ -165,9 +163,9 @@ function CreatePost() {
                 }}
               >
                 <FilledButton
-                  onClick={() => {
-                    createPost();
-                  }}
+                // onClick={() => {
+                //   createPost();
+                // }}
                 >
                   Publish
                 </FilledButton>
