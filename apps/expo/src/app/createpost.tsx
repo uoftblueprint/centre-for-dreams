@@ -45,6 +45,7 @@ function CreatePost() {
       createDiscussion({
         title: title,
         contents: post,
+        images: images,
       });
       clearState();
     }
@@ -73,8 +74,12 @@ function CreatePost() {
         const base64 = await FileSystem.readAsStringAsync(uri, {
           encoding: FileSystem.EncodingType.Base64,
         });
-        console.log("Base64: ", base64);
+        if (base64) {
+          console.log("base64");
+        }
+
         setImages((prevImages) => [...prevImages, base64]);
+        console.log("Images: ", images.length);
       }
     }
   };
