@@ -48,6 +48,7 @@ function CreatePost() {
     setImages([]);
     setErrorMessage("");
   };
+
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -146,15 +147,22 @@ function CreatePost() {
               ) : null}
             </View>
             <View className="flex-row justify-evenly">
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 className="w-44"
-                // onPress={() => {
-                //   clearState();
-                //   back();
-                // }}
+                onPress={() => {
+                  clearState();
+                  back();
+                }}
+              > */}
+              <OutlinedButton
+                onPress={() => {
+                  clearState();
+                  back();
+                }}
               >
-                <OutlinedButton onPress={() => back()}>Cancel</OutlinedButton>
-              </TouchableOpacity>
+                Cancel
+              </OutlinedButton>
+              {/* </TouchableOpacity> */}
 
               <TouchableOpacity
                 className="w-44"
