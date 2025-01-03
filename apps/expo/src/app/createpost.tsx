@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+// import RNFS from "react-native-fs";
 import {
   GestureHandlerRootView,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
 
@@ -24,7 +26,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<Buffer[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
@@ -61,13 +63,18 @@ function CreatePost() {
       allowsEditing: true,
       quality: 1,
     });
-
-    console.log(result);
+    console.log("result:", result);
 
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
-        const updatedImages = [...images, result.assets[0].uri];
-        setImages(updatedImages);
+        const uri = result.assets[0].uri;
+        console.log("Image URI: ", uri);
+        // Convert to base64 string
+        const base64 = await FileSystem.readAsStringAsync(uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        console.log("Base64: ", base64);
+        setImages((prevImages) => [...prevImages, base64]);
       }
     }
   };
@@ -142,7 +149,7 @@ function CreatePost() {
               />
 
               <View className={` ${images[0] == null}h-44`}>
-                {images[0] && (
+                {/* {images[0] && (
                   <ScrollView horizontal={true}>
                     {images.map((i, index) => {
                       return (
@@ -152,7 +159,7 @@ function CreatePost() {
                       );
                     })}
                   </ScrollView>
-                )}
+                )} */}
               </View>
               <TouchableOpacity onPress={pickImage} className="h-10 w-48">
                 <OutlinedButton icon={true}>Add Photos</OutlinedButton>
