@@ -24,7 +24,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Buffer[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
