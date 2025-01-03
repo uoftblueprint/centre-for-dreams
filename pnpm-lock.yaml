@@ -2051,6 +2051,7 @@ packages:
       react: 18.3.1
     dev: false
 
+
   /@clerk/nextjs@4.31.6(next@13.4.12)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-rGZ687oHrMzWu2zA5HXHVdCp31C7Ltb+pM0Sc6CgJ7KfURbK8GsG2w/Yw2PhntuKoya4y8h03uaXdgfCxGOzMQ==}
     engines: {node: '>=14'}
@@ -2246,8 +2247,8 @@ packages:
       '@0no-co/graphql.web': 1.0.12
       '@babel/runtime': 7.26.0
       '@expo/code-signing-certificates': 0.0.5
-      '@expo/config': 10.0.6
-      '@expo/config-plugins': 9.0.12
+      '@expo/config': 10.0.5
+      '@expo/config-plugins': 9.0.11
       '@expo/devcert': 1.1.4
       '@expo/env': 0.4.0
       '@expo/image-utils': 0.6.3

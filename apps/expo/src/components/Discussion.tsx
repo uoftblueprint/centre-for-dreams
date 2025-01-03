@@ -140,6 +140,7 @@ export default function Discussion({
             source={{
               uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
             }}
+            // change here
             className="h-12 w-12 rounded-full"
             resizeMode="cover"
           />

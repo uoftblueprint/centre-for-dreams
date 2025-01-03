@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, Keyboard, Text, TextInput, View } from "react-native";
 import {
+  GestureHandlerRootView,
   ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -15,8 +16,10 @@ import { api } from "~/utils/api";
 import LeftArrow from "../../assets/arrow-left.svg";
 
 function CreatePost() {
+  const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [images, setImages] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
   const { mutate: createDiscussion } =
@@ -27,20 +30,27 @@ function CreatePost() {
     });
 
   const createPost = () => {
-    if (post != "") {
+    if (title === "") {
+      setErrorMessage("Title is required.");
+    } else {
+      setErrorMessage("");
       createDiscussion({
+        title: title,
         contents: post,
       });
+      clearState();
     }
   };
 
   const clearState = () => {
+    setTitle("");
     setPost("");
     setImages([]);
+    setErrorMessage("");
   };
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
@@ -50,99 +60,121 @@ function CreatePost() {
     if (!result.canceled) {
       if (result.assets[0]?.uri) {
         const updatedImages = [...images, result.assets[0].uri];
-        // Update the state with the new list
         setImages(updatedImages);
       }
     }
   };
 
   return (
-    <SafeAreaView className="bg-white">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className=" h-full justify-between">
-          <Stack.Screen options={{ title: "Event", headerShown: false }} />
-          <View className="inline-flex  flex-col justify-start  gap-2.5 px-4 pt-6">
-            <View className="inline-flex flex-row items-center justify-between self-stretch">
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView className="bg-white">
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View className=" h-full justify-between">
+            <Stack.Screen options={{ title: "Event", headerShown: false }} />
+            <View className="inline-flex  flex-col justify-start  gap-2.5 px-4 pt-6">
+              <View className="inline-flex flex-row items-center justify-between self-stretch">
+                <TouchableOpacity
+                  onPress={() => {
+                    clearState();
+                    back();
+                  }}
+                >
+                  <LeftArrow className="relative h-6 w-6" />
+                </TouchableOpacity>
+                <Text className="text-p-0 font-headline-md text-center leading-9">
+                  Create Post
+                </Text>
+                <View className="relative h-6 w-6" />
+              </View>
+
+              {/* Title Section */}
+              <View className="inline-flex flex-row items-start justify-start gap-y-4">
+                <Text className="text-p-0 font-title-md leading-normal tracking-tight">
+                  Title
+                </Text>
+                <Text className="text-e-40 font-title-md leading-normal tracking-tight">
+                  *
+                </Text>
+              </View>
+              <TextInput
+                value={title}
+                placeholder="Enter post title..."
+                className="border-p-40 h-12 w-full rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                onChangeText={(text) => setTitle(text)}
+              />
+
+              {/* Description Section */}
+              <View className="inline-flex flex-row items-start justify-start gap-y-4">
+                <Text className="text-p-0 font-title-md leading-normal tracking-tight">
+                  Description
+                </Text>
+                {/* <Text className="text-e-40 font-title-md leading-normal tracking-tight">
+                  *
+                </Text> */}
+              </View>
+              <></>
+
+              <TextInput
+                multiline
+                value={post}
+                placeholder="Write description here..."
+                className="w-100 border-p-40 h-52 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                onChangeText={(post) => setPost(post)}
+                aria-label="input"
+              />
+
+              <View className={` ${images[0] == null}h-44`}>
+                {images[0] && (
+                  <ScrollView horizontal={true}>
+                    {images.map((i, index) => {
+                      return (
+                        <View key={index} className="mb-3 mr-4">
+                          <Image source={{ uri: i }} className="h-40 w-40" />
+                        </View>
+                      );
+                    })}
+                  </ScrollView>
+                )}
+              </View>
+              <TouchableOpacity className="h-10 w-48" onPress={pickImage}>
+                <OutlinedButton icon={true}>Add Photos</OutlinedButton>
+              </TouchableOpacity>
+
+              {/* Error Message */}
+              {errorMessage ? (
+                <Text className="text-sm text-red-500">{errorMessage}</Text>
+              ) : null}
+            </View>
+            <View className="flex-row justify-evenly">
               <TouchableOpacity
+                className="w-44"
                 onPress={() => {
                   clearState();
                   back();
                 }}
               >
-                <LeftArrow className="relative h-6 w-6" />
+                <OutlinedButton onPress={() => back()}>Cancel</OutlinedButton>
               </TouchableOpacity>
-              <Text className="text-p-0 font-headline-md text-center leading-9">
-                Create Post
-              </Text>
-              <View className="relative h-6 w-6" />
-            </View>
-            <View className="inline-flex flex-row items-start justify-start gap-y-4">
-              <Text className="text-p-0 font-title-md leading-normal tracking-tight">
-                Description
-              </Text>
-              <Text className="text-e-40 font-title-md leading-normal tracking-tight">
-                *
-              </Text>
-            </View>
-            <></>
 
-            <TextInput
-              multiline
-              value={post}
-              placeholder="Write description here..."
-              className="w-100 border-p-40 h-52 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
-              onChangeText={(post) => setPost(post)}
-              aria-label="input"
-            />
-
-            <View className={` ${images[0] == null}h-44`}>
-              {images[0] && (
-                <ScrollView horizontal={true}>
-                  {images.map((i, index) => {
-                    return (
-                      <View key={index} className="mb-3 mr-4">
-                        <Image source={{ uri: i }} className="h-40 w-40" />
-                      </View>
-                    );
-                  })}
-                </ScrollView>
-              )}
-            </View>
-            <TouchableOpacity className="h-10 w-48" onPress={pickImage}>
-              <OutlinedButton onPress={pickImage} icon={true}>
-                Add Photos
-              </OutlinedButton>
-            </TouchableOpacity>
-          </View>
-          <View className="flex-row justify-evenly">
-            <TouchableOpacity
-              className="w-44"
-              onPress={() => {
-                clearState();
-                back();
-              }}
-            >
-              <OutlinedButton onPress={() => back()}>Cancel</OutlinedButton>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              className="w-44"
-              onPress={() => {
-                createPost();
-              }}
-            >
-              <FilledButton
-                onClick={() => {
+              <TouchableOpacity
+                className="w-44"
+                onPress={() => {
                   createPost();
                 }}
               >
-                Publish
-              </FilledButton>
-            </TouchableOpacity>
+                <FilledButton
+                // onClick={() => {
+                //   createPost();
+                // }}
+                >
+                  Publish
+                </FilledButton>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </SafeAreaView>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
