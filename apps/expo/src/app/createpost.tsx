@@ -162,16 +162,23 @@ function CreatePost() {
                     {images.map((i, index) => {
                       return (
                         <View key={index} className="mb-3 mr-4">
-                          <Image source={{ uri: `data:image/png;base64,${i}` }} className="h-40 w-40" />
+                          <Image
+                            source={{ uri: `data:image/png;base64,${i}` }}
+                            className="h-40 w-40"
+                          />
                         </View>
                       );
                     })}
                   </ScrollView>
                 )}
               </View>
-              <TouchableOpacity onPress={pickImage} className="h-10 w-48">
-                <OutlinedButton icon={true}>Add Photos</OutlinedButton>
-              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={pickImage} className="h-10 w-48"> */}
+              <View className="h-10 w-48">
+                <OutlinedButton onPress={pickImage} icon={true}>
+                  Add Photos
+                </OutlinedButton>
+              </View>
+              {/* </TouchableOpacity> */}
 
               {/* Error Message */}
               {errorMessage ? (
@@ -196,20 +203,22 @@ function CreatePost() {
               </OutlinedButton>
               {/* </TouchableOpacity> */}
 
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 className="w-44"
                 onPress={() => {
                   createPost();
                 }}
+              > */}
+              <View className="w-44">
+              <FilledButton
+                onClick={() => {
+                  createPost();
+                }}
               >
-                <FilledButton
-                // onClick={() => {
-                //   createPost();
-                // }}
-                >
-                  Publish
-                </FilledButton>
-              </TouchableOpacity>
+                Publish
+              </FilledButton>
+              </View>
+              {/* </TouchableOpacity> */}
             </View>
           </View>
         </TouchableWithoutFeedback>

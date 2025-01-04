@@ -140,7 +140,7 @@ export default function Discussion({
             source={{
               uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
             }}
-            // change here
+            // Here is profile picture.
             className="h-12 w-12 rounded-full"
             resizeMode="cover"
           />
@@ -154,12 +154,14 @@ export default function Discussion({
         <View>
           <Text className="font-body-lg mt-4">{discussion.contents}</Text>
           <View className="mt-2">
-            <Image
-              source={{
-                uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
-              }}
-              className="h-60 w-fit"
-            />
+            {discussion.images.length > 0 && (
+              <Image
+                source={{
+                  uri: `data:image/png;base64,${discussion.images[0]}`,
+                }}
+                className="h-60 w-fit"
+              />
+            )}
           </View>
         </View>
         <View className="mt-2 flex-row">
