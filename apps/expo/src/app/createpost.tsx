@@ -210,13 +210,13 @@ function CreatePost() {
                 }}
               > */}
               <View className="w-44">
-              <FilledButton
-                onClick={() => {
-                  createPost();
-                }}
-              >
-                Publish
-              </FilledButton>
+                <FilledButton
+                  onClick={() => {
+                    createPost();
+                  }}
+                >
+                  Publish
+                </FilledButton>
               </View>
               {/* </TouchableOpacity> */}
             </View>
