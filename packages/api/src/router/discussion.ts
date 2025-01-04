@@ -41,12 +41,13 @@ export const discussionRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const imageBuffers = input.images.map((base64Image) => Buffer.from(base64Image, 'base64'));
+      // const imageBuffers = input.images.map((base64Image) => Buffer.from(base64Image, 'base64'));
       await ctx.db.post.create({
         data: {
           title: input.title,
           contents: input.contents,
-          images: imageBuffers,
+          // images: imageBuffers,
+          images: input.images,
           postType: "Discussion",
           user: { connect: { id: userId } },
         },
