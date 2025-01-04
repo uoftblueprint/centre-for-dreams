@@ -78,8 +78,11 @@ function CreatePost() {
           console.log("base64");
         }
 
-        setImages((prevImages) => [...prevImages, base64]);
-        console.log("Images: ", images.length);
+        setImages((prevImages) => {
+          const updatedImages = [...prevImages, base64];
+          // console.log(updatedImages[0]);
+          return updatedImages;
+        });
       }
     }
   };
@@ -154,17 +157,17 @@ function CreatePost() {
               />
 
               <View className={` ${images[0] == null}h-44`}>
-                {/* {images[0] && (
+                {images[0] && (
                   <ScrollView horizontal={true}>
                     {images.map((i, index) => {
                       return (
                         <View key={index} className="mb-3 mr-4">
-                          <Image source={{ uri: i }} className="h-40 w-40" />
+                          <Image source={{ uri: `data:image/png;base64,${i}` }} className="h-40 w-40" />
                         </View>
                       );
                     })}
                   </ScrollView>
-                )} */}
+                )}
               </View>
               <TouchableOpacity onPress={pickImage} className="h-10 w-48">
                 <OutlinedButton icon={true}>Add Photos</OutlinedButton>

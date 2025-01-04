@@ -46,7 +46,7 @@ export const discussionRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
-          // images: imageBuffers,
+
           images: input.images,
           postType: "Discussion",
           user: { connect: { id: userId } },
