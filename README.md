@@ -245,6 +245,7 @@ pnpm typecheck
 - [@nolawiyonas1](https://github.com/nolawiyonas1)
 - [@solarescarlos](https://github.com/solarescarlos)
 - [@Adventurer-E](https://github.com/Adventurer-E)
+- [@3milyfz](https://github.com/3milyfz)
 
 ## License
 
