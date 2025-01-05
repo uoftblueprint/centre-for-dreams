@@ -12,7 +12,7 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
-  const [refreshing, setRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const { data: forumPosts, refetch: refetchForumPosts } = api.discussion.getDiscussions.useQuery();
   const { data: myPosts, refetch: refetchMyPosts } = api.discussion.getDiscussionsByUser.useQuery();
@@ -27,17 +27,17 @@ const Forum = () => {
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
 
-    const onRefresh = useCallback(() => {
-      setRefreshing(true);
-      // Add your refresh logic here, for example, refetching data
-      Promise.all([
-        refetchForumPosts(),
-        refetchMyPosts(),
-        refetchReplies()
-      ]).then(() => {
-        setRefreshing(false);
-      });
-    }, [refetchForumPosts, refetchMyPosts, refetchReplies]);
+    const onRefresh = async () => {
+      setIsRefreshing(true);
+      try {
+        await Promise.all([refetchForumPosts(), refetchMyPosts(), refetchReplies()]);
+      } catch (error) {
+        console.error("Failed to refresh forum:", error);
+        alert("Error refreshing forum. Please try again.");
+      } finally {
+        setIsRefreshing(false);
+      }
+    };
 
   const renderHeader = () => (
     <View>
@@ -110,8 +110,8 @@ const Forum = () => {
                 );
               }
             }}
-            refreshControl={ // Added RefreshControl
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
             }
           />
         </View>
@@ -131,8 +131,8 @@ const Forum = () => {
                 <Discussion discussion={item} canEdit={false} />
               </View>
             )}
-            refreshControl={ // Added RefreshControl
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
             }
           />
         </View>
