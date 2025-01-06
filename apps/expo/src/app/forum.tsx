@@ -17,11 +17,6 @@ const Forum = () => {
   const { data: forumPosts, refetch: refetchForumPosts } = api.discussion.getDiscussions.useQuery();
   const { data: myPosts, refetch: refetchMyPosts } = api.discussion.getDiscussionsByUser.useQuery();
   const { data: replies, refetch: refetchReplies } = api.discussion.getReplies.useQuery();
-
-  // const forumPosts = api.discussion.getDiscussions.useQuery().data;
-  // const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
-  // const replies = api.discussion.getReplies.useQuery().data;
-
   const replyLength = replies?.length;
 
   const dataToDisplay =
