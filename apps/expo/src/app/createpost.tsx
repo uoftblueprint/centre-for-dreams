@@ -27,7 +27,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<Buffer[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
@@ -78,23 +78,23 @@ function CreatePost() {
         if (base64) {
           console.log("base64");
         }
-        const binary = atob(base64);
-        if (binary) {
-          console.log("binary");
-        }
+        // const binary = atob(base64);
+        // if (binary) {
+        //   console.log("binary");
+        // }
 
         try {
-          const bytes = binaryToBytes(binary);
-          if (bytes) {
-            console.log("uint8array");
-          }
-          const buffer = Buffer.from(bytes);
-          if (buffer) {
-            console.log("buffer");
-          }
+          // const bytes = binaryToBytes(binary);
+          // if (bytes) {
+          //   console.log("uint8array");
+          // }
+          // const buffer = Buffer.from(bytes);
+          // if (buffer) {
+          //   console.log("buffer");
+          // }
 
           setImages((prevImages) => {
-            const updatedImages = [...prevImages, buffer];
+            const updatedImages = [...prevImages, base64];
             return updatedImages;
           });
         } catch (error) {
@@ -185,22 +185,22 @@ function CreatePost() {
                 {images[0] && (
                   <ScrollView horizontal={true}>
                     {images.map((i, index) => {
-                      // Convert ArrayBuffer to base64 using FileReader
-                      const bufferToBase64 = (buffer: Buffer) => {
-                        const uint8Array = new Uint8Array(buffer);
-                        let binary = "";
-                        uint8Array.forEach((byte) => {
-                          binary += String.fromCharCode(byte);
-                        });
-                        return `data:image/png;base64,${btoa(binary)}`;
-                      };
+                      // // Convert ArrayBuffer to base64 using FileReader
+                      // const bufferToBase64 = (buffer: Buffer) => {
+                      //   const uint8Array = new Uint8Array(buffer);
+                      //   let binary = "";
+                      //   uint8Array.forEach((byte) => {
+                      //     binary += String.fromCharCode(byte);
+                      //   });
+                      //   return `data:image/png;base64,${btoa(binary)}`;
+                      // };
 
-                      const base64String = bufferToBase64(i);
+                      // const base64String = bufferToBase64(i);
 
                       return (
                         <View key={index} className="mb-3 mr-4">
                           <Image
-                            source={{ uri: base64String }}
+                            source={{ uri: `data:image/png;base64,${i}` }}
                             className="h-40 w-40"
                           />
                         </View>
