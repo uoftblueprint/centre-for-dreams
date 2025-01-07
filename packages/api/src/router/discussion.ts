@@ -36,17 +36,17 @@ export const discussionRouter = createTRPCRouter({
       z.object({
         title: z.string().min(1),
         contents: z.string().min(0),
-        images: z.instanceof(Buffer<ArrayBufferLike>).array(),
+        images: z.instanceof(Uint8Array<ArrayBufferLike>).array(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      // const imageBuffers = input.images.map((base64Image) => Buffer.from(base64Image, 'base64'));
+      const imageBuffers = input.images.map((uint8array) => Buffer.from(uint8array));
       await ctx.db.post.create({
         data: {
           title: input.title,
           contents: input.contents,
-          images: input.images,
+          images: imageBuffers,
           postType: "Discussion",
           user: { connect: { id: userId } },
         },

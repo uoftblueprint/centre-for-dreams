@@ -26,7 +26,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<Buffer[]>([]);
+  const [images, setImages] = useState<Uint8Array[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
@@ -66,7 +66,7 @@ function CreatePost() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 0.5,
+      quality: 0.3,
     });
     console.log("result:", result);
 
@@ -87,21 +87,21 @@ function CreatePost() {
         }
 
         try {
-          const bytes = binaryToBytes(binary);
-          if (bytes) {
-            console.log("uint8array");
+          const uint8array = binaryToBytes(binary);
+          if (uint8array) {
+            console.log(uint8array);
           }
-          const buffer = Buffer.from(bytes);
-          if (buffer) {
-            console.log("buffer");
-          }
+          // const buffer = Buffer.from(uint8array);
+          // if (buffer) {
+          //   console.log("buffer");
+          // }
 
           setImages((prevImages) => {
-            const updatedImages = [...prevImages, buffer];
+            const updatedImages = [...prevImages, uint8array];
             return updatedImages;
           });
         } catch (error) {
-          console.error("Failed to convert binary to Buffer:", error);
+          console.error("Failed to convert binary to uint8array:", error);
         }
       }
     }
@@ -188,9 +188,8 @@ function CreatePost() {
                 {images[0] && (
                   <ScrollView horizontal={true}>
                     {images.map((i, index) => {
-                      // Convert ArrayBuffer to base64 using FileReader
-                      const bufferToBase64 = (buffer: Buffer) => {
-                        const uint8Array = new Uint8Array(buffer);
+                      // Convert Uint8Array to base64
+                      const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
                         let binary = "";
                         uint8Array.forEach((byte) => {
                           binary += String.fromCharCode(byte);
@@ -198,7 +197,7 @@ function CreatePost() {
                         return `data:image/png;base64,${btoa(binary)}`;
                       };
 
-                      const base64String = bufferToBase64(i);
+                      const base64String = uint8ArrayToBase64(i);
 
                       return (
                         <View key={index} className="mb-3 mr-4">

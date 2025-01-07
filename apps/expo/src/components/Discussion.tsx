@@ -164,17 +164,16 @@ export default function Discussion({
             )} */}
             {/* <ScrollView horizontal={true}> */}
             {discussion.images.map((i, index) => {
-              // Convert ArrayBuffer to base64 using FileReader
-              const bufferToBase64 = (buffer: Buffer) => {
-                const uint8Array = new Uint8Array(buffer);
+              // Convert Uint8Array to base64
+              const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
                 let binary = "";
                 uint8Array.forEach((byte) => {
                   binary += String.fromCharCode(byte);
                 });
                 return `data:image/png;base64,${btoa(binary)}`;
               };
-
-              const base64String = bufferToBase64(i);
+            
+              const base64String = uint8ArrayToBase64(i);
 
               return (
                 <View key="0" className="mb-3 mr-4">
