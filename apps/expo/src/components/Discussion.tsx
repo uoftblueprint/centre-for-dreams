@@ -165,23 +165,23 @@ export default function Discussion({
             )} */}
             {/* <ScrollView horizontal={true}> */}
             {discussion.images.map((i, index) => {
-              // // Convert ArrayBuffer to base64 using FileReader
-              // const bufferToBase64 = (buffer: Buffer) => {
-              //   const uint8Array = new Uint8Array(buffer);
-              //   let binary = "";
-              //   uint8Array.forEach((byte) => {
-              //     binary += String.fromCharCode(byte);
-              //   });
-              //   return `data:image/png;base64,${btoa(binary)}`;
-              // };
+              // Convert ArrayBuffer to base64 using FileReader
+              const bufferToBase64 = (buffer: Buffer) => {
+                const uint8Array = new Uint8Array(buffer);
+                let binary = "";
+                uint8Array.forEach((byte) => {
+                  binary += String.fromCharCode(byte);
+                });
+                return `data:image/png;base64,${btoa(binary)}`;
+              };
 
-              // const base64String = bufferToBase64(i);
+              const base64String = bufferToBase64(i);
 
               return (
                 <View key="0" className="mb-3 mr-4">
                   {/* Currently hardcoded so that ONLY THE FIRST image is displayed. */}
                   <Image
-                    source={{ uri: `data:image/png;base64,${i}` }}
+                    source={{ uri: base64String }}
                     className="h-60 w-fit"
                   />
                 </View>

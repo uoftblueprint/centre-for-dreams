@@ -32,40 +32,21 @@ export const discussionRouter = createTRPCRouter({
     });
   }),
   createDiscussion: protectedProcedure
-    // Note that when creating a postMessage, image is uploaded and then transferred here to tRPC Router as a base64 String. It's converted to binaryBuffer HERE.
     .input(
       z.object({
         title: z.string().min(1),
         contents: z.string().min(0),
-        images: z.string().array().optional(),
+        images: z.instanceof(Buffer<ArrayBufferLike>).array().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      let imageBuffers: Buffer[] = [];
-      if (input.images) {
-        imageBuffers = input.images.map((base64String) => {
-          const binaryToBytes = (binary: string) => {
-            const uint8Array = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) {
-              uint8Array[i] = binary.charCodeAt(i);
-            }
-            return uint8Array;
-          };
-
-          const binary = atob(base64String);
-          const uint8array = binaryToBytes(binary);
-          const buffer = Buffer.from(uint8array);
-          console.log(buffer);
-          return buffer;
-        });
-      }
-      console.log(imageBuffers);
+      // const imageBuffers = input.images.map((base64Image) => Buffer.from(base64Image, 'base64'));
       await ctx.db.post.create({
         data: {
           title: input.title,
           contents: input.contents,
-          images: imageBuffers,
+          images: input.images,
           postType: "Discussion",
           user: { connect: { id: userId } },
         },
