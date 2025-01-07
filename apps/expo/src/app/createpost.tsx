@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-// import RNFS from "react-native-fs";
 import {
   GestureHandlerRootView,
   ScrollView,
@@ -36,6 +35,9 @@ function CreatePost() {
       onSuccess: () => {
         back();
       },
+      onError: (error) => {
+        console.error("Error:", error);
+      },
     });
 
   const createPost = () => {
@@ -48,6 +50,7 @@ function CreatePost() {
         contents: post,
         images: images,
       });
+      console.log("Post successfully created.");
       clearState();
     }
   };

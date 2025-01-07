@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
