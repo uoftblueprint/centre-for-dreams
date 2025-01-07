@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import React, { useState } from "react";
 import {
   Image,
@@ -26,7 +27,7 @@ import LeftArrow from "../../assets/arrow-left.svg";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Buffer[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
 
@@ -62,7 +63,7 @@ function CreatePost() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 1,
+      quality: 0.5,
     });
     console.log("result:", result);
 
@@ -77,14 +78,38 @@ function CreatePost() {
         if (base64) {
           console.log("base64");
         }
+        const binary = atob(base64);
+        if (binary) {
+          console.log("binary");
+        }
 
-        setImages((prevImages) => {
-          const updatedImages = [...prevImages, base64];
-          // console.log(updatedImages[0]);
-          return updatedImages;
-        });
+        try {
+          const bytes = binaryToBytes(binary);
+          if (bytes) {
+            console.log("uint8array");
+          }
+          const buffer = Buffer.from(bytes);
+          if (buffer) {
+            console.log("buffer");
+          }
+
+          setImages((prevImages) => {
+            const updatedImages = [...prevImages, buffer];
+            return updatedImages;
+          });
+        } catch (error) {
+          console.error("Failed to convert binary to Buffer:", error);
+        }
       }
     }
+  };
+
+  const binaryToBytes = (binary: string) => {
+    const uint8Array = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      uint8Array[i] = binary.charCodeAt(i);
+    }
+    return uint8Array;
   };
 
   return (
@@ -160,10 +185,22 @@ function CreatePost() {
                 {images[0] && (
                   <ScrollView horizontal={true}>
                     {images.map((i, index) => {
+                      // Convert ArrayBuffer to base64 using FileReader
+                      const bufferToBase64 = (buffer: Buffer) => {
+                        const uint8Array = new Uint8Array(buffer);
+                        let binary = "";
+                        uint8Array.forEach((byte) => {
+                          binary += String.fromCharCode(byte);
+                        });
+                        return `data:image/png;base64,${btoa(binary)}`;
+                      };
+
+                      const base64String = bufferToBase64(i);
+
                       return (
                         <View key={index} className="mb-3 mr-4">
                           <Image
-                            source={{ uri: `data:image/png;base64,${i}` }}
+                            source={{ uri: base64String }}
                             className="h-40 w-40"
                           />
                         </View>

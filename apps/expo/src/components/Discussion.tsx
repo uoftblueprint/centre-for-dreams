@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
@@ -154,14 +155,39 @@ export default function Discussion({
         <View>
           <Text className="font-body-lg mt-4">{discussion.contents}</Text>
           <View className="mt-2">
-            {discussion.images.length > 0 && (
+            {/* {discussion.images.length > 0 && (
               <Image
                 source={{
                   uri: `data:image/png;base64,${discussion.images[0]}`,
                 }}
                 className="h-60 w-fit"
               />
-            )}
+            )} */}
+            {/* <ScrollView horizontal={true}> */}
+            {discussion.images.map((i, index) => {
+              // Convert ArrayBuffer to base64 using FileReader
+              const bufferToBase64 = (buffer: Buffer) => {
+                const uint8Array = new Uint8Array(buffer);
+                let binary = "";
+                uint8Array.forEach((byte) => {
+                  binary += String.fromCharCode(byte);
+                });
+                return `data:image/png;base64,${btoa(binary)}`;
+              };
+
+              const base64String = bufferToBase64(i);
+
+              return (
+                <View key="0" className="mb-3 mr-4">
+                  {/* Currently hardcoded so that ONLY THE FIRST image is displayed. */}
+                  <Image
+                    source={{ uri: base64String }}
+                    className="h-60 w-fit"
+                  />
+                </View>
+              );
+            })}
+            {/* </ScrollView> */}
           </View>
         </View>
         <View className="mt-2 flex-row">

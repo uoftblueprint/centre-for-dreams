@@ -36,7 +36,7 @@ export const discussionRouter = createTRPCRouter({
       z.object({
         title: z.string().min(1),
         contents: z.string().min(0),
-        images: z.string().array(),
+        images: z.instanceof(Buffer<ArrayBufferLike>).array().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -46,7 +46,6 @@ export const discussionRouter = createTRPCRouter({
         data: {
           title: input.title,
           contents: input.contents,
-
           images: input.images,
           postType: "Discussion",
           user: { connect: { id: userId } },
