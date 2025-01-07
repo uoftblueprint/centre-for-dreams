@@ -22,6 +22,7 @@ function EditPost() {
   }>();
   const [post, setPost] = useState(initialContent || "");
   const { back } = useRouter();
+  const [isError, setIsError] = useState(false);
 
   const { mutate: updateDiscussion } =
     api.discussion.updateDiscussionByID.useMutation({
@@ -31,12 +32,15 @@ function EditPost() {
     });
 
   const updatePost = () => {
-    if (post.trim() !== "") {
-      updateDiscussion({
-        id: Number(id),
-        contents: post,
-      });
+    if (post.trim() === "") {
+      setIsError(true);
+      return;
     }
+    setIsError(false);
+    updateDiscussion({
+      id: Number(id),
+      contents: post,
+    });
   };
 
   const clearState = () => {
@@ -76,8 +80,13 @@ function EditPost() {
               multiline
               value={post}
               placeholder="Write description here..."
-              className="w-100 border-p-40 h-52 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
-              onChangeText={(text) => setPost(text)}
+              className={`w-100 h-52 rounded-lg border bg-white p-2 shadow-inner shadow-sm ${
+                isError ? "border-e-40" : "border-p-40"
+              }`}
+              onChangeText={(text) => {
+                setPost(text);
+                setIsError(false);
+              }}
               aria-label="input"
             />
           </View>
