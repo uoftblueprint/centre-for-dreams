@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 
@@ -12,13 +12,34 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
-  const forumPosts = api.discussion.getDiscussions.useQuery().data;
-  const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
-  const replies = api.discussion.getReplies.useQuery().data;
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { data: forumPosts, refetch: refetchForumPosts } =
+    api.discussion.getDiscussions.useQuery();
+  const { data: myPosts, refetch: refetchMyPosts } =
+    api.discussion.getDiscussionsByUser.useQuery();
+  const { data: replies, refetch: refetchReplies } =
+    api.discussion.getReplies.useQuery();
   const replyLength = replies?.length;
 
   const dataToDisplay =
     selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        refetchForumPosts(),
+        refetchMyPosts(),
+        refetchReplies(),
+      ]);
+    } catch (error) {
+      console.error("Failed to refresh forum:", error);
+      alert("Error refreshing forum. Please try again.");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   const renderHeader = () => (
     <View>
@@ -91,6 +112,9 @@ const Forum = () => {
                 );
               }
             }}
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
       </SafeAreaView>
@@ -109,6 +133,9 @@ const Forum = () => {
                 <Discussion discussion={item} canEdit={false} />
               </View>
             )}
+            refreshControl={
+              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+            }
           />
         </View>
       </SafeAreaView>
