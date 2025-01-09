@@ -27,10 +27,10 @@ const Post: React.FC<GetDiscussionOutput> = ({
   const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
 
+  const [comment, setComment] = useState("");
+
   const authObject = useAuth();
   const loggedInUserId = authObject.userId;
-  
-  console.log(`loggedInUserId: ${loggedInUserId}`);
 
   useEffect(() => {
     setLikesCount(likesCountData?.likesCount ?? 0);
@@ -74,6 +74,26 @@ const Post: React.FC<GetDiscussionOutput> = ({
   const openModal = () => {
     setModalVisibile(true);
   }
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  }
+
+  const commentMutation = api.comment.create.useMutation();
+
+  const handleCommentSubmit = async () => {
+    if (comment.trim() === "") return;
+
+    try {
+      await commentMutation.mutateAsync({
+        postId: id,
+        text: comment,
+      });
+      setComment("");
+    } catch (error) {
+      console.error("Failed to submit comment:", error);
+    }
+  };
 
   return (
     <>
@@ -158,8 +178,8 @@ const Post: React.FC<GetDiscussionOutput> = ({
               </div>
 
               <div className="mb-10 mt-4" style={{height: "50%"}}>
-                <h3 className="text-lg font-semibold">Comments:</h3>
-                <ul>
+                <h3 className="text-lg font-semibold">Comments</h3>
+                <ul style={{paddingBottom: "8px"}}>
                   {comments.map((comment) => (
                     <li key={comment.id} className="mt-2">
                       {/* TODO: replace userId with the user's name after the participant API is implemented */}
@@ -168,7 +188,18 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     </li>
                   ))}
                 </ul>
+
+                <div style={{display: "flex", flexDirection: "row", borderWidth: "1px", borderColor: "#2E4D90", borderRadius: "8px", width: "min-content", alignItems: "center"}}>
+                  <input id="comment_box" value={comment} onChange={handleCommentChange} type="text" placeholder="Add a comment" style={{borderWidth: "1px", borderColor: "#2E4D90", borderRadius: "8px", padding: "4px", borderTop: "none", borderRight: "none", borderBottom: "none"}} />
+                  <button style={{height: "100%"}} onClick={handleCommentSubmit}>
+                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{padding: "2px"}}>
+                    <path d="M11 1L11 11C11 15.4183 7.41828 19 3 19L1 19M11 1L5 7M11 1L17 7" stroke="#79767D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
+              
+              
             </div>
           </div>
         </div>
