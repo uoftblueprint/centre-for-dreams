@@ -190,6 +190,7 @@ export default function Discussion({
             )} */}
             {/* <ScrollView horizontal={true}> */}
             {discussion.images.map(async (i, index) => {
+              console.log(index);
               const fileName = i.split("/").pop();
               if (!fileName) {
                 throw new Error("Invalid image URL");
