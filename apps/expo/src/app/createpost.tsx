@@ -25,9 +25,9 @@ import { api } from "~/utils/api";
 import LeftArrow from "../../assets/arrow-left.svg";
 
 AWS.config.update({
-  accessKeyId: Constants.expoConfig?.extra?.awsAccessKeyId,
-  secretAccessKey: Constants.expoConfig?.extra?.awsSecretAccessKey,
-  region: Constants.expoConfig?.extra?.awsRegion,
+  accessKeyId: String(Constants.expoConfig?.extra?.awsAccessKeyId),
+  secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
+  region: String(Constants.expoConfig?.extra?.awsRegion),
 });
 const s3 = new AWS.S3();
 
