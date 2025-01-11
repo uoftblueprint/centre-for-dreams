@@ -34,7 +34,7 @@ const s3 = new AWS.S3();
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  // const [images, setImages] = useState<string[]>([]);
   const [tempImages, setTempImages] = useState<Uint8Array[]>([]); // This is an array used to store images BEFORE uploading to S3
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { back } = useRouter();
@@ -49,43 +49,43 @@ function CreatePost() {
       },
     });
 
-  const uploadImages = async (imageArray: Uint8Array[]) => {
-    try {
-      // Step 1: Create an array to store upload promises
-      const uploadPromises = imageArray.map((image, index) => {
-        const fileName = `uploaded-image-${title}-${index}.jpg`;
-        const params = {
-          Bucket: "cfd-post-image-upload",
-          Key: fileName,
-          Body: image,
-          ContentType: "image/jpeg",
-        };
+  // const uploadImages = async (imageArray: Uint8Array[]) => {
+  //   try {
+  //     // Step 1: Create an array to store upload promises
+  //     const uploadPromises = imageArray.map((image, index) => {
+  //       const fileName = `uploaded-image-${title}-${index}.jpg`;
+  //       const params = {
+  //         Bucket: "cfd-post-image-upload",
+  //         Key: fileName,
+  //         Body: image,
+  //         ContentType: "image/jpeg",
+  //       };
 
-        // Return a promise that resolves to the uploaded image URL
-        return new Promise<string>((resolve, reject) => {
-          s3.upload(
-            params,
-            (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(data.Location);
-              }
-            },
-          );
-        });
-      });
+  //       // Return a promise that resolves to the uploaded image URL
+  //       return new Promise<string>((resolve, reject) => {
+  //         s3.upload(
+  //           params,
+  //           (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
+  //             if (error) {
+  //               reject(error);
+  //             } else {
+  //               resolve(data.Location);
+  //             }
+  //           },
+  //         );
+  //       });
+  //     });
 
-      // Step 2: Wait for all uploads to complete
-      const uploadedImages = await Promise.all(uploadPromises);
+  //     // Step 2: Wait for all uploads to complete
+  //     const uploadedImages = await Promise.all(uploadPromises);
 
-      // Step 3: Update the state once with all uploaded image URLs
-      setImages((prevImages) => [...prevImages, ...uploadedImages]);
-      console.log("All images uploaded successfully:", uploadedImages);
-    } catch (error) {
-      console.error("Error during image upload:", error);
-    }
-  };
+  //     // Step 3: Update the state once with all uploaded image URLs
+  //     setImages((prevImages) => [...prevImages, ...uploadedImages]);
+  //     console.log("All images uploaded successfully:", uploadedImages);
+  //   } catch (error) {
+  //     console.error("Error during image upload:", error);
+  //   }
+  // };
 
   const createPost = async () => {
     if (title === "") {
@@ -134,7 +134,7 @@ function CreatePost() {
   const clearState = () => {
     setTitle("");
     setPost("");
-    setImages([]);
+    // setImages([]);
     setTempImages([]);
     setErrorMessage("");
   };
