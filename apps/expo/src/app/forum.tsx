@@ -88,70 +88,62 @@ const Forum = () => {
     </View>
   );
 
-  if (selectedTab == 3) {
-    return (
-      <SafeAreaView className="">
-        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        <View className="mb-16 h-full">
-          <FlatList
-            ListHeaderComponent={renderHeader}
-            data={replies}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => {
-              if (index == 0) {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
-                    <Text className="font-headline-md pb-3">
-                      New Notifications
-                    </Text>
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              } else if (index == replyLength! - 1) {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              } else {
-                return (
-                  <View className="bg-p-90 ml-3 mr-3 p-4">
-                    <ReplyNotification comment={item}></ReplyNotification>
-                  </View>
-                );
-              }
-            }}
-            refreshControl={
-              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-            }
-          />
-        </View>
-      </SafeAreaView>
-    );
-  } else {
-    return (
-      <SafeAreaView className="">
-        <Stack.Screen options={{ title: "Forum", headerShown: false }} />
-        <View className="h-vh mb-16">
-          <FlatList
-            ListHeaderComponent={renderHeader}
-            data={dataToDisplay}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View className="mt-2">
-                <Discussion discussion={item} canEdit={selectedTab === 2} />
-              </View>
-            )}
-            refreshControl={
-              <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-            }
-          />
-        </View>
+  return (
+    <SafeAreaView className="flex-1">
+      <Stack.Screen options={{ title: "Forum", headerShown: false }} />
+      <View style={{ flex: 1, position: "relative" }}>
+        {selectedTab === 3 ? (
+          <View className="mb-16 h-full">
+            <FlatList
+              ListHeaderComponent={renderHeader}
+              data={replies}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => {
+                if (index == 0) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
+                      <Text className="font-headline-md pb-3">
+                        New Notifications
+                      </Text>
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else if (index == replyLength! - 1) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                }
+              }}
+            />
+          </View>
+        ) : (
+          <View className="h-vh mb-16">
+            <FlatList
+              ListHeaderComponent={renderHeader}
+              data={dataToDisplay}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <View className="mt-2">
+                  <Discussion discussion={item} canEdit={false} />
+                </View>
+              )}
+            />
+          </View>
+        )}
+
         {/* Floating Button */}
         <TouchableOpacity
           style={{
             position: "absolute",
-            bottom: -490,
+            bottom: 100,
             right: 20,
           }}
         >
@@ -160,9 +152,9 @@ const Forum = () => {
             icon={true}
           />
         </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
+      </View>
+    </SafeAreaView>
+  );
 };
 
 export default Forum;
