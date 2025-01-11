@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FlatList, RefreshControl, Text, View, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 
@@ -18,7 +24,7 @@ const Forum = () => {
 
   const { data: forumPosts, refetch: refetchForumPosts } =
     api.discussion.getDiscussions.useQuery();
-    console.log(forumPosts);
+  console.log(forumPosts);
   const { data: myPosts, refetch: refetchMyPosts } =
     api.discussion.getDiscussionsByUser.useQuery();
   const { data: replies, refetch: refetchReplies } =
@@ -140,20 +146,20 @@ const Forum = () => {
               <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
             }
           />
-          {/* Floating Button */}
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              bottom: 100,
-              right: 20,
-            }}
-          >
-            <FloatingButton
-              onPress={() => router.push("/createpost")}
-              icon={true}
-            />
-          </TouchableOpacity>
         </View>
+        {/* Floating Button */}
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            bottom: -490,
+            right: 20,
+          }}
+        >
+          <FloatingButton
+            onPress={() => router.push("/createpost")}
+            icon={true}
+          />
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
