@@ -135,6 +135,9 @@ const Forum = () => {
                   <Discussion discussion={item} canEdit={false} />
                 </View>
               )}
+              refreshControl={
+                <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+              }
             />
           </View>
         )}
@@ -152,6 +155,7 @@ const Forum = () => {
             icon={true}
           />
         </TouchableOpacity>
+        
       </View>
     </SafeAreaView>
   );
