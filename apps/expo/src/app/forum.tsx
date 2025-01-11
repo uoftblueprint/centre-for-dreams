@@ -136,7 +136,10 @@ const Forum = () => {
                 </View>
               )}
               refreshControl={
-                <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={onRefresh}
+                />
               }
             />
           </View>
@@ -155,7 +158,6 @@ const Forum = () => {
             icon={true}
           />
         </TouchableOpacity>
-        
       </View>
     </SafeAreaView>
   );
