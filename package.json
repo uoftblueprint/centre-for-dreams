@@ -26,9 +26,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.4",
     "aws-sdk": "^2.1692.0",
-    "expo-router": "~4.0.16",
     "prettier": "^3.2.5",
-    "react-native": "0.76.6",
     "turbo": "^1.13.4",
     "typescript": "^5.3.3"
   },
