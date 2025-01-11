@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   FlatList,
@@ -205,9 +205,7 @@ export default function Discussion({
               if (!data.Body) {
                 throw new Error("Failed to download image");
               }
-              const base64String = Buffer.isBuffer(data.Body)
-              ? data.Body.toString("base64")
-              : Buffer.from(data.Body).toString("base64");
+              const base64String = data.Body.toString("base64");
               const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
               // Convert Uint8Array to base64
