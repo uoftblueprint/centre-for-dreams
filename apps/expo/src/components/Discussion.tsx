@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import Constants from "expo-constants";
+import AWS from "aws-sdk";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
@@ -19,6 +20,13 @@ import EditIcon from "../../assets/edit.svg";
 import LikeIconBlue from "../../assets/like-blue.svg";
 import LikeIcon from "../../assets/like.svg";
 import Comment from "./Comment";
+
+AWS.config.update({
+  accessKeyId: Constants.expoConfig?.extra?.awsAccessKeyId,
+  secretAccessKey: Constants.expoConfig?.extra?.awsSecretAccessKey,
+  region: Constants.expoConfig?.extra?.awsRegion,
+});
+const s3 = new AWS.S3();
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
@@ -35,7 +43,6 @@ export default function Discussion({
   discussion: DiscussionProps;
   canEdit: boolean;
 }) {
-  const router = useRouter();
   const [showMoreComments, setShowMoreComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -117,16 +124,6 @@ export default function Discussion({
     }
   };
 
-  const handleEditPress = () => {
-    router.push({
-      pathname: "/editpost",
-      params: {
-        id: discussion.id,
-        initialContent: discussion.contents,
-      },
-    });
-  };
-
   const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
     <View key={item.id} style={{ marginTop: 2 }}>
       {/* Display the first comment */}
@@ -144,6 +141,23 @@ export default function Discussion({
     </View>
   );
 
+  const imageURLtoBase64String = async (i: string) => {
+    const fileName = i.split("/").pop();
+    if (!fileName) {
+      throw new Error("Invalid image URL");
+    }
+    const params = {
+      Bucket: "cfd-post-image-upload",
+      Key: fileName,
+    };
+    const data = await s3.getObject(params).promise();
+    if (!data.Body) {
+      throw new Error("Failed to download image");
+    }
+    const base64String = data.Body.toString("base64");
+    return base64String;
+  };
+
   return (
     <View className="h-25 mx-auto w-11/12">
       <View className="rounded-lg bg-white p-4">
@@ -152,6 +166,7 @@ export default function Discussion({
             source={{
               uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
             }}
+            // Here is profile picture.
             className="h-12 w-12 rounded-full"
             resizeMode="cover"
           />
@@ -165,12 +180,49 @@ export default function Discussion({
         <View>
           <Text className="font-body-lg mt-4">{discussion.contents}</Text>
           <View className="mt-2">
-            <Image
-              source={{
-                uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
-              }}
-              className="h-60 w-fit"
-            />
+            {/* {discussion.images.length > 0 && (
+              <Image
+                source={{
+                  uri: `data:image/png;base64,${imageURLtoBase64String(String(discussion.images[0]))}`,
+                }}
+                className="h-60 w-fit"
+              />
+            )} */}
+            {/* <ScrollView horizontal={true}> */}
+            {discussion.images.map(async (i, index) => {
+              const fileName = i.split("/").pop();
+              if (!fileName) {
+                throw new Error("Invalid image URL");
+              }
+              const params = {
+                Bucket: "cfd-post-image-upload",
+                Key: fileName,
+              };
+              const data = await s3.getObject(params).promise();
+              if (!data.Body) {
+                throw new Error("Failed to download image");
+              }
+              const base64String = data.Body.toString("base64");
+              const imageSrc = `data:image/jpeg;base64,${base64String}`;
+
+              // Convert Uint8Array to base64
+              // const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+              //   let binary = "";
+              //   uint8Array.forEach((byte) => {
+              //     binary += String.fromCharCode(byte);
+              //   });
+              //   return `data:image/png;base64,${btoa(binary)}`;
+              // };
+
+              // const base64String = uint8ArrayToBase64(i);
+
+              return (
+                <View key="0" className="mb-3 mr-4">
+                  <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
+                </View>
+              );
+            })}
+            {/* </ScrollView> */}
           </View>
         </View>
         <View className="mt-2 flex-row">
@@ -191,16 +243,8 @@ export default function Discussion({
       {canEdit && (
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/3 flex-row justify-center">
-            <TouchableOpacity onPress={handleLike}>
-              {isLiked ? (
-                <LikeIconBlue width={15} height={18} />
-              ) : (
-                <LikeIcon width={15} height={18} />
-              )}
-              <Text className="font-body-md ml-2">
-                {isLiked ? "Liked" : "Like"}
-              </Text>
-            </TouchableOpacity>
+            <LikeIcon width={15} height={18}></LikeIcon>
+            <Text className="font-body-md ml-2">Like</Text>
           </View>
           <TouchableOpacity
             className="w-5/12 flex-row justify-center"
@@ -209,13 +253,10 @@ export default function Discussion({
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            className="w-5/12 flex-row justify-center"
-            onPress={handleEditPress}
-          >
+          <View className="w-1/3 flex-row justify-center">
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
-          </TouchableOpacity>
+          </View>
         </View>
       )}
       {!canEdit && (

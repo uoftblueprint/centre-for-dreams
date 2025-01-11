@@ -34,14 +34,18 @@ export const discussionRouter = createTRPCRouter({
   createDiscussion: protectedProcedure
     .input(
       z.object({
-        contents: z.string().min(1),
+        title: z.string().min(1),
+        contents: z.string().min(0),
+        images: z.string().array(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
       await ctx.db.post.create({
         data: {
+          title: input.title,
           contents: input.contents,
+          images: input.images,
           postType: "Discussion",
           user: { connect: { id: userId } },
         },
