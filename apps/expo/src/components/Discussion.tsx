@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   FlatList,
@@ -61,11 +61,13 @@ export default function Discussion({
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  if (!isInitialized && userLikesData && likesCountData) {
-    setIsLiked(userLikesData.isLikedByUser);
-    setLikesCount(likesCountData.likesCount);
-    setIsInitialized(true);
-  }
+  useEffect(() => {
+    if (!isInitialized && userLikesData && likesCountData) {
+      setIsLiked(userLikesData.isLikedByUser);
+      setLikesCount(likesCountData.likesCount);
+      setIsInitialized(true);
+    }
+  }, [isInitialized, userLikesData, likesCountData]);
 
   const likeMutation = api.like.likePost.useMutation({
     onSuccess: () => {
@@ -190,7 +192,7 @@ export default function Discussion({
             )} */}
             {/* <ScrollView horizontal={true}> */}
             {discussion.images.map(async (i, index) => {
-              console.log(index);
+              console.log(discussion.title, index);
               const fileName = i.split("/").pop();
               if (!fileName) {
                 throw new Error("Invalid image URL");
@@ -203,7 +205,9 @@ export default function Discussion({
               if (!data.Body) {
                 throw new Error("Failed to download image");
               }
-              const base64String = data.Body.toString("base64");
+              const base64String = Buffer.isBuffer(data.Body)
+              ? data.Body.toString("base64")
+              : Buffer.from(data.Body).toString("base64");
               const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
               // Convert Uint8Array to base64
