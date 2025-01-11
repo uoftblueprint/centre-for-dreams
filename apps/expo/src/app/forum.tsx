@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
+import { FlatList, RefreshControl, Text, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 import Discussion from "~/components/Discussion";
+import FloatingButton from "~/components/FloatingButton";
 import ReplyNotification from "~/components/ReplyNotification";
 import TabNav from "~/components/TabNav";
 import { api } from "~/utils/api";
@@ -12,10 +13,12 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
+  const router = useRouter();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const { data: forumPosts, refetch: refetchForumPosts } =
     api.discussion.getDiscussions.useQuery();
+    console.log(forumPosts);
   const { data: myPosts, refetch: refetchMyPosts } =
     api.discussion.getDiscussionsByUser.useQuery();
   const { data: replies, refetch: refetchReplies } =
@@ -137,6 +140,19 @@ const Forum = () => {
               <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
             }
           />
+          {/* Floating Button */}
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              bottom: 100,
+              right: 20,
+            }}
+          >
+            <FloatingButton
+              onPress={() => router.push("/createpost")}
+              icon={true}
+            />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
