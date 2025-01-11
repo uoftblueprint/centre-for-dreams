@@ -132,7 +132,7 @@ const Forum = () => {
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <View className="mt-2">
-                  <Discussion discussion={item} canEdit={false} />
+                  <Discussion discussion={item} canEdit={selectedTab === 2} />
                 </View>
               )}
               refreshControl={
