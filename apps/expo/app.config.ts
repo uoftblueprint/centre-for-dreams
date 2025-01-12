@@ -1,12 +1,12 @@
 import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
-  name: "expo",
-  slug: "expo",
+  name: "Centre for Dreams",
+  slug: "centre-for-dreams",
   scheme: "expo",
   version: "1.0.0",
   orientation: "portrait",
-  owner: process.env.EXPO_OWNER,
+  owner: process.env.EXPO_OWNER_CFD,
   // icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   splash: {
@@ -33,9 +33,9 @@ const defineConfig = (): ExpoConfig => ({
   },
   extra: {
     eas: {
-      projectId: process.env.EXPO_PROJECT_ID,
+      projectId: "02dac296-f260-4796-b38a-3f4fc60ecbf8",
     },
-    clerkPublishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    clerkPublishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY_CFD,
   },
   experiments: {
     tsconfigPaths: true,
