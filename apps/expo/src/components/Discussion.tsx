@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import ScrollView from "react-native-gesture-handler";
 import Constants from "expo-constants";
 import AWS from "aws-sdk";
 
@@ -183,18 +184,18 @@ export default function Discussion({
         <View>
           <Text className="font-body-lg mt-4">{discussion.contents}</Text>
           <View className="mt-2">
-            {discussion.images.length > 0 && (
+            {/* {discussion.images.length > 0 && (
               <Image
                 source={{
                   uri: `data:image/png;base64,${String(imageURLtoBase64String(String(discussion.images[0])))}`,
                 }}
                 className="h-60 w-fit"
               />
-            )}
+            )} */}
             {/* Currently hardcoded to show only the first image. */}
 
             {/* <ScrollView horizontal={true}> */}
-            {/* {discussion.images.map(async (i, index) => {
+            {discussion.images.map(async (i, index) => {
               console.log(discussion.title, index);
               const fileName = i.split("/").pop();
               if (!fileName) {
@@ -208,6 +209,7 @@ export default function Discussion({
               if (!data.Body) {
                 throw new Error("Failed to download image");
               }
+              // eslint-disable-next-line
               const base64String = data.Body.toString("base64");
               const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
@@ -227,7 +229,7 @@ export default function Discussion({
                   <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
                 </View>
               );
-            })} */}
+            })}
             {/* </ScrollView> */}
           </View>
         </View>
