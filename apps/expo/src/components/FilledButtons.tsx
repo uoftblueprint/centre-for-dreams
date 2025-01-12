@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 interface FilledButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   children: React.ReactNode;
 }

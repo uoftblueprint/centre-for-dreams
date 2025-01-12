@@ -25,6 +25,7 @@
   "dependencies": {
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.4",
+    "aws-sdk": "^2.1692.0",
     "prettier": "^3.2.5",
     "turbo": "^1.13.4",
     "typescript": "^5.3.3"

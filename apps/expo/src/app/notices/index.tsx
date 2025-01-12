@@ -31,7 +31,7 @@ const Notices = () => {
                   pathname: "/notices/[id]",
                   params: {
                     id: item.id.toString(),
-                    title: item.title!,
+                    title: item.title,
                     createdAt: item.createdAt.toString(),
                     contents: item.contents,
                   },
