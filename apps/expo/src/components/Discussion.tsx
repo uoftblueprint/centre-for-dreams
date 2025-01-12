@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import ScrollView from "react-native-gesture-handler";
 import Constants from "expo-constants";
 import AWS from "aws-sdk";
 
@@ -144,23 +143,23 @@ export default function Discussion({
     </View>
   );
 
-  const imageURLtoBase64String = async (i: string) => {
-    const fileName = i.split("/").pop();
-    if (!fileName) {
-      throw new Error("Invalid image URL");
-    }
-    const params = {
-      Bucket: "cfd-post-image-upload",
-      Key: fileName,
-    };
-    const data = await s3.getObject(params).promise();
-    if (!data.Body) {
-      throw new Error("Failed to download image");
-    }
-    const buffer = Buffer.from(data.Body as ArrayBuffer);
-    const base64String = buffer.toString("base64");
-    return base64String;
-  };
+  // const imageURLtoBase64String = async (i: string) => {
+  //   const fileName = i.split("/").pop();
+  //   if (!fileName) {
+  //     throw new Error("Invalid image URL");
+  //   }
+  //   const params = {
+  //     Bucket: "cfd-post-image-upload",
+  //     Key: fileName,
+  //   };
+  //   const data = await s3.getObject(params).promise();
+  //   if (!data.Body) {
+  //     throw new Error("Failed to download image");
+  //   }
+  //   const buffer = Buffer.from(data.Body as ArrayBuffer);
+  //   const base64String = buffer.toString("base64");
+  //   return base64String;
+  // };
 
   return (
     <View className="h-25 mx-auto w-11/12">
