@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useRouter } from "expo-router";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
@@ -34,6 +35,7 @@ export default function Discussion({
   discussion: DiscussionProps;
   canEdit: boolean;
 }) {
+  const router = useRouter();
   const [showMoreComments, setShowMoreComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -115,6 +117,16 @@ export default function Discussion({
     }
   };
 
+  const handleEditPress = () => {
+    router.push({
+      pathname: "/editpost",
+      params: {
+        id: discussion.id,
+        initialContent: discussion.contents,
+      },
+    });
+  };
+
   const renderItem = ({ item, index, totalComments }: RenderItemProps) => (
     <View key={item.id} style={{ marginTop: 2 }}>
       {/* Display the first comment */}
@@ -179,8 +191,16 @@ export default function Discussion({
       {canEdit && (
         <View className="mb-4 mt-4 flex-row items-center justify-center p-2">
           <View className="w-1/3 flex-row justify-center">
-            <LikeIcon width={15} height={18}></LikeIcon>
-            <Text className="font-body-md ml-2">Like</Text>
+            <TouchableOpacity onPress={handleLike}>
+              {isLiked ? (
+                <LikeIconBlue width={15} height={18} />
+              ) : (
+                <LikeIcon width={15} height={18} />
+              )}
+              <Text className="font-body-md ml-2">
+                {isLiked ? "Liked" : "Like"}
+              </Text>
+            </TouchableOpacity>
           </View>
           <TouchableOpacity
             className="w-5/12 flex-row justify-center"
@@ -189,10 +209,13 @@ export default function Discussion({
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
           </TouchableOpacity>
-          <View className="w-1/3 flex-row justify-center">
+          <TouchableOpacity
+            className="w-5/12 flex-row justify-center"
+            onPress={handleEditPress}
+          >
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       )}
       {!canEdit && (

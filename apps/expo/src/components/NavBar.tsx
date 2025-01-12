@@ -21,10 +21,11 @@ const icons: Record<string, ReactElement[]> = {
   forum: [<Forum key="normal" />, <ForumFocused key="focused" />],
   account: [<Account key="normal" />, <AccountFocused key="focused" />],
   createpost: [<Account key="normal" />, <AccountFocused key="focused" />],
-  devcards: [<Account key="normal" />, <AccountFocused key="focused" />], // New entry for devcards tab
+  editpost: [<Account key="normal" />, <AccountFocused key="focused" />],
+  devcards: [<Account key="normal" />, <AccountFocused key="focused" />],
 };
 
-const pagesWOutTab: string[] = ["createpost"];
+const pagesWOutTab: string[] = ["createpost", "editpost"];
 
 const labels: Record<string, string> = {
   "calendar/index": "Calendar",
@@ -131,6 +132,12 @@ const NavBar = () => {
       />
       <Tabs.Screen
         name="createpost"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="editpost"
         options={{
           href: null,
         }}
