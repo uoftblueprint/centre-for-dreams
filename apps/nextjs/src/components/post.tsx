@@ -1,4 +1,3 @@
-import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import type { RouterOutputs } from "~/utils/api";
 
@@ -28,9 +27,6 @@ const Post: React.FC<GetDiscussionOutput> = ({
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
 
   const [comment, setComment] = useState("");
-
-  const authObject = useAuth();
-  const loggedInUserId = authObject.userId;
 
   useEffect(() => {
     setLikesCount(likesCountData?.likesCount ?? 0);
