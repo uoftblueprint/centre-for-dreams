@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
@@ -6,8 +6,20 @@ import Post from "../components/post";
 
 function Posts() {
   const posts = api.discussion.getDiscussions.useQuery();
+  const userPosts = api.discussion.getDiscussionsByUser.useQuery();
+
+  const [myPostToggle, setMyPostToggle] = useState(true);
+
+  const setMyPosts = () => {
+    setMyPostToggle(true);
+  };
+
+  const setAllPosts = () => {
+    setMyPostToggle(false);
+  };
 
   const { isSignedIn } = useAuth();
+
   return (
     <div
       className="flex"
@@ -124,26 +136,60 @@ function Posts() {
             alignSelf: "center",
           }}
         >
-          <button
-            style={{
-              borderRadius: "24px",
-              padding: "8px 40px 8px 40px",
-              backgroundColor: "#2E4D90",
-              color: "#FFFFFF",
-            }}
-          >
-            All Posts
-          </button>
-          <button
-            style={{ borderRadius: "24px", padding: "8px 40px 8px 40px" }}
-          >
-            My Posts
-          </button>
+          {myPostToggle ? (
+            <>
+              <button
+                style={{
+                  borderRadius: "24px",
+                  padding: "8px 40px 8px 40px",
+                }}
+                onClick={setAllPosts}
+              >
+                All Posts
+              </button>
+              <button
+                style={{
+                  borderRadius: "24px",
+                  padding: "8px 40px 8px 40px",
+                  backgroundColor: "#2E4D90",
+                  color: "#FFFFFF",
+                }}
+                onClick={setMyPosts}
+              >
+                My Posts
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                style={{
+                  borderRadius: "24px",
+                  padding: "8px 40px 8px 40px",
+                  backgroundColor: "#2E4D90",
+                  color: "#FFFFFF",
+                }}
+                onClick={setAllPosts}
+              >
+                All Posts
+              </button>
+              <button
+                style={{ borderRadius: "24px", padding: "8px 40px 8px 40px" }}
+                onClick={setMyPosts}
+              >
+                My Posts
+              </button>
+            </>
+          )}
         </div>
-        {posts.data?.map((p) => {
-          // get user name from id and pass it in
-          return <Post key={p.id} {...p} />;
-        })}
+        {myPostToggle
+          ? userPosts.data?.map((p) => {
+              // get user name from id and pass it in
+              return <Post key={p.id} {...p} />;
+            })
+          : posts.data?.map((p) => {
+              // get user name from id and pass it in
+              return <Post key={p.id} {...p} />;
+            })}
       </div>
     </div>
   );
