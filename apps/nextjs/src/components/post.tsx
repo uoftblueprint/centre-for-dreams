@@ -102,20 +102,17 @@ const Post: React.FC<GetDiscussionOutput> = ({
           padding: "2rem",
         }}
         onClick={(e) => {
-          if (
-        e.target instanceof HTMLElement &&
-        !e.target.closest("button")
-          ) {
-        openModal();
+          if (e.target instanceof HTMLElement && !e.target.closest("button")) {
+            openModal();
           }
         }}
         onKeyDown={(e) => {
           if (
-        (e.key === 'Enter' || e.key === ' ') &&
-        e.target instanceof HTMLElement &&
-        !e.target.closest("button")
+            (e.key === "Enter" || e.key === " ") &&
+            e.target instanceof HTMLElement &&
+            !e.target.closest("button")
           ) {
-        openModal();
+            openModal();
           }
         }}
         role="button"
