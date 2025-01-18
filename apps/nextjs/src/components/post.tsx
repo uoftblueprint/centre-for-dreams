@@ -101,6 +101,22 @@ const Post: React.FC<GetDiscussionOutput> = ({
           margin: "1.5rem auto",
           padding: "2rem",
         }}
+        onClick={(e) => {
+          if (e.target instanceof HTMLElement && !e.target.closest("button")) {
+            openModal();
+          }
+        }}
+        onKeyDown={(e) => {
+          if (
+            (e.key === "Enter" || e.key === " ") &&
+            e.target instanceof HTMLElement &&
+            !e.target.closest("button")
+          ) {
+            openModal();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       >
         {/* // TODO: when participant api is created, replace userId with the result of this API */}
 
