@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
+import { Pagination } from "@mui/material";
 
 import Discussion from "~/components/Discussion";
 import ReplyNotification from "~/components/ReplyNotification";
@@ -12,13 +13,23 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
-  const forumPosts = api.discussion.getDiscussions.useQuery().data;
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+  // const forumPosts = api.discussion.getDiscussions.useQuery().data;
+  const forumQuery = api.discussion.getDiscussions.useQuery({
+    page,
+    limit: itemsPerPage,
+  });
   const myPosts = api.discussion.getDiscussionsByUser.useQuery().data;
   const replies = api.discussion.getReplies.useQuery().data;
   const replyLength = replies?.length;
 
   const dataToDisplay =
-    selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
+    selectedTab === 1
+      ? forumQuery.data?.discussions
+      : selectedTab === 2
+        ? myPosts
+        : [];
 
   const renderHeader = () => (
     <View>
@@ -57,6 +68,13 @@ const Forum = () => {
       </View>
     </View>
   );
+
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
+    setPage(value);
+  };
 
   if (selectedTab == 3) {
     return (
@@ -110,6 +128,19 @@ const Forum = () => {
               </View>
             )}
           />
+          Pagination component:
+          {forumQuery.data && (
+            <View style={{ padding: 10 }}>
+              <Pagination
+                count={Math.ceil(
+                  (forumQuery.data.totalCount || 0) / itemsPerPage,
+                )}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </View>
+          )}
         </View>
       </SafeAreaView>
     );

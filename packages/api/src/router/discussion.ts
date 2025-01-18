@@ -5,17 +5,30 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const discussionRouter = createTRPCRouter({
-  getDiscussions: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.post.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { postType: "Discussion" },
-      include: {
-        comments: {
-          orderBy: { createdAt: "asc" },
-        },
-      },
-    });
-  }),
+  getDiscussions: protectedProcedure
+    .input(
+      z.object({
+        page: z.number().min(1).default(1),
+        limit: z.number().min(1).default(10),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const skip = (input.page - 1) * input.limit;
+      const where: Prisma.PostWhereInput = { postType: "Discussion" }; // Correct typing
+
+      const [discussions, totalCount] = await Promise.all([
+        ctx.db.post.findMany({
+          skip,
+          take: input.limit,
+          orderBy: { createdAt: "desc" },
+          where, // Use the correctly typed where clause
+          include: { comments: { orderBy: { createdAt: "asc" } } },
+        }),
+        ctx.db.post.count({ where }),
+      ]);
+
+      return { discussions, totalCount };
+    }),
   getDiscussionsByUser: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
     return await ctx.db.post.findMany({
