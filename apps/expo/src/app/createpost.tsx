@@ -49,85 +49,50 @@ function CreatePost() {
       },
     });
 
-  // const uploadImages = async (imageArray: Uint8Array[]) => {
-  //   try {
-  //     // Step 1: Create an array to store upload promises
-  //     const uploadPromises = imageArray.map((image, index) => {
-  //       const fileName = `uploaded-image-${title}-${index}.jpg`;
-  //       const params = {
-  //         Bucket: "cfd-post-image-upload",
-  //         Key: fileName,
-  //         Body: image,
-  //         ContentType: "image/jpeg",
-  //       };
-
-  //       // Return a promise that resolves to the uploaded image URL
-  //       return new Promise<string>((resolve, reject) => {
-  //         s3.upload(
-  //           params,
-  //           (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
-  //             if (error) {
-  //               reject(error);
-  //             } else {
-  //               resolve(data.Location);
-  //             }
-  //           },
-  //         );
-  //       });
-  //     });
-
-  //     // Step 2: Wait for all uploads to complete
-  //     const uploadedImages = await Promise.all(uploadPromises);
-
-  //     // Step 3: Update the state once with all uploaded image URLs
-  //     setImages((prevImages) => [...prevImages, ...uploadedImages]);
-  //     console.log("All images uploaded successfully:", uploadedImages);
-  //   } catch (error) {
-  //     console.error("Error during image upload:", error);
-  //   }
-  // };
-
   const createPost = async () => {
     if (title === "") {
       setErrorMessage("Title is required.");
     } else {
       setErrorMessage("");
 
-      // Step 1: Create an array to store upload promises
-      const uploadPromises = tempImages.map((image, index) => {
-        const fileName = `uploaded-image-${title}-${index}.jpg`;
-        const params = {
-          Bucket: "cfd-post-image-upload",
-          Key: fileName,
-          Body: image,
-          ContentType: "image/jpeg",
-        };
+      if (tempImages.length !== 0) {
 
-        // Return a promise that resolves to the uploaded image URL
-        return new Promise<string>((resolve, reject) => {
-          s3.upload(
-            params,
-            (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(data.Location);
-              }
-            },
-          );
+        // Step 1: Create an array to store upload promises
+        const uploadPromises = tempImages.map((image, index) => {
+          const fileName = `uploaded-image-${title}-${index}.jpg`;
+          const params = {
+            Bucket: "cfd-post-image-upload",
+            Key: fileName,
+            Body: image,
+            ContentType: "image/jpeg",
+          };
+
+          // Return a promise that resolves to the uploaded image URL
+          return new Promise<string>((resolve, reject) => {
+            s3.upload(
+              params,
+              (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve(data.Location);
+                }
+              },
+            );
+          });
         });
-      });
 
-      // Step 2: Wait for all uploads to complete
-      const uploadedImages = await Promise.all(uploadPromises);
+        // Step 2: Wait for all uploads to complete
+        const uploadedImages = await Promise.all(uploadPromises);
 
-      createDiscussion({
-        title: title,
-        contents: post,
-        images: uploadedImages,
-      });
-      console.log("Post successfully created.");
-      clearState();
+        createDiscussion({
+          title: title,
+          contents: post,
+          images: uploadedImages,
+        });
+        console.log("Post successfully created.");
+        clearState();
+      }
     }
   };
 
@@ -220,8 +185,15 @@ function CreatePost() {
               </View>
               <TextInput
                 value={title}
-                placeholder="Enter post title..."
-                className="border-p-40 h-12 w-full rounded-lg border bg-white p-2 shadow-inner shadow-sm"
+                placeholder={
+                  errorMessage === "Title is required."
+                    ? `${errorMessage}`
+                    : "Enter post title..."
+                }
+                placeholderTextColor={errorMessage ? "red" : "gray-500"}
+                className={`border-p-40 h-12 w-full rounded-lg border bg-white p-2 shadow-inner shadow-sm ${
+                  errorMessage ? "border-e-40" : "border-p-40"
+                }`}
                 onChangeText={(text) => setTitle(text)}
               />
 
@@ -240,6 +212,7 @@ function CreatePost() {
                 multiline
                 value={post}
                 placeholder="Write description here..."
+                placeholderTextColor="gray-500"
                 className="w-100 border-p-40 h-52 rounded-lg border bg-white p-2 shadow-inner shadow-sm"
                 onChangeText={(post) => setPost(post)}
                 aria-label="input"
@@ -279,7 +252,7 @@ function CreatePost() {
               {/* </TouchableOpacity> */}
 
               {/* Error Message */}
-              {errorMessage ? (
+              {(errorMessage && errorMessage != "Title is required.") ? (
                 <Text className="text-sm text-red-500">{errorMessage}</Text>
               ) : null}
             </View>
