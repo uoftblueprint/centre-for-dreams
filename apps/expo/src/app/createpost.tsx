@@ -53,10 +53,7 @@ function CreatePost() {
     if (title === "") {
       setErrorMessage("Title is required.");
     } else {
-      setErrorMessage("");
-
-      if (tempImages.length !== 0) {
-
+      if (tempImages.length !== 0 && AWS.config.credentials) {
         // Step 1: Create an array to store upload promises
         const uploadPromises = tempImages.map((image, index) => {
           const fileName = `uploaded-image-${title}-${index}.jpg`;
@@ -85,13 +82,40 @@ function CreatePost() {
         // Step 2: Wait for all uploads to complete
         const uploadedImages = await Promise.all(uploadPromises);
 
-        createDiscussion({
-          title: title,
-          contents: post,
-          images: uploadedImages,
-        });
-        console.log("Post successfully created.");
-        clearState();
+        try {
+          createDiscussion({
+            title: title,
+            contents: post,
+            images: uploadedImages,
+          });
+          console.log("Post successfully created.");
+          clearState();
+        } catch (error) {
+          console.error("Error creating the discussion:", error);
+          setErrorMessage(
+            "An error occurred while creating the post. Please try again.",
+          );
+        }
+      } else if (tempImages.length !== 0 && !AWS.config.credentials) {
+        setErrorMessage(
+          "Image uploading is not supported without AWS credentials. You can still create non-image posts before setting up AWS.",
+        );
+      } else {
+        setErrorMessage("");
+        try {
+          createDiscussion({
+            title: title,
+            contents: post,
+            images: [],
+          });
+          console.log("Post successfully created.");
+          clearState();
+        } catch (error) {
+          console.error("Error creating the discussion:", error);
+          setErrorMessage(
+            "An error occurred while creating the post. Please try again.",
+          );
+        }
       }
     }
   };
@@ -190,9 +214,13 @@ function CreatePost() {
                     ? `${errorMessage}`
                     : "Enter post title..."
                 }
-                placeholderTextColor={errorMessage ? "red" : "gray-500"}
+                placeholderTextColor={
+                  errorMessage === "Title is required." ? "red" : "gray-500"
+                }
                 className={`border-p-40 h-12 w-full rounded-lg border bg-white p-2 shadow-inner shadow-sm ${
-                  errorMessage ? "border-e-40" : "border-p-40"
+                  errorMessage === "Title is required."
+                    ? "border-e-40"
+                    : "border-p-40"
                 }`}
                 onChangeText={(text) => setTitle(text)}
               />
@@ -252,7 +280,7 @@ function CreatePost() {
               {/* </TouchableOpacity> */}
 
               {/* Error Message */}
-              {(errorMessage && errorMessage != "Title is required.") ? (
+              {errorMessage && errorMessage != "Title is required." ? (
                 <Text className="text-sm text-red-500">{errorMessage}</Text>
               ) : null}
             </View>
