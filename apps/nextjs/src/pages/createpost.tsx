@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import AWS from "aws-sdk";
 
 import { api } from "~/utils/api";
+import { env } from "../env.mjs";
+
+AWS.config.update({
+  accessKeyId: env.AWS_ACCESS_KEY,
+  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+  region: env.AWS_REGION,
+});
+const s3 = new AWS.S3();
 
 interface FormData {
   title: string;
   contents: string;
+  images: string[];
 }
 
 const CreatePost = () => {
@@ -18,18 +28,22 @@ const CreatePost = () => {
 
   const [isSuccess, setIsSuccess] = useState(false); // State to track success
 
-  const { mutate: createAnnouncement, error } =
-    api.announcement.createAnnouncement.useMutation({
+  const { mutate: createDiscussion, error } =
+    api.discussion.createDiscussion.useMutation({
       onSuccess: () => {
         setIsSuccess(true); // Set success state on successful mutation
         reset(); // Reset form fields
       },
+      onError: (error) => {
+        console.error("Error creating discussion:", error);
+      },
     });
 
   const onSubmit = (data: FormData) => {
-    createAnnouncement({
+    createDiscussion({
       title: data.title,
       contents: data.contents,
+      images: data.images,
     });
   };
 
