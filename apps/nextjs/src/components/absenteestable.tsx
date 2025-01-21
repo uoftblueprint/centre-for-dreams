@@ -29,10 +29,8 @@ export default function AbsenteesTable() {
     if (allAbsences) {
       const foundAbsences: number[] = [];
       allAbsences.forEach((absence) => {
-        if (
-          new Date(absence.absenceDate).toDateString() ==
-          selectedDate?.toDateString()
-        ) {
+        // DB stores the absence date in UTC time - disregard the time
+        if (selectedDate && areDatesEqual(new Date(absence.absenceDate.getUTCFullYear(), absence.absenceDate.getUTCMonth(), absence.absenceDate.getUTCDate()), selectedDate)) {
           foundAbsences.push(absence.participantId);
         }
       });
@@ -167,3 +165,11 @@ function DropdownIcon(isSelected: boolean) {
     </svg>
   );
 }
+
+function areDatesEqual(date1: Date, date2: Date) {
+  return (
+    date1.getDate() === date2.getDate() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getFullYear() === date2.getFullYear()
+  );
+};
