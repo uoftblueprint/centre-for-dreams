@@ -143,24 +143,6 @@ export default function Discussion({
     </View>
   );
 
-  // const imageURLtoBase64String = async (i: string) => {
-  //   const fileName = i.split("/").pop();
-  //   if (!fileName) {
-  //     throw new Error("Invalid image URL");
-  //   }
-  //   const params = {
-  //     Bucket: "cfd-post-image-upload",
-  //     Key: fileName,
-  //   };
-  //   const data = await s3.getObject(params).promise();
-  //   if (!data.Body) {
-  //     throw new Error("Failed to download image");
-  //   }
-  //   const buffer = Buffer.from(data.Body as ArrayBuffer);
-  //   const base64String = buffer.toString("base64");
-  //   return base64String;
-  // };
-
   return (
     <View className="h-25 mx-auto w-11/12">
       <View className="rounded-lg bg-white p-4">
@@ -224,17 +206,6 @@ export default function Discussion({
                 // eslint-disable-next-line
                 const base64String = data.Body.toString("base64");
                 const imageSrc = `data:image/jpeg;base64,${base64String}`;
-
-                // Convert Uint8Array to base64
-                // const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
-                //   let binary = "";
-                //   uint8Array.forEach((byte) => {
-                //     binary += String.fromCharCode(byte);
-                //   });
-                //   return `data:image/png;base64,${btoa(binary)}`;
-                // };
-
-                // const base64String = uint8ArrayToBase64(i);
 
                 return (
                   <View key="0" className="mb-3 mr-4">
