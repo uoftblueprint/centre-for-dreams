@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import AWS from "aws-sdk";
 
 import { api } from "~/utils/api";
-import { env } from "../env.mjs";
 
-AWS.config.update({
-  accessKeyId: env.AWS_ACCESS_KEY,
-  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-  region: env.AWS_REGION,
-});
-const s3 = new AWS.S3();
 
 interface FormData {
   title: string;
@@ -53,6 +45,8 @@ const CreatePost = () => {
       setIsSuccess(false);
     }
   };
+
+  const pickImage
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
