@@ -30,7 +30,17 @@ export default function AbsenteesTable() {
       const foundAbsences: number[] = [];
       allAbsences.forEach((absence) => {
         // DB stores the absence date in UTC time - disregard the time
-        if (selectedDate && areDatesEqual(new Date(absence.absenceDate.getUTCFullYear(), absence.absenceDate.getUTCMonth(), absence.absenceDate.getUTCDate()), selectedDate)) {
+        if (
+          selectedDate &&
+          areDatesEqual(
+            new Date(
+              absence.absenceDate.getUTCFullYear(),
+              absence.absenceDate.getUTCMonth(),
+              absence.absenceDate.getUTCDate(),
+            ),
+            selectedDate,
+          )
+        ) {
           foundAbsences.push(absence.participantId);
         }
       });
@@ -172,4 +182,4 @@ function areDatesEqual(date1: Date, date2: Date) {
     date1.getMonth() === date2.getMonth() &&
     date1.getFullYear() === date2.getFullYear()
   );
-};
+}
