@@ -20,8 +20,8 @@
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
     "eslint": "^8.57.1",
-    "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
   },
   "eslintConfig": {
     "root": true,

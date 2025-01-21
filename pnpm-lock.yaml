@@ -184,13 +184,13 @@ importers:
         specifier: ^1.3.0
         version: 1.12.5
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   apps/nextjs:
@@ -275,13 +275,13 @@ importers:
         specifier: 8.4.33
         version: 8.4.33
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   packages/api:
@@ -327,13 +327,13 @@ importers:
         specifier: ^8.57.1
         version: 8.57.1
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       trpc-panel:
         specifier: ^1.3.4
         version: 1.3.4(@trpc/server@10.45.2)(zod@3.24.1)
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   packages/db:
@@ -380,13 +380,13 @@ importers:
         specifier: ^8.57.1
         version: 8.57.1
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       prisma:
         specifier: ^5.11.0
         version: 5.22.0
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   packages/logger:
@@ -411,10 +411,10 @@ importers:
         specifier: ^8.57.1
         version: 8.57.1
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   tooling/eslint:
@@ -449,6 +449,9 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^4.6.0
         version: 4.6.2(eslint@8.57.1)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
     devDependencies:
       '@cfd/prettier-config':
         specifier: ^0.1.0
@@ -460,7 +463,7 @@ importers:
         specifier: ^8.57.1
         version: 8.57.1
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   tooling/prettier:
@@ -469,7 +472,7 @@ importers:
         specifier: ^4.1.1
         version: 4.4.1(prettier@3.4.2)
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       prettier-plugin-prisma:
         specifier: 5.0.0
@@ -482,7 +485,7 @@ importers:
         specifier: ^0.1.0
         version: link:../typescript
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   tooling/tailwind:
@@ -510,16 +513,20 @@ importers:
         specifier: ^8.57.1
         version: 8.57.1
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.4.2
         version: 3.4.2
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
   tooling/typescript:
+    dependencies:
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
     devDependencies:
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
 packages:
