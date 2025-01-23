@@ -97,21 +97,35 @@ export default function InviteUser() {
             margin: "8px",
           }}
         >
-          <a href="/activities/">Create New</a>
+          <a href="/">Create New</a>
         </button>
       </div>
       <div style={{
           display: "flex",
           flexDirection: "column",
-          alignContent: "center",
           width: "-webkit-fill-available",
-          paddingTop: "24px",
+          justifyContent: "center",
         }}>
-        <form style={{display: "flex", justifyContent: "center"}}>
-          <div style={{display: "flex", flexDirection: "column", width: "50%", justifyContent: "center"}}>
-          <label htmlFor="email" style={{color: "#000000", fontSize: "16px"}}>Email</label>
-          <input type="text" id="email" name="email" style={{padding: "4px", backgroundColor: "#EFF2FB", borderRadius: "10px"}}/>
+        <div style={{fontSize: "32px", textAlign: "center", paddingBottom: "36px"}}>Invite new user</div>
+        <form onSubmit={(e) => e.preventDefault()} style={{display: "flex", flexDirection: "column", justifyContent: "center", paddingBottom: "16px"}}>
+          <div style={{display: "flex", flexDirection: "column", width: "50%", justifyContent: "center", margin: "0 auto", paddingBottom: "24px"}}>
+            <label htmlFor="email" style={{color: "#000000", fontSize: "16px"}}>Email</label>
+            <input type="text" id="email" style={{padding: "8px", backgroundColor: "#EFF2FB", borderRadius: "10px"}}/>
           </div>
+          <div style={{display: "flex", flexDirection: "column", width: "50%", justifyContent: "center", margin: "0 auto", paddingBottom: "36px"}}>
+            <label htmlFor="password" style={{color: "#000000", fontSize: "16px"}}>Temporary Password</label>
+            <input type="password" id="password" style={{padding: "8px", backgroundColor: "#EFF2FB", borderRadius: "10px"}}/>
+          </div>
+          <button 
+            style={{
+              width: "50%", 
+              backgroundColor: "#2E4D90",
+              borderRadius: "24px",
+              padding: "8px",
+              margin: "0 auto",
+              color: "#FFFFFF"
+            }}
+          >Invite</button>
         </form>
       </div>
     </div>
