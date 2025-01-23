@@ -7,7 +7,7 @@ interface AnnouncementProps {
   createdAt: string;
   userId: number;
   currentUserId: number;
-};
+}
 
 const Announcement: React.FC<AnnouncementProps> = ({
   contents,

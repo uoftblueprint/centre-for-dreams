@@ -55,7 +55,7 @@ function Announcements() {
               borderColor: "#2E4D90",
               borderRadius: "24px",
               padding: "8px",
-              margin: "8px"
+              margin: "8px",
             }}
           >
             <a href="/posts/">Forum</a>
@@ -187,10 +187,24 @@ function Announcements() {
           ? announcements.data
               ?.filter((a) => a.userId === currentUser?.id) // Filter announcements by userId
               .map((a) => {
-                return <Announcement key={a.id} {...a} currentUserId={currentUser?.id ?? 0} createdAt={a.createdAt.toISOString()} />;
+                return (
+                  <Announcement
+                    key={a.id}
+                    {...a}
+                    currentUserId={currentUser?.id ?? 0}
+                    createdAt={a.createdAt.toISOString()}
+                  />
+                );
               })
           : announcements.data?.map((a) => {
-              return <Announcement key={a.id} {...a} currentUserId={currentUser?.id ?? 0} createdAt={a.createdAt.toISOString()} />;
+              return (
+                <Announcement
+                  key={a.id}
+                  {...a}
+                  currentUserId={currentUser?.id ?? 0}
+                  createdAt={a.createdAt.toISOString()}
+                />
+              );
             })}
       </div>
     </div>
