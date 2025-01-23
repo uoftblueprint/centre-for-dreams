@@ -34,8 +34,9 @@ model Developers {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  title     String?
-  contents  String
+  title     String
+  contents  String?
+  images    String[]
   createdAt DateTime  @default(now())
   comments  Comment[]
   postType  PostType
