@@ -6,6 +6,9 @@
     "base.json"
   ],
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "prettier": "^3.4.2"
   }
 }
