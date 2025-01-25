@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Button } from '../ui/button'
 import { CalendarIcon } from 'lucide-react'
 import { format } from "date-fns"
-import { cn } from '~/utils/utils'
+import { cn } from '~/lib/utils'
 import { Calendar } from '../ui/calendar'
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
