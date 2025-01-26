@@ -41,8 +41,8 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
     };
 
     const onSubmit = (data: CreateAnnouncement) => {
-        data.day = date || new Date();
-        data.startTime = startTime || new Date();
+        data.day = date ?? new Date();
+        data.startTime = startTime ?? new Date();
         data.durationMinutes = parseInt(data.durationMinutes.toString(), 10);
         createActivity({
             name: data.name,
@@ -84,7 +84,7 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
                                     mode="single"
-                                    selected={date || new Date()}
+                                    selected={date ?? new Date()}
                                     onSelect={setDate}
                                     initialFocus
                                 />
@@ -98,7 +98,7 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
                             <input onChange={(e) => {
                                 const [hours, minutes] = e.target.value.split(":").map(Number);
                                 const time = new Date();
-                                time.setUTCHours(hours || 0, minutes, 0, 0);
+                                time.setUTCHours(hours ?? 0, minutes, 0, 0);
                                 setStartTime(time);
                             }}
                                 value={startTime ? new Date(startTime.toLocaleString("en-US", { timeZone: "America/New_York" })).toISOString().substring(11, 16) : ''}
