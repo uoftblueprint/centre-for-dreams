@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Button } from '../ui/button'
 import { CalendarIcon } from 'lucide-react'
@@ -54,6 +54,10 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
         });
     };
 
+    useEffect(() => {
+        setDate(new Date())
+    }, [])
+
     return (
         <div className={`w-screen h-screen bg-black/80 flex justify-center items-center fixed top-0 left-0 ${open ? "" : "invisible"}`} onSubmit={handleSubmit(onSubmit)}>
             <form className='m-12 w-full min-w-[320px] sm:w-2/3 lg:w-1/2 xl:w-2/5 border-b-2 bg-white rounded-lg max-sm:text-sm font-semibold p-6 sm:p-12 flex gap-3 flex-col'>
@@ -102,7 +106,7 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
                         </div>
                         <div className='w-full flex flex-col gap-2'>
                             <label>Duration (Minutes)</label>
-                            <input {...register("durationMinutes", { required: true })} name='durationMinutes' required min="15" type='int' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
+                            <input {...register("durationMinutes", { required: true })} name='durationMinutes' required min={15} type='number' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
                         </div>
 
                     </div>
