@@ -47,6 +47,21 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
+  getActivity: adminProcedure
+    .input(z.object({id: z.number().nonnegative()}))
+    .query(async ({ ctx, input }) => {
+      const activity = await ctx.db.activity.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+  
+      if (!activity) {
+        throw new Error(`Activity with id ${input.id} not found`);
+      }
+  
+      return activity;
+    }),
   createActivity: adminProcedure
     .input(
       z.object({
