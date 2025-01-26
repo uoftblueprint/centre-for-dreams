@@ -3,7 +3,7 @@ import React from "react";
 interface AnnouncementProps {
   id: number;
   title: string | null;
-  contents: string;
+  contents: string | null;
   createdAt: string;
   userId: number;
   currentUserId: number;
