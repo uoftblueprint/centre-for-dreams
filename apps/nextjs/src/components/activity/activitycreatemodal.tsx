@@ -62,14 +62,14 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
         <div className={`w-screen h-screen bg-black/80 flex justify-center items-center fixed top-0 left-0 ${open ? "" : "invisible"}`} onSubmit={handleSubmit(onSubmit)}>
             <form className='m-12 w-full min-w-[320px] sm:w-2/3 lg:w-1/2 xl:w-2/5 border-b-2 bg-white rounded-lg max-sm:text-sm font-semibold p-6 sm:p-12 flex gap-3 flex-col'>
                 <div className='flex flex-col gap-2'>
-                    <label>Title</label>
-                    <input required {...register("name", { required: true })} name='name' onChange={handleInputChange} type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none hover:bg-slate-200/70' />
+                    <label htmlFor='name'>Title</label>
+                    <input required {...register("name", { required: true })} name='name' onChange={handleInputChange} id='name' type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none hover:bg-slate-200/70' />
                 </div>
                 <div className='flex flex-col lg:flex-row gap-3'>
                     <div className='flex flex-col gap-2 lg:w-2/5'>
-                        <label>Date</label>
+                        <label htmlFor='day'>Date</label>
                         <Popover>
-                            <PopoverTrigger asChild className='bg-slate-200 rounded-md p-3 font-normal focus:bg-gray-100 focus:outline-none h-full border-none w-full'>
+                            <PopoverTrigger asChild className='bg-slate-200 rounded-md p-3 font-normal focus:bg-gray-100 focus:outline-none h-full border-none w-full' id='day'>
                                 <Button
                                     variant={"outline"}
                                     className={cn(
@@ -94,7 +94,7 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
 
                     <div className='flex gap-2 w-full'>
                         <div className='w-full flex flex-col gap-2'>
-                            <label>Time</label>
+                            <label htmlFor="startTime">Time</label>
                             <input onChange={(e) => {
                                 const [hours, minutes] = e.target.value.split(":").map(Number);
                                 const time = new Date();
@@ -102,24 +102,24 @@ const ActivityCreateModal = ({ open, setOpen }: { open: boolean, setOpen: React.
                                 setStartTime(time);
                             }}
                                 value={startTime ? new Date(startTime.toLocaleString("en-US", { timeZone: "America/New_York" })).toISOString().substring(11, 16) : ''}
-                                required name='startTime' type='time' className='bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
+                                id="startTime" required name='startTime' type='time' className='bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
                         </div>
                         <div className='w-full flex flex-col gap-2'>
-                            <label>Duration (Minutes)</label>
-                            <input {...register("durationMinutes", { required: true })} name='durationMinutes' required min={15} type='number' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
+                            <label htmlFor='durationMinutes'>Duration (Minutes)</label>
+                            <input {...register("durationMinutes", { required: true })} id='durationMinutes' name='durationMinutes' required min={15} type='number' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer' />
                         </div>
 
                     </div>
                 </div>
 
                 <div className='flex flex-col gap-2'>
-                    <label>Location</label>
-                    <input {...register("location", { required: true })} onChange={handleInputChange} required name='location' type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70' />
+                    <label htmlFor='location'>Location</label>
+                    <input {...register("location", { required: true })} id='location' onChange={handleInputChange} required name='location' type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70' />
                 </div>
 
                 <div className='flex flex-col gap-2'>
-                    <label>Leader</label>
-                    <input {...register("leader", { required: true })} onChange={handleInputChange} required name='leader' type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70' />
+                    <label htmlFor='leader'>Leader</label>
+                    <input {...register("leader", { required: true })} id='leader' onChange={handleInputChange} required name='leader' type='text' className='bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70' />
                 </div>
 
                 <div className='flex gap-3 self-end text-xs sm:text-sm text-center'>
