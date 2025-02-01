@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ToggleSwitchProps {
   checked: boolean;
@@ -45,7 +45,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => {
           border-radius: 50%;
         }
         input:checked + .slider {
-          background-color: #2196F3;
+          background-color: #2196f3;
         }
         input:checked + .slider:before {
           transform: translateX(14px);
