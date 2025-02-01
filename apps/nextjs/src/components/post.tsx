@@ -94,7 +94,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
   return (
     <>
       <div
-        className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-3/4 mx-auto p-8"
+        className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-4/5 mx-auto p-8"
         onClick={(e) => {
           if (e.target instanceof HTMLElement && !e.target.closest("button")) {
             openModal();
@@ -112,7 +112,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
         role="button"
         tabIndex={0}
       >
-        <div className="flex justify-between">
+        <div className="flex flex-row justify-between">
           <h2 className="text-2xl font-bold mb-0 leading-none">User {userId}</h2>
           <button className="w-5">
             <svg
@@ -138,9 +138,9 @@ const Post: React.FC<GetDiscussionOutput> = ({
 
         <p className="text-gray-700 pb-4">{contents}</p>
 
-        <div className="flex gap-5">
+        <div className="flex flex-row gap-5">
           <button
-            className="flex gap-1.5 cursor-pointer"
+            className="flex flex-row gap-1.5 cursor-pointer"
             onClick={handleLike}
           >
             <svg
@@ -159,11 +159,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
               />
             </svg>
 
-            <p>{likesCount}</p>
+            <p> {likesCount} </p>
           </button>
 
           <button
-            className="flex gap-1.5 cursor-pointer"
+            className="flex flex-row gap-1.5 cursor-pointer"
             onClick={openModal}
             onKeyDown={openModal}
           >
@@ -183,7 +183,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
               />
             </svg>
 
-            <p>{comments.length}</p>
+            <p> {comments.length} </p>
           </button>
         </div>
       </div>
@@ -202,7 +202,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
               </div>
               <div className="right-one-third col-start-2 col-end-3 flex flex-col justify-between mt-8">
                 <div className="h-1/2 flex flex-col justify-start">
-                  <div className="flex justify-between">
+                  <div className="flex flex-row justify-between">
                     <h2 className="text-2xl font-bold mb-0 leading-none">
                       User {userId}
                     </h2>
@@ -213,9 +213,9 @@ const Post: React.FC<GetDiscussionOutput> = ({
 
                   <p className="text-gray-700 pb-6">{contents}</p>
 
-                  <div className="flex gap-5">
+                  <div className="flex flex-row gap-5">
                     <button
-                      className="flex gap-1.5 cursor-pointer"
+                      className="flex flex-row gap-1.5 cursor-pointer"
                       onClick={handleLike}
                     >
                       <svg
@@ -234,11 +234,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
                         />
                       </svg>
 
-                      <p>{likesCount}</p>
+                      <p> {likesCount} </p>
                     </button>
 
                     <button
-                      className="flex gap-1.5 cursor-pointer"
+                      className="flex flex-row gap-1.5 cursor-pointer"
                       onClick={openModal}
                       onKeyDown={openModal}
                     >
@@ -258,7 +258,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
                         />
                       </svg>
 
-                      <p>{comments.length}</p>
+                      <p> {comments.length} </p>
                     </button>
                   </div>
                 </div>
@@ -274,7 +274,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     ))}
                   </ul>
 
-                  <div className="flex border border-[#2E4D90] rounded-lg items-center">
+                  <div className="flex flex-row border border-[#2E4D90] rounded-lg w-min items-center">
                     <input
                       id="comment_box"
                       value={comment}

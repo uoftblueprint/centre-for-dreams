@@ -6,7 +6,8 @@ import Announcement from "../components/announcement";
 
 function Announcements() {
   const announcements = api.announcement.getAnnouncements.useQuery();
-  const { userId, isSignedIn } = useAuth();
+  const users = api.user.getAllUsers.useQuery();
+  const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
   const [myAnnouncementToggle, setMyAnnouncementToggle] = useState(true);
 
@@ -18,9 +19,12 @@ function Announcements() {
     setMyAnnouncementToggle(false);
   };
 
+  // Find the user whose clerkId matches the userId from useAuth
+  const currentUser = users.data?.find((user) => user.clerkId === userId);
+
   return (
     <div className="flex absolute w-full top-0 bottom-0">
-      <div className="flex flex-col bg-[#EFF2FB] p-4 justify-between sticky top-0">
+      <div className="flex flex-col bg-[#EFF2FB] p-4 max-w-[40%] justify-between sticky top-0">
         {isSignedIn ? "" : <SignInButton />}
         <UserButton afterSignOutUrl="/" showName />
         <nav className="flex flex-col">
@@ -45,7 +49,7 @@ function Announcements() {
         </button>
       </div>
       <div className="flex flex-col items-center w-full pt-6">
-        <div className="border border-[#2E4D90] rounded-3xl m-2 w-max self-center">
+        <div className="border border-[#2E4D90] rounded-3xl m-2 max-w-max self-center">
           {myAnnouncementToggle ? (
             <>
               <button
@@ -80,12 +84,26 @@ function Announcements() {
         </div>
         {myAnnouncementToggle
           ? announcements.data
-              ?.filter((a) => a.userId.toString() === userId) // Filter announcements by userId
+              ?.filter((a) => a.userId === currentUser?.id) // Filter announcements by userId
               .map((a) => {
-                return <Announcement key={a.id} {...a} createdAt={a.createdAt.toISOString()} />;
+                return (
+                  <Announcement
+                    key={a.id}
+                    {...a}
+                    currentUserId={currentUser?.id ?? 0}
+                    createdAt={a.createdAt.toISOString()}
+                  />
+                );
               })
           : announcements.data?.map((a) => {
-              return <Announcement key={a.id} {...a} createdAt={a.createdAt.toISOString()} />;
+              return (
+                <Announcement
+                  key={a.id}
+                  {...a}
+                  currentUserId={currentUser?.id ?? 0}
+                  createdAt={a.createdAt.toISOString()}
+                />
+              );
             })}
       </div>
     </div>
