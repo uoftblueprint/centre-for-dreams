@@ -94,7 +94,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
   return (
     <>
       <div
-        className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-3/4 mx-auto p-8"
+        className="border-y-3 mx-auto my-2.5 w-3/4 rounded-lg bg-[#EFF2FB] p-8"
         onClick={(e) => {
           if (e.target instanceof HTMLElement && !e.target.closest("button")) {
             openModal();
@@ -113,7 +113,9 @@ const Post: React.FC<GetDiscussionOutput> = ({
         tabIndex={0}
       >
         <div className="flex flex-row justify-between">
-          <h2 className="text-2xl font-bold mb-0 leading-none">User {userId}</h2>
+          <h2 className="mb-0 text-2xl font-bold leading-none">
+            User {userId}
+          </h2>
           <button className="w-5">
             <svg
               width="20"
@@ -136,11 +138,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
           Posted: {createdAt.toDateString()}
         </p>
 
-        <p className="text-gray-700 pb-4">{contents}</p>
+        <p className="pb-4 text-gray-700">{contents}</p>
 
         <div className="flex flex-row gap-5">
           <button
-            className="flex flex-row gap-1.5 cursor-pointer"
+            className="flex cursor-pointer flex-row gap-1.5"
             onClick={handleLike}
           >
             <svg
@@ -163,7 +165,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
           </button>
 
           <button
-            className="flex flex-row gap-1.5 cursor-pointer"
+            className="flex cursor-pointer flex-row gap-1.5"
             onClick={openModal}
             onKeyDown={openModal}
           >
@@ -189,21 +191,18 @@ const Post: React.FC<GetDiscussionOutput> = ({
       </div>
 
       {modalVisible && (
-        <div className="absolute bg-[#EFF2FBCC] top-0 left-0 right-0 bottom-0">
-          <div className="modal bg-white absolute top-8 left-8 right-8 bottom-8 m-2.5 rounded-lg">
-            <div className="grid grid-cols-[1fr_10fr_1fr] grid-rows-1 h-full">
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[#EFF2FBCC]">
+          <div className="modal absolute bottom-8 left-8 right-8 top-8 m-2.5 rounded-lg bg-white">
+            <div className="grid h-full grid-cols-[1fr_10fr_1fr] grid-rows-1">
               <div className="left-two-thirds col-start-1 col-end-2">
-                <button
-                  className="exit-out p-6"
-                  onClick={closeModal}
-                >
+                <button className="exit-out p-6" onClick={closeModal}>
                   X
                 </button>
               </div>
-              <div className="right-one-third col-start-2 col-end-3 flex flex-col justify-between mt-8">
-                <div className="h-1/2 flex flex-col justify-start">
+              <div className="right-one-third col-start-2 col-end-3 mt-8 flex flex-col justify-between">
+                <div className="flex h-1/2 flex-col justify-start">
                   <div className="flex flex-row justify-between">
-                    <h2 className="text-2xl font-bold mb-0 leading-none">
+                    <h2 className="mb-0 text-2xl font-bold leading-none">
                       User {userId}
                     </h2>
                   </div>
@@ -211,11 +210,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     Posted: {createdAt.toDateString()}
                   </p>
 
-                  <p className="text-gray-700 pb-6">{contents}</p>
+                  <p className="pb-6 text-gray-700">{contents}</p>
 
                   <div className="flex flex-row gap-5">
                     <button
-                      className="flex flex-row gap-1.5 cursor-pointer"
+                      className="flex cursor-pointer flex-row gap-1.5"
                       onClick={handleLike}
                     >
                       <svg
@@ -238,7 +237,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     </button>
 
                     <button
-                      className="flex flex-row gap-1.5 cursor-pointer"
+                      className="flex cursor-pointer flex-row gap-1.5"
                       onClick={openModal}
                       onKeyDown={openModal}
                     >
@@ -274,14 +273,14 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     ))}
                   </ul>
 
-                  <div className="flex flex-row border border-[#2E4D90] rounded-lg w-min items-center">
+                  <div className="flex w-min flex-row items-center rounded-lg border border-[#2E4D90]">
                     <input
                       id="comment_box"
                       value={comment}
                       onChange={handleCommentChange}
                       type="text"
                       placeholder="Add a comment"
-                      className="border border-[#2E4D90] rounded-lg p-1 border-t-0 border-r-0 border-b-0"
+                      className="rounded-lg border border-b-0 border-r-0 border-t-0 border-[#2E4D90] p-1"
                     />
                     <button className="h-full" onClick={handleCommentSubmit}>
                       <svg

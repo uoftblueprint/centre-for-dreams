@@ -26,9 +26,9 @@ const Announcement: React.FC<AnnouncementProps> = ({
   };
 
   return (
-    <div className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-3/4 mx-auto p-8">
+    <div className="border-y-3 mx-auto my-2.5 w-3/4 rounded-lg bg-[#EFF2FB] p-8">
       <div className="flex flex-row justify-between">
-        <h2 className="text-2xl font-bold mb-0 leading-none">User {userId}</h2>
+        <h2 className="mb-0 text-2xl font-bold leading-none">User {userId}</h2>
         {isCurrentUser && (
           <div className="flex gap-4">
             <button onClick={handleDelete} className="w-5">
@@ -72,7 +72,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
         Posted: {new Date(createdAt).toDateString()}
       </p>
 
-      <p className="text-gray-700 pb-4">{contents}</p>
+      <p className="pb-4 text-gray-700">{contents}</p>
     </div>
   );
 };
