@@ -94,13 +94,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
   return (
     <>
       <div
-        className="border-y-3 my-10px rounded-lg"
-        style={{
-          backgroundColor: "#EFF2FB",
-          width: "70%",
-          margin: "1.5rem auto",
-          padding: "2rem",
-        }}
+        className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-3/4 mx-auto p-8"
         onClick={(e) => {
           if (e.target instanceof HTMLElement && !e.target.closest("button")) {
             openModal();
@@ -118,22 +112,9 @@ const Post: React.FC<GetDiscussionOutput> = ({
         role="button"
         tabIndex={0}
       >
-        {/* // TODO: when participant api is created, replace userId with the result of this API */}
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <h2
-            className="text-2xl font-bold"
-            style={{ marginBottom: "0", lineHeight: "1" }}
-          >
-            User {userId}
-          </h2>
-          <button style={{ width: "20px" }}>
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-bold mb-0 leading-none">User {userId}</h2>
+          <button className="w-5">
             <svg
               width="20"
               height="21"
@@ -155,18 +136,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
           Posted: {createdAt.toDateString()}
         </p>
 
-        <p className="text-gray-700" style={{ paddingBottom: "16px" }}>
-          {contents}
-        </p>
+        <p className="text-gray-700 pb-4">{contents}</p>
 
-        <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
+        <div className="flex gap-5">
           <button
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "5px",
-              cursor: "pointer",
-            }}
+            className="flex gap-1.5 cursor-pointer"
             onClick={handleLike}
           >
             <svg
@@ -185,16 +159,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
               />
             </svg>
 
-            <p> {likesCount} </p>
+            <p>{likesCount}</p>
           </button>
 
           <button
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "5px",
-              cursor: "pointer",
-            }}
+            className="flex gap-1.5 cursor-pointer"
             onClick={openModal}
             onKeyDown={openModal}
           >
@@ -214,84 +183,27 @@ const Post: React.FC<GetDiscussionOutput> = ({
               />
             </svg>
 
-            <p> {comments.length} </p>
+            <p>{comments.length}</p>
           </button>
         </div>
       </div>
 
       {modalVisible && (
-        <div
-          style={{
-            position: "absolute",
-            backgroundColor: "#EFF2FBCC",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        >
-          <div
-            className="modal"
-            style={{
-              backgroundColor: "white",
-              position: "absolute",
-              top: "2rem",
-              left: "2rem",
-              right: "2rem",
-              bottom: "2rem",
-              margin: "10px;",
-              borderRadius: "10px",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 10fr 1fr",
-                gridTemplateRows: "repeat(1, 1fr)",
-                height: "100%",
-              }}
-            >
-              <div
-                className="left-two-thirds"
-                style={{ gridArea: "1 / 1 / 2 / 2" }}
-              >
+        <div className="absolute bg-[#EFF2FBCC] top-0 left-0 right-0 bottom-0">
+          <div className="modal bg-white absolute top-8 left-8 right-8 bottom-8 m-2.5 rounded-lg">
+            <div className="grid grid-cols-[1fr_10fr_1fr] grid-rows-1 h-full">
+              <div className="left-two-thirds col-start-1 col-end-2">
                 <button
-                  className="exit-out"
-                  style={{ padding: "1.5rem 1.5rem" }}
+                  className="exit-out p-6"
                   onClick={closeModal}
                 >
                   X
                 </button>
               </div>
-              <div
-                className="right-one-third"
-                style={{
-                  gridArea: "1 / 2 / 2 / 3",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  marginTop: "2rem",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    justifyContent: "start",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <h2
-                      className="text-2xl font-bold"
-                      style={{ marginBottom: "0", lineHeight: "1" }}
-                    >
+              <div className="right-one-third col-start-2 col-end-3 flex flex-col justify-between mt-8">
+                <div className="h-1/2 flex flex-col justify-start">
+                  <div className="flex justify-between">
+                    <h2 className="text-2xl font-bold mb-0 leading-none">
                       User {userId}
                     </h2>
                   </div>
@@ -299,27 +211,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
                     Posted: {createdAt.toDateString()}
                   </p>
 
-                  <p
-                    className="text-gray-700"
-                    style={{ paddingBottom: "24px" }}
-                  >
-                    {contents}
-                  </p>
+                  <p className="text-gray-700 pb-6">{contents}</p>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "20px",
-                    }}
-                  >
+                  <div className="flex gap-5">
                     <button
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "5px",
-                        cursor: "pointer",
-                      }}
+                      className="flex gap-1.5 cursor-pointer"
                       onClick={handleLike}
                     >
                       <svg
@@ -338,16 +234,11 @@ const Post: React.FC<GetDiscussionOutput> = ({
                         />
                       </svg>
 
-                      <p> {likesCount} </p>
+                      <p>{likesCount}</p>
                     </button>
 
                     <button
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "5px",
-                        cursor: "pointer",
-                      }}
+                      className="flex gap-1.5 cursor-pointer"
                       onClick={openModal}
                       onKeyDown={openModal}
                     >
@@ -367,61 +258,39 @@ const Post: React.FC<GetDiscussionOutput> = ({
                         />
                       </svg>
 
-                      <p> {comments.length} </p>
+                      <p>{comments.length}</p>
                     </button>
                   </div>
                 </div>
 
-                <div className="mb-10 mt-4" style={{ height: "50%" }}>
+                <div className="mb-10 mt-4 h-1/2">
                   <h3 className="text-lg font-semibold">Comments</h3>
-                  <ul style={{ paddingBottom: "8px" }}>
+                  <ul className="pb-2">
                     {comments.map((comment) => (
                       <li key={comment.id} className="mt-2">
-                        {/* TODO: replace userId with the user's name after the participant API is implemented */}
                         <strong>User {comment.userId}</strong> <br />
                         {comment.text}
                       </li>
                     ))}
                   </ul>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      borderWidth: "1px",
-                      borderColor: "#2E4D90",
-                      borderRadius: "8px",
-                      width: "min-content",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div className="flex border border-[#2E4D90] rounded-lg items-center">
                     <input
                       id="comment_box"
                       value={comment}
                       onChange={handleCommentChange}
                       type="text"
                       placeholder="Add a comment"
-                      style={{
-                        borderWidth: "1px",
-                        borderColor: "#2E4D90",
-                        borderRadius: "8px",
-                        padding: "4px",
-                        borderTop: "none",
-                        borderRight: "none",
-                        borderBottom: "none",
-                      }}
+                      className="border border-[#2E4D90] rounded-lg p-1 border-t-0 border-r-0 border-b-0"
                     />
-                    <button
-                      style={{ height: "100%" }}
-                      onClick={handleCommentSubmit}
-                    >
+                    <button className="h-full" onClick={handleCommentSubmit}>
                       <svg
                         width="18"
                         height="20"
                         viewBox="0 0 18 20"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        style={{ padding: "2px" }}
+                        className="p-0.5"
                       >
                         <path
                           d="M11 1L11 11C11 15.4183 7.41828 19 3 19L1 19M11 1L5 7M11 1L17 7"
