@@ -23,139 +23,43 @@ function Announcements() {
   const currentUser = users.data?.find((user) => user.clerkId === userId);
 
   return (
-    <div
-      className="flex"
-      style={{
-        display: "flex",
-        position: "absolute",
-        width: "100%",
-        top: "0px",
-        bottom: "0px",
-      }}
-    >
-      <div
-        className="m-10 flex"
-        style={{
-          flexDirection: "column",
-          background: "#EFF2FB",
-          margin: "0",
-          padding: "16px 40px",
-          maxWidth: "40%",
-          justifyContent: "space-between",
-          position: "sticky",
-          top: 0,
-        }}
-      >
+    <div className="flex absolute w-full top-0 bottom-0">
+      <div className="flex flex-col bg-[#EFF2FB] p-4 max-w-[40%] justify-between sticky top-0">
         {isSignedIn ? "" : <SignInButton />}
         <UserButton afterSignOutUrl="/" showName />
-        <nav style={{ display: "flex", flexDirection: "column" }}>
-          <button
-            style={{
-              borderWidth: "1px",
-              borderColor: "#2E4D90",
-              borderRadius: "24px",
-              padding: "8px",
-              margin: "8px",
-            }}
-          >
+        <nav className="flex flex-col">
+          <button className="border border-[#2E4D90] rounded-3xl p-2 m-2">
             <a href="/posts/">Forum</a>
           </button>
-          <button
-            style={{
-              borderWidth: "1px",
-              borderColor: "#2E4D90",
-              borderRadius: "24px",
-              padding: "8px",
-              margin: "8px",
-              backgroundColor: "#2E4D90",
-              color: "#FFFFFF",
-            }}
-          >
+          <button className="border border-[#2E4D90] rounded-3xl p-2 m-2 bg-[#2E4D90] text-white">
             <a href="/announcements/">Announcements</a>
           </button>
-          <button
-            style={{
-              borderWidth: "1px",
-              borderColor: "#2E4D90",
-              borderRadius: "24px",
-              padding: "8px",
-              margin: "8px",
-            }}
-          >
+          <button className="border border-[#2E4D90] rounded-3xl p-2 m-2">
             <a href="/absences/">Absentees</a>
           </button>
-          <button
-            style={{
-              borderWidth: "1px",
-              borderColor: "#2E4D90",
-              borderRadius: "24px",
-              padding: "8px",
-              margin: "8px",
-            }}
-          >
+          <button className="border border-[#2E4D90] rounded-3xl p-2 m-2">
             <a href="/activities/">Calendar</a>
           </button>
-          <button
-            style={{
-              borderWidth: "1px",
-              borderColor: "#2E4D90",
-              borderRadius: "24px",
-              padding: "8px",
-              margin: "8px",
-            }}
-          >
+          <button className="border border-[#2E4D90] rounded-3xl p-2 m-2">
             <a href="/activities/">Invite New User</a>
           </button>
         </nav>
-        <button
-          style={{
-            borderWidth: "1px",
-            borderColor: "#2E4D90",
-            borderRadius: "24px",
-            padding: "8px",
-            margin: "8px",
-          }}
-        >
+        <button className="border border-[#2E4D90] rounded-3xl p-2 m-2">
           <a href="/activities/">Create New</a>
         </button>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignContent: "center",
-          width: "-webkit-fill-available",
-          paddingTop: "24px",
-        }}
-      >
-        <div
-          style={{
-            borderWidth: "1px",
-            borderColor: "#2E4D90",
-            borderRadius: "24px",
-            margin: "8px",
-            width: "max-content",
-            alignSelf: "center",
-          }}
-        >
+      <div className="flex flex-col items-center w-full pt-6">
+        <div className="border border-[#2E4D90] rounded-3xl m-2 max-w-max self-center">
           {myAnnouncementToggle ? (
             <>
               <button
-                style={{
-                  borderRadius: "24px",
-                  padding: "8px 40px 8px 40px",
-                }}
+                className="rounded-3xl p-2 px-10"
                 onClick={setAllAnnouncements}
               >
                 All Announcements
               </button>
               <button
-                style={{
-                  borderRadius: "24px",
-                  padding: "8px 40px 8px 40px",
-                  backgroundColor: "#2E4D90",
-                  color: "#FFFFFF",
-                }}
+                className="rounded-3xl p-2 px-10 bg-[#2E4D90] text-white"
                 onClick={setMyAnnouncements}
               >
                 My Announcements
@@ -164,18 +68,13 @@ function Announcements() {
           ) : (
             <>
               <button
-                style={{
-                  borderRadius: "24px",
-                  padding: "8px 40px 8px 40px",
-                  backgroundColor: "#2E4D90",
-                  color: "#FFFFFF",
-                }}
+                className="rounded-3xl p-2 px-10 bg-[#2E4D90] text-white"
                 onClick={setAllAnnouncements}
               >
                 All Announcements
               </button>
               <button
-                style={{ borderRadius: "24px", padding: "8px 40px 8px 40px" }}
+                className="rounded-3xl p-2 px-10"
                 onClick={setMyAnnouncements}
               >
                 My Announcements

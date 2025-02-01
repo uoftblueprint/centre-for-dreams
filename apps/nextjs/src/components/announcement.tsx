@@ -26,31 +26,12 @@ const Announcement: React.FC<AnnouncementProps> = ({
   };
 
   return (
-    <div
-      className="border-y-3 my-10px rounded-lg"
-      style={{
-        backgroundColor: "#EFF2FB",
-        width: "70%",
-        margin: "1.5rem auto",
-        padding: "2rem",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <h2
-          className="text-2xl font-bold"
-          style={{ marginBottom: "0", lineHeight: "1" }}
-        >
-          User {userId}
-        </h2>
+    <div className="border-y-3 my-2.5 rounded-lg bg-[#EFF2FB] w-3/4 mx-auto p-8">
+      <div className="flex flex-row justify-between">
+        <h2 className="text-2xl font-bold mb-0 leading-none">User {userId}</h2>
         {isCurrentUser && (
-          <div style={{ display: "flex", gap: "15px" }}>
-            <button onClick={handleDelete} style={{ width: "20px" }}>
+          <div className="flex gap-4">
+            <button onClick={handleDelete} className="w-5">
               <svg
                 width="20"
                 height="21"
@@ -67,7 +48,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
                 />
               </svg>
             </button>
-            <button onClick={handleEdit} style={{ width: "20px" }}>
+            <button onClick={handleEdit} className="w-5">
               <svg
                 width="20"
                 height="21"
@@ -91,9 +72,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
         Posted: {new Date(createdAt).toDateString()}
       </p>
 
-      <p className="text-gray-700" style={{ paddingBottom: "16px" }}>
-        {contents}
-      </p>
+      <p className="text-gray-700 pb-4">{contents}</p>
     </div>
   );
 };
