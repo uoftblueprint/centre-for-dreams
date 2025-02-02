@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
+import UpdatePost from "../pages/updatepost"
 
 type GetDiscussionOutput =
   RouterOutputs["discussion"]["getDiscussions"][number];
@@ -25,6 +26,8 @@ const Post: React.FC<GetDiscussionOutput> = ({
 
   const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedContent, setUpdatedContent] = useState(contents);
 
   const [comment, setComment] = useState("");
 
@@ -118,6 +121,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
           </h2>
           <button className="w-5">
             <svg
+              onClick={() => setIsEditing((prev) => !prev)}
               width="20"
               height="21"
               viewBox="0 0 20 21"
@@ -306,6 +310,10 @@ const Post: React.FC<GetDiscussionOutput> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {isEditing && (
+        <UpdatePost />
       )}
     </>
   );
