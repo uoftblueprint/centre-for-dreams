@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
-const s3 = new AWS.S3();
+interface S3UploadResponse {
+  success: boolean;
+  data: {
+    Location: string;
+  };
+}
 
 interface FormData {
   title: string;
@@ -54,26 +54,27 @@ const CreatePost = () => {
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
           const body = new Uint8Array(image).toString();
-          const params = {
-            Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
-            Key: fileName,
-            Body: image,
-            ContentType: "image/jpeg",
-          };
 
-          // Return a promise that resolves to the uploaded image URL
-          return new Promise<string>((resolve, reject) => {
-            s3.upload(
-              params,
-              (error: Error, data: AWS.S3.ManagedUpload.SendData) => {
-                if (error) {
-                  reject(error);
-                } else {
-                  resolve(data.Location);
-                }
-              },
-            );
-          });
+          return fetch("/api/upload_to_s3", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              bucket: "cfd-post-image-upload",
+              key: fileName,
+              body,
+              contentType: "image/jpeg",
+            }),
+          })
+            .then((response) => response.json())
+            .then((result: S3UploadResponse) => {
+              if (result.success) {
+                return result.data.Location; // Image URL from S3
+              } else {
+                throw new Error("Failed to upload image");
+              }
+            });
         });
 
         // Step 2: Wait for all uploads to complete
@@ -166,10 +167,9 @@ const CreatePost = () => {
       {errors.title && <span>Title is required</span>}
 
       <textarea
-        {...register("contents", { required: true })}
+        {...register("contents", { required: false })}
         placeholder="Content"
       />
-      {errors.contents && <span>Content is required</span>}
 
       <button type="button" onClick={pickImage} disabled={uploading}>
         {uploading ? "Uploading..." : "Add Image"}
