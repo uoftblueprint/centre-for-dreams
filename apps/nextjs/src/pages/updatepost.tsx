@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import AWS from "aws-sdk";
 import { useForm } from "react-hook-form";
@@ -35,7 +35,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     reset,
   } = useForm<FormData>();
 
-  const {data: postData, isLoading, error: fetchError} = api.discussion.getDiscussions.useQuery();
+  const { data: postData } = api.discussion.getDiscussions.useQuery();
 
   const { mutate: updateDiscussion, error } =
     api.discussion.updateDiscussionByID.useMutation({
@@ -52,18 +52,18 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
   useEffect(() => {
     // Pre-fill the form if post data is available
     if (postData) {
-        const post = postData.find((p) => p.id === postId);
-        if (post) {
+      const post = postData.find((p) => p.id === postId);
+      if (post) {
         reset({
-            title: post.title,
-            contents: post.contents,
-            images: post.images,
+          title: post.title,
+          contents: post.contents,
+          images: post.images,
         });
         setImagesTemp(post.images.map((url) => new Uint8Array())); // Assuming images are already uploaded
-        }
+      }
     }
   }, [postData, postId, reset]);
-  
+
   const removeImage = (index: number) => {
     setImagesTemp(imagesTemp.filter((_, i) => i !== index));
   };

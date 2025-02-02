@@ -27,7 +27,6 @@ const Post: React.FC<GetDiscussionOutput> = ({
   const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedContent, setUpdatedContent] = useState(contents);
 
   const [comment, setComment] = useState("");
 
@@ -312,7 +311,9 @@ const Post: React.FC<GetDiscussionOutput> = ({
         </div>
       )}
 
-      {isEditing && <UpdatePost onClose={() => setIsEditing((prev) => !prev)} postId={id} />}
+      {isEditing && (
+        <UpdatePost onClose={() => setIsEditing((prev) => !prev)} postId={id} />
+      )}
     </>
   );
 };
