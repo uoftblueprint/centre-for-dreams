@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import AWS from "aws-sdk";
 import { useForm } from "react-hook-form";
 
@@ -164,11 +165,28 @@ const CreatePost = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <button type="button" className={styles.closeButton} 
+      <button
+        type="button"
+        className={styles.closeButton}
         // onClick={closeForm}
       >
         &times;
       </button>
+      <div className={styles.profileInfo}>
+        <div className={styles.profilePictureWrapper}>
+          <Image
+            src={
+              "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
+            }
+            alt="Profile"
+            className={styles.profilePicture}
+            width={80}
+            height={80}
+            priority // Ensures the profile image is prioritized for loading
+          />
+        </div>
+        <span className={styles.userName}>User Name</span>
+      </div>
 
       <h2>Create a New Post</h2>
 
