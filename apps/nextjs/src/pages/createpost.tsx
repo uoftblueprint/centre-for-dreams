@@ -40,6 +40,10 @@ const CreatePost = () => {
         console.error("Error creating discussion:", error);
       },
     });
+  
+  const removeImage = (index: number) => {
+    setImagesTemp(imagesTemp.filter((_, i) => i!== index));
+  };
 
   const onSubmit = async (data: FormData) => {
     if (data.title === "") {
@@ -229,6 +233,12 @@ const CreatePost = () => {
             const base64String = uint8ArrayToBase64(image);
             return (
               <div key={index} className={styles.imagePreviewWrapper}>
+                {/* <button
+                className={styles.removeImageButton}
+                onClick={() => removeImage(index)}
+              >
+                ×
+              </button> */}
                 <Image
                   src={base64String}
                   alt={`Uploaded preview ${index + 1}`}
