@@ -1,9 +1,19 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 999; /* Ensure it's behind the form */
+}
+
 .form {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 824px;
+  max-width: 824px;
   gap: 0px;
   opacity: 0px;
   margin: 0 auto;
@@ -11,6 +21,7 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
+  z-index: 1001;
 }
 
 .inputWrapper {
@@ -205,8 +216,6 @@
   gap: 0px;
   opacity: 0px;
   background: #2E4D90;
-
-
 }
 
 .removeImageButton:hover {

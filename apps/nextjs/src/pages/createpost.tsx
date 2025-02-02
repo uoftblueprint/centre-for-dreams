@@ -19,7 +19,11 @@ interface FormData {
   images: string[];
 }
 
-const CreatePost = () => {
+interface CreatePostProps {
+  onClose: () => void;
+}
+
+const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
   const [imagesTemp, setImagesTemp] = useState<Uint8Array[]>([]);
   const [uploading, setUploading] = useState(false);
 
@@ -35,14 +39,15 @@ const CreatePost = () => {
       onSuccess: () => {
         reset();
         setImagesTemp([]);
+        onClose();
       },
       onError: (error) => {
         console.error("Error creating discussion:", error);
       },
     });
-  
+
   const removeImage = (index: number) => {
-    setImagesTemp(imagesTemp.filter((_, i) => i!== index));
+    setImagesTemp(imagesTemp.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: FormData) => {
@@ -92,7 +97,7 @@ const CreatePost = () => {
         });
         reset(); // Reset the form
         setImagesTemp([]); // Clear images
-      } else if (imagesTemp.length!== 0 &&!AWS.config.credentials) {
+      } else if (imagesTemp.length !== 0 && !AWS.config.credentials) {
         // If AWS credentials are not set, display the hardcoded El Gato image
         alert("AWS credentials missing. Images cannot be uploaded.");
       } else if (imagesTemp.length === 0) {
@@ -168,108 +173,108 @@ const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <button
-        type="button"
-        className={styles.closeButton}
-        // onClick={closeForm}
-      >
-        &times;
-      </button>
-      <div className={styles.profileInfo}>
-        <div className={styles.profilePictureWrapper}>
-          <Image
-            src={
-              "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
-            }
-            alt="Profile"
-            className={styles.profilePicture}
-            width={80}
-            height={80}
-            priority // Ensures the profile image is prioritized for loading
+    <>
+      <div className="overlay"></div>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <button type="button" className={styles.closeButton} onClick={onClose}>
+          &times;
+        </button>
+        <div className={styles.profileInfo}>
+          <div className={styles.profilePictureWrapper}>
+            <Image
+              src={
+                "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
+              }
+              alt="Profile"
+              className={styles.profilePicture}
+              width={80}
+              height={80}
+              priority // Ensures the profile image is prioritized for loading
+            />
+          </div>
+          <span className={styles.userName}>User Name</span>
+        </div>
+
+        <div className={styles.inputWrapper}>
+          <label htmlFor="title" className={styles.label}>
+            Title
+          </label>
+          <input
+            {...register("title", { required: true })}
+            placeholder="Enter post title"
+            id="title"
+            className={styles.input}
+          />
+          {errors.title && (
+            <span className={styles.error}>Title is required</span>
+          )}
+        </div>
+
+        <div className={styles.inputWrapper}>
+          <label htmlFor="contents" className={styles.label}>
+            Content
+          </label>
+          <textarea
+            {...register("contents", { required: false })}
+            placeholder="Enter post content"
+            id="contents"
+            className={styles.textarea}
           />
         </div>
-        <span className={styles.userName}>User Name</span>
-      </div>
 
-      <div className={styles.inputWrapper}>
-        <label htmlFor="title" className={styles.label}>
-          Title
-        </label>
-        <input
-          {...register("title", { required: true })}
-          placeholder="Enter post title"
-          id="title"
-          className={styles.input}
-        />
-        {errors.title && (
-          <span className={styles.error}>Title is required</span>
+        {imagesTemp.length > 0 && (
+          <div className={styles.imagePreviewContainer}>
+            {imagesTemp.map((image, index) => {
+              const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+                let binary = "";
+                uint8Array.forEach((byte) => {
+                  binary += String.fromCharCode(byte);
+                });
+                return `data:image/png;base64,${btoa(binary)}`;
+              };
+
+              const base64String = uint8ArrayToBase64(image);
+              return (
+                <div key={index} className={styles.imagePreviewWrapper}>
+                  <button
+                    className={styles.removeImageButton}
+                    onClick={() => removeImage(index)}
+                  >
+                    ×
+                  </button>
+                  <Image
+                    src={base64String}
+                    alt={`Uploaded preview ${index + 1}`}
+                    className={styles.imagePreview}
+                    width={160}
+                    height={160}
+                  />
+                </div>
+              );
+            })}
+          </div>
         )}
-      </div>
 
-      <div className={styles.inputWrapper}>
-        <label htmlFor="contents" className={styles.label}>
-          Content
-        </label>
-        <textarea
-          {...register("contents", { required: false })}
-          placeholder="Enter post content"
-          id="contents"
-          className={styles.textarea}
-        />
-      </div>
+        <div className={styles.buttons}>
+          <button
+            type="button"
+            onClick={pickImage}
+            disabled={uploading}
+            className={styles.outlinedButton}
+          >
+            <span className={styles.icon}></span>
+            <span className={styles.buttonText}>
+              {uploading ? "Uploading..." : "Add Photos"}
+            </span>
+          </button>
 
-      {imagesTemp.length > 0 && (
-        <div className={styles.imagePreviewContainer}>
-          {imagesTemp.map((image, index) => {
-            const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
-              let binary = "";
-              uint8Array.forEach((byte) => {
-                binary += String.fromCharCode(byte);
-              });
-              return `data:image/png;base64,${btoa(binary)}`;
-            };
-
-            const base64String = uint8ArrayToBase64(image);
-            return (
-              <div key={index} className={styles.imagePreviewWrapper}>
-                <button
-                  className={styles.removeImageButton}
-                  onClick={() => removeImage(index)}
-                >
-                  ×
-                </button>
-                <Image
-                  src={base64String}
-                  alt={`Uploaded preview ${index + 1}`}
-                  className={styles.imagePreview}
-                  width={160}
-                  height={160}
-                />
-              </div>
-            );
-          })}
+          <button type="submit" className={styles.submitButton}>
+            Create Post
+          </button>
         </div>
-      )}
-
-      
-      <div className={styles.buttons}>
-        <button
-          type="button"
-          onClick={pickImage}
-          disabled={uploading}
-          className={styles.outlinedButton}
-        >
-          <span className={styles.icon}></span>
-          <span className={styles.buttonText}>{uploading ? "Uploading..." : "Add Photos"}</span>
-        </button>
-
-        <button type="submit" className={styles.submitButton}>
-          Create Post
-        </button>
-      </div>
-      {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
-    </form>
+        {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
+      </form>
+    </>
   );
 };
 

@@ -3,12 +3,14 @@ import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 import Post from "../components/post";
+import CreatePost from "./createpost";
 
 function Posts() {
   const posts = api.discussion.getDiscussions.useQuery();
   const userPosts = api.discussion.getDiscussionsByUser.useQuery();
 
   const [myPostToggle, setMyPostToggle] = useState(true);
+  const [createPostModal, setCreatePostModal] = useState(false);
 
   const setMyPosts = () => {
     setMyPostToggle(true);
@@ -18,9 +20,23 @@ function Posts() {
     setMyPostToggle(false);
   };
 
+  const closeCreatePostModal = () => {
+    setCreatePostModal(false);
+  };
+
+  const openCreatePostModal = () => {
+    setCreatePostModal(true);
+  };
+
   const { isSignedIn } = useAuth();
 
   return (
+    <>
+
+    {createPostModal && (
+      <CreatePost onClose={closeCreatePostModal} />
+    )}
+
     <div
       className="flex"
       style={{
@@ -113,8 +129,10 @@ function Posts() {
             padding: "8px",
             margin: "8px",
           }}
+          onClick={openCreatePostModal}
         >
-          <a href="/activities/">Create New</a>
+          {/* <a href="/createpost/">Create New</a> */}
+          Create New
         </button>
       </div>
       <div
@@ -192,6 +210,7 @@ function Posts() {
             })}
       </div>
     </div>
+    </>
   );
 }
 
