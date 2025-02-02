@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function CreateAnnouncement({ user, onClose }: { user: { name: string; profileImage: string }; onClose: () => void }) {
   const [notify, setNotify] = useState(false);
@@ -25,11 +26,13 @@ export default function CreateAnnouncement({ user, onClose }: { user: { name: st
 
         {/* User Info */}
         <div className="mt-4 flex items-center gap-3">
-          <img
-            src={user.profileImage}
-            alt="Profile"
-            className="h-10 w-10 rounded-full"
-          />
+        <Image
+          src={user.profileImage}
+          alt="Profile"
+          width={40} 
+          height={40} 
+          className="rounded-full"
+        />
           <p className="text-lg font-medium">{user.name}</p>
         </div>
 
