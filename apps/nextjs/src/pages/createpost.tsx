@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
 
-
 interface FormData {
   title: string;
   contents: string;
@@ -11,6 +10,8 @@ interface FormData {
 }
 
 const CreatePost = () => {
+  const [images, setImages] = useState<string[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -46,7 +47,37 @@ const CreatePost = () => {
     }
   };
 
-  const pickImage
+  const pickImage = async () => {
+    try {
+      // Open file picker for image selection
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = async (event) => {
+        const fileInput = event.target as HTMLInputElement;
+        const file = fileInput?.files ? fileInput.files[0] : null;
+        if (file) {
+          imageUpload(file); //
+        }
+      };
+
+      input.click();
+    } catch (error) {
+      console.error("Error picking image:", error);
+    }
+  };
+
+  const imageUpload = async (file: File) => {
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      const imageUrl = reader.result as string;
+      setImages((prev) => [...prev, imageUrl]);
+    };
+  
+    reader.readAsDataURL(file);
+  };
+  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
