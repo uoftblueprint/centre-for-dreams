@@ -10,7 +10,7 @@ const config = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   images: {
-    domains: ['static.wikia.nocookie.net'],
+    domains: ["static.wikia.nocookie.net"],
   },
 };
 
