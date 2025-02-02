@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-// import Image from "next/image";
-
 export default function CreateAnnouncement({
   user,
   onClose,
@@ -31,7 +29,7 @@ export default function CreateAnnouncement({
     <div className="relative mx-auto mt-10 max-w-lg rounded-lg bg-white p-6 shadow-lg">
       <button
         onClick={handleClose}
-        className="absolute left-2 top-2 text-gray-500 hover:text-gray-700"
+        className="absolute right-2 top-2 text-gray-500 hover:text-gray-700"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
