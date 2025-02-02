@@ -45,7 +45,7 @@
   display: flex;
   justify-content: space-between; /* Push buttons to opposite ends */
   width: 100%; /* Ensures the div takes full width */
-  padding: 0 16px;
+  padding: 16px 16px;
 }
 
 .outlinedButtonB {
@@ -164,4 +164,27 @@
 .userName {
   font-weight: bold;
   font-size: 20px;
+}
+
+.imagePreviewContainer {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.imagePreviewWrapper {
+  flex: 0 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.imagePreview {
+  width: 243px;
+  height: 157px;
+  top: 436px;
+  left: 35px;
+  gap: 0px;
+  border-radius: 5px 0px 0px 0px;
+  opacity: 0px;
 }

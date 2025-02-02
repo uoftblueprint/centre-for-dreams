@@ -214,6 +214,34 @@ const CreatePost = () => {
           className={styles.textarea}
         />
       </div>
+
+      {imagesTemp.length > 0 && (
+        <div className={styles.imagePreviewContainer}>
+          {imagesTemp.map((image, index) => {
+            const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+              let binary = "";
+              uint8Array.forEach((byte) => {
+                binary += String.fromCharCode(byte);
+              });
+              return `data:image/png;base64,${btoa(binary)}`;
+            };
+
+            const base64String = uint8ArrayToBase64(image);
+            return (
+              <div key={index} className={styles.imagePreviewWrapper}>
+                <Image
+                  src={base64String}
+                  alt={`Uploaded preview ${index + 1}`}
+                  className={styles.imagePreview}
+                  width={160}
+                  height={160}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       
       <div className={styles.buttons}>
         <button
