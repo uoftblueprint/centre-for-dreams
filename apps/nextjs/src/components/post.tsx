@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
-import UpdatePost from "../pages/updatepost"
+import UpdatePost from "../pages/updatepost";
 
 type GetDiscussionOutput =
   RouterOutputs["discussion"]["getDiscussions"][number];
@@ -312,9 +312,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
         </div>
       )}
 
-      {isEditing && (
-        <UpdatePost />
-      )}
+      {isEditing && <UpdatePost onClose={() => setIsEditing((prev) => !prev)} postId={id} />}
     </>
   );
 };
