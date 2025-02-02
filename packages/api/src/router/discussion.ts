@@ -55,8 +55,9 @@ export const discussionRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number().nonnegative(),
-        title: z.string().optional(),
-        contents: z.string().optional(),
+        title: z.string().min(1),
+        contents: z.string().min(0),
+        images: z.string().array(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -69,6 +70,7 @@ export const discussionRouter = createTRPCRouter({
           data: {
             title: input.title,
             contents: input.contents,
+            images: input.images,
           },
         });
       } catch (e) {
