@@ -208,14 +208,11 @@ const CreatePost = () => {
           Content
         </label>
         <textarea
-          {...register("contents", { required: true })}
+          {...register("contents", { required: false })}
           placeholder="Enter post content"
           id="contents"
           className={styles.textarea}
         />
-        {errors.contents && (
-          <span className={styles.error}>Content is required</span>
-        )}
       </div>
       
       <div className={styles.buttons}>
