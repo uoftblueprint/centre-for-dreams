@@ -217,20 +217,22 @@ const CreatePost = () => {
           <span className={styles.error}>Content is required</span>
         )}
       </div>
+      
+      <div className={styles.buttons}>
+        <button
+          type="button"
+          onClick={pickImage}
+          disabled={uploading}
+          className={styles.outlinedButton}
+        >
+          <span className={styles.icon}></span>
+          <span className={styles.buttonText}>{uploading ? "Uploading..." : "Add Photos"}</span>
+        </button>
 
-      <button
-        type="button"
-        onClick={pickImage}
-        disabled={uploading}
-        className={styles.outlinedButton}
-      >
-        <span className={styles.icon}></span>
-        <span className={styles.buttonText}>{uploading ? "Uploading..." : "Add Photos"}</span>
-      </button>
-
-      <button type="submit" className={styles.submitButton}>
-        Create Post
-      </button>
+        <button type="submit" className={styles.submitButton}>
+          Create Post
+        </button>
+      </div>
       {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
     </form>
   );

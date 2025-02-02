@@ -41,6 +41,13 @@
   outline: none; /* Remove focus outline */
 }
 
+.buttons {
+  display: flex;
+  justify-content: space-between; /* Push buttons to opposite ends */
+  width: 100%; /* Ensures the div takes full width */
+  padding: 0 16px;
+}
+
 .outlinedButtonB {
   display: flex;
   align-items: center;
@@ -95,8 +102,18 @@
 }
 
 .submitButton {
-  width: 100%;
-  margin-top: 20px;
+  /* width: 100%;
+  margin-top: 20px; */
+  width: 161px;
+  height: 48px;
+  top: 623px;
+  left: 628px;
+  padding: 10px 17px 10px 17px;
+  gap: 10px;
+  border-radius: 24px 24px 24px 24px;
+  opacity: 0px;
+  background: #2E4D90;
+  color: #fff;
 }
 
 .error {
