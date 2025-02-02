@@ -81,26 +81,26 @@ const CreatePost = () => {
 
         // Step 2: Wait for all uploads to complete
         uploadedImages = await Promise.all(uploadPromises);
+        createDiscussion({
+          title: data.title,
+          contents: data.contents,
+          images: uploadedImages,
+        });
+        reset(); // Reset the form
+        setImagesTemp([]); // Clear images
+      } else if (imagesTemp.length!== 0 &&!AWS.config.credentials) {
+        // If AWS credentials are not set, display the hardcoded El Gato image
+        alert("AWS credentials missing. Images cannot be uploaded.");
+      } else if (imagesTemp.length === 0) {
+        createDiscussion({
+          title: data.title,
+          contents: data.contents,
+          images: [],
+        });
+        reset(); // Reset the form
       }
-
-      // Proceed to create the discussion with uploaded images (if any)
-      createDiscussion({
-        title: data.title,
-        contents: data.contents,
-        images: uploadedImages,
-      });
-      reset(); // Reset the form
-      setImagesTemp([]); // Clear images
     } catch (error) {
       console.error("Error during image upload or discussion creation:", error);
-      // Handle errors appropriately
-      if (!AWS.config.credentials) {
-        console.error("AWS credentials missing. Images cannot be uploaded.");
-      } else {
-        console.error(
-          "An error occurred while creating the discussion. Please try again.",
-        );
-      }
     } finally {
       setUploading(false);
     }
