@@ -3,6 +3,7 @@ import AWS from "aws-sdk";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
+import styles from "../styles/createpost.module.css";
 
 interface S3UploadResponse {
   success: boolean;
@@ -162,27 +163,52 @@ const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("title", { required: true })} placeholder="Title" />
-      {errors.title && <span>Title is required</span>}
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <h2>Create a New Post</h2>
 
-      <textarea
-        {...register("contents", { required: false })}
-        placeholder="Content"
-      />
+      <div className={styles.inputWrapper}>
+        <label htmlFor="title" className={styles.label}>
+          Title
+        </label>
+        <input
+          {...register("title", { required: true })}
+          placeholder="Enter post title"
+          id="title"
+          className={styles.input}
+        />
+        {errors.title && (
+          <span className={styles.error}>Title is required</span>
+        )}
+      </div>
 
-      <button type="button" onClick={pickImage} disabled={uploading}>
+      <div className={styles.inputWrapper}>
+        <label htmlFor="contents" className={styles.label}>
+          Content
+        </label>
+        <textarea
+          {...register("contents", { required: true })}
+          placeholder="Enter post content"
+          id="contents"
+          className={styles.textarea}
+        />
+        {errors.contents && (
+          <span className={styles.error}>Content is required</span>
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={pickImage}
+        disabled={uploading}
+        className={styles.button}
+      >
         {uploading ? "Uploading..." : "Add Image"}
       </button>
 
-      {/* <div>
-        {images.map((image, index) => (
-          <img key={index} src={image} alt="Uploaded preview" width={100} />
-        ))}
-      </div> */}
-
-      <button type="submit">Create Post</button>
-      {error && <p>Error: {error.message}</p>}
+      <button type="submit" className={styles.submitButton}>
+        Create Post
+      </button>
+      {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
     </form>
   );
 };
