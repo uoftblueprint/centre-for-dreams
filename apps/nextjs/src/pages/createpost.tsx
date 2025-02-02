@@ -188,8 +188,6 @@ const CreatePost = () => {
         <span className={styles.userName}>User Name</span>
       </div>
 
-      <h2>Create a New Post</h2>
-
       <div className={styles.inputWrapper}>
         <label htmlFor="title" className={styles.label}>
           Title
@@ -224,9 +222,10 @@ const CreatePost = () => {
         type="button"
         onClick={pickImage}
         disabled={uploading}
-        className={styles.button}
+        className={styles.outlinedButton}
       >
-        {uploading ? "Uploading..." : "Add Image"}
+        <span className={styles.icon}></span>
+        <span className={styles.buttonText}>{uploading ? "Uploading..." : "Add Photos"}</span>
       </button>
 
       <button type="submit" className={styles.submitButton}>
