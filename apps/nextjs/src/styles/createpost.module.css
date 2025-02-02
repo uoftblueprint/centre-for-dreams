@@ -176,35 +176,32 @@
   display: flex;
   overflow-x: auto;
   gap: 16px;
-  margin-top: 12px;
+  margin-top: -18px;
 }
 
 .imagePreviewWrapper {
   flex: 0 0 auto;
-  /* border-radius: 8px; */
+  border-radius: 8px;
   overflow: hidden;
 }
 
 .removeImageButton {
-  /* position: absolute; */
-  top: 5px;
-  right: 5px;
+  position: relative;
+  top: 20px;
+  right: -215px;
   color: white;
   border: none;
   border-radius: 50%;
 
 
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 
-  width: 35px;
-  height: 35px;
-  top: 419px;
-  left: 529px;
+  width: 28px;
+  height: 28px;
   gap: 0px;
   opacity: 0px;
   background: #2E4D90;
@@ -219,9 +216,8 @@
 .imagePreview {
   width: 243px;
   height: 157px;
-  top: 436px;
   left: 35px;
   gap: 0px;
-  /* border-radius: 5px 5px 5px 5px; */
+  border-radius: 20px 20px 30px 30px;
   opacity: 0px;
 }

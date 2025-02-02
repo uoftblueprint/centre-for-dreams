@@ -233,12 +233,12 @@ const CreatePost = () => {
             const base64String = uint8ArrayToBase64(image);
             return (
               <div key={index} className={styles.imagePreviewWrapper}>
-                {/* <button
-                className={styles.removeImageButton}
-                onClick={() => removeImage(index)}
-              >
-                ×
-              </button> */}
+                <button
+                  className={styles.removeImageButton}
+                  onClick={() => removeImage(index)}
+                >
+                  ×
+                </button>
                 <Image
                   src={base64String}
                   alt={`Uploaded preview ${index + 1}`}
