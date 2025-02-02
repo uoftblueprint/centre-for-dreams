@@ -164,6 +164,12 @@ const CreatePost = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <button type="button" className={styles.closeButton} 
+        // onClick={closeForm}
+      >
+        &times;
+      </button>
+
       <h2>Create a New Post</h2>
 
       <div className={styles.inputWrapper}>
