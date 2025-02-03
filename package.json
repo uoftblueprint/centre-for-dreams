@@ -33,6 +33,8 @@
   "resolutions": {
     "expo-router": "4.0.17"
   },
-
-  "prettier": "@cfd/prettier-config"
+  "prettier": "@cfd/prettier-config",
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12"
+  }
 }
