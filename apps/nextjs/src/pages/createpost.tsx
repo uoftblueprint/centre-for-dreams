@@ -65,7 +65,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         // Step 1: Create an array to store upload promises
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
-          const body = new Uint8Array(image).toString();
+          const base64Image = btoa(String.fromCharCode(...image));
 
           return fetch("/api/upload_to_s3", {
             method: "POST",
@@ -75,7 +75,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             body: JSON.stringify({
               bucket: "cfd-post-image-upload",
               key: fileName,
-              body,
+              body: base64Image,
               contentType: "image/jpeg",
             }),
           })
