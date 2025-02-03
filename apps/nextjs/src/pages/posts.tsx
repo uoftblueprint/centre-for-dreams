@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import NavBar from "~/components/navbar";
 import { api } from "~/utils/api";
 import Post from "../components/post";
 
@@ -18,34 +18,9 @@ function Posts() {
     setMyPostToggle(false);
   };
 
-  const { isSignedIn } = useAuth();
-
   return (
     <div className="absolute bottom-0 top-0 flex w-full">
-      <div className="sticky top-0 flex max-w-[40%] flex-col justify-between bg-[#EFF2FB] p-4">
-        {isSignedIn ? "" : <SignInButton />}
-        <UserButton afterSignOutUrl="/" showName />
-        <nav className="flex flex-col">
-          <button className="m-2 rounded-3xl border border-[#2E4D90] bg-[#2E4D90] p-2 text-white">
-            <a href="/posts/">Forum</a>
-          </button>
-          <button className="m-2 rounded-3xl border border-[#2E4D90] p-2">
-            <a href="/announcements/">Announcements</a>
-          </button>
-          <button className="m-2 rounded-3xl border border-[#2E4D90] p-2">
-            <a href="/absences/">Absentees</a>
-          </button>
-          <button className="m-2 rounded-3xl border border-[#2E4D90] p-2">
-            <a href="/activities/">Calendar</a>
-          </button>
-          <button className="m-2 rounded-3xl border border-[#2E4D90] p-2">
-            <a href="/activities/">Invite New User</a>
-          </button>
-        </nav>
-        <button className="m-2 rounded-3xl border border-[#2E4D90] p-2">
-          <a href="/activities/">Create New</a>
-        </button>
-      </div>
+      <NavBar />
       <div className="flex w-full flex-col items-center pt-6">
         <div className="m-2 w-max self-center rounded-3xl border border-[#2E4D90]">
           {myPostToggle ? (
