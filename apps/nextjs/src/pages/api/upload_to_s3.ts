@@ -30,7 +30,7 @@ export default async function handler(
         return res.status(400).json({ error: "Missing required parameters" });
       }
 
-      const buffer = Buffer.from(body, 'base64');
+      const buffer = Buffer.from(body, "base64");
 
       const params = {
         Bucket: bucket,
