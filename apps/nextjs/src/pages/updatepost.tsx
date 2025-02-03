@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import AWS from "aws-sdk";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
@@ -11,6 +10,10 @@ interface S3UploadResponse {
   data: {
     Location: string;
   };
+}
+
+interface S3ImageResponse {
+  image: string;
 }
 
 interface FormData {
@@ -49,54 +52,68 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       },
     });
 
-    useEffect(() => {
-        const fetchImages = async () => {
-          if (postData) {
-            const post = postData.find((p) => p.id === postId);
-            if (post) {
-              reset({
-                title: post.title,
-                contents: post.contents,
-                images: post.images,
-              });
-      
-              try {
-                const imagePromises = post.images.map(async (url) => {
-                  const fileName = url.split("/").pop();
-                  if (!fileName) {
-                    throw new Error("Invalid image URL");
-                  }
-      
-                  const response = await fetch("/api/get_s3_image", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ fileName }),
-                  });
-      
-                  const result = await response.json();
-                  if (!result.image) {
-                    throw new Error("Failed to fetch image");
-                  }
-      
-                  return result.image;
-                });
-      
-                // Wait for all images to be fetched
-                const base64Images = await Promise.all(imagePromises);
-                setImagesTemp(base64Images);
-              } catch (error) {
-                console.error("Error fetching images from S3:", error);
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (postData) {
+        const post = postData.find((p) => p.id === postId);
+        if (post) {
+          reset({
+            title: post.title,
+            contents: post.contents ?? "",
+            images: post.images,
+          });
+
+          try {
+            const imagePromises = post.images.map(async (url) => {
+              const fileName = url.split("/").pop();
+              if (!fileName) {
+                throw new Error("Invalid image URL");
               }
-            }
+
+              const response: Response = await fetch("/api/get_s3_image", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ fileName }),
+              });
+
+              const result: S3ImageResponse = await response.json();
+
+              if (!result.image) {
+                throw new Error("Failed to fetch image");
+              }
+
+              return result.image;
+            });
+
+            // Wait for all images to be fetched
+            const base64Images = await Promise.all(imagePromises);
+            // Convert each base64 string to a Uint8Array
+            const uint8ArrayImages = base64Images.map(base64String => {
+                const binary = atob(base64String.split(',')[1]); // Remove the base64 prefix (data:image/png;base64,)
+                const uint8Array = new Uint8Array(binary.length);
+                
+                for (let i = 0; i < binary.length; i++) {
+                uint8Array[i] = binary.charCodeAt(i);
+                }
+                
+                return uint8Array;
+            });
+            
+            // Set the imagesTemp state with Uint8Array[]
+            setImagesTemp(uint8ArrayImages);
+          } catch (error) {
+            console.error("Error fetching images from S3:", error);
           }
-        };
-      
-        fetchImages().catch((err) => console.error("Async error in fetchImages:", err));
-      }, [postData, postId, reset]);
-      
-      
+        }
+      }
+    };
+
+    fetchImages().catch((err) =>
+      console.error("Async error in fetchImages:", err),
+    );
+  }, [postData, postId, reset]);
 
   const removeImage = (index: number) => {
     setImagesTemp(imagesTemp.filter((_, i) => i !== index));
