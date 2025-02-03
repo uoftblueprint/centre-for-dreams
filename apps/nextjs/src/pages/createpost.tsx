@@ -84,7 +84,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               if (result.success) {
                 return result.data.Location; // Image URL from S3
               } else {
-                alert("Failed to upload image. Perhaps the image is too large.");
+                alert(
+                  "Failed to upload image. Perhaps the image is too large.",
+                );
                 throw new Error("Failed to upload image");
               }
             });
@@ -99,9 +101,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         });
         reset(); // Reset the form
         setImagesTemp([]); // Clear images
-      // } else if (imagesTemp.length !== 0 && !AWS.config.credentials) {
-      //   // If AWS credentials are not set, display the hardcoded El Gato image
-      //   alert("AWS credentials missing. Images cannot be uploaded.");
+        // } else if (imagesTemp.length !== 0 && !AWS.config.credentials) {
+        //   // If AWS credentials are not set, display the hardcoded El Gato image
+        //   alert("AWS credentials missing. Images cannot be uploaded.");
       } else if (imagesTemp.length === 0) {
         createDiscussion({
           title: data.title,
