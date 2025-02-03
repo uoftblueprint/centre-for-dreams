@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 
@@ -29,7 +29,9 @@ interface UpdatePostProps {
 
 const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
   const [imagesTemp, setImagesTemp] = useState<Uint8Array[]>([]);
-  const [imagesTempOriginal, setImagesTempOriginal] = useState<Uint8Array[]>([]);
+  const [imagesTempOriginal, setImagesTempOriginal] = useState<Uint8Array[]>(
+    [],
+  );
   const [uploading, setUploading] = useState(false);
   const [previousTitle, setPreviousTitle] = useState("");
 
@@ -54,71 +56,75 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       },
     });
 
-  useEffect(() => {
+    const hasFetchedImages = useRef(false);
+
     const fetchImages = async () => {
-      if (postData) {
-        const post = postData.find((p) => p.id === postId);
-        if (post) {
-          reset({
-            title: post.title,
-            contents: post.contents ?? "",
-            images: post.images,
+    if (!hasFetchedImages.current && postData) {
+      hasFetchedImages.current = true;
+      const post = postData.find((p) => p.id === postId);
+      if (post) {
+        reset({
+          title: post.title,
+          contents: post.contents ?? "",
+          images: post.images,
+        });
+
+        setPreviousTitle(post.title);
+
+        try {
+          const imagePromises = post.images.map(async (url) => {
+            const fileName = url.split("/").pop();
+            if (!fileName) {
+              throw new Error("Invalid image URL");
+            }
+
+            const response: Response = await fetch("/api/get_s3_image", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ fileName }),
+            });
+
+            const result: S3ImageResponse = await response.json();
+
+            if (!result.image) {
+              throw new Error("Failed to fetch image");
+            }
+
+            return result.image;
           });
 
-          setPreviousTitle(post.title);
+          // Wait for all images to be fetched
+          const base64Images = await Promise.all(imagePromises);
+          console.log(base64Images);
+          // Convert each base64 string to a Uint8Array
+          const uint8ArrayImages = base64Images.map((base64String) => {
+            const binary = atob(base64String.split(",")[1]); // Remove the base64 prefix (data:image/png;base64,)
+            const uint8Array = new Uint8Array(binary.length);
 
-          try {
-            const imagePromises = post.images.map(async (url) => {
-              const fileName = url.split("/").pop();
-              if (!fileName) {
-                throw new Error("Invalid image URL");
-              }
+            for (let i = 0; i < binary.length; i++) {
+              uint8Array[i] = binary.charCodeAt(i);
+            }
 
-              const response: Response = await fetch("/api/get_s3_image", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ fileName }),
-              });
-
-              const result: S3ImageResponse = await response.json();
-
-              if (!result.image) {
-                throw new Error("Failed to fetch image");
-              }
-
-              return result.image;
-            });
-
-            // Wait for all images to be fetched
-            const base64Images = await Promise.all(imagePromises);
-            // Convert each base64 string to a Uint8Array
-            const uint8ArrayImages = base64Images.map(base64String => {
-                const binary = atob(base64String.split(',')[1]); // Remove the base64 prefix (data:image/png;base64,)
-                const uint8Array = new Uint8Array(binary.length);
-                
-                for (let i = 0; i < binary.length; i++) {
-                uint8Array[i] = binary.charCodeAt(i);
-                }
-                
-                return uint8Array;
-            });
-            
-            // Set the imagesTemp state with Uint8Array[]
-            setImagesTemp(uint8ArrayImages);
-            setImagesTempOriginal(uint8ArrayImages);
-          } catch (error) {
-            console.error("Error fetching images from S3:", error);
-          }
+            return uint8Array;
+          });
+          console.log(uint8ArrayImages);
+          // Set the imagesTemp state with Uint8Array[]
+          setImagesTemp(uint8ArrayImages);
+          setImagesTempOriginal(uint8ArrayImages);
+        } catch (error) {
+          console.error("Error fetching images from S3:", error);
         }
       }
-    };
+    }
+  };
 
-    fetchImages().catch((err) =>
-      console.error("Async error in fetchImages:", err),
-    );
-  }, [postData, postId, reset]);
+
+  fetchImages().catch((err) =>
+    console.error("Async error in fetchImages:", err),
+  ); 
+
 
   const removeImage = (index: number) => {
     setImagesTemp(imagesTemp.filter((_, i) => i !== index));
@@ -133,34 +139,33 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     setUploading(true);
 
     // Strategy: Delete all previous images and upload them again. Include title renaming.
-    
-    const deletePromises = imagesTempOriginal.map((image, index) => {
-        const fileName = `uploaded-image-${previousTitle}-${index}.jpg`;
-      
-        // Send a request to the API to delete the image from S3
-        return fetch("/api/delete_from_s3", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ fileName }), // Send the file name for deletion
+
+    const deletePromises = imagesTempOriginal.map((_, index) => {
+      const fileName = `uploaded-image-${previousTitle}-${index}.jpg`;
+
+      // Send a request to the API to delete the image from S3
+      return fetch("/api/delete_from_s3", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileName }), // Send the file name for deletion
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.success) {
+            console.log(`Deleted ${fileName} from S3.`);
+          } else {
+            console.error(`Failed to delete ${fileName} from S3.`);
+          }
         })
-          .then((response) => response.json())
-          .then((result) => {
-            if (result.success) {
-              console.log(`Deleted ${fileName} from S3.`);
-            } else {
-              console.error(`Failed to delete ${fileName} from S3.`);
-            }
-          })
-          .catch((error) => {
-            console.error(`Error deleting ${fileName} from S3:`, error);
-          });
-      });
-      
-      // Wait for all deletion promises to complete
-      await Promise.all(deletePromises);
-      
+        .catch((error) => {
+          console.error(`Error deleting ${fileName} from S3:`, error);
+        });
+    });
+
+    // Wait for all deletion promises to complete
+    await Promise.all(deletePromises);
 
     let uploadedImages: string[] = [];
 
@@ -169,7 +174,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
         // Step 1: Create an array to store upload promises
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
-          const body = new Uint8Array(image).toString();
+          const base64Image = btoa(String.fromCharCode(...image));
 
           return fetch("/api/upload_to_s3", {
             method: "POST",
@@ -179,7 +184,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
             body: JSON.stringify({
               bucket: "cfd-post-image-upload",
               key: fileName,
-              body,
+              body: base64Image,
               contentType: "image/jpeg",
             }),
           })
@@ -254,8 +259,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
 
         if (base64) {
           // Check if base64 contains a valid data URL format
-        //   const base64Data = base64.split(",")[1]; // Extract the base64-encoded string
-        const base64Data = base64;
+          const base64Data = base64.split(",")[1]; // Extract the base64-encoded string
 
           if (base64Data) {
             // Convert Base64 to binary
