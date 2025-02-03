@@ -49,20 +49,54 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       },
     });
 
-  useEffect(() => {
-    // Pre-fill the form if post data is available
-    if (postData) {
-      const post = postData.find((p) => p.id === postId);
-      if (post) {
-        reset({
-          title: post.title,
-          contents: post.contents,
-          images: post.images,
-        });
-        setImagesTemp(post.images.map((url) => new Uint8Array())); // Assuming images are already uploaded
-      }
-    }
-  }, [postData, postId, reset]);
+    useEffect(() => {
+        const fetchImages = async () => {
+          if (postData) {
+            const post = postData.find((p) => p.id === postId);
+            if (post) {
+              reset({
+                title: post.title,
+                contents: post.contents,
+                images: post.images,
+              });
+      
+              try {
+                const imagePromises = post.images.map(async (url) => {
+                  const fileName = url.split("/").pop();
+                  if (!fileName) {
+                    throw new Error("Invalid image URL");
+                  }
+      
+                  const response = await fetch("/api/get_s3_image", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ fileName }),
+                  });
+      
+                  const result = await response.json();
+                  if (!result.image) {
+                    throw new Error("Failed to fetch image");
+                  }
+      
+                  return result.image;
+                });
+      
+                // Wait for all images to be fetched
+                const base64Images = await Promise.all(imagePromises);
+                setImagesTemp(base64Images);
+              } catch (error) {
+                console.error("Error fetching images from S3:", error);
+              }
+            }
+          }
+        };
+      
+        fetchImages().catch((err) => console.error("Async error in fetchImages:", err));
+      }, [postData, postId, reset]);
+      
+      
 
   const removeImage = (index: number) => {
     setImagesTemp(imagesTemp.filter((_, i) => i !== index));
@@ -78,7 +112,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     let uploadedImages: string[] = [];
 
     try {
-      if (imagesTemp.length !== 0 && AWS.config.credentials) {
+      if (imagesTemp.length !== 0) {
         // Step 1: Create an array to store upload promises
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
@@ -101,6 +135,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
               if (result.success) {
                 return result.data.Location; // Image URL from S3
               } else {
+                alert(
+                  "Failed to upload image. Perhaps the image is too large.",
+                );
                 throw new Error("Failed to upload image");
               }
             });
@@ -116,9 +153,6 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
         });
         reset(); // Reset the form
         setImagesTemp([]); // Clear images
-      } else if (imagesTemp.length !== 0 && !AWS.config.credentials) {
-        // If AWS credentials are not set, display the hardcoded El Gato image
-        alert("AWS credentials missing. Images cannot be uploaded.");
       } else if (imagesTemp.length === 0) {
         updateDiscussion({
           id: postId,
