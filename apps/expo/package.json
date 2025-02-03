@@ -18,7 +18,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^0.20.33",
+    "@clerk/clerk-expo": "^0.20.35",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-config": "^0.19.8",
     "@expo/prebuild-config": "~8.0.25",
@@ -56,9 +56,9 @@
     "superjson": "2.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/runtime": "^7.26.0",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@babel/runtime": "^7.26.7",
     "@cfd/api": "~0.1.0",
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
