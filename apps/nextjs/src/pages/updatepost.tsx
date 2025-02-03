@@ -56,9 +56,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       },
     });
 
-    const hasFetchedImages = useRef(false);
+  const hasFetchedImages = useRef(false);
 
-    const fetchImages = async () => {
+  const fetchImages = async () => {
     if (!hasFetchedImages.current && postData) {
       hasFetchedImages.current = true;
       const post = postData.find((p) => p.id === postId);
@@ -120,11 +120,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     }
   };
 
-
   fetchImages().catch((err) =>
     console.error("Async error in fetchImages:", err),
-  ); 
-
+  );
 
   const removeImage = (index: number) => {
     setImagesTemp(imagesTemp.filter((_, i) => i !== index));
@@ -149,7 +147,10 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fileName }), // Send the file name for deletion
+        body: JSON.stringify({
+          bucket: "cfd-post-image-upload",
+          key: fileName,
+        }), // Send the file name for deletion
       })
         .then((response) => response.json())
         .then((result) => {
