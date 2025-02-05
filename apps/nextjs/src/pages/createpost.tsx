@@ -65,7 +65,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
           const base64Image = btoa(String.fromCharCode(...image));
-          console.log("here");
+
           return fetch("/api/upload_to_s3", {
             method: "POST",
             headers: {
@@ -112,7 +112,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         // reset(); // Reset the form
       }
     } catch (error) {
-      console.error("Error during image upload or discussion creation:", error);
+      alert("Error occurred. Perhaps the image is too large.");
+      console.log(error);
     } finally {
       // setUploading(false);
     }
