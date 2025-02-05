@@ -12,6 +12,10 @@ interface S3UploadResponse {
   };
 }
 
+interface DeleteFromS3Response {
+  success: boolean;
+}
+
 interface S3ImageResponse {
   image: string;
 }
@@ -86,7 +90,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
               body: JSON.stringify({ fileName }),
             });
 
-            const result: S3ImageResponse = await response.json();
+            const result = await response.json() as S3ImageResponse;
 
             if (!result.image) {
               throw new Error("Failed to fetch image");
@@ -153,7 +157,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
         }), // Send the file name for deletion
       })
         .then((response) => response.json())
-        .then((result) => {
+        .then((result: DeleteFromS3Response) => {
           if (result.success) {
             console.log(`Deleted ${fileName} from S3.`);
           } else {
