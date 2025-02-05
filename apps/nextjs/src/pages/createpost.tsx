@@ -25,7 +25,7 @@ interface CreatePostProps {
 
 const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
   const [imagesTemp, setImagesTemp] = useState<Uint8Array[]>([]);
-  const [uploading, setUploading] = useState(false);
+  // const [uploading, setUploading] = useState(false);
 
   const {
     register,
@@ -47,7 +47,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
     });
 
   const removeImage = (index: number) => {
-    setImagesTemp(imagesTemp.filter((_, i) => i !== index));
+    setImagesTemp((prev) => prev.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: FormData) => {
@@ -56,9 +56,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       return;
     }
 
-    setUploading(true);
+    // setUploading(true);
     let uploadedImages: string[] = [];
-    console.log(AWS.config.credentials);
 
     try {
       if (imagesTemp.length !== 0) {
@@ -66,7 +65,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         const uploadPromises = imagesTemp.map((image, index) => {
           const fileName = `uploaded-image-${data.title}-${index}.jpg`;
           const base64Image = btoa(String.fromCharCode(...image));
-
+          console.log("here");
           return fetch("/api/upload_to_s3", {
             method: "POST",
             headers: {
@@ -99,8 +98,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           contents: data.contents,
           images: uploadedImages,
         });
-        reset(); // Reset the form
-        setImagesTemp([]); // Clear images
+        // reset(); // Reset the form
+        // setImagesTemp([]); // Clear images
         // } else if (imagesTemp.length !== 0 && !AWS.config.credentials) {
         //   // If AWS credentials are not set, display the hardcoded El Gato image
         //   alert("AWS credentials missing. Images cannot be uploaded.");
@@ -110,12 +109,12 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           contents: data.contents,
           images: [],
         });
-        reset(); // Reset the form
+        // reset(); // Reset the form
       }
     } catch (error) {
       console.error("Error during image upload or discussion creation:", error);
     } finally {
-      setUploading(false);
+      // setUploading(false);
     }
   };
 
@@ -163,7 +162,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             );
 
             // Example: Storing in a temporary array
-            setImagesTemp([...imagesTemp, buffer]);
+            setImagesTemp((prev) => [...prev, buffer]);
           } else {
             console.error("Base64 string is not valid.");
           }
@@ -263,12 +262,13 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           <button
             type="button"
             onClick={pickImage}
-            disabled={uploading}
+            // disabled={uploading}
             className={styles.outlinedButton}
           >
             <span className={styles.icon}></span>
             <span className={styles.buttonText}>
-              {uploading ? "Uploading..." : "Add Photos"}
+              {/* {uploading ? "Uploading..." : "Add Photos"} */}
+              Add Photos
             </span>
           </button>
 
