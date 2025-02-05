@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import AWS from "aws-sdk";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
