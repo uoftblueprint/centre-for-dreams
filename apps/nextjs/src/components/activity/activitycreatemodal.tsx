@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
-import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+
 import { cn } from "~/lib/utils";
-import { Calendar } from "../ui/calendar";
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
-import { useForm } from "react-hook-form";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export type CreateAnnouncement = RouterInputs["activity"]["createActivity"];
 
@@ -62,12 +63,12 @@ const ActivityCreateModal = ({
 
   return (
     <div
-      className={`w-screen h-screen bg-black/80 flex justify-center items-center fixed top-0 left-0 ${
+      className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-black/80 ${
         open ? "" : "invisible"
       }`}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <form className="m-12 w-full min-w-[320px] sm:w-2/3 lg:w-1/2 xl:w-2/5 border-b-2 bg-white rounded-lg max-sm:text-sm font-semibold p-6 sm:p-12 flex gap-3 flex-col">
+      <form className="m-12 flex w-full min-w-[320px] flex-col gap-3 rounded-lg border-b-2 bg-white p-6 font-semibold max-sm:text-sm sm:w-2/3 sm:p-12 lg:w-1/2 xl:w-2/5">
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Title</label>
           <input
@@ -77,23 +78,23 @@ const ActivityCreateModal = ({
             onChange={handleInputChange}
             id="name"
             type="text"
-            className="bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none hover:bg-slate-200/70"
+            className="rounded-md bg-slate-200 p-3 text-sm font-normal hover:bg-slate-200/70 focus:bg-gray-100 focus:outline-none"
           />
         </div>
-        <div className="flex flex-col lg:flex-row gap-3">
+        <div className="flex flex-col gap-3 lg:flex-row">
           <div className="flex flex-col gap-2 lg:w-2/5">
             <label htmlFor="day">Date</label>
             <Popover>
               <PopoverTrigger
                 asChild
-                className="bg-slate-200 rounded-md p-3 font-normal focus:bg-gray-100 focus:outline-none h-full border-none w-full"
+                className="h-full w-full rounded-md border-none bg-slate-200 p-3 font-normal focus:bg-gray-100 focus:outline-none"
                 id="day"
               >
                 <Button
                   variant={"outline"}
                   className={cn(
                     "justify-start text-left font-normal",
-                    !date && "text-muted-foreground"
+                    !date && "text-muted-foreground",
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -111,8 +112,8 @@ const ActivityCreateModal = ({
             </Popover>
           </div>
 
-          <div className="flex gap-2 w-full">
-            <div className="w-full flex flex-col gap-2">
+          <div className="flex w-full gap-2">
+            <div className="flex w-full flex-col gap-2">
               <label htmlFor="startTime">Time</label>
               <input
                 onChange={(e) => {
@@ -128,7 +129,7 @@ const ActivityCreateModal = ({
                     ? new Date(
                         startTime.toLocaleString("en-US", {
                           timeZone: "America/New_York",
-                        })
+                        }),
                       )
                         .toISOString()
                         .substring(11, 16)
@@ -138,10 +139,10 @@ const ActivityCreateModal = ({
                 required
                 name="startTime"
                 type="time"
-                className="bg-slate-200 rounded-md p-3 font-normal text-sm focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer"
+                className="w-full cursor-pointer rounded-md bg-slate-200 p-3 text-sm font-normal hover:bg-slate-200/70 focus:bg-gray-100 focus:outline-none"
               />
             </div>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex w-full flex-col gap-2">
               <label htmlFor="durationMinutes">Duration (Minutes)</label>
               <input
                 {...register("durationMinutes", { required: true })}
@@ -150,7 +151,7 @@ const ActivityCreateModal = ({
                 required
                 min={15}
                 type="number"
-                className="bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w-full hover:bg-slate-200/70 cursor-pointer"
+                className="w-full cursor-pointer rounded-md bg-slate-200 p-3    text-sm font-normal hover:bg-slate-200/70 focus:bg-gray-100 focus:outline-none"
               />
             </div>
           </div>
@@ -165,7 +166,7 @@ const ActivityCreateModal = ({
             required
             name="location"
             type="text"
-            className="bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70"
+            className="w- rounded-md bg-slate-200 p-3 text-sm    font-normal hover:bg-slate-200/70 focus:bg-gray-100 focus:outline-none"
           />
         </div>
 
@@ -178,20 +179,20 @@ const ActivityCreateModal = ({
             required
             name="leader"
             type="text"
-            className="bg-slate-200 rounded-md p-3 font-normal text-sm    focus:bg-gray-100 focus:outline-none w- hover:bg-slate-200/70"
+            className="w- rounded-md bg-slate-200 p-3 text-sm    font-normal hover:bg-slate-200/70 focus:bg-gray-100 focus:outline-none"
           />
         </div>
 
-        <div className="flex gap-3 self-end text-xs sm:text-sm text-center">
+        <div className="flex gap-3 self-end text-center text-xs sm:text-sm">
           <button
-            className="bg-gray-200 rounded-full px-5 sm:px-10 py-3 w-fit text-black font-normal"
+            className="w-fit rounded-full bg-gray-200 px-5 py-3 font-normal text-black sm:px-10"
             type="button"
             onClick={() => setOpen(false)}
           >
             Cancel
           </button>
           <button
-            className="bg-black rounded-full px-3 sm:px-5 py-3 w-fit text-white font-normal"
+            className="w-fit rounded-full bg-black px-3 py-3 font-normal text-white sm:px-5"
             type="submit"
           >
             Create Activity
