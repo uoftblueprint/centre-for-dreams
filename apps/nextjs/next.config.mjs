@@ -10,7 +10,7 @@ const config = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   images: {
-    domains: ['via.placeholder.com'],
+    domains: ["via.placeholder.com"],
   },
 };
 
