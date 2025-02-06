@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function CreateAnnouncement({
   user,
@@ -49,10 +50,12 @@ export default function CreateAnnouncement({
       {/* User Info and Notify Toggle */}
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img
+          <Image
             src={user.profileImage}
             alt="Profile"
-            className="h-10 w-10 rounded-full"
+            width={40}
+            height={40}
+            className="rounded-full"
           />
           <p className="text-lg font-medium">{user.name}</p>
         </div>
@@ -76,7 +79,7 @@ export default function CreateAnnouncement({
       <textarea
         className="mt-4 w-full rounded-md border border-gray-300 bg-gray-100 p-4 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         rows={4}
-        placeholder="Write your announcement here..."
+        placeholder="Let everyone know! Write your announcement..."
         value={announcement}
         onChange={(e) => setAnnouncement(e.target.value)}
       ></textarea>
