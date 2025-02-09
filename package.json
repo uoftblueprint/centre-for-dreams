@@ -33,6 +33,5 @@
   "resolutions": {
     "expo-router": "4.0.17"
   },
-
   "prettier": "@cfd/prettier-config"
 }
