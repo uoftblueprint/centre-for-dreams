@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import Constants from "expo-constants";
+import { useRouter } from "expo-router";
 import AWS from "aws-sdk";
 
 import type { RouterOutputs } from "~/utils/api";
@@ -43,6 +44,7 @@ export default function Discussion({
   discussion: DiscussionProps;
   canEdit: boolean;
 }) {
+  const router = useRouter();
   const [showMoreComments, setShowMoreComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -52,6 +54,16 @@ export default function Discussion({
       postId: discussion.id,
     },
   );
+
+  const handleEditPress = () => {
+    router.push({
+      pathname: "/editpost",
+      params: {
+        id: discussion.id,
+        initialContent: discussion.contents,
+      },
+    });
+  };
 
   const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
     postId: discussion.id,
@@ -245,10 +257,13 @@ export default function Discussion({
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
           </TouchableOpacity>
-          <View className="w-1/3 flex-row justify-center">
+          <TouchableOpacity
+            className="w-5/12 flex-row justify-center"
+            onPress={handleEditPress}
+          >
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       )}
       {!canEdit && (
