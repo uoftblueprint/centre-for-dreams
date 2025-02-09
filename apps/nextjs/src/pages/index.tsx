@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
+import ActivityCreateModal from "~/components/activity/activitycreatemodal";
 import CarlosSolares from "~/components/developers/carlossolares";
 import DanielXu from "~/components/developers/danielxu";
 import ElsieZhu from "~/components/developers/elsiezhu";
@@ -65,6 +66,7 @@ export default function Home() {
         </div>
         <div> Centre for Dreams Home Page </div>
         <div> We have {developerCount.data} awesome team members! </div>
+        <ActivityCreateModal open={true} setOpen={() => {}} />
         <SarinaLi />
         <EmilyZhou />
         <GirikSetya />
