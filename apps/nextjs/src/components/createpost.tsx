@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
@@ -196,19 +197,48 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
     }
   };
 
-  return (
+  return ReactDOM.createPortal(
     <>
-      <div className="overlay"></div>
+      <div
+        className="z-999 fixed inset-0 bg-black bg-opacity-50"
+        onClick={onClose}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === "Escape") {
+            onClose();
+          }
+        }}
+      ></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
           className="mih-[519px] w-[824px]"
           style={{
-            // position: 'absolute',
-            top: "1153px",
-            left: "4092px",
+            position: "fixed",
+            top: "20%",
+            left: "25%",
           }}
         >
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              position: "absolute",  // Ensure the button is positioned correctly
+              width: "24px",         // Set the width to 24px
+              height: "24px",        // Set the height to 24px
+              top: "7px",           // Position it 35px from the top
+              left: "12px",          // Position it 35px from the left
+              fontSize: "24px",      // Set the font size to 24px for the × symbol
+              background: "transparent",  // Transparent background
+              border: "none",        // Remove the border
+              color: "#000",         // Black color for the × symbol
+              cursor: "pointer",     // Change the cursor to a pointer to indicate it's clickable
+            }}
+          >
+            &times;
+          </button>
           <CardHeader className={styles.profileInfo}>
+          
             <div className={styles.profilePictureWrapper}>
               <Image
                 src={
@@ -326,7 +356,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           </CardFooter>
         </Card>
       </form>
-    </>
+    </>,
+    document.getElementById("portal-root")!,
   );
 };
 
