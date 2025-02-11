@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
@@ -22,7 +23,6 @@ import {
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-import { X } from "lucide-react"
 import styles from "../styles/createpost.module.css";
 
 interface S3UploadResponse {
@@ -199,25 +199,33 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
     <>
       <div className="overlay"></div>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="w-[350px]">
-        <CardHeader>
-        <div className={styles.profilePictureWrapper}>
-            <Image
-              src={
-                "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
-              }
-              alt="Profile"
-              className={styles.profilePicture}
-              width={80}
-              height={80}
-              priority // Ensures the profile image is prioritized for loading
-            />
-          </div>
-          <CardTitle>User Name</CardTitle>
-          {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
-        </CardHeader>
-        <CardContent>
-          
+        <Card
+          className="h-[519px] w-[824px]"
+          style={{
+            // position: 'absolute',
+            top: "1153px",
+            left: "4092px",
+          }}
+        >
+          <CardHeader className={styles.profileInfo}>
+            <div className={styles.profilePictureWrapper}>
+              <Image
+                src={
+                  "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
+                }
+                alt="Profile"
+                className={styles.profilePicture}
+                width={80}
+                height={80}
+                priority // Ensures the profile image is prioritized for loading
+              />
+            </div>
+            <CardTitle className="font-inter text-[18px] font-bold leading-[21.78px] tracking-[0%]">
+              User Name
+            </CardTitle>
+            {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
+          </CardHeader>
+          <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="title">Title</Label>
@@ -239,26 +247,26 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                 />
               </div>
             </div>
-          
-          {imagesTemp.length > 0 && (
-            <Carousel className="mx-auto w-4/5 max-w-xs">
-              <CarouselContent>
-                {imagesTemp.map((image, index) => {
-                  const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
-                    let binary = "";
-                    uint8Array.forEach((byte) => {
-                      binary += String.fromCharCode(byte);
-                    });
-                    return `data:image/png;base64,${btoa(binary)}`;
-                  };
 
-                  const base64String = uint8ArrayToBase64(image);
-                  return (
-                    <CarouselItem key={index}>
-                      <div className="p-1 h-full flex items-center justify-center">
-                        <Card>
-                          {/* <CardContent className="flex items-center justify-center p-6"> */}
-                          {/* <div
+            {imagesTemp.length > 0 && (
+              <Carousel className="mx-auto w-4/5 max-w-xs">
+                <CarouselContent>
+                  {imagesTemp.map((image, index) => {
+                    const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+                      let binary = "";
+                      uint8Array.forEach((byte) => {
+                        binary += String.fromCharCode(byte);
+                      });
+                      return `data:image/png;base64,${btoa(binary)}`;
+                    };
+
+                    const base64String = uint8ArrayToBase64(image);
+                    return (
+                      <CarouselItem key={index}>
+                        <div className="flex h-full items-center justify-center p-1">
+                          <Card>
+                            {/* <CardContent className="flex items-center justify-center p-6"> */}
+                            {/* <div
                             className="absolute right-2 top-2 rounded-md p-1 text-neutral-950/50 opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
                           >
                             <X className="h-4 w-4" />
@@ -269,24 +277,26 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                               width={160}
                               height={160}
                             />
-                          {/* </CardContent> */}
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  );
-                })}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          )}
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" type="button" onClick={pickImage}>Add Photos</Button>
-          <Button type="submit">Create Post</Button>
-          {error && <p>Error: {error.message}</p>}
-        </CardFooter>
-      </Card>
+                            {/* </CardContent> */}
+                          </Card>
+                        </div>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            )}
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button variant="outline" type="button" onClick={pickImage}>
+              Add Photos
+            </Button>
+            <Button type="submit">Create Post</Button>
+            {error && <p>Error: {error.message}</p>}
+          </CardFooter>
+        </Card>
       </form>
     </>
   );
