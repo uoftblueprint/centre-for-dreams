@@ -242,16 +242,16 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                   const base64String = uint8ArrayToBase64(image);
                   return (
                     <CarouselItem key={index}>
-                      <div className="p-1">
+                      <div className="p-1 h-full flex items-center justify-center">
                         <Card>
-                          <CardContent className="flex items-center justify-center p-6">
+                          {/* <CardContent className="flex items-center justify-center p-6"> */}
                             <Image
                               src={base64String}
                               alt={`Uploaded preview ${index + 1}`}
                               width={160}
                               height={160}
                             />
-                          </CardContent>
+                          {/* </CardContent> */}
                         </Card>
                       </div>
                     </CarouselItem>
