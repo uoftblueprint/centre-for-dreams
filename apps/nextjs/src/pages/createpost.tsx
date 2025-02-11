@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 
-import { Button } from "../components/ui/button"
+import { api } from "~/utils/api";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,18 +11,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { Label } from "../components/ui/label"
+} from "../components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select"
-
-import { api } from "~/utils/api";
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../components/ui/carousel";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
 import styles from "../styles/createpost.module.css";
 
 interface S3UploadResponse {
@@ -197,105 +197,78 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
   return (
     <>
       <div className="overlay"></div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <button type="button" className={styles.closeButton} onClick={onClose}>
-          &times;
-        </button>
-        <div className={styles.profileInfo}>
-          <div className={styles.profilePictureWrapper}>
-            <Image
-              src={
-                "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
-              }
-              alt="Profile"
-              className={styles.profilePicture}
-              width={80}
-              height={80}
-              priority // Ensures the profile image is prioritized for loading
-            />
-          </div>
-          <span className={styles.userName}>User Name</span>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>User Name</CardTitle>
+          {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
+        </CardHeader>
+        <CardContent>
+          
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  {...register("title", { required: true })}
+                  id="title"
+                  placeholder="Enter post title"
+                />
+                {errors.title && (
+                  <span className={styles.error}>Title is required</span>
+                )}
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="contents">Content</Label>
+                <Textarea
+                  {...register("contents", { required: false })}
+                  placeholder="Enter post content"
+                  id="contents"
+                />
+              </div>
+            </div>
+          
+          {imagesTemp.length > 0 && (
+            <Carousel className="mx-auto w-4/5 max-w-xs">
+              <CarouselContent>
+                {imagesTemp.map((image, index) => {
+                  const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+                    let binary = "";
+                    uint8Array.forEach((byte) => {
+                      binary += String.fromCharCode(byte);
+                    });
+                    return `data:image/png;base64,${btoa(binary)}`;
+                  };
 
-        <div className={styles.inputWrapper}>
-          <label htmlFor="title" className={styles.label}>
-            Title
-          </label>
-          <input
-            {...register("title", { required: true })}
-            placeholder="Enter post title"
-            id="title"
-            className={styles.input}
-          />
-          {errors.title && (
-            <span className={styles.error}>Title is required</span>
+                  const base64String = uint8ArrayToBase64(image);
+                  return (
+                    <CarouselItem key={index}>
+                      <div className="p-1">
+                        <Card>
+                          <CardContent className="flex items-center justify-center p-6">
+                            <Image
+                              src={base64String}
+                              alt={`Uploaded preview ${index + 1}`}
+                              width={160}
+                              height={160}
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           )}
-        </div>
-
-        <div className={styles.inputWrapper}>
-          <label htmlFor="contents" className={styles.label}>
-            Content
-          </label>
-          <textarea
-            {...register("contents", { required: false })}
-            placeholder="Enter post content"
-            id="contents"
-            className={styles.textarea}
-          />
-        </div>
-
-        {imagesTemp.length > 0 && (
-          <div className={styles.imagePreviewContainer}>
-            {imagesTemp.map((image, index) => {
-              const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
-                let binary = "";
-                uint8Array.forEach((byte) => {
-                  binary += String.fromCharCode(byte);
-                });
-                return `data:image/png;base64,${btoa(binary)}`;
-              };
-
-              const base64String = uint8ArrayToBase64(image);
-              return (
-                <div key={index} className={styles.imagePreviewWrapper}>
-                  <button
-                    className={styles.removeImageButton}
-                    onClick={() => removeImage(index)}
-                  >
-                    ×
-                  </button>
-                  <Image
-                    src={base64String}
-                    alt={`Uploaded preview ${index + 1}`}
-                    className={styles.imagePreview}
-                    width={160}
-                    height={160}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        <div className={styles.buttons}>
-          <button
-            type="button"
-            onClick={pickImage}
-            // disabled={uploading}
-            className={styles.outlinedButton}
-          >
-            <span className={styles.icon}></span>
-            <span className={styles.buttonText}>
-              {/* {uploading ? "Uploading..." : "Add Photos"} */}
-              Add Photos
-            </span>
-          </button>
-
-          <button type="submit" className={styles.submitButton}>
-            Create Post
-          </button>
-        </div>
-        {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={pickImage}>Add Photos</Button>
+          <Button type="submit">Create Post</Button>
+          {error && <p>Error: {error.message}</p>}
+        </CardFooter>
+      </Card>
       </form>
     </>
   );
