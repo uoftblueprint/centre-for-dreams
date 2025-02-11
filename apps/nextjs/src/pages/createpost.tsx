@@ -22,6 +22,7 @@ import {
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
+import { X } from "lucide-react"
 import styles from "../styles/createpost.module.css";
 
 interface S3UploadResponse {
@@ -245,6 +246,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                       <div className="p-1 h-full flex items-center justify-center">
                         <Card>
                           {/* <CardContent className="flex items-center justify-center p-6"> */}
+                          {/* <div
+                            className="absolute right-2 top-2 rounded-md p-1 text-neutral-950/50 opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
+                          >
+                            <X className="h-4 w-4" />
+                          </div> */}
                             <Image
                               src={base64String}
                               alt={`Uploaded preview ${index + 1}`}
@@ -264,7 +270,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           )}
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={pickImage}>Add Photos</Button>
+          <Button variant="outline" type="button" onClick={pickImage}>Add Photos</Button>
           <Button type="submit">Create Post</Button>
           {error && <p>Error: {error.message}</p>}
         </CardFooter>
