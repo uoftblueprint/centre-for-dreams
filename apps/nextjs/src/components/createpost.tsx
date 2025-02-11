@@ -66,9 +66,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       },
     });
 
-  // const removeImage = (index: number) => {
-  //   setImagesTemp((prev) => prev.filter((_, i) => i !== index));
-  // };
+  const removeImage = (index: number) => {
+    setImagesTemp((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const onSubmit = async (data: FormData) => {
     if (data.title === "") {
@@ -214,8 +214,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
           className="mih-[519px] w-[824px]"
           style={{
             position: "fixed",
-            top: "20%",
-            left: "25%",
+            top: "10%",
+            left: "20%",
           }}
         >
           <button
@@ -310,12 +310,19 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                           >
                             <X className="h-4 w-4" />
                           </div> */}
+                          <button
+                    className={styles.removeImageButton}
+                    onClick={() => removeImage(index)}
+                  >
+                    ×
+                  </button>
                             <Image
                               src={base64String}
                               alt={`Uploaded preview ${index + 1}`}
                               width={160}
                               height={160}
                             />
+                            
                             {/* </CardContent> */}
                           </Card>
                         </div>

@@ -198,8 +198,8 @@
 
 .removeImageButton {
   position: relative;
-  top: 20px;
-  right: -215px;
+  /* top: 20px; */
+  right: -210px;
   color: white;
   border: none;
   border-radius: 50%;
