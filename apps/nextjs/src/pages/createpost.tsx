@@ -201,6 +201,18 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-[350px]">
         <CardHeader>
+        <div className={styles.profilePictureWrapper}>
+            <Image
+              src={
+                "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
+              }
+              alt="Profile"
+              className={styles.profilePicture}
+              width={80}
+              height={80}
+              priority // Ensures the profile image is prioritized for loading
+            />
+          </div>
           <CardTitle>User Name</CardTitle>
           {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
         </CardHeader>
