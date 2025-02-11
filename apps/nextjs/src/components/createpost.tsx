@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 
@@ -11,7 +11,6 @@ import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -67,9 +66,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       },
     });
 
-  const removeImage = (index: number) => {
-    setImagesTemp((prev) => prev.filter((_, i) => i !== index));
-  };
+  // const removeImage = (index: number) => {
+  //   setImagesTemp((prev) => prev.filter((_, i) => i !== index));
+  // };
 
   const onSubmit = async (data: FormData) => {
     if (data.title === "") {
@@ -223,22 +222,21 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             type="button"
             onClick={onClose}
             style={{
-              position: "absolute",  // Ensure the button is positioned correctly
-              width: "24px",         // Set the width to 24px
-              height: "24px",        // Set the height to 24px
-              top: "7px",           // Position it 35px from the top
-              left: "12px",          // Position it 35px from the left
-              fontSize: "24px",      // Set the font size to 24px for the × symbol
-              background: "transparent",  // Transparent background
-              border: "none",        // Remove the border
-              color: "#000",         // Black color for the × symbol
-              cursor: "pointer",     // Change the cursor to a pointer to indicate it's clickable
+              position: "absolute", // Ensure the button is positioned correctly
+              width: "24px", // Set the width to 24px
+              height: "24px", // Set the height to 24px
+              top: "7px", // Position it 35px from the top
+              left: "12px", // Position it 35px from the left
+              fontSize: "24px", // Set the font size to 24px for the × symbol
+              background: "transparent", // Transparent background
+              border: "none", // Remove the border
+              color: "#000", // Black color for the × symbol
+              cursor: "pointer", // Change the cursor to a pointer to indicate it's clickable
             }}
           >
             &times;
           </button>
           <CardHeader className={styles.profileInfo}>
-          
             <div className={styles.profilePictureWrapper}>
               <Image
                 src={
@@ -338,6 +336,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               className="h-[48px] w-[166px] gap-[10px] rounded-[24px] border-[1px] border-[#2E4D90] pb-[12px] pl-[16px] pr-[16px] pt-[12px]"
             >
               <Image
+                // eslint-disable-next-line
                 src={cross}
                 alt="Cross icon"
                 width={16} // adjust the size as needed

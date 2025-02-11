@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import NavBar from "~/components/navbar";
 import { api } from "~/utils/api";
-import CreatePost from "../components/createpost";
 import Post from "../components/post";
 
 function Posts() {
@@ -10,7 +9,6 @@ function Posts() {
   const userPosts = api.discussion.getDiscussionsByUser.useQuery();
 
   const [myPostToggle, setMyPostToggle] = useState(true);
-  const [createPostModal, setCreatePostModal] = useState(false);
 
   const setMyPosts = () => {
     setMyPostToggle(true);
