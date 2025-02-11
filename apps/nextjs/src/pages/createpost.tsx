@@ -23,6 +23,7 @@ import {
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
+import cross from "../../assets/cross.svg";
 import styles from "../styles/createpost.module.css";
 
 interface S3UploadResponse {
@@ -200,7 +201,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       <div className="overlay"></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
-          className="h-[519px] w-[824px]"
+          className="min-h-[519px] w-[824px]"
           style={{
             // position: 'absolute',
             top: "1153px",
@@ -233,6 +234,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                   {...register("title", { required: true })}
                   id="title"
                   placeholder="Enter post title"
+                  className="w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
+                  style={{
+                    top: "150px",
+                    left: "35px",
+                  }}
                 />
                 {errors.title && (
                   <span className={styles.error}>Title is required</span>
@@ -244,6 +250,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                   {...register("contents", { required: false })}
                   placeholder="Enter post content"
                   id="contents"
+                  className="h-[254px] w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
+                  style={{
+                    top: "150px",
+                    left: "35px",
+                  }}
                 />
               </div>
             </div>
@@ -290,10 +301,27 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             )}
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" type="button" onClick={pickImage}>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={pickImage}
+              className="h-[48px] w-[166px] gap-[10px] rounded-[24px] border-[1px] border-[#2E4D90] pb-[12px] pl-[16px] pr-[16px] pt-[12px]"
+            >
+              <Image
+                src={cross}
+                alt="Cross icon"
+                width={16} // adjust the size as needed
+                height={16} // adjust the size as needed
+                className="rotate-45 transform" // this will rotate the icon 45 degrees
+              />
               Add Photos
             </Button>
-            <Button type="submit">Create Post</Button>
+            <Button
+              className="relative left-[-24px] h-[48px] w-[161px] gap-[10px] rounded-[24px] bg-[#2E4D90] pb-[17px] pl-[80px] pr-[80px] pt-[17px]"
+              type="submit"
+            >
+              Create Post
+            </Button>
             {error && <p>Error: {error.message}</p>}
           </CardFooter>
         </Card>
