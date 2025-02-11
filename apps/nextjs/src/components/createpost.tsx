@@ -4,7 +4,9 @@ import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
-import { Button } from "../components/ui/button";
+import cross from "../../assets/cross.svg";
+import styles from "../styles/createpost.module.css";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -12,19 +14,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from "./ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../components/ui/carousel";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { Textarea } from "../components/ui/textarea";
-import cross from "../../assets/cross.svg";
-import styles from "../styles/createpost.module.css";
+} from "./ui/carousel";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 
 interface S3UploadResponse {
   success: boolean;
@@ -201,7 +201,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       <div className="overlay"></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
-          className="min-h-[519px] w-[824px]"
+          className="mih-[519px] w-[824px]"
           style={{
             // position: 'absolute',
             top: "1153px",

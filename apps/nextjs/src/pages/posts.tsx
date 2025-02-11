@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import NavBar from "~/components/navbar";
 import { api } from "~/utils/api";
+import CreatePost from "../components/createpost";
 import Post from "../components/post";
-import CreatePost from "./createpost";
 
 function Posts() {
   const posts = api.discussion.getDiscussions.useQuery();
