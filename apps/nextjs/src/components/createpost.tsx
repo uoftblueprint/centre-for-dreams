@@ -336,6 +336,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               className="h-[48px] w-[166px] gap-[10px] rounded-[24px] border-[1px] border-[#2E4D90] pb-[12px] pl-[16px] pr-[16px] pt-[12px]"
             >
               <Image
+              // eslint-disable-next-line
                 src={cross}
                 alt="Cross icon"
                 width={16} // adjust the size as needed
