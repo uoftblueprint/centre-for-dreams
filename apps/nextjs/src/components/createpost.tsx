@@ -310,19 +310,19 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                           >
                             <X className="h-4 w-4" />
                           </div> */}
-                          <button
-                    className={styles.removeImageButton}
-                    onClick={() => removeImage(index)}
-                  >
-                    ×
-                  </button>
+                            <button
+                              className={styles.removeImageButton}
+                              onClick={() => removeImage(index)}
+                            >
+                              ×
+                            </button>
                             <Image
                               src={base64String}
                               alt={`Uploaded preview ${index + 1}`}
                               width={160}
                               height={160}
                             />
-                            
+
                             {/* </CardContent> */}
                           </Card>
                         </div>
@@ -343,7 +343,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               className="h-[48px] w-[166px] gap-[10px] rounded-[24px] border-[1px] border-[#2E4D90] pb-[12px] pl-[16px] pr-[16px] pt-[12px]"
             >
               <Image
-              // eslint-disable-next-line
+                // eslint-disable-next-line
                 src={cross}
                 alt="Cross icon"
                 width={16} // adjust the size as needed
