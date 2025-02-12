@@ -5,8 +5,14 @@ import { api } from "~/utils/api";
 import Post from "../components/post";
 
 function Posts() {
-  const posts = api.discussion.getDiscussions.useQuery();
-  const userPosts = api.discussion.getDiscussionsByUser.useQuery();
+  const { data: posts } = api.discussion.getDiscussions.useQuery({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data: userPosts } = api.discussion.getDiscussionsByUser.useQuery({
+    page: 1,
+    pageSize: 10,
+  });
 
   const [myPostToggle, setMyPostToggle] = useState(true);
 
@@ -50,11 +56,11 @@ function Posts() {
           )}
         </div>
         {myPostToggle
-          ? userPosts.data?.map((p) => {
+          ? userPosts?.posts?.map((p) => {
               // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })
-          : posts.data?.map((p) => {
+          : posts?.posts?.map((p) => {
               // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })}
