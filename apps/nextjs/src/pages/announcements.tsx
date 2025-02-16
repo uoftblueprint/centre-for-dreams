@@ -3,11 +3,12 @@ import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 import Announcement from "../components/announcement";
+import ToggleButton from "../components/ToggleButton";
 
 function Announcements() {
   const announcements = api.announcement.getAnnouncements.useQuery();
   const users = api.user.getAllUsers.useQuery();
-  const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
+  const { userId, isSignedIn } = useAuth();
 
   const [myAnnouncementToggle, setMyAnnouncementToggle] = useState(true);
 
@@ -19,7 +20,6 @@ function Announcements() {
     setMyAnnouncementToggle(false);
   };
 
-  // Find the user whose clerkId matches the userId from useAuth
   const currentUser = users.data?.find((user) => user.clerkId === userId);
 
   return (
@@ -49,42 +49,15 @@ function Announcements() {
         </button>
       </div>
       <div className="flex w-full flex-col items-center pt-6">
-        <div className="m-2 max-w-max self-center rounded-3xl border border-[#2E4D90]">
-          {myAnnouncementToggle ? (
-            <>
-              <button
-                className="rounded-3xl p-2 px-10"
-                onClick={setAllAnnouncements}
-              >
-                All Announcements
-              </button>
-              <button
-                className="rounded-3xl bg-[#2E4D90] p-2 px-10 text-white"
-                onClick={setMyAnnouncements}
-              >
-                My Announcements
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="rounded-3xl bg-[#2E4D90] p-2 px-10 text-white"
-                onClick={setAllAnnouncements}
-              >
-                All Announcements
-              </button>
-              <button
-                className="rounded-3xl p-2 px-10"
-                onClick={setMyAnnouncements}
-              >
-                My Announcements
-              </button>
-            </>
-          )}
-        </div>
+        <ToggleButton
+          word="Announcements"
+          isToggled={myAnnouncementToggle}
+          setAll={setAllAnnouncements}
+          setMy={setMyAnnouncements}
+        />
         {myAnnouncementToggle
           ? announcements.data
-              ?.filter((a) => a.userId === currentUser?.id) // Filter announcements by userId
+              ?.filter((a) => a.userId === currentUser?.id)
               .map((a) => {
                 return (
                   <Announcement

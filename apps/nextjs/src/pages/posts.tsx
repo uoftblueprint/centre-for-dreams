@@ -3,6 +3,7 @@ import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 import Post from "../components/post";
+import ToggleButton from "../components/ToggleButton";
 
 function Posts() {
   const posts = api.discussion.getDiscussions.useQuery();
@@ -47,40 +48,17 @@ function Posts() {
         </button>
       </div>
       <div className="flex w-full flex-col items-center pt-6">
-        <div className="m-2 w-max self-center rounded-3xl border border-[#2E4D90]">
-          {myPostToggle ? (
-            <>
-              <button className="rounded-3xl px-10 py-2" onClick={setAllPosts}>
-                All Posts
-              </button>
-              <button
-                className="rounded-3xl bg-[#2E4D90] px-10 py-2 text-white"
-                onClick={setMyPosts}
-              >
-                My Posts
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="rounded-3xl bg-[#2E4D90] px-10 py-2 text-white"
-                onClick={setAllPosts}
-              >
-                All Posts
-              </button>
-              <button className="rounded-3xl px-10 py-2" onClick={setMyPosts}>
-                My Posts
-              </button>
-            </>
-          )}
-        </div>
+        <ToggleButton
+          word="Posts"
+          isToggled={myPostToggle}
+          setAll={setAllPosts}
+          setMy={setMyPosts}
+        />
         {myPostToggle
           ? userPosts.data?.map((p) => {
-              // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })
           : posts.data?.map((p) => {
-              // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })}
       </div>
