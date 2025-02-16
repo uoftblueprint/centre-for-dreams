@@ -3,6 +3,25 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
+import cross from "../../assets/cross.svg";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../components/ui/carousel";
+import { Input } from "../components//ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
 import styles from "../styles/updatepost.module.css";
 
 interface S3UploadResponse {
@@ -289,109 +308,174 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     }
   };
 
-  return (
+  return ReactDOM.createPortal(
     <>
-      <div className="overlay"></div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <button type="button" className={styles.closeButton} onClick={onClose}>
-          &times;
-        </button>
-        <div className={styles.profileInfo}>
-          <div className={styles.profilePictureWrapper}>
-            <Image
-              src={
-                "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
-              }
-              alt="Profile"
-              className={styles.profilePicture}
-              width={80}
-              height={80}
-              priority // Ensures the profile image is prioritized for loading
-            />
-          </div>
-          <span className={styles.userName}>User Name</span>
-        </div>
-
-        <div className={styles.inputWrapper}>
-          <label htmlFor="title" className={styles.label}>
-            Title
-          </label>
-          <input
-            {...register("title", { required: true })}
-            placeholder="Enter post title"
-            id="title"
-            className={styles.input}
-          />
-          {errors.title && (
-            <span className={styles.error}>Title is required</span>
-          )}
-        </div>
-
-        <div className={styles.inputWrapper}>
-          <label htmlFor="contents" className={styles.label}>
-            Content
-          </label>
-          <textarea
-            {...register("contents", { required: false })}
-            placeholder="Enter post content"
-            id="contents"
-            className={styles.textarea}
-          />
-        </div>
-
-        {imagesTemp.length > 0 && (
-          <div className={styles.imagePreviewContainer}>
-            {imagesTemp.map((image, index) => {
-              const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
-                let binary = "";
-                uint8Array.forEach((byte) => {
-                  binary += String.fromCharCode(byte);
-                });
-                return `data:image/png;base64,${btoa(binary)}`;
-              };
-
-              const base64String = uint8ArrayToBase64(image);
-              return (
-                <div key={index} className={styles.imagePreviewWrapper}>
-                  <button
-                    className={styles.removeImageButton}
-                    onClick={() => removeImage(index)}
-                  >
-                    ×
-                  </button>
-                  <Image
-                    src={base64String}
-                    alt={`Uploaded preview ${index + 1}`}
-                    className={styles.imagePreview}
-                    width={160}
-                    height={160}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        <div className={styles.buttons}>
+      <div
+        className="z-999 fixed inset-0 bg-black bg-opacity-50"
+        onClick={onClose}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === "Escape") {
+            onClose();
+          }
+        }}
+      ></div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card
+          className="mih-[519px] w-[824px]"
+          style={{
+            position: "fixed",
+            top: "10%",
+            left: "20%",
+          }}
+        >
           <button
             type="button"
-            onClick={pickImage}
-            disabled={uploading}
-            className={styles.outlinedButton}
+            onClick={onClose}
+            style={{
+              position: "absolute", // Ensure the button is positioned correctly
+              width: "24px", // Set the width to 24px
+              height: "24px", // Set the height to 24px
+              top: "7px", // Position it 35px from the top
+              left: "12px", // Position it 35px from the left
+              fontSize: "24px", // Set the font size to 24px for the × symbol
+              background: "transparent", // Transparent background
+              border: "none", // Remove the border
+              color: "#000", // Black color for the × symbol
+              cursor: "pointer", // Change the cursor to a pointer to indicate it's clickable
+            }}
           >
-            <span className={styles.icon}></span>
-            <span className={styles.buttonText}>
-              {uploading ? "Uploading..." : "Add Photos"}
-            </span>
+            &times;
           </button>
+          <CardHeader className={styles.profileInfo}>
+            <div className={styles.profilePictureWrapper}>
+              <Image
+                src={
+                  "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857"
+                }
+                alt="Profile"
+                className={styles.profilePicture}
+                width={80}
+                height={80}
+                priority // Ensures the profile image is prioritized for loading
+              />
+            </div>
+            <CardTitle className="font-inter text-[18px] font-bold leading-[21.78px] tracking-[0%]">
+              User Name
+            </CardTitle>
+            {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
+          </CardHeader>
+          <CardContent>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  {...register("title", { required: true })}
+                  id="title"
+                  placeholder="Enter post title"
+                  className="w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
+                  style={{
+                    top: "150px",
+                    left: "35px",
+                  }}
+                />
+                {errors.title && (
+                  <span className={styles.error}>Title is required</span>
+                )}
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="contents">Content</Label>
+                <Textarea
+                  {...register("contents", { required: false })}
+                  placeholder="Enter post content"
+                  id="contents"
+                  className="h-[254px] w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
+                  style={{
+                    top: "150px",
+                    left: "35px",
+                  }}
+                />
+              </div>
+            </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Update Post
-          </button>
-        </div>
-        {error && <p className={styles.errorMessage}>Error: {error.message}</p>}
+            {imagesTemp.length > 0 && (
+              <Carousel className="mx-auto w-4/5 max-w-xs">
+                <CarouselContent>
+                  {imagesTemp.map((image, index) => {
+                    const uint8ArrayToBase64 = (uint8Array: Uint8Array) => {
+                      let binary = "";
+                      uint8Array.forEach((byte) => {
+                        binary += String.fromCharCode(byte);
+                      });
+                      return `data:image/png;base64,${btoa(binary)}`;
+                    };
+
+                    const base64String = uint8ArrayToBase64(image);
+                    return (
+                      <CarouselItem key={index}>
+                        <div className="flex h-full items-center justify-center p-1">
+                          <Card>
+                            {/* <CardContent className="flex items-center justify-center p-6"> */}
+                            {/* <div
+                            className="absolute right-2 top-2 rounded-md p-1 text-neutral-950/50 opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
+                          >
+                            <X className="h-4 w-4" />
+                          </div> */}
+                            <button
+                              className={styles.removeImageButton}
+                              onClick={() => removeImage(index)}
+                            >
+                              ×
+                            </button>
+                            <Image
+                              src={base64String}
+                              alt={`Uploaded preview ${index + 1}`}
+                              width={160}
+                              height={160}
+                            />
+
+                            {/* </CardContent> */}
+                          </Card>
+                        </div>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            )}
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={pickImage}
+              className="h-[48px] w-[166px] gap-[10px] rounded-[24px] border-[1px] border-[#2E4D90] pb-[12px] pl-[16px] pr-[16px] pt-[12px]"
+            >
+              <Image
+                // eslint-disable-next-line
+                src={cross}
+                alt="Cross icon"
+                width={16} // adjust the size as needed
+                height={16} // adjust the size as needed
+                className="rotate-45 transform" // this will rotate the icon 45 degrees
+              />
+              Add Photos
+            </Button>
+            <Button
+              className="relative left-[-24px] h-[48px] w-[161px] gap-[10px] rounded-[24px] bg-[#2E4D90] pb-[17px] pl-[80px] pr-[80px] pt-[17px]"
+              type="submit"
+            >
+              Create Post
+            </Button>
+            {error && <p>Error: {error.message}</p>}
+          </CardFooter>
+        </Card>
       </form>
-    </>
+    </>,
+    document.getElementById("portal-root")!,
   );
 };
 
