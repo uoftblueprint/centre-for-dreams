@@ -39,7 +39,10 @@ function EditPost() {
     setIsError(false);
     updateDiscussion({
       id: Number(id),
+      title: "",
       contents: post,
+      images: [],
+      // This is hardcoded. Error emerges here when header for updateDiscussion changes, but beyond my ticket.
     });
   };
 
