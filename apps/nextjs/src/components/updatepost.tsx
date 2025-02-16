@@ -123,7 +123,11 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
           console.log(base64Images);
           // Convert each base64 string to a Uint8Array
           const uint8ArrayImages = base64Images.map((base64String) => {
-            const binary = atob(base64String.split(",")[1]); // Remove the base64 prefix (data:image/png;base64,)
+            const base64Data = base64String.split(",")[1];
+            if (!base64Data) {
+              throw new Error("Invalid base64 format");
+            }
+            const binary = atob(base64Data);
             const uint8Array = new Uint8Array(binary.length);
 
             for (let i = 0; i < binary.length; i++) {
