@@ -5,25 +5,25 @@ import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
 import cross from "../../assets/cross.svg";
-import { Button } from "../components/ui/button";
+import styles from "../styles/updatepost.module.css";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from "./ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../components/ui/carousel";
-import { Input } from "../components//ui/input";
-import { Label } from "../components/ui/label";
-import { Textarea } from "../components/ui/textarea";
-import styles from "../styles/updatepost.module.css";
+} from "./ui/carousel";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 
 interface S3UploadResponse {
   success: boolean;
@@ -110,7 +110,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
               body: JSON.stringify({ fileName }),
             });
 
-            const result = await response.json() as S3ImageResponse;
+            const result = (await response.json()) as S3ImageResponse;
 
             if (!result.image) {
               throw new Error("Failed to fetch image");
@@ -469,7 +469,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
               className="relative left-[-24px] h-[48px] w-[161px] gap-[10px] rounded-[24px] bg-[#2E4D90] pb-[17px] pl-[80px] pr-[80px] pt-[17px]"
               type="submit"
             >
-              Create Post
+              Update Post
             </Button>
             {error && <p>Error: {error.message}</p>}
           </CardFooter>
