@@ -309,19 +309,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
     }
   };
 
-  return ReactDOM.createPortal(
+  return (
     <>
-      <div
-        className="z-999 fixed inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === "Escape") {
-            onClose();
-          }
-        }}
-      ></div>
+      <div className="overlay"></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
           className="mih-[519px] w-[824px]"
@@ -391,7 +381,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
                   {...register("contents", { required: false })}
                   placeholder="Enter post content"
                   id="contents"
-                  className="h-[254px] w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
+                  className="h-[180px] w-[754px] rounded-[10px] bg-[#EFF2FB] p-4"
                   style={{
                     top: "150px",
                     left: "35px",
@@ -475,8 +465,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
           </CardFooter>
         </Card>
       </form>
-    </>,
-    document.getElementById("portal-root")!,
+    </>
   );
 };
 
