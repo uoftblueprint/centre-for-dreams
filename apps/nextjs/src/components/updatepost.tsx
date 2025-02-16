@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
-import cross from "../../assets/cross.svg";
+// import cross from "../../assets/cross.svg";
 import styles from "../styles/updatepost.module.css";
 import { Button } from "./ui/button";
 import {
