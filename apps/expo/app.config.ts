@@ -36,6 +36,9 @@ const defineConfig = (): ExpoConfig => ({
       projectId: process.env.EXPO_PROJECT_ID,
     },
     clerkPublishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    awsAccessKeyId: process.env.AWS_ACCESS_KEY,
+    awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    awsRegion: process.env.AWS_REGION,
   },
   experiments: {
     tsconfigPaths: true,

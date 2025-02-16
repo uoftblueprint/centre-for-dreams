@@ -25,9 +25,13 @@
   "dependencies": {
     "@cfd/prettier-config": "^0.1.0",
     "@manypkg/cli": "^0.21.4",
-    "prettier": "^3.2.5",
+    "aws-sdk": "^2.1692.0",
+    "prettier": "^3.4.2",
     "turbo": "^1.13.4",
-    "typescript": "^5.3.3"
+    "typescript": "^5.7.3"
+  },
+  "resolutions": {
+    "expo-router": "4.0.17"
   },
   "prettier": "@cfd/prettier-config"
 }

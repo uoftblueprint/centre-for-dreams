@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 import Plus from "../../assets/plus.svg";
 
 interface OutlinedButtonProps {
-  onPress: () => void;
+  onPress?: () => void;
   children: React.ReactNode;
   fill?: boolean;
   icon?: boolean;
@@ -21,7 +21,7 @@ const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`${bgColor} border-p-40 h-10 flex-row justify-center rounded-full border px-6 py-2`}
+      className={`${bgColor} border-p-40 h-10 flex-row justify-center rounded-full border px-8 py-2`}
     >
       {icon && <Plus width={15} height={15} style={{ top: 2.5 }}></Plus>}
       <Text className={`font-title-md text-p-40 ${textShift}`}>{children}</Text>

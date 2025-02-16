@@ -8,7 +8,7 @@ import ToggleButton from "../components/ToggleButton";
 function Announcements() {
   const announcements = api.announcement.getAnnouncements.useQuery();
   const users = api.user.getAllUsers.useQuery();
-  const { userId, isSignedIn } = useAuth();
+  const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
   const [myAnnouncementToggle, setMyAnnouncementToggle] = useState(true);
 
@@ -19,7 +19,7 @@ function Announcements() {
   const setAllAnnouncements = () => {
     setMyAnnouncementToggle(false);
   };
-
+  // Find the user whose clerkId matches the userId from useAuth
   const currentUser = users.data?.find((user) => user.clerkId === userId);
 
   return (
@@ -49,7 +49,7 @@ function Announcements() {
         </button>
       </div>
       <div className="flex w-full flex-col items-center pt-6">
-        <ToggleButton
+      <ToggleButton
           word="Announcements"
           isToggled={myAnnouncementToggle}
           setAll={setAllAnnouncements}
