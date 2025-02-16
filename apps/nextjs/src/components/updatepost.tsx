@@ -56,7 +56,6 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
   const [imagesTempOriginal, setImagesTempOriginal] = useState<Uint8Array[]>(
     [],
   );
-  const [uploading, setUploading] = useState(false);
   const [previousTitle, setPreviousTitle] = useState("");
 
   const {
@@ -158,8 +157,6 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       return;
     }
 
-    setUploading(true);
-
     // Strategy: Delete all previous images and upload them again. Include title renaming.
 
     const deletePromises = imagesTempOriginal.map((_, index) => {
@@ -247,8 +244,6 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ onClose, postId }) => {
       }
     } catch (error) {
       console.error("Error during image upload or discussion creation:", error);
-    } finally {
-      setUploading(false);
     }
   };
 

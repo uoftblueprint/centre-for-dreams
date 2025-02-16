@@ -27,7 +27,7 @@
     "@manypkg/cli": "^0.21.4",
     "@types/node-fetch": "^2.6.12",
     "aws-sdk": "^2.1692.0",
-    "expo": "52.0.30",
+    "expo": "^52.0.31",
     "prettier": "^3.4.2",
     "turbo": "^1.13.4",
     "typescript": "^5.7.3"
