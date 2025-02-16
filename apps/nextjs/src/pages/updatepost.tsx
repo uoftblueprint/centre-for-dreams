@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 
 import { api } from "~/utils/api";
