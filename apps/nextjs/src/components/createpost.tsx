@@ -251,7 +251,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             <CardTitle className="font-inter text-[18px] font-bold leading-[21.78px] tracking-[0%]">
               User Name
             </CardTitle>
-            {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
           </CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">
