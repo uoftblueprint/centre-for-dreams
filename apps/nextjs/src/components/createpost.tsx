@@ -103,9 +103,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               if (result.success) {
                 return result.data.Location; // Image URL from S3
               } else {
-                alert(
-                  "Failed to upload image. Perhaps the image is too large.",
-                );
                 throw new Error("Failed to upload image");
               }
             });
@@ -132,7 +129,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
         // reset(); // Reset the form
       }
     } catch (error) {
-      alert("Error occurred. Perhaps the image is too large.");
+      alert(
+        "Error occurred. Perhaps the image is too large, or AWS credentials are missing.",
+      );
       console.log(error);
     } finally {
       // setUploading(false);
