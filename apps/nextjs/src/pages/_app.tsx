@@ -9,6 +9,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
       <Component {...pageProps} />
+      <div id="portal-root"></div>
     </ClerkProvider>
   );
 };
