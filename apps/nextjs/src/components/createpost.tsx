@@ -217,7 +217,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             left: "20%",
           }}
         >
-          <button
+          <Button
             type="button"
             onClick={onClose}
             style={{
@@ -234,7 +234,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
             }}
           >
             &times;
-          </button>
+          </Button>
           <CardHeader className={styles.profileInfo}>
             <div className={styles.profilePictureWrapper}>
               <Image
@@ -302,12 +302,12 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                       <CarouselItem key={index}>
                         <div className="flex h-full items-center justify-center p-1">
                           <Card>
-                            <button
+                            <Button
                               className={styles.removeImageButton}
                               onClick={() => removeImage(index)}
                             >
                               ×
-                            </button>
+                            </Button>
                             <Image
                               src={base64String}
                               alt={`Uploaded preview ${index + 1}`}
