@@ -40,9 +40,6 @@ function EditPost() {
     updateDiscussion({
       id: Number(id),
       title: "",
-      contents: post,
-      images: [],
-      // This is hardcoded to avoid errors in CI/CD. Error emerges here when header for updateDiscussion changes, but beyond my ticket.
     });
   };
 
