@@ -210,7 +210,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
       ></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card
-          className="mih-[519px] w-[824px]"
+          className="h-[570px] w-[824px] overflow-y-auto"
           style={{
             position: "fixed",
             top: "10%",
