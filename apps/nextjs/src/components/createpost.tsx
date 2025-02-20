@@ -302,12 +302,6 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
                       <CarouselItem key={index}>
                         <div className="flex h-full items-center justify-center p-1">
                           <Card>
-                            {/* <CardContent className="flex items-center justify-center p-6"> */}
-                            {/* <div
-                            className="absolute right-2 top-2 rounded-md p-1 text-neutral-950/50 opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
-                          >
-                            <X className="h-4 w-4" />
-                          </div> */}
                             <button
                               className={styles.removeImageButton}
                               onClick={() => removeImage(index)}
