@@ -18,7 +18,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^0.20.33",
+    "@clerk/clerk-expo": "^0.20.35",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-config": "^0.19.8",
     "@expo/prebuild-config": "~8.0.25",
@@ -28,7 +28,7 @@
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
     "date-fns": "^2.30.0",
-    "expo": "^52.0.26",
+    "expo": "^52.0.31",
     "expo-constants": "~17.0.4",
     "expo-dev-client": "~5.0.9",
     "expo-device": "~7.0.2",
@@ -46,7 +46,7 @@
     "nativewind": "^2.0.11",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-native": "0.76.6",
+    "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-root-toast": "^3.5.1",
     "react-native-safe-area-context": "4.12.0",
@@ -56,9 +56,9 @@
     "superjson": "2.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/runtime": "^7.26.0",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@babel/runtime": "^7.26.7",
     "@cfd/api": "~0.1.0",
     "@cfd/eslint-config": "^0.2.0",
     "@cfd/prettier-config": "^0.1.0",
