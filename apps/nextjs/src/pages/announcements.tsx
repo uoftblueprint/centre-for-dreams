@@ -5,9 +5,23 @@ import { api } from "~/utils/api";
 import Announcement from "../components/announcement";
 import ToggleButton from "../components/ToggleButton";
 
+interface User {
+  id: number;
+  clerkId: string;
+}
+
+interface AnnouncementData {
+  id: number;
+  title: string | null;
+  contents: string | null;
+  createdAt: Date;
+  userId: number;
+}
+
 function Announcements() {
-  const announcements = api.announcement.getAnnouncements.useQuery();
-  const users = api.user.getAllUsers.useQuery();
+  const announcements =
+    api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
+  const users = api.user.getAllUsers.useQuery<User[]>();
   const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
   const [myAnnouncementToggle, setMyAnnouncementToggle] = useState(true);
@@ -19,6 +33,7 @@ function Announcements() {
   const setAllAnnouncements = () => {
     setMyAnnouncementToggle(false);
   };
+
   // Find the user whose clerkId matches the userId from useAuth
   const currentUser = users.data?.find((user) => user.clerkId === userId);
 
@@ -49,7 +64,7 @@ function Announcements() {
         </button>
       </div>
       <div className="flex w-full flex-col items-center pt-6">
-      <ToggleButton
+        <ToggleButton
           word="Announcements"
           isToggled={myAnnouncementToggle}
           setAll={setAllAnnouncements}
@@ -57,7 +72,7 @@ function Announcements() {
         />
         {myAnnouncementToggle
           ? announcements.data
-              ?.filter((a) => a.userId === currentUser?.id)
+              ?.filter((a) => a.userId === currentUser?.id) // Filter announcements by userId
               .map((a) => {
                 return (
                   <Announcement
