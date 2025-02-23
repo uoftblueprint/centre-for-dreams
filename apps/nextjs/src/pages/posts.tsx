@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
 import NavBar from "~/components/navbar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 import { api } from "~/utils/api";
 import Post from "../components/post";
 
@@ -49,6 +55,17 @@ function Posts() {
             </>
           )}
         </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="rounded-3xl bg-[#2E4D90] px-4 py-2 text-white">
+              Create New
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="top" className="min-w-[160px]">
+            <DropdownMenuItem>Forum Post</DropdownMenuItem>
+            <DropdownMenuItem>Announcement</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         {myPostToggle
           ? userPosts.data?.map((p) => {
               // get user name from id and pass it in
