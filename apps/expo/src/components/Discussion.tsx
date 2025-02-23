@@ -27,7 +27,7 @@ AWS.config.update({
   secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
   region: String(Constants.expoConfig?.extra?.awsRegion),
 });
-const s3 = new AWS.S3();
+// const s3 = new AWS.S3();
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
@@ -188,7 +188,19 @@ export default function Discussion({
             {/* Currently hardcoded to show only the first image. */}
 
             {/* <ScrollView horizontal={true}> */}
-            {discussion.images.map(async (i, index) => {
+            {discussion.images.map((_) => {
+              return (
+                <View key="0" className="mb-3 mr-4">
+                  <Image
+                    source={{
+                      uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
+                    }}
+                    className="h-60 w-fit"
+                  />
+                </View>
+              );
+            })}
+            {/* {discussion.images.map(async (i, index) => {
               if (!AWS.config.credentials) {
                 // If AWS credentials are not set, display the hardcoded El Gato image
                 return (
@@ -202,29 +214,29 @@ export default function Discussion({
                   </View>
                 );
               } else {
-                // const fileName = i.split("/").pop();
-                // if (!fileName) {
-                //   throw new Error("Invalid image URL");
-                // }
-                // const params = {
-                //   Bucket: "cfd-post-image-upload",
-                //   Key: fileName,
-                // };
-                // const data = await s3.getObject(params).promise();
-                // if (!data.Body) {
-                //   throw new Error("Failed to download image");
-                // }
-                // // eslint-disable-next-line
-                // const base64String = data.Body.toString("base64");
-                // const imageSrc = `data:image/jpeg;base64,${base64String}`;
+                const fileName = i.split("/").pop();
+                if (!fileName) {
+                  throw new Error("Invalid image URL");
+                }
+                const params = {
+                  Bucket: "cfd-post-image-upload",
+                  Key: fileName,
+                };
+                const data = await s3.getObject(params).promise();
+                if (!data.Body) {
+                  throw new Error("Failed to download image");
+                }
+                // eslint-disable-next-line
+                const base64String = data.Body.toString("base64");
+                const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
                 return (
                   <View key="0" className="mb-3 mr-4">
-                    {/* <Image source={{ uri: imageSrc }} className="h-60 w-fit" /> */}
+                    <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
                   </View>
                 );
               }
-            })}
+            })} */}
             {/* </ScrollView> */}
           </View>
         </View>
