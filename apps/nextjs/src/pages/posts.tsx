@@ -5,9 +5,17 @@ import { api } from "~/utils/api";
 import Post from "../components/post";
 import ToggleButton from "../components/ToggleButton";
 
+interface PostData {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: Date;
+  userId: number;
+}
+
 function Posts() {
-  const posts = api.discussion.getDiscussions.useQuery();
-  const userPosts = api.discussion.getDiscussionsByUser.useQuery();
+  const posts = api.discussion.getDiscussions.useQuery<PostData[]>();
+  const userPosts = api.discussion.getDiscussionsByUser.useQuery<PostData[]>();
 
   const [myPostToggle, setMyPostToggle] = useState(true);
 
@@ -55,10 +63,10 @@ function Posts() {
           setMy={setMyPosts}
         />
         {myPostToggle
-          ? userPosts.data?.map((p) => {
+          ? userPosts.data?.map((p: PostData) => {
               return <Post key={p.id} {...p} />;
             })
-          : posts.data?.map((p) => {
+          : posts.data?.map((p: PostData) => {
               return <Post key={p.id} {...p} />;
             })}
       </div>
