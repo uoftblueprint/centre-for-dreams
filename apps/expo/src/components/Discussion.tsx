@@ -27,7 +27,7 @@ AWS.config.update({
   secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
   region: String(Constants.expoConfig?.extra?.awsRegion),
 });
-// const s3 = new AWS.S3();
+const s3 = new AWS.S3();
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
@@ -188,7 +188,7 @@ export default function Discussion({
             {/* Currently hardcoded to show only the first image. */}
 
             {/* <ScrollView horizontal={true}> */}
-            {discussion.images.map((_) => {
+            {/* {discussion.images.map((_) => {
               return (
                 <View key="0" className="mb-3 mr-4">
                   <Image
@@ -199,8 +199,9 @@ export default function Discussion({
                   />
                 </View>
               );
-            })}
-            {/* {discussion.images.map(async (i, index) => {
+            })} */}
+            {discussion.images.map(async (i, index) => {
+              console.log(index);
               if (!AWS.config.credentials) {
                 // If AWS credentials are not set, display the hardcoded El Gato image
                 return (
@@ -222,21 +223,25 @@ export default function Discussion({
                   Bucket: "cfd-post-image-upload",
                   Key: fileName,
                 };
-                const data = await s3.getObject(params).promise();
-                if (!data.Body) {
-                  throw new Error("Failed to download image");
-                }
-                // eslint-disable-next-line
-                const base64String = data.Body.toString("base64");
-                const imageSrc = `data:image/jpeg;base64,${base64String}`;
+                try {
+                  const data = await s3.getObject(params).promise();
+                  if (!data.Body) {
+                    throw new Error("Failed to download image");
+                  }
+                  // eslint-disable-next-line
+                  const base64String = data.Body.toString("base64");
+                  const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
-                return (
-                  <View key="0" className="mb-3 mr-4">
-                    <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
-                  </View>
-                );
+                  return (
+                    <View key="0" className="mb-3 mr-4">
+                      <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
+                    </View>
+                  );
+                } catch (error) {
+                  console.log("Image not found", error);
+                }
               }
-            })} */}
+            })}
             {/* </ScrollView> */}
           </View>
         </View>
