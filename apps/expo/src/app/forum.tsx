@@ -92,12 +92,12 @@ const Forum = () => {
             <TouchableOpacity
               key={index}
               className={`mx-1 h-8 w-8 items-center justify-center rounded-full ${
-                currentPage === page ? "bg-blue-500" : "bg-gray-200"
+                currentPage === page ? "bg-p-40" : "bg-p-90"
               }`}
               onPress={() => setCurrentPage(Number(page))}
             >
               <Text
-                className={`${currentPage === page ? "text-white" : "text-gray-700"}`}
+                className={`${currentPage === page ? "text-p-99" : "text-p-30"}`}
               >
                 {page}
               </Text>
