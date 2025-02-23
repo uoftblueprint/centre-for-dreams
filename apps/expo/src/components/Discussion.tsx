@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -225,16 +226,26 @@ export default function Discussion({
                 };
                 try {
                   const data = await s3.getObject(params).promise();
-                  if (!data.Body) {
-                    throw new Error("Failed to download image");
+                  if (
+                    !data.Body ||
+                    !(
+                      data.Body instanceof Buffer ||
+                      data.Body instanceof Uint8Array
+                    )
+                  ) {
+                    throw new Error("Invalid image data received");
                   }
-                  // eslint-disable-next-line
-                  const base64String = data.Body.toString("base64");
+                  const base64String = Buffer.from(data.Body).toString(
+                    "base64",
+                  );
                   const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
                   return (
                     <View key="0" className="mb-3 mr-4">
-                      <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
+                      <Image
+                        source={{ uri: imageSrc }}
+                        className="h-60 w-fit"
+                      />
                     </View>
                   );
                 } catch (error) {
