@@ -202,26 +202,25 @@ export default function Discussion({
                   </View>
                 );
               } else {
-                console.log(discussion.title, index);
-                const fileName = i.split("/").pop();
-                if (!fileName) {
-                  throw new Error("Invalid image URL");
-                }
-                const params = {
-                  Bucket: "cfd-post-image-upload",
-                  Key: fileName,
-                };
-                const data = await s3.getObject(params).promise();
-                if (!data.Body) {
-                  throw new Error("Failed to download image");
-                }
-                // eslint-disable-next-line
-                const base64String = data.Body.toString("base64");
-                const imageSrc = `data:image/jpeg;base64,${base64String}`;
+                // const fileName = i.split("/").pop();
+                // if (!fileName) {
+                //   throw new Error("Invalid image URL");
+                // }
+                // const params = {
+                //   Bucket: "cfd-post-image-upload",
+                //   Key: fileName,
+                // };
+                // const data = await s3.getObject(params).promise();
+                // if (!data.Body) {
+                //   throw new Error("Failed to download image");
+                // }
+                // // eslint-disable-next-line
+                // const base64String = data.Body.toString("base64");
+                // const imageSrc = `data:image/jpeg;base64,${base64String}`;
 
                 return (
                   <View key="0" className="mb-3 mr-4">
-                    <Image source={{ uri: imageSrc }} className="h-60 w-fit" />
+                    {/* <Image source={{ uri: imageSrc }} className="h-60 w-fit" /> */}
                   </View>
                 );
               }
