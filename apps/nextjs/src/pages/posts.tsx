@@ -20,6 +20,7 @@ interface PostData {
     postId: number;
     text: string;
   }[];
+  contents: string | null;
 }
 
 function Posts() {

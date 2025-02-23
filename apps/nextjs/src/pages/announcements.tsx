@@ -17,7 +17,7 @@ interface User {
 
 interface AnnouncementData {
   id: number;
-  title: string | null;
+  title: string;
   contents: string | null;
   createdAt: Date;
   userId: number;
@@ -26,7 +26,8 @@ interface AnnouncementData {
 }
 
 function Announcements() {
-  const announcements = api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
+  const announcements =
+    api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
   const users = api.user.getAllUsers.useQuery<User[]>();
   const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
