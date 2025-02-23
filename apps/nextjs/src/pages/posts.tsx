@@ -11,6 +11,15 @@ interface PostData {
   content: string;
   createdAt: Date;
   userId: number;
+  images: string[];
+  postType: string; // Assuming postType is a string
+  comments: {
+    id: number;
+    userId: number;
+    createdAt: Date;
+    postId: number;
+    text: string;
+  }[];
 }
 
 function Posts() {

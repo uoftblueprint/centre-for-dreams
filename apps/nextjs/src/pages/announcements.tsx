@@ -8,6 +8,11 @@ import ToggleButton from "../components/ToggleButton";
 interface User {
   id: number;
   clerkId: string;
+  participantId: number;
+  notificationOnPostLikes: boolean;
+  notificationOnPostComments: boolean;
+  notificationOnAnnoucements: boolean;
+  notificationOnScheduleUpdates: boolean;
 }
 
 interface AnnouncementData {
@@ -16,11 +21,12 @@ interface AnnouncementData {
   contents: string | null;
   createdAt: Date;
   userId: number;
+  images: string[];
+  postType: string; // Assuming postType is a string
 }
 
 function Announcements() {
-  const announcements =
-    api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
+  const announcements = api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
   const users = api.user.getAllUsers.useQuery<User[]>();
   const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
