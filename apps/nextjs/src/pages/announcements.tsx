@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import type { PostType } from "@prisma/client";
 
 import { api } from "~/utils/api";
 import Announcement from "../components/announcement";
+import ToggleButton from "../components/ToggleButton";
+
+interface User {
+  id: number;
+  clerkId: string;
+  participantId: number;
+  notificationOnPostLikes: boolean;
+  notificationOnPostComments: boolean;
+  notificationOnAnnoucements: boolean;
+  notificationOnScheduleUpdates: boolean;
+}
+interface AnnouncementData {
+  id: number;
+  title: string;
+  contents: string | null;
+  createdAt: Date;
+  userId: number;
+  images: string[];
+  postType: PostType;
+}
 
 function Announcements() {
-  const announcements = api.announcement.getAnnouncements.useQuery();
-  const users = api.user.getAllUsers.useQuery();
+  const announcements =
+    api.announcement.getAnnouncements.useQuery<AnnouncementData[]>();
+  const users = api.user.getAllUsers.useQuery<User[]>();
   const { userId, isSignedIn } = useAuth(); // Get userId from useAuth
 
   const [myAnnouncementToggle, setMyAnnouncementToggle] = useState(true);
@@ -49,39 +71,12 @@ function Announcements() {
         </button>
       </div>
       <div className="flex w-full flex-col items-center pt-6">
-        <div className="m-2 max-w-max self-center rounded-3xl border border-[#2E4D90]">
-          {myAnnouncementToggle ? (
-            <>
-              <button
-                className="rounded-3xl p-2 px-10"
-                onClick={setAllAnnouncements}
-              >
-                All Announcements
-              </button>
-              <button
-                className="rounded-3xl bg-[#2E4D90] p-2 px-10 text-white"
-                onClick={setMyAnnouncements}
-              >
-                My Announcements
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="rounded-3xl bg-[#2E4D90] p-2 px-10 text-white"
-                onClick={setAllAnnouncements}
-              >
-                All Announcements
-              </button>
-              <button
-                className="rounded-3xl p-2 px-10"
-                onClick={setMyAnnouncements}
-              >
-                My Announcements
-              </button>
-            </>
-          )}
-        </div>
+        <ToggleButton
+          word="Announcements"
+          isToggled={myAnnouncementToggle}
+          setAll={setAllAnnouncements}
+          setMy={setMyAnnouncements}
+        />
         {myAnnouncementToggle
           ? announcements.data
               ?.filter((a) => a.userId === currentUser?.id) // Filter announcements by userId
