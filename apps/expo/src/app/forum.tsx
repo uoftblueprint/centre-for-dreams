@@ -56,10 +56,9 @@ const Forum = () => {
         : 0;
 
   const PaginationControls = () => {
-    if (!totalPages || totalPages <= 0) return null;
+    if (!totalPages || totalPages <= 1) return null;
 
     const getPageNumbers = () => {
-      if (totalPages === 1) return [1];
       const pages = [];
       const maxVisible = 5;
       let start = Math.max(1, currentPage - 2);
