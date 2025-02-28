@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import type { PostType } from "@prisma/client";
 
 import { api } from "~/utils/api";
 import Announcement from "../components/announcement";
 import ToggleButton from "../components/ToggleButton";
-
-import type { PostType } from "@prisma/client";
 
 interface User {
   id: number;
