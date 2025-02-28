@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   RefreshControl,
@@ -19,19 +19,95 @@ import RedDot from "../../assets/reddot.svg";
 
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const pageSize = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedTab]);
 
   const { data: forumPosts, refetch: refetchForumPosts } =
-    api.discussion.getDiscussions.useQuery();
+    api.discussion.getDiscussions.useQuery({ page: currentPage, pageSize });
+
   const { data: myPosts, refetch: refetchMyPosts } =
-    api.discussion.getDiscussionsByUser.useQuery();
+    api.discussion.getDiscussionsByUser.useQuery({
+      page: currentPage,
+      pageSize,
+    });
   const { data: replies, refetch: refetchReplies } =
     api.discussion.getReplies.useQuery();
   const replyLength = replies?.length;
 
+  // Pagination data handling
   const dataToDisplay =
-    selectedTab === 1 ? forumPosts : selectedTab === 2 ? myPosts : [];
+    selectedTab === 1
+      ? forumPosts?.posts
+      : selectedTab === 2
+        ? myPosts?.posts
+        : [];
+
+  const totalPages =
+    selectedTab === 1
+      ? forumPosts?.totalPages
+      : selectedTab === 2
+        ? myPosts?.totalPages
+        : 0;
+
+  const PaginationControls = () => {
+    if (!totalPages || totalPages <= 0) return null;
+
+    const getPageNumbers = () => {
+      if (totalPages === 1) return [1];
+      const pages = [];
+      const maxVisible = 5;
+      let start = Math.max(1, currentPage - 2);
+      let end = Math.min(totalPages, currentPage + 2);
+
+      if (totalPages > maxVisible) {
+        if (currentPage <= 3) {
+          start = 1;
+          end = maxVisible;
+        } else if (currentPage >= totalPages - 2) {
+          start = totalPages - maxVisible + 1;
+          end = totalPages;
+        }
+      }
+
+      if (start > 1) pages.push(1, "...");
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (end < totalPages) pages.push("...", totalPages);
+
+      return pages;
+    };
+
+    return (
+      <View className="my-4 flex-row items-center justify-center">
+        {getPageNumbers().map((page, index) =>
+          page === "..." ? (
+            <Text key={index} className="mx-2 text-gray-500">
+              ...
+            </Text>
+          ) : (
+            <TouchableOpacity
+              key={index}
+              className={`mx-1 h-8 w-8 items-center justify-center rounded-full ${
+                currentPage === page ? "bg-p-40" : "bg-p-90"
+              }`}
+              onPress={() => setCurrentPage(Number(page))}
+            >
+              <Text
+                className={`${currentPage === page ? "text-p-99" : "text-p-30"}`}
+              >
+                {page}
+              </Text>
+            </TouchableOpacity>
+          ),
+        )}
+      </View>
+    );
+  };
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -140,6 +216,7 @@ const Forum = () => {
                   onRefresh={onRefresh}
                 />
               }
+              ListFooterComponent={<PaginationControls />}
             />
           </View>
         )}

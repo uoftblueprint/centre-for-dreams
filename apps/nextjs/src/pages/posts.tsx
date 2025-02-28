@@ -25,8 +25,14 @@ interface PostData {
 }
 
 function Posts() {
-  const posts = api.discussion.getDiscussions.useQuery<PostData[]>();
-  const userPosts = api.discussion.getDiscussionsByUser.useQuery<PostData[]>();
+  const { data: posts } = api.discussion.getDiscussions.useQuery({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data: userPosts } = api.discussion.getDiscussionsByUser.useQuery({
+    page: 1,
+    pageSize: 10,
+  });
 
   const [myPostToggle, setMyPostToggle] = useState(true);
 
@@ -74,10 +80,12 @@ function Posts() {
           setMy={setMyPosts}
         />
         {myPostToggle
-          ? userPosts.data?.map((p: PostData) => {
+          ? userPosts?.posts?.map((p) => {
+              // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })
-          : posts.data?.map((p: PostData) => {
+          : posts?.posts?.map((p) => {
+              // get user name from id and pass it in
               return <Post key={p.id} {...p} />;
             })}
       </div>
