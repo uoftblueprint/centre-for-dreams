@@ -5,6 +5,8 @@ import { api } from "~/utils/api";
 import Post from "../components/post";
 import ToggleButton from "../components/ToggleButton";
 
+import type { PostType } from "@prisma/client";
+
 interface PostData {
   id: number;
   title: string;
@@ -12,7 +14,7 @@ interface PostData {
   createdAt: Date;
   userId: number;
   images: string[];
-  postType: string; // Assuming postType is a string
+  postType: PostType;
   comments: {
     id: number;
     userId: number;

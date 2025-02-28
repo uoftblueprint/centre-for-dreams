@@ -5,6 +5,8 @@ import { api } from "~/utils/api";
 import Announcement from "../components/announcement";
 import ToggleButton from "../components/ToggleButton";
 
+import type { PostType } from "@prisma/client";
+
 interface User {
   id: number;
   clerkId: string;
@@ -14,7 +16,6 @@ interface User {
   notificationOnAnnoucements: boolean;
   notificationOnScheduleUpdates: boolean;
 }
-
 interface AnnouncementData {
   id: number;
   title: string;
@@ -22,7 +23,7 @@ interface AnnouncementData {
   createdAt: Date;
   userId: number;
   images: string[];
-  postType: string; // Assuming postType is a string
+  postType: PostType;
 }
 
 function Announcements() {
