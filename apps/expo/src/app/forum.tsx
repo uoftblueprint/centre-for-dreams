@@ -217,7 +217,10 @@ const Forum = () => {
           style={{ position: "absolute", bottom: 100, right: 20 }}
           onPress={() => router.push("/createpost")}
         >
-          <FloatingButton icon={true} />
+          <FloatingButton
+            onPress={() => router.push("/createpost")}
+            icon={true}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

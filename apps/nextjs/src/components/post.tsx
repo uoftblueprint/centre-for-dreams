@@ -4,7 +4,7 @@ import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 
 type GetDiscussionOutput =
-  RouterOutputs["discussion"]["getDiscussions"][number];
+  RouterOutputs["discussion"]["getDiscussions"]["posts"][0];
 
 const Post: React.FC<GetDiscussionOutput> = ({
   contents,

@@ -29,10 +29,11 @@ AWS.config.update({
 });
 // const s3 = new AWS.S3();
 
-type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
+type DiscussionProps =
+  RouterOutputs["discussion"]["getDiscussions"]["posts"][0];
 
 interface RenderItemProps {
-  item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
+  item: RouterOutputs["discussion"]["getDiscussions"]["posts"][0]["comments"][0];
   index: number;
   totalComments: number;
 }
