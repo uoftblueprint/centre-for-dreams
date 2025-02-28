@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import Discussion from "~/components/Discussion";
 import FloatingButton from "~/components/FloatingButton";
@@ -21,42 +20,46 @@ import RedDot from "../../assets/reddot.svg";
 const Forum = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const pageSize = 10;
-  const router = useRouter();
 
-  // Reset pagination when tab changes
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedTab]);
 
-  // Paginated queries
-  const { data: forumData, refetch: refetchForum } =
-    api.discussion.getDiscussions.useQuery({
-      page: currentPage,
-      pageSize,
-    });
+  const { data: forumPosts, refetch: refetchForumPosts } =
+    api.discussion.getDiscussions.useQuery({ page: currentPage, pageSize });
 
-  const { data: myPostsData, refetch: refetchMyPosts } =
+  const { data: myPosts, refetch: refetchMyPosts } =
     api.discussion.getDiscussionsByUser.useQuery({
       page: currentPage,
       pageSize,
     });
-
   const { data: replies, refetch: refetchReplies } =
     api.discussion.getReplies.useQuery();
+  const replyLength = replies?.length;
 
-  // Current data based on tab selection
-  const currentData =
-    selectedTab === 1 ? forumData : selectedTab === 2 ? myPostsData : null;
+  // Pagination data handling
+  const dataToDisplay =
+    selectedTab === 1
+      ? forumPosts?.posts
+      : selectedTab === 2
+        ? myPosts?.posts
+        : [];
 
-  const totalPages = currentData?.totalPages || 0;
-  const posts = currentData?.posts || [];
+  const totalPages =
+    selectedTab === 1
+      ? forumPosts?.totalPages
+      : selectedTab === 2
+        ? myPosts?.totalPages
+        : 0;
 
   const PaginationControls = () => {
-    if (totalPages <= 1) return null;
+    if (!totalPages || totalPages <= 0) return null;
 
     const getPageNumbers = () => {
+      if (totalPages === 1) return [1];
       const pages = [];
       const maxVisible = 5;
       let start = Math.max(1, currentPage - 2);
@@ -81,59 +84,42 @@ const Forum = () => {
 
     return (
       <View className="my-4 flex-row items-center justify-center">
-        <TouchableOpacity
-          onPress={() => setCurrentPage(Math.max(1, currentPage - 1))}
-          disabled={currentPage === 1}
-        >
-          <MaterialIcons
-            name="chevron-left"
-            size={24}
-            color={currentPage === 1 ? "#ccc" : "#000"}
-          />
-        </TouchableOpacity>
-
         {getPageNumbers().map((page, index) =>
           page === "..." ? (
-            <Text key={`ellipsis-${index}`} className="mx-2">
+            <Text key={index} className="mx-2 text-gray-500">
               ...
             </Text>
           ) : (
             <TouchableOpacity
-              key={page}
-              className={`mx-1 h-8 w-8 items-center justify-center rounded-full 
-                ${currentPage === page ? "bg-blue-500" : "bg-gray-200"}`}
+              key={index}
+              className={`mx-1 h-8 w-8 items-center justify-center rounded-full ${
+                currentPage === page ? "bg-p-40" : "bg-p-90"
+              }`}
               onPress={() => setCurrentPage(Number(page))}
             >
               <Text
-                className={`${currentPage === page ? "text-white" : "text-gray-700"}`}
+                className={`${currentPage === page ? "text-p-99" : "text-p-30"}`}
               >
                 {page}
               </Text>
             </TouchableOpacity>
           ),
         )}
-
-        <TouchableOpacity
-          onPress={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-          disabled={currentPage === totalPages}
-        >
-          <MaterialIcons
-            name="chevron-right"
-            size={24}
-            color={currentPage === totalPages ? "#ccc" : "#000"}
-          />
-        </TouchableOpacity>
       </View>
     );
   };
 
-  const handleRefresh = async () => {
+  const onRefresh = async () => {
     setIsRefreshing(true);
     try {
-      await Promise.all([refetchForum(), refetchMyPosts(), refetchReplies()]);
+      await Promise.all([
+        refetchForumPosts(),
+        refetchMyPosts(),
+        refetchReplies(),
+      ]);
     } catch (error) {
-      console.error("Refresh failed:", error);
-      alert("Refresh failed. Please try again.");
+      console.error("Failed to refresh forum:", error);
+      alert("Error refreshing forum. Please try again.");
     } finally {
       setIsRefreshing(false);
     }
@@ -146,12 +132,28 @@ const Forum = () => {
       </View>
       <View className="ml-4 mr-4 mt-4 flex-1 items-center justify-center">
         <TabNav currentTab={selectedTab}>
-          <TabNav.Tab onPress={() => setSelectedTab(1)}>Feed</TabNav.Tab>
-          <TabNav.Tab onPress={() => setSelectedTab(2)}>My Posts</TabNav.Tab>
-          <TabNav.Tab onPress={() => setSelectedTab(3)}>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(1);
+            }}
+          >
+            Feed
+          </TabNav.Tab>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(2);
+            }}
+          >
+            My Posts
+          </TabNav.Tab>
+          <TabNav.Tab
+            onPress={() => {
+              setSelectedTab(3);
+            }}
+          >
             <View className="relative">
-              <Bell width={20} height={20} />
-              <View className="absolute left-3.5 top-0">
+              <Bell width={20} height={20}></Bell>
+              <View className="absolute left-3.5 top-0 ">
                 <RedDot width={6} height={6} />
               </View>
             </View>
@@ -171,31 +173,37 @@ const Forum = () => {
               ListHeaderComponent={renderHeader}
               data={replies}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item, index }) => (
-                <View
-                  className={`bg-p-90 ml-3 mr-3 p-4 ${
-                    index === 0
-                      ? "mt-2 rounded-tl-md rounded-tr-md"
-                      : index === (replies?.length || 0) - 1
-                        ? "rounded-bl-lg rounded-br-lg"
-                        : ""
-                  }`}
-                >
-                  {index === 0 && (
-                    <Text className="font-headline-md pb-3">
-                      New Notifications
-                    </Text>
-                  )}
-                  <ReplyNotification comment={item} />
-                </View>
-              )}
+              renderItem={({ item, index }) => {
+                if (index == 0) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 mt-2 rounded-tl-md rounded-tr-md p-4">
+                      <Text className="font-headline-md pb-3">
+                        New Notifications
+                      </Text>
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else if (index == replyLength! - 1) {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 rounded-bl-lg rounded-br-lg p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                } else {
+                  return (
+                    <View className="bg-p-90 ml-3 mr-3 p-4">
+                      <ReplyNotification comment={item}></ReplyNotification>
+                    </View>
+                  );
+                }
+              }}
             />
           </View>
         ) : (
           <View className="h-vh mb-16">
             <FlatList
               ListHeaderComponent={renderHeader}
-              data={posts}
+              data={dataToDisplay}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <View className="mt-2">
@@ -205,7 +213,7 @@ const Forum = () => {
               refreshControl={
                 <RefreshControl
                   refreshing={isRefreshing}
-                  onRefresh={handleRefresh}
+                  onRefresh={onRefresh}
                 />
               }
               ListFooterComponent={<PaginationControls />}
@@ -213,9 +221,13 @@ const Forum = () => {
           </View>
         )}
 
+        {/* Floating Button */}
         <TouchableOpacity
-          style={{ position: "absolute", bottom: 100, right: 20 }}
-          onPress={() => router.push("/createpost")}
+          style={{
+            position: "absolute",
+            bottom: 100,
+            right: 20,
+          }}
         >
           <FloatingButton
             onPress={() => router.push("/createpost")}
