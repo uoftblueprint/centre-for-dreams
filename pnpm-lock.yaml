@@ -42,7 +42,7 @@ importers:
         specifier: ^0.19.8
         version: 0.19.11
       '@expo/prebuild-config':
-        specifier: ~8.0.25
+        specifier: ~8.0.28
         version: 8.0.28
       '@supabase/supabase-js':
         specifier: ^2.39.7
