@@ -1,34 +1,50 @@
 "use client";
 
 import React, { useState } from "react";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
+// import { format } from "date-fns";
+// import { CalendarIcon } from "lucide-react";
+// import { useForm } from "react-hook-form";
 
-import { cn } from "~/lib/utils";
-import { api } from "~/utils/api";
-import type { RouterInputs } from "~/utils/api";
+// import { cn } from "~/lib/utils";
+// import { api } from "~/utils/api";
+// import type { RouterInputs } from "~/utils/api";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 
-export function CreateAnnouncement() {
-  const username = "shadcn"; // Replace with the actual username (and replace avatar with the actual avatar)
+interface User {
+  username: string;
+  avatarUrl?: string; // Optional avatar URL
+}
+
+interface CreateAnnouncementProps {
+  user: User;
+}
+
+export default function CreateAnnouncement({ user }: CreateAnnouncementProps) {
+  const [open, setOpen] = useState(false);
+
+  const handlePostAnnouncement = () => {
+
+    // Announcement logic here
+    console.log(`Announcement posted by ${user.username}!`);
+    setOpen(false);
+  };
 
   return (
-    <Dialog>
-      <DialogTrigger>Open</DialogTrigger>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button onClick={() => setOpen(true)}>Open</Button>
+      </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
@@ -36,13 +52,13 @@ export function CreateAnnouncement() {
             <div className="flex items-center space-x-2">
               <Avatar>
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src={user.avatarUrl ?? "https://via.placeholder.com/40"} // Fallback avatar
+                  alt={`@${user.username}`}
                 />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
               <p>
-                <strong>{username}</strong>
+                <strong>{user.username}</strong>
               </p>
             </div>
             <div className="flex items-center space-x-2">
@@ -51,9 +67,13 @@ export function CreateAnnouncement() {
             </div>
           </div>
         </DialogHeader>
+
         <Textarea placeholder="Let everyone know! Write your announcement..." />
+
         <DialogFooter>
-          <Button type="submit">Post Announcement</Button>
+          <Button type="submit" onClick={handlePostAnnouncement}>
+            Post Announcement
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

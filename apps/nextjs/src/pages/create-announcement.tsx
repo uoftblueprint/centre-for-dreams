@@ -1,23 +1,17 @@
 import React from "react";
 
-import CreateAnnouncement from "../components/createannouncement";
+import CreateAnnouncement from "~/components/announcement/createannouncement";
 
-const CreateAnnouncementPage: React.FC = () => {
-  // Mock user object
-  const mockUser = {
-    name: "John Doe",
-    profileImage: "https://via.placeholder.com/150",
-  };
+const currentUser = {
+  username: "john_doe",
+  avatarUrl: "https://github.com/shadcn.png",
+};
 
-  // Mock onClose function
-  const handleClose = () => {
-    console.log("Modal closed");
-  };
-
+const CreateAnnouncementPage = () => {
   return (
     <div>
       <h1>Create Announcement</h1>
-      <CreateAnnouncement user={mockUser} onClose={handleClose} />
+      <CreateAnnouncement user={currentUser} />
     </div>
   );
 };
