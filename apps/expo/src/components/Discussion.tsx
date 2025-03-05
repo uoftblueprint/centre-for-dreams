@@ -22,6 +22,7 @@ import EditIcon from "../../assets/edit.svg";
 import LikeIconBlue from "../../assets/like-blue.svg";
 import LikeIcon from "../../assets/like.svg";
 import Comment from "./Comment";
+import DiscussionPostImage from "./DiscussionPostImage";
 
 AWS.config.update({
   accessKeyId: String(Constants.expoConfig?.extra?.awsAccessKeyId),
@@ -69,6 +70,19 @@ export default function Discussion({
   const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
     postId: discussion.id,
   });
+
+  async function getFromS3Bucket(params: any) {
+    const data = await s3.getObject(params).promise();
+    if (
+      !data.Body ||
+      !(data.Body instanceof Buffer || data.Body instanceof Uint8Array)
+    ) {
+      throw new Error("Invalid image data received");
+    }
+    const base64String = Buffer.from(data.Body).toString("base64");
+    const imageSrc = `data:image/jpeg;base64,${base64String}`;
+    return imageSrc;
+  }
 
   const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
@@ -156,6 +170,8 @@ export default function Discussion({
     </View>
   );
 
+  console.log("entire component rerendered")
+
   return (
     <View className="h-25 mx-auto w-11/12">
       <View className="rounded-lg bg-white p-4">
@@ -201,57 +217,55 @@ export default function Discussion({
                 </View>
               );
             })} */}
-            {discussion.images.map(async (i, index) => {
-              console.log(index);
-              if (!AWS.config.credentials) {
-                // If AWS credentials are not set, display the hardcoded El Gato image
-                return (
-                  <View key="0" className="mb-3 mr-4">
-                    <Image
-                      source={{
-                        uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
-                      }}
-                      className="h-60 w-fit"
-                    />
-                  </View>
-                );
-              } else {
-                const fileName = i.split("/").pop();
-                if (!fileName) {
-                  throw new Error("Invalid image URL");
-                }
-                const params = {
-                  Bucket: "cfd-post-image-upload",
-                  Key: fileName,
-                };
-                try {
-                  const data = await s3.getObject(params).promise();
-                  if (
-                    !data.Body ||
-                    !(
-                      data.Body instanceof Buffer ||
-                      data.Body instanceof Uint8Array
-                    )
-                  ) {
-                    throw new Error("Invalid image data received");
-                  }
-                  const base64String = Buffer.from(data.Body).toString(
-                    "base64",
-                  );
-                  const imageSrc = `data:image/jpeg;base64,${base64String}`;
-
-                  return (
-                    <View key="0" className="mb-3 mr-4">
-                      <Image
-                        source={{ uri: imageSrc }}
-                        className="h-60 w-fit"
-                      />
-                    </View>
-                  );
-                } catch (error) {
-                  console.log("Image not found", error);
-                }
-              }
+            {discussion.images.map((i, index) => {
+              console.log(i);
+              const discussionImageProps = {
+                imageLink: i,
+              };
+              return (
+                // <View />
+                <DiscussionPostImage key={i} data={discussionImageProps}/>
+              );
+              //   if (!AWS.config.credentials) {
+              //     // If AWS credentials are not set, display the hardcoded El Gato image
+              //     return (
+              //       <View key="0" className="mb-3 mr-4">
+              //         <Image
+              //           source={{
+              //             uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
+              //           }}
+              //           className="h-60 w-fit"
+              //         />
+              //       </View>
+              //     );
+              //   } else {
+              //     const fileName = i.split("/").pop();
+              //     if (!fileName) {
+              //       throw new Error("Invalid image URL");
+              //     }
+              //     const params = {
+              //       Bucket: "cfd-post-image-upload",
+              //       Key: fileName,
+              //     };
+              //     try {
+              //       const imageData = await getFromS3Bucket(params);
+              //       return (
+              //         <View key="0" className="mb-3 mr-4">
+              //         <Image
+              //           source={{
+              //             uri: imageData
+              //           }}
+              //           className="h-60 w-fit"
+              //         />
+              //       </View>
+              //       )
+              //     } catch (error) {
+              //       console.log("Image not found", error);
+              //       return (
+              //         <></>
+              //       )
+              //     }
+              //   }
             })}
             {/* </ScrollView> */}
           </View>
