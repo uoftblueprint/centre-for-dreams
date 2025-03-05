@@ -1,4 +1,3 @@
-import { Buffer } from "buffer";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -29,7 +28,6 @@ AWS.config.update({
   secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
   region: String(Constants.expoConfig?.extra?.awsRegion),
 });
-const s3 = new AWS.S3();
 
 type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
 
@@ -70,19 +68,6 @@ export default function Discussion({
   const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
     postId: discussion.id,
   });
-
-  async function getFromS3Bucket(params: any) {
-    const data = await s3.getObject(params).promise();
-    if (
-      !data.Body ||
-      !(data.Body instanceof Buffer || data.Body instanceof Uint8Array)
-    ) {
-      throw new Error("Invalid image data received");
-    }
-    const base64String = Buffer.from(data.Body).toString("base64");
-    const imageSrc = `data:image/jpeg;base64,${base64String}`;
-    return imageSrc;
-  }
 
   const [isLiked, setIsLiked] = useState(userLikesData?.isLikedByUser ?? false);
   const [likesCount, setLikesCount] = useState(likesCountData?.likesCount ?? 0);
@@ -170,8 +155,6 @@ export default function Discussion({
     </View>
   );
 
-  console.log("entire component rerendered")
-
   return (
     <View className="h-25 mx-auto w-11/12">
       <View className="rounded-lg bg-white p-4">
@@ -217,14 +200,14 @@ export default function Discussion({
                 </View>
               );
             })} */}
-            {discussion.images.map((i, index) => {
+            {discussion.images.map((i) => {
               console.log(i);
               const discussionImageProps = {
                 imageLink: i,
               };
               return (
                 // <View />
-                <DiscussionPostImage key={i} data={discussionImageProps}/>
+                <DiscussionPostImage key={i} data={discussionImageProps} />
               );
               //   if (!AWS.config.credentials) {
               //     // If AWS credentials are not set, display the hardcoded El Gato image
