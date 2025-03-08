@@ -1,10 +1,28 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from "@radix-ui/react-navigation-menu";
+
+import { Button } from "./ui/button";
 
 import CreatePost from "./createpost";
 
 export default function NavBar() {
   const { isSignedIn } = useAuth();
+  const router = useRouter();
+
+  const navItems = [
+    { href: "/posts", label: "Forum" },
+    { href: "/announcements", label: "Announcements" },
+    { href: "/absences", label: "Absentees" },
+    { href: "/activities", label: "Calendar" },
+    { href: "/inviteuser", label: "Invite New User" },
+  ];
   const [createPostModal, setCreatePostModal] = useState(false);
 
   const closeCreatePostModal = () => {
@@ -16,38 +34,43 @@ export default function NavBar() {
   };
 
   return (
-    <>
-      {createPostModal && <CreatePost onClose={closeCreatePostModal} />}
-      <div className="sticky top-0 m-0 flex max-w-[40%] flex-col justify-between bg-[#EFF2FB] p-[16px_40px]">
-        {isSignedIn ? "" : <SignInButton />}
-        <UserButton afterSignOutUrl="/" showName />
-        <nav style={{ display: "flex", flexDirection: "column" }}>
-          <button className="m-2 rounded-[24px] border border-[#2E4D90] bg-[#2E4D90] p-2 text-white">
-            <a href="/posts/">Forum</a>
-          </button>
-          <button className="m-2 rounded-[24px] border border-[#2E4D90] p-2">
-            <a href="/announcements/">Announcements</a>
-          </button>
-          <button className="m-2 rounded-[24px] border border-[#2E4D90] p-2">
-            <a href="/absences/">Absentees</a>
-          </button>
-          <button className="m-2 rounded-[24px] border border-[#2E4D90] p-2">
-            <a href="/activities/">Calendar</a>
-          </button>
-          <button className="m-2 rounded-[24px] border border-[#2E4D90] p-2">
-            <a href="/inviteuser/">Invite New User</a>
-          </button>
-        </nav>
-        <button className="m-2 rounded-[24px] border border-[#2E4D90] p-2">
-          <a href="/">Create New</a>
-        </button>
-        <button
+    <aside className="sticky top-0 flex h-screen w-[250px] flex-col justify-between bg-[#EFF2FB] p-6 shadow-md">
+      <div>
+        {!isSignedIn && <SignInButton />}
+        {isSignedIn && <UserButton afterSignOutUrl="/posts" showName />}
+      </div>
+
+      <NavigationMenu>
+        <NavigationMenuList className="mt-4 flex flex-col gap-2">
+          {navItems.map((payload, i) => (
+            <NavigationMenuItem key={i}>
+              <Link href={payload.href} passHref>
+                <Button
+                  className={`w-full rounded-lg p-3 text-left shadow-md transition-colors ${
+                    router.pathname === payload.href
+                      ? "bg-p-20 text-white"
+                      : "bg-p-40 hover:bg-p-30"
+                  }`}
+                >
+                  {payload.label}
+                </Button>
+              </Link>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+      <>
+        {createPostModal && <CreatePost onClose={closeCreatePostModal} />}
+        <Button>Create New</Button>
+        <Button
           className="m-2 rounded-[24px] border border-[#2E4D90] p-2"
           onClick={openCreatePostModal}
         >
           Create New Post (this button is temporary)
-        </button>
-      </div>
-    </>
+        </Button>
+      </>
+      
+    </aside>
+      
   );
 }

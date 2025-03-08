@@ -23,7 +23,7 @@ export default authMiddleware({
     // protect every route
     if (user.publicMetadata.isAdmin !== true) {
       // we should probably let user know they're not authorized
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/posts", req.url));
     }
   },
 });
