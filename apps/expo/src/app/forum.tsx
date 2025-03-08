@@ -24,7 +24,6 @@ const Forum = () => {
 
   const { data: forumPosts, refetch: refetchForumPosts } =
     api.discussion.getDiscussions.useQuery();
-  console.log(forumPosts);
   const { data: myPosts, refetch: refetchMyPosts } =
     api.discussion.getDiscussionsByUser.useQuery();
   const { data: replies, refetch: refetchReplies } =
