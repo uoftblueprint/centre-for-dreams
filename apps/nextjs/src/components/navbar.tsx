@@ -23,8 +23,8 @@ export default function NavBar() {
   ];
 
   return (
-    <aside className="sticky top-0 flex h-screen w-[250px] flex-col justify-between bg-[#EFF2FB] p-6 shadow-md">
-      <div>
+    <aside className="sticky top-0 flex h-screen w-[280px] flex-col justify-between bg-[#EFF2FB] p-6 shadow-md">
+      <div className="h-[40px]">
         {!isSignedIn && <SignInButton />}
         {isSignedIn && <UserButton afterSignOutUrl="/posts" showName />}
       </div>

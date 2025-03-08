@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { PostType } from "@prisma/client";
 
 import NavBar from "~/components/navbar";
+import { SkeletonCard } from "~/components/skeleton_card";
+import { useCurrentUserInfo } from "~/hooks/user";
 import { api } from "~/utils/api";
 import Post from "../components/post";
 import ToggleButton from "../components/ToggleButton";
@@ -25,22 +27,41 @@ interface PostData {
 }
 
 function Posts() {
-  const posts = api.discussion.getDiscussions.useQuery<PostData[]>();
-  const userPosts = api.discussion.getDiscussionsByUser.useQuery<PostData[]>();
+  const { data: allPosts, isLoading: isAllPostsLoading } =
+    api.discussion.getDiscussions.useQuery<PostData[]>();
+  const { data: userPosts, isLoading: isUserPostsLoading } =
+    api.discussion.getDiscussionsByUser.useQuery<PostData[]>();
 
-  const [myPostToggle, setMyPostToggle] = useState(true);
+  const userData = useCurrentUserInfo();
+
+  const [myPostToggle, setMyPostToggle] = useState(false);
+  const [displayedPosts, setDisplayedPosts] = useState<PostData[]>([]);
+
+  useEffect(() => {
+    if (allPosts) {
+      setDisplayedPosts(allPosts);
+    }
+  }, [allPosts]);
 
   const setMyPosts = () => {
+    const userId = userData.data?.userId;
+    if (userId && userPosts) {
+      const filteredPosts = userPosts.filter((post) => post.userId === userId);
+      setDisplayedPosts(filteredPosts);
+    }
     setMyPostToggle(true);
   };
 
   const setAllPosts = () => {
+    if (allPosts) {
+      setDisplayedPosts(allPosts);
+    }
     setMyPostToggle(false);
   };
 
   return (
     <div className="relative flex">
-      <NavBar></NavBar>
+      <NavBar />
       <div className="flex w-full flex-col items-center pt-6">
         <ToggleButton
           word="Posts"
@@ -48,13 +69,23 @@ function Posts() {
           setAll={setAllPosts}
           setMy={setMyPosts}
         />
-        {myPostToggle
-          ? userPosts.data?.map((p: PostData) => {
-              return <Post key={p.id} {...p} />;
-            })
-          : posts.data?.map((p: PostData) => {
-              return <Post key={p.id} {...p} />;
-            })}
+
+        {(isAllPostsLoading || isUserPostsLoading) && (
+          <>
+            {Array.from({ length: 5 }, (_, index) => (
+              <div key={index} className="mt-4 w-5/6">
+                <SkeletonCard />
+              </div>
+            ))}
+          </>
+        )}
+
+        {!isAllPostsLoading && !isUserPostsLoading && displayedPosts.length > 0
+          ? displayedPosts.map((post, i) => <Post key={i} {...post} />)
+          : !isAllPostsLoading &&
+            !isUserPostsLoading && (
+              <p className="text-gray-500">No posts available.</p>
+            )}
       </div>
     </div>
   );
