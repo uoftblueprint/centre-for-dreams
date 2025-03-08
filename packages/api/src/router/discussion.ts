@@ -55,7 +55,7 @@ export const discussionRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number().nonnegative(),
-        title: z.string().min(1),
+        title: z.string().min(1).optional(),
         contents: z.string().min(0).optional(),
         images: z.string().array().optional(),
       }),
