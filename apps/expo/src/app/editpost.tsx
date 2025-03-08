@@ -39,7 +39,7 @@ function EditPost() {
     setIsError(false);
     updateDiscussion({
       id: Number(id),
-      contents: post,
+      title: "",
     });
   };
 
