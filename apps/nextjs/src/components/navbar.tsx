@@ -10,6 +10,8 @@ import {
 
 import { Button } from "./ui/button";
 
+// import CreatePost from "./createpost";
+
 export default function NavBar() {
   const { isSignedIn } = useAuth();
   const router = useRouter();
@@ -21,6 +23,15 @@ export default function NavBar() {
     { href: "/activities", label: "Calendar" },
     { href: "/inviteuser", label: "Invite New User" },
   ];
+  // const [createPostModal, setCreatePostModal] = useState(false);
+
+  // const closeCreatePostModal = () => {
+  //   setCreatePostModal(false);
+  // };
+
+  // const openCreatePostModal = () => {
+  //   setCreatePostModal(true);
+  // };
 
   return (
     <aside className="sticky top-0 flex h-screen w-[250px] flex-col justify-between bg-[#EFF2FB] p-6 shadow-md">
@@ -48,7 +59,16 @@ export default function NavBar() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+      {/* <> */}
+      {/* {createPostModal && <CreatePost onClose={closeCreatePostModal} />} */}
       <Button>Create New</Button>
+      {/* <Button
+          className="m-2 rounded-[24px] border border-[#2E4D90] p-2"
+          onClick={openCreatePostModal}
+        >
+          Create New Post (this button is temporary)
+        </Button> */}
+      {/* </> */}
     </aside>
   );
 }

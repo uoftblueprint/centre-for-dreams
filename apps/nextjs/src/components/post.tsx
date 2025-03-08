@@ -7,6 +7,7 @@ type GetDiscussionOutput =
   RouterOutputs["discussion"]["getDiscussions"][number];
 
 const Post: React.FC<GetDiscussionOutput> = ({
+  title,
   contents,
   createdAt,
   comments,
@@ -113,9 +114,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
         tabIndex={0}
       >
         <div className="flex flex-row justify-between">
-          <h2 className="mb-0 text-2xl font-bold leading-none">
-            User {userId}
-          </h2>
+          <h2 className="mb-0 text-2xl font-bold leading-none">{title}</h2>
           <button className="w-5">
             <svg
               width="20"
@@ -136,6 +135,8 @@ const Post: React.FC<GetDiscussionOutput> = ({
         </div>
         <p className="mb-2 text-xs text-gray-500">
           Posted: {createdAt.toDateString()}
+          <br />
+          User: {userId}
         </p>
 
         <p className="pb-4 text-gray-700">{contents}</p>
@@ -203,11 +204,13 @@ const Post: React.FC<GetDiscussionOutput> = ({
                 <div className="flex h-1/2 flex-col justify-start">
                   <div className="flex flex-row justify-between">
                     <h2 className="mb-0 text-2xl font-bold leading-none">
-                      User {userId}
+                      {title}
                     </h2>
                   </div>
                   <p className="mb-2 text-xs text-gray-500">
                     Posted: {createdAt.toDateString()}
+                    <br />
+                    User: {userId}
                   </p>
 
                   <p className="pb-6 text-gray-700">{contents}</p>
