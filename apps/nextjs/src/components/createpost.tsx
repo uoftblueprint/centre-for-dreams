@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useAuth } from "@clerk/nextjs";
 // import { X } from "lucide-react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
@@ -27,8 +28,6 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
-
-
 interface FormData {
   title: string;
   contents: string;
@@ -39,7 +38,23 @@ interface CreatePostProps {
   onClose: () => void;
 }
 
+interface User {
+  // from clerk
+  clerkId: string;
+  id: number;
+  notificationOnAnnoucements: boolean;
+  notificationOnPostComments: boolean;
+  notificationOnPostLikes: boolean;
+  notificationOnScheduleUpdates: boolean;
+  participantId: number;
+}
+
 const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
+  // user id related variables
+  const { userId } = useAuth();
+  const users = api.user.getAllUsers.useQuery();
+  const currentUser = users.data?.find((user: User) => user.clerkId === userId);
+
   const [imagesTemp, setImagesTemp] = useState<Uint8Array[]>([]);
   // const [uploading, setUploading] = useState(false);
 
@@ -182,7 +197,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
               />
             </div>
             <CardTitle className="font-inter text-[18px] font-bold leading-[21.78px] tracking-[0%]">
-              User Name
+              User {currentUser?.id}
             </CardTitle>
           </CardHeader>
           <CardContent>
