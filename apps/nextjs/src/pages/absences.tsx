@@ -3,9 +3,9 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
+import NavBar from "~/components/navbar";
 import { api } from "~/utils/api";
 import Absence from "../components/absence";
-import NavBar from "~/components/navbar";
 
 export default function Absences() {
   const { data: allAbsences } = api.absence.getAllAbsences.useQuery();
@@ -34,7 +34,7 @@ export default function Absences() {
 
   return (
     <div className="relative flex">
-      <NavBar/>
+      <NavBar />
       <h1 className="m-4 text-2xl font-extrabold ">Absences</h1>
       <div className="m-4">
         <span>Pick a date: </span>
