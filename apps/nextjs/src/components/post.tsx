@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { MessageCircle, Pencil, ThumbsUp } from "lucide-react";
 
+import { Card, CardContent } from "~/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "~/components/ui/carousel";
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 import UserAvatar from "./user_avatar";
@@ -130,6 +139,38 @@ const Post: React.FC<DiscussionPost> = ({
 
         <p className="mb-4 text-2xl font-bold">{title}</p>
         <p className="pb-4 text-gray-700">{contents}</p>
+
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          orientation="vertical"
+          className="mb-12 mt-12 w-full max-w-xs"
+        >
+          <CarouselContent className="-mt-1 h-[200px]">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index} className="basis-full pt-1">
+                <div>
+                  <Card>
+                    <CardContent className="flex h-full flex-grow items-center justify-center">
+                      <Image
+                        src={
+                          "https://i.pinimg.com/736x/ef/7e/46/ef7e4652e72d2f829827c60b03300a39.jpg"
+                        }
+                        alt=""
+                        width={200}
+                        height={200}
+                        layout="responsive"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
 
         <div className="flex flex-row gap-5">
           <button

@@ -83,6 +83,7 @@ function Posts() {
       ...prev,
       userPages: userPosts?.totalPages ?? 1,
     }));
+    setCurrentPage(1);
   };
 
   const setAllPosts = () => {
@@ -91,6 +92,7 @@ function Posts() {
       ...prev,
       allPages: allPosts?.totalPages ?? 1,
     }));
+    setCurrentPage(1);
   };
 
   return (
