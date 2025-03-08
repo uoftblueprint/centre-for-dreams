@@ -33,7 +33,7 @@ const Index = () => {
       <View className="h-full w-full p-4">
         <Text className="font-poppins400"> Index </Text>
       </View>
-      <Redirect href="/signin" />
+      <Redirect href="/calendar/" />
     </SafeAreaView>
   );
 };
