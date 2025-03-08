@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import cross from "../../assets/cross.svg";
 import styles from "../styles/createpost.module.css";
-import { inputToBuffer } from "../utils/imageUtils";
+import { inputToBuffer, uploadImagesToS3 } from "../utils/imageUtils";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -27,12 +27,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
-interface S3UploadResponse {
-  success: boolean;
-  data: {
-    Location: string;
-  };
-}
+
 
 interface FormData {
   title: string;
@@ -83,31 +78,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onClose }) => {
     try {
       if (imagesTemp.length !== 0) {
         // Step 1: Create an array to store upload promises
-        const uploadPromises = imagesTemp.map((image, index) => {
-          const fileName = `uploaded-image-${data.title}-${index}.jpg`;
-          const base64Image = btoa(String.fromCharCode(...image));
-
-          return fetch("/api/upload_to_s3", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              bucket: "cfd-post-image-upload",
-              key: fileName,
-              body: base64Image,
-              contentType: "image/jpeg",
-            }),
-          })
-            .then((response) => response.json())
-            .then((result: S3UploadResponse) => {
-              if (result.success) {
-                return result.data.Location; // Image URL from S3
-              } else {
-                throw new Error("Failed to upload image");
-              }
-            });
-        });
+        const uploadPromises = uploadImagesToS3(data.title, imagesTemp);
 
         // Step 2: Wait for all uploads to complete
         uploadedImages = await Promise.all(uploadPromises);
