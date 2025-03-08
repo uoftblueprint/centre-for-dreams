@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { Pencil } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { MessageCircle, Pencil, ThumbsUp } from "lucide-react";
 
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
-import { ThumbsUp } from "lucide-react";
-import { MessageCircle } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
 import UserAvatar from "./user_avatar";
 
-type GetDiscussionOutput =
-  RouterOutputs["discussion"]["getDiscussions"][number];
+type PaginatedDiscussions = RouterOutputs["discussion"]["getDiscussions"];
+type DiscussionPost = PaginatedDiscussions["posts"][number];
 
-const Post: React.FC<GetDiscussionOutput> = ({
+const Post: React.FC<DiscussionPost> = ({
   contents,
   title,
   createdAt,
@@ -120,13 +118,17 @@ const Post: React.FC<GetDiscussionOutput> = ({
         tabIndex={0}
       >
         <div className="flex flex-row justify-between">
-        <UserAvatar src={user?.imageUrl} username={`User ${userId}`} createdAt={createdAt}/>
+          <UserAvatar
+            src={user?.imageUrl}
+            username={`User ${userId}`}
+            createdAt={createdAt}
+          />
           <button className="w-5">
             <Pencil className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out" />
           </button>
         </div>
-        
-        <p className="font-bold text-2xl mb-4">{title}</p>
+
+        <p className="mb-4 text-2xl font-bold">{title}</p>
         <p className="pb-4 text-gray-700">{contents}</p>
 
         <div className="flex flex-row gap-5">
@@ -134,7 +136,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
             className="flex cursor-pointer flex-row gap-1.5"
             onClick={handleLike}
           >
-            <ThumbsUp className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out"/>
+            <ThumbsUp className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out" />
             <p> {likesCount} </p>
           </button>
 
@@ -143,7 +145,7 @@ const Post: React.FC<GetDiscussionOutput> = ({
             onClick={openModal}
             onKeyDown={openModal}
           >
-            <MessageCircle className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out"/>
+            <MessageCircle className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out" />
 
             <p> {comments.length} </p>
           </button>

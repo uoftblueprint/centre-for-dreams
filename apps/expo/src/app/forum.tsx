@@ -25,12 +25,10 @@ const Forum = () => {
   const pageSize = 10;
   const router = useRouter();
 
-  // Reset pagination when tab changes
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedTab]);
 
-  // Paginated queries
   const { data: forumData, refetch: refetchForum } =
     api.discussion.getDiscussions.useQuery({
       page: currentPage,
@@ -46,12 +44,11 @@ const Forum = () => {
   const { data: replies, refetch: refetchReplies } =
     api.discussion.getReplies.useQuery();
 
-  // Current data based on tab selection
   const currentData =
     selectedTab === 1 ? forumData : selectedTab === 2 ? myPostsData : null;
 
-  const totalPages = currentData?.totalPages || 0;
-  const posts = currentData?.posts || [];
+  const totalPages: number = currentData?.totalPages ?? 0;
+  const posts = currentData?.posts ?? [];
 
   const PaginationControls = () => {
     if (totalPages <= 1) return null;
@@ -176,7 +173,7 @@ const Forum = () => {
                   className={`bg-p-90 ml-3 mr-3 p-4 ${
                     index === 0
                       ? "mt-2 rounded-tl-md rounded-tr-md"
-                      : index === (replies?.length || 0) - 1
+                      : index === (replies?.length ?? 0) - 1
                         ? "rounded-bl-lg rounded-br-lg"
                         : ""
                   }`}
@@ -217,7 +214,12 @@ const Forum = () => {
           style={{ position: "absolute", bottom: 100, right: 20 }}
           onPress={() => router.push("/createpost")}
         >
-          <FloatingButton icon={true} />
+          <FloatingButton
+            icon={true}
+            onPress={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

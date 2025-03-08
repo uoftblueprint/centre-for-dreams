@@ -12,31 +12,41 @@ export const discussionRouter = createTRPCRouter({
         pageSize: z.number().min(1).max(100).default(10),
       }),
     )
-    .query(async ({ ctx, input }) => {
-      const skip = (input.page - 1) * input.pageSize;
+    .query(
+      async ({
+        ctx,
+        input,
+      }): Promise<{
+        posts: Prisma.PostGetPayload<{
+          include: { comments: true; user: true; likes: true };
+        }>[];
+        totalPages: number;
+        currentPage: number;
+      }> => {
+        const skip = (input.page - 1) * input.pageSize;
 
-      const [posts, total] = await ctx.db.$transaction([
-        ctx.db.post.findMany({
-          skip,
-          take: input.pageSize,
-          orderBy: { createdAt: "desc" },
-          where: { postType: "Discussion" },
-          include: {
-            comments: { orderBy: { createdAt: "asc" } },
-            user: true,
-            likes: true,
-          },
-        }),
-        ctx.db.post.count({ where: { postType: "Discussion" } }),
-      ]);
+        const [posts, total] = await ctx.db.$transaction([
+          ctx.db.post.findMany({
+            skip,
+            take: input.pageSize,
+            orderBy: { createdAt: "desc" },
+            where: { postType: "Discussion" },
+            include: {
+              comments: { orderBy: { createdAt: "asc" } },
+              user: true,
+              likes: true,
+            },
+          }),
+          ctx.db.post.count({ where: { postType: "Discussion" } }),
+        ]);
 
-      return {
-        posts,
-        totalPages: Math.ceil(total / input.pageSize),
-        currentPage: input.page,
-      };
-    }),
-
+        return {
+          posts,
+          totalPages: Math.ceil(total / input.pageSize),
+          currentPage: input.page,
+        };
+      },
+    ),
   getDiscussionsByUser: protectedProcedure
     .input(
       z.object({

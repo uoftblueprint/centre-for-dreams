@@ -1,6 +1,7 @@
 // "use client";
 
 // import React, { useState } from "react";
+
 // // import { format } from "date-fns";
 // // import { CalendarIcon } from "lucide-react";
 // // import { useForm } from "react-hook-form";
@@ -26,15 +27,14 @@
 //   avatarUrl?: string; // Optional avatar URL
 // }
 
-// interface CreateAnnouncementProps {
+// interface UpdateAnnouncementProps {
 //   user: User;
 // }
 
-// export default function CreateAnnouncement({ user }: CreateAnnouncementProps) {
+// export default function UpdateAnnouncement({ user }: UpdateAnnouncementProps) {
 //   const [open, setOpen] = useState(false);
 
-//   const handlePostAnnouncement = () => {
-
+//   const handleUpdateAnnouncement = () => {
 //     // Announcement logic here
 //     console.log(`Announcement posted by ${user.username}!`);
 //     setOpen(false);
@@ -55,7 +55,9 @@
 //                   src={user.avatarUrl ?? "https://via.placeholder.com/40"} // Fallback avatar
 //                   alt={`@${user.username}`}
 //                 />
-//                 <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+//                 <AvatarFallback>
+//                   {user.username.charAt(0).toUpperCase()}
+//                 </AvatarFallback>
 //               </Avatar>
 //               <p>
 //                 <strong>{user.username}</strong>
@@ -68,11 +70,11 @@
 //           </div>
 //         </DialogHeader>
 
-//         <Textarea placeholder="Let everyone know! Write your announcement..." />
+//         <Textarea placeholder="Let everyone know! Update your announcement..." />
 
 //         <DialogFooter>
-//           <Button type="submit" onClick={handlePostAnnouncement}>
-//             Post Announcement
+//           <Button type="submit" onClick={handleUpdateAnnouncement}>
+//             Update Announcement
 //           </Button>
 //         </DialogFooter>
 //       </DialogContent>

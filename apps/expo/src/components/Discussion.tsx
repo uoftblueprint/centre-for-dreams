@@ -27,12 +27,12 @@ AWS.config.update({
   secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
   region: String(Constants.expoConfig?.extra?.awsRegion),
 });
-// const s3 = new AWS.S3();
 
-type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
+type PaginatedDiscussions = RouterOutputs["discussion"]["getDiscussions"];
+type DiscussionPost = PaginatedDiscussions["posts"][number];
 
 interface RenderItemProps {
-  item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
+  item: RouterOutputs["discussion"]["getDiscussions"]["posts"][number]["comments"][number];
   index: number;
   totalComments: number;
 }
@@ -41,7 +41,7 @@ export default function Discussion({
   discussion,
   canEdit,
 }: {
-  discussion: DiscussionProps;
+  discussion: DiscussionPost;
   canEdit: boolean;
 }) {
   const router = useRouter();

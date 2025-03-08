@@ -88,7 +88,7 @@ export const userRouter = createTRPCRouter({
       },
     });
     return {
-      userId: user.id
+      userId: user.id,
     };
   }),
 });

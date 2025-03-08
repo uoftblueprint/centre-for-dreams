@@ -6,19 +6,23 @@ interface UserAvatarProps {
   createdAt: Date;
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ src, username, createdAt }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({
+  src,
+  username,
+  createdAt,
+}) => {
   return (
-    <div className="flex align-middle justify-center items-center space-x-4 mb-4">
-    <Avatar>
-      <AvatarImage src={src} />
-      <AvatarFallback>User</AvatarFallback>
-    </Avatar>
-    <div>
+    <div className="mb-4 flex items-center justify-center space-x-4 align-middle">
+      <Avatar>
+        <AvatarImage src={src} />
+        <AvatarFallback>User</AvatarFallback>
+      </Avatar>
+      <div>
         <p className="font-bold">{username}</p>
         <p className="mb-2 text-xs text-gray-500">
           Posted: {createdAt.toDateString()}
         </p>
-    </div>
+      </div>
     </div>
   );
 };
