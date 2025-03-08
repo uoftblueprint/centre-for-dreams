@@ -1,4 +1,4 @@
-import React, { useState } from "react";git
+import React, { useState } from "react";
 import type { PostType } from "@prisma/client";
 
 import NavBar from "~/components/navbar";
