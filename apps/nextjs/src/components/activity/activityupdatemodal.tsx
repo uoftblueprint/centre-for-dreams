@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
+import PencilIcon from "../icons/pencilicon";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import {
@@ -84,7 +85,9 @@ export default function ActivityUpdateModal({ id }: { id: number }) {
     activity.data && (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Update Activity</Button>
+          <Button variant={"ghost"} size={"icon"}>
+            {<PencilIcon />}
+          </Button>
         </DialogTrigger>
 
         <DialogContent className="p-8 font-semibold">
