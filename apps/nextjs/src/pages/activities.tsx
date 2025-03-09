@@ -1,25 +1,15 @@
 import React from "react";
 
-import ActivityCreateModal from "~/components/activity/activitycreatemodal";
-import ActivityUpdateModal from "~/components/activity/activityupdatemodal";
+import EventsCalendar from "~/components/eventscalendar";
 import NavBar from "~/components/navbar";
-import CreateActivity from "../components/activity/activityform";
-import ViewActivities from "../components/activity/viewactivites";
 
-const Activities = () => {
+export default function Activities() {
   return (
-    <div className="relative flex">
+    <div className="absolute bottom-0 top-0 flex w-full">
       <NavBar />
-      <div className="flex-col items-center pl-6 pt-6">
-        <ActivityUpdateModal id={1} />
-        <ActivityCreateModal />
-        <div className="font-medium">Create Activity</div>
-        <CreateActivity />
-        <div className="font-medium">View Activites</div>
-        <ViewActivities />
+      <div className="flex w-full flex-col justify-start">
+        <EventsCalendar />
       </div>
     </div>
   );
-};
-
-export default Activities;
+}

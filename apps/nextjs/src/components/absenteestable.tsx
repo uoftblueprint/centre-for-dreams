@@ -3,17 +3,18 @@ import { format } from "date-fns";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
+import DropdownIcon from "./icons/dropdownicon";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const selectedDateStyle = {
+export const selectedDateStyle = {
   backgroundColor: "#2E4D90",
   color: "#FFFFFF",
   borderRadius: "24px",
 };
 
-const noSelectedDateStyle = {
+export const noSelectedDateStyle = {
   borderWidth: "1px",
   borderColor: "#2E4D90",
   borderRadius: "24px",
@@ -155,28 +156,7 @@ function AbsencesTable(absences: number[]) {
   );
 }
 
-function DropdownIcon(isSelected: boolean) {
-  return (
-    <svg
-      className="ml-auto h-4 w-4"
-      width="16"
-      height="9"
-      viewBox="0 0 16 9"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M15 0.999999L8 8L1 1"
-        stroke={isSelected ? "white" : "black"}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function areDatesEqual(date1: Date, date2: Date) {
+export function areDatesEqual(date1: Date, date2: Date) {
   return (
     date1.getDate() === date2.getDate() &&
     date1.getMonth() === date2.getMonth() &&

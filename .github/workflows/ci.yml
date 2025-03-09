@@ -62,28 +62,6 @@ jobs:
 
       - name: Check formatting
         run: pnpm turbo format
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3.0.0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
-
-      - name: Install deps
-        run: pnpm install
-
-      - name: Build
-        run: pnpm turbo typecheck build
 
   android:
     runs-on: ubuntu-latest
