@@ -15,9 +15,7 @@ export default function EventsCalendar() {
 
   return (
     <div className="p-8">
-      <div
-        className="flex flex-row justify-between"
-      >
+      <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center">
           <h3 className="pr-3 text-[20px]">Events for</h3>
           <Popover>

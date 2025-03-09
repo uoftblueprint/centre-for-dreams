@@ -42,7 +42,7 @@ export default function Schedule(props: ScheduleProps) {
       {props.selectedDate && activities.length > 0 ? (
         <div>{activities.map((activity: Activity) => Event(activity))}</div>
       ) : (
-        <div className="text-[16px] p-4">
+        <div className="p-4 text-[16px]">
           {props.selectedDate
             ? "No events are scheduled for today"
             : "Pick a Date to View Events"}
@@ -56,16 +56,13 @@ function Event(activity: Activity) {
   return (
     <div
       key={activity.id}
-      className="flex flex-row justify-start items-center mb-5"
+      className="mb-5 flex flex-row items-center justify-start"
     >
       <div className="font-bold">
         {`${format(activity.startTime, "h:mm a")} - ${format(addMinutes(activity.startTime, activity.durationMinutes), "h:mm a")}`}
       </div>
-      <div
-        className="bg-[#EFF2FB] rounded-[10px] p-4 w-full ml-5"
-      >
-        <div className="flex flex-row justify-between items-center"
-        >
+      <div className="ml-5 w-full rounded-[10px] bg-[#EFF2FB] p-4">
+        <div className="flex flex-row items-center justify-between">
           <div className="font-bold">{activity.name}</div>
           <ActivityUpdateModal id={activity.id} />
         </div>
