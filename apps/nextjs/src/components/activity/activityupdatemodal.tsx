@@ -20,6 +20,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import PencilIcon from "../icons/pencilicon";
 
 export type UpdateAnnouncement = RouterInputs["activity"]["updateActivity"];
 
@@ -84,7 +85,7 @@ export default function ActivityUpdateModal({ id }: { id: number }) {
     activity.data && (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Update Activity</Button>
+          <Button variant={"ghost"} size={"icon"}>{<PencilIcon/>}</Button>
         </DialogTrigger>
 
         <DialogContent className="p-8 font-semibold">

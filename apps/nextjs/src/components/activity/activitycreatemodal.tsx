@@ -22,6 +22,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import PlusIcon from "../icons/plusicon";
 
 export type CreateAnnouncement = RouterInputs["activity"]["createActivity"];
 
@@ -70,7 +71,10 @@ export default function ActivityCreateModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Activity</Button>
+        <Button variant="default" className="bg-[#2E4D90] rounded-[24px]">
+            <PlusIcon/>
+            Create
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="p-8 font-semibold">
