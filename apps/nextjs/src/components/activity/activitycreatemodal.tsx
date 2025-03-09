@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
+import PlusIcon from "../icons/plusicon";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import {
@@ -22,7 +23,6 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import PlusIcon from "../icons/plusicon";
 
 export type CreateAnnouncement = RouterInputs["activity"]["createActivity"];
 
@@ -71,9 +71,9 @@ export default function ActivityCreateModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="bg-[#2E4D90] rounded-[24px]">
-            <PlusIcon/>
-            Create
+        <Button variant="default" className="rounded-[24px] bg-[#2E4D90]">
+          <PlusIcon />
+          Create
         </Button>
       </DialogTrigger>
 

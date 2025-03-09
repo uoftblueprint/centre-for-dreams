@@ -1,22 +1,29 @@
 import React from "react";
 import { format } from "date-fns";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
+
 import { cn } from "~/lib/utils";
-import { Calendar } from "./ui/calendar";
-import DropdownIcon from "./icons/dropdownicon";
 import { noSelectedDateStyle, selectedDateStyle } from "./absenteestable";
-import Schedule from "./schedule";
 import ActivityCreateModal from "./activity/activitycreatemodal";
+import DropdownIcon from "./icons/dropdownicon";
+import Schedule from "./schedule";
+import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default function EventsCalendar() {
   const [selectedDate, setSelectedDate] = React.useState<Date>();
 
   return (
     <div style={{ padding: "32px" }}>
-      <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
         <div className="flex flex-row items-center">
-          <h3 className="text-[20px] pr-3">Events for</h3>
+          <h3 className="pr-3 text-[20px]">Events for</h3>
           <Popover>
             <PopoverTrigger
               asChild
@@ -48,9 +55,9 @@ export default function EventsCalendar() {
             </PopoverContent>
           </Popover>
         </div>
-        <ActivityCreateModal/>
+        <ActivityCreateModal />
       </div>
-      <Schedule selectedDate={selectedDate}/>
+      <Schedule selectedDate={selectedDate} />
     </div>
   );
 }
