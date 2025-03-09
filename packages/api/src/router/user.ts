@@ -81,4 +81,14 @@ export const userRouter = createTRPCRouter({
       notificationOnScheduleUpdates: user.notificationOnScheduleUpdates,
     };
   }),
+  getInternalUserId: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUniqueOrThrow({
+      where: {
+        clerkId: ctx.auth.userId,
+      },
+    });
+    return {
+      userId: user.id,
+    };
+  }),
 });
