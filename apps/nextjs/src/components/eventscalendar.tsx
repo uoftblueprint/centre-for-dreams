@@ -14,13 +14,9 @@ export default function EventsCalendar() {
   const [selectedDate, setSelectedDate] = React.useState<Date>();
 
   return (
-    <div style={{ padding: "32px" }}>
+    <div className="p-8">
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+        className="flex flex-row justify-between"
       >
         <div className="flex flex-row items-center">
           <h3 className="pr-3 text-[20px]">Events for</h3>

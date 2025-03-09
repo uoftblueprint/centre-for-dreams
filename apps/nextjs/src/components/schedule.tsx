@@ -38,11 +38,11 @@ export default function Schedule(props: ScheduleProps) {
   }, [dailySchedule, props.selectedDate]);
 
   return (
-    <div style={{ paddingTop: "32px" }}>
+    <div className="pt-[32px]">
       {props.selectedDate && activities.length > 0 ? (
         <div>{activities.map((activity: Activity) => Event(activity))}</div>
       ) : (
-        <div style={{ fontSize: "16px", padding: "16px" }}>
+        <div className="text-[16px] p-4">
           {props.selectedDate
             ? "No events are scheduled for today"
             : "Pick a Date to View Events"}
@@ -56,35 +56,17 @@ function Event(activity: Activity) {
   return (
     <div
       key={activity.id}
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "start",
-        alignItems: "center",
-        marginBottom: "20px",
-      }}
+      className="flex flex-row justify-start items-center mb-5"
     >
-      <div style={{ fontWeight: "bold" }}>
+      <div className="font-bold">
         {`${format(activity.startTime, "h:mm a")} - ${format(addMinutes(activity.startTime, activity.durationMinutes), "h:mm a")}`}
       </div>
       <div
-        style={{
-          backgroundColor: "#EFF2FB",
-          borderRadius: "10px",
-          padding: "16px",
-          width: "100%",
-          marginLeft: "20px",
-        }}
+        className="bg-[#EFF2FB] rounded-[10px] p-4 w-full ml-5"
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+        <div className="flex flex-row justify-between items-center"
         >
-          <div style={{ fontWeight: "bold" }}>{activity.name}</div>
+          <div className="font-bold">{activity.name}</div>
           <ActivityUpdateModal id={activity.id} />
         </div>
       </div>
