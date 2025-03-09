@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import Constants from "expo-constants";
+import { useRouter } from "expo-router";
 import AWS from "aws-sdk";
 
 import type { RouterOutputs } from "~/utils/api";
@@ -26,12 +27,12 @@ AWS.config.update({
   secretAccessKey: String(Constants.expoConfig?.extra?.awsSecretAccessKey),
   region: String(Constants.expoConfig?.extra?.awsRegion),
 });
-const s3 = new AWS.S3();
 
-type DiscussionProps = RouterOutputs["discussion"]["getDiscussions"][number];
+type PaginatedDiscussions = RouterOutputs["discussion"]["getDiscussions"];
+type DiscussionPost = PaginatedDiscussions["posts"][number];
 
 interface RenderItemProps {
-  item: RouterOutputs["discussion"]["getDiscussions"][number]["comments"][number];
+  item: RouterOutputs["discussion"]["getDiscussions"]["posts"][number]["comments"][number];
   index: number;
   totalComments: number;
 }
@@ -40,9 +41,10 @@ export default function Discussion({
   discussion,
   canEdit,
 }: {
-  discussion: DiscussionProps;
+  discussion: DiscussionPost;
   canEdit: boolean;
 }) {
+  const router = useRouter();
   const [showMoreComments, setShowMoreComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -52,6 +54,16 @@ export default function Discussion({
       postId: discussion.id,
     },
   );
+
+  const handleEditPress = () => {
+    router.push({
+      pathname: "/editpost",
+      params: {
+        id: discussion.id,
+        initialContent: discussion.contents,
+      },
+    });
+  };
 
   const { data: userLikesData } = api.like.hasUserLikedPost.useQuery({
     postId: discussion.id,
@@ -176,7 +188,19 @@ export default function Discussion({
             {/* Currently hardcoded to show only the first image. */}
 
             {/* <ScrollView horizontal={true}> */}
-            {discussion.images.map(async (i, index) => {
+            {discussion.images.map((_) => {
+              return (
+                <View key="0" className="mb-3 mr-4">
+                  <Image
+                    source={{
+                      uri: "https://static.wikia.nocookie.net/acc-official-database/images/9/91/El_gato.jpg/revision/latest?cb=20220709001857",
+                    }}
+                    className="h-60 w-fit"
+                  />
+                </View>
+              );
+            })}
+            {/* {discussion.images.map(async (i, index) => {
               if (!AWS.config.credentials) {
                 // If AWS credentials are not set, display the hardcoded El Gato image
                 return (
@@ -190,7 +214,6 @@ export default function Discussion({
                   </View>
                 );
               } else {
-                console.log(discussion.title, index);
                 const fileName = i.split("/").pop();
                 if (!fileName) {
                   throw new Error("Invalid image URL");
@@ -213,7 +236,7 @@ export default function Discussion({
                   </View>
                 );
               }
-            })}
+            })} */}
             {/* </ScrollView> */}
           </View>
         </View>
@@ -245,10 +268,13 @@ export default function Discussion({
             <CommentIcon width={13} height={18}></CommentIcon>
             <Text className="font-body-md ml-2">Comment</Text>
           </TouchableOpacity>
-          <View className="w-1/3 flex-row justify-center">
+          <TouchableOpacity
+            className="w-5/12 flex-row justify-center"
+            onPress={handleEditPress}
+          >
             <EditIcon width={13} height={18}></EditIcon>
             <Text className="font-body-md ml-2">Edit</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       )}
       {!canEdit && (

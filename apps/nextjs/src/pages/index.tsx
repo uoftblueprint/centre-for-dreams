@@ -1,80 +1,22 @@
-import Head from "next/head";
-import Link from "next/link";
-import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 
-import CarlosSolares from "~/components/developers/carlossolares";
-import DanielXu from "~/components/developers/danielxu";
-import ElsieZhu from "~/components/developers/elsiezhu";
-import EmilyZhou from "~/components/developers/emilyzhou";
-import EricLu from "~/components/developers/ericlu";
-import GirikSetya from "~/components/developers/giriksetya";
-import Jeff from "~/components/developers/jeff";
-import Nolawi from "~/components/developers/nolawi";
-import SarinaLi from "~/components/developers/sarinali";
-import { api } from "~/utils/api";
-
-const ToggleAdmin = () => {
-  const { userId } = useAuth();
-  const changeAdminStatusMutation =
-    api.user.changeCurrentUserAdminStatus.useMutation();
-  if (!userId) {
-    return <div>Not logged in!</div>;
-  }
-  return (
-    <div>
-      <button
-        className="mx-4"
-        onClick={() =>
-          changeAdminStatusMutation.mutate({
-            isAdmin: true,
-          })
-        }
-      >
-        Set current user as admin
-      </button>
-      <button
-        className="mx-4"
-        onClick={() =>
-          changeAdminStatusMutation.mutate({
-            isAdmin: false,
-          })
-        }
-      >
-        Unset current user as admin
-      </button>
-    </div>
-  );
-};
+import NavBar from "~/components/navbar";
+import SignedInLanding from "~/components/signed_in_landing";
+import SignedOutLanding from "~/components/signed_out_landing";
 
 export default function Home() {
-  const developerCount = api.developer.count.useQuery();
   const { isSignedIn } = useAuth();
-  return (
-    <>
-      <Head>
-        <title>Centre for Dreams</title>
-        <meta name="description" content="Centre for Dreams" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <div className="m-10 flex flex-row content-center justify-evenly align-middle">
-          {isSignedIn ? "" : <SignInButton />}
-          <UserButton afterSignOutUrl="/" />
-          <Link href="admindashboard">Admin Dashboard</Link>
-          <ToggleAdmin />
+
+  if (isSignedIn) {
+    return (
+      <div className="absolute bottom-0 top-0 flex w-full">
+        <NavBar />
+        <div className="flex w-full flex-col justify-center">
+          <SignedInLanding />
         </div>
-        <div> Centre for Dreams Home Page </div>
-        <div> We have {developerCount.data} awesome team members! </div>
-        <SarinaLi />
-        <EmilyZhou />
-        <GirikSetya />
-        <Jeff />
-        <DanielXu />
-        <ElsieZhu />
-        <CarlosSolares />
-        <EricLu />
-        <Nolawi />
-      </main>
-    </>
-  );
+      </div>
+    );
+  }
+
+  return <SignedOutLanding />;
 }
