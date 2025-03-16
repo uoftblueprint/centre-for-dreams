@@ -8,7 +8,9 @@ import {
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
 
+import CreatePost from "./createpost";
 import { Button } from "./ui/button";
+import { Dialog, DialogTrigger } from "./ui/dialog";
 
 export default function NavBar() {
   const { isSignedIn } = useAuth();
@@ -48,7 +50,16 @@ export default function NavBar() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <Button>Create New</Button>
+      {router.pathname === "/posts" ? (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Create New</Button>
+          </DialogTrigger>
+          <CreatePost></CreatePost>
+        </Dialog>
+      ) : (
+        <Button variant="ghost"></Button>
+      )}
     </aside>
   );
 }
