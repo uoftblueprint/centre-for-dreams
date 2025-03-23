@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 // import { format } from "date-fns";
 // import { CalendarIcon } from "lucide-react";
 // import { useForm } from "react-hook-form";
@@ -34,7 +35,6 @@ export default function CreateAnnouncement({ user }: CreateAnnouncementProps) {
   const [open, setOpen] = useState(false);
 
   const handlePostAnnouncement = () => {
-
     // Announcement logic here
     console.log(`Announcement posted by ${user.username}!`);
     setOpen(false);
@@ -55,7 +55,9 @@ export default function CreateAnnouncement({ user }: CreateAnnouncementProps) {
                   src={user.avatarUrl ?? "https://via.placeholder.com/40"} // Fallback avatar
                   alt={`@${user.username}`}
                 />
-                <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+                <AvatarFallback>
+                  {user.username.charAt(0).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <p>
                 <strong>{user.username}</strong>
