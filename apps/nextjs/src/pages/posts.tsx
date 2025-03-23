@@ -119,10 +119,10 @@ function Posts() {
           !isUserPostsLoading &&
           (myPostToggle
             ? userPosts?.posts.map((p: DiscussionPost) => {
-                return <Post key={p.id} {...p} />;
+                return <Post key={p.id} {...p} isEditable={true} />;
               })
             : allPosts?.posts.map((p: DiscussionPost) => {
-                return <Post key={p.id} {...p} />;
+                return <Post key={p.id} {...p} isEditable={false} />;
               }))}
         <Pagination
           key={totalPages.allPages + totalPages.userPages}

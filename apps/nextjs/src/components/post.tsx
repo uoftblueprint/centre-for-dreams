@@ -17,8 +17,12 @@ import UserAvatar from "./user_avatar";
 
 type PaginatedDiscussions = RouterOutputs["discussion"]["getDiscussions"];
 type DiscussionPost = PaginatedDiscussions["posts"][number];
+type Props = DiscussionPost & {
+  isEditable?: boolean;
+};
 
-const Post: React.FC<DiscussionPost> = ({
+const Post: React.FC<DiscussionPost & { isEditable?: boolean }> = ({
+  isEditable,
   contents,
   title,
   createdAt,
@@ -132,9 +136,11 @@ const Post: React.FC<DiscussionPost> = ({
             username={`User ${userId}`}
             createdAt={createdAt}
           />
-          <button className="w-5">
-            <Pencil className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out" />
-          </button>
+          {isEditable && (
+            <button className="w-5">
+              <Pencil className="hover:text-p-70 h-6 w-6 transition duration-300 ease-in-out" />
+            </button>
+          )}
         </div>
 
         <p className="mb-4 text-2xl font-bold">{title}</p>
