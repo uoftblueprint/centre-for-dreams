@@ -43,24 +43,30 @@ const RootLayout = () => {
   if (!fontsLoaded && !fontError) return null;
 
   return (
-    <ClerkProvider
-      publishableKey={String(Constants.expoConfig?.extra?.clerkPublishableKey)}
-      tokenCache={tokenCache}
-    >
-      <RootSiblingParent>
-        <TRPCProvider>
-          <SignedOut>
-            <Slot />
-          </SignedOut>
-          <SignedIn>
-            <SupabaseProvider>
-              <NavBar />
-              <StatusBar />
-            </SupabaseProvider>
-          </SignedIn>
-        </TRPCProvider>
-      </RootSiblingParent>
-    </ClerkProvider>
+    <html lang="en">
+      <body>
+        <ClerkProvider
+          publishableKey={String(
+            Constants.expoConfig?.extra?.clerkPublishableKey,
+          )}
+          tokenCache={tokenCache}
+        >
+          <RootSiblingParent>
+            <TRPCProvider>
+              <SignedOut>
+                <Slot />
+              </SignedOut>
+              <SignedIn>
+                <SupabaseProvider>
+                  <NavBar />
+                  <StatusBar />
+                </SupabaseProvider>
+              </SignedIn>
+            </TRPCProvider>
+          </RootSiblingParent>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 };
 

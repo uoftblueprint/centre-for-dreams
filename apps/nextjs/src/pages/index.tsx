@@ -13,14 +13,12 @@ export default function Home() {
 
   if (isSignedIn) {
     return (
-      <NoSsr>
-        <div className="absolute bottom-0 top-0 flex w-full">
-          <NavBar />
-          <div className="flex w-full flex-col justify-center">
-            <SignedInLanding />
-          </div>
+      <div className="absolute bottom-0 top-0 flex w-full">
+        <NavBar />
+        <div className="flex w-full flex-col justify-center">
+          <SignedInLanding />
         </div>
-      </NoSsr>
+      </div>
     );
   }
 
