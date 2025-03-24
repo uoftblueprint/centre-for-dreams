@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
+import PlusIcon from "../icons/plusicon";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import {
@@ -70,7 +71,10 @@ export default function ActivityCreateModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Activity</Button>
+        <Button variant="default" className="rounded-[24px] bg-[#2E4D90]">
+          <PlusIcon />
+          Create
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="p-8 font-semibold">
