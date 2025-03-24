@@ -5,7 +5,6 @@ import { useAuth } from "@clerk/nextjs";
 import NavBar from "~/components/navbar";
 import SignedInLanding from "~/components/signed_in_landing";
 import SignedOutLanding from "~/components/signed_out_landing";
-import { NoSsr } from "../components/no-ssr";
 
 export const dynamic = "force-dynamic";
 
