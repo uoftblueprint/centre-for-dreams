@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import type { Activity } from "@prisma/client";
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import { api } from "~/utils/api";
 import styles from "../../styles/activityupdate.module.css";
+
+const DatePicker = dynamic(() => import("react-datepicker"), {
+  ssr: false,
+});
 
 export default function ActivityUpdatePage() {
   const [date, setDate] = useState<Date>(new Date());
@@ -148,7 +152,10 @@ export default function ActivityUpdatePage() {
                   )
                 }
                 onChange={(date) =>
-                  setFormData({ ...formData, ["day"]: date ?? new Date() })
+                  setFormData({
+                    ...formData,
+                    ["day"]: date instanceof Date ? date : new Date(),
+                  })
                 }
                 className={styles.form_input}
               />
@@ -170,7 +177,7 @@ export default function ActivityUpdatePage() {
                 onChange={(time) =>
                   setFormData({
                     ...formData,
-                    ["startTime"]: time ?? new Date(),
+                    ["startTime"]: time instanceof Date ? time : new Date(),
                   })
                 }
                 className={styles.form_input}

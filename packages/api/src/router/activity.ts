@@ -1,7 +1,19 @@
-import { addWeeks } from "date-fns";
+import type { Activity } from "@prisma/client";
+import { addDays, addWeeks } from "date-fns";
 import { z } from "zod";
 
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+
+const combineDateAndTime = (day: Date, time: Date): Date => {
+  const fullDate = new Date(day);
+  fullDate.setUTCHours(
+    time.getUTCHours(),
+    time.getUTCMinutes(),
+    time.getUTCSeconds(),
+    time.getUTCMilliseconds(),
+  );
+  return fullDate;
+};
 
 function isValidDate(dateString: string): boolean {
   const parsedDate = Date.parse(dateString);
@@ -33,6 +45,33 @@ export const activityRouter = createTRPCRouter({
         orderBy: { day: "desc" },
       });
     }),
+  getScheduleUTC: protectedProcedure
+    .input(z.object({ day: z.date() }))
+    .query(async ({ ctx, input }) => {
+      const inputDay = input.day;
+      const nextWeek = addWeeks(inputDay, 1);
+      const activities: Activity[] = await ctx.db.activity.findMany({
+        where: {
+          day: {
+            gte: inputDay,
+            lt: nextWeek,
+          },
+        },
+        orderBy: {
+          day: "asc",
+        },
+      });
+      const startRange = inputDay;
+      const endRange = nextWeek;
+      const filtered = activities.filter((activity) => {
+        const activityDateTime = combineDateAndTime(
+          activity.day,
+          activity.startTime,
+        );
+        return activityDateTime >= startRange && activityDateTime < endRange;
+      });
+      return filtered;
+    }),
   getDailySchedule: protectedProcedure
     .input(z.object({ day: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -46,6 +85,33 @@ export const activityRouter = createTRPCRouter({
         },
         orderBy: { day: "desc" },
       });
+    }),
+  getDailyScheduleUTC: protectedProcedure
+    .input(z.object({ day: z.date() }))
+    .query(async ({ ctx, input }) => {
+      const inputDay = input.day;
+      const nextDay = addDays(inputDay, 1);
+      const activities: Activity[] = await ctx.db.activity.findMany({
+        where: {
+          day: {
+            gte: inputDay,
+            lt: nextDay,
+          },
+        },
+        orderBy: {
+          day: "asc",
+        },
+      });
+      const startRange = inputDay;
+      const endRange = nextDay;
+      const filtered = activities.filter((activity) => {
+        const activityDateTime = combineDateAndTime(
+          activity.day,
+          activity.startTime,
+        );
+        return activityDateTime >= startRange && activityDateTime < endRange;
+      });
+      return filtered;
     }),
   getActivity: adminProcedure
     .input(z.object({ id: z.number().nonnegative() }))
