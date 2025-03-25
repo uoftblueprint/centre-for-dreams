@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { addMinutes, format } from "date-fns";
+import { addMinutes } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
+import useTimezone from "~/hooks/timezone";
+import { formatInTimeZone } from "~/lib/date-utils";
 import { api } from "~/utils/api";
 import ActivityUpdateModal from "./activity/activityupdatemodal";
 
@@ -19,25 +23,40 @@ interface ScheduleProps {
 }
 
 export default function Schedule(props: ScheduleProps) {
-  let dailySchedule;
   const [activities, setActivities] = React.useState<Activity[]>([]);
+  const timezone = useTimezone();
 
-  if (props.selectedDate) {
-    ({ data: dailySchedule } = api.activity.getDailySchedule.useQuery({
-      day: props.selectedDate.toISOString().split("T")[0] ?? "",
-    }));
-  } else {
-    ({ data: dailySchedule } = api.activity.getDailySchedule.useQuery({
-      day: new Date().toISOString().split("T")[0] ?? "",
-    }));
-  }
+  const selectedDay = React.useMemo(
+    () => props.selectedDate ?? new Date(),
+    [props.selectedDate],
+  );
+  const { data: dailySchedule } = api.activity.getDailyScheduleUTC.useQuery({
+    day: selectedDay,
+  });
 
   React.useEffect(() => {
-    const sortedActivities = [...(dailySchedule ?? [])].sort(
+    if (!dailySchedule || !timezone) return;
+
+    const adjusted = dailySchedule.map((activity) => {
+      const start = new Date(activity.startTime);
+      const activityDay = new Date(activity.day);
+
+      const localDate = new Date(activityDay);
+      localDate.setUTCHours(start.getUTCHours(), start.getUTCMinutes(), 0, 0);
+
+      const zoned = toZonedTime(localDate, timezone);
+
+      return {
+        ...activity,
+        startTime: zoned,
+      };
+    });
+
+    const sorted = adjusted.sort(
       (a, b) => a.startTime.getTime() - b.startTime.getTime(),
     );
-    setActivities(sortedActivities ?? []);
-  }, [dailySchedule, props.selectedDate]);
+    setActivities(sorted);
+  }, [dailySchedule, props.selectedDate, timezone]);
 
   return (
     <div className="pt-[32px]">
@@ -61,7 +80,7 @@ function Event(activity: Activity) {
       className="mb-5 flex flex-row items-center justify-start"
     >
       <div className="w-[100px] font-bold">
-        {`${format(activity.startTime, "h:mm a")} - ${format(addMinutes(activity.startTime, activity.durationMinutes), "h:mm a")}`}
+        {`${formatInTimeZone(activity.startTime, "America/New_York")} - ${formatInTimeZone(addMinutes(activity.startTime, activity.durationMinutes), "America/New_York")}`}
       </div>
       <div className="ml-5 w-full rounded-[10px] bg-[#EFF2FB] p-4">
         <div className="flex flex-row items-center justify-between">
