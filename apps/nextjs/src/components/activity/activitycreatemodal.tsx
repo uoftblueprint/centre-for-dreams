@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import type { RouterInputs } from "~/utils/api";
+import PlusIcon from "../icons/plusicon";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import {
@@ -70,7 +71,10 @@ export default function ActivityCreateModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Activity</Button>
+        <Button variant="default" className="rounded-[24px] bg-[#2E4D90]">
+          <PlusIcon />
+          Create
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="p-8 font-semibold">
@@ -131,18 +135,17 @@ export default function ActivityCreateModal() {
                       .split(":")
                       .map(Number);
                     const time = new Date();
-                    time.setUTCHours(hours ?? 0, minutes, 0, 0);
+                    time.setHours(hours ?? 0, minutes, 0, 0);
                     setStartTime(time);
                   }}
                   value={
                     startTime
-                      ? new Date(
-                          startTime.toLocaleString("en-US", {
-                            timeZone: "America/New_York",
-                          }),
-                        )
-                          .toISOString()
-                          .substring(11, 16)
+                      ? startTime.toLocaleTimeString("en-US", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                          timeZone: "America/New_York",
+                        })
                       : ""
                   }
                   id="startTime"

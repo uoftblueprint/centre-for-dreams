@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import dynamic from "next/dynamic";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import NavBar from "~/components/navbar";
 import { api } from "~/utils/api";
 import Absence from "../components/absence";
+
+const DatePicker = dynamic(() => import("react-datepicker"), {
+  ssr: false,
+});
 
 export default function Absences() {
   const { data: allAbsences } = api.absence.getAllAbsences.useQuery();
