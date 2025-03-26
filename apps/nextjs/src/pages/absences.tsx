@@ -39,15 +39,17 @@ export default function Absences() {
   return (
     <div className="relative flex">
       <NavBar />
-      <h1 className="m-4 text-2xl font-extrabold ">Absences</h1>
-      <div className="m-4">
-        <span>Pick a date: </span>
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date) => setStartDate(date)}
-        />
+      <div className="flex w-full flex-col p-4">
+        <h1 className="text-2xl font-extrabold">Absences</h1>
+        <div className="my-4">
+          <span>Pick a date: </span>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date) => setStartDate(date)}
+          />
+        </div>
+        {filteredAbsences}
       </div>
-      {filteredAbsences}
     </div>
   );
 }
