@@ -8,6 +8,7 @@ import {
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
 
+import CreateAnnouncement from "./createannouncement";
 import CreatePost from "./createpost";
 import { Button } from "./ui/button";
 import { Dialog, DialogTrigger } from "./ui/dialog";
@@ -50,16 +51,30 @@ export default function NavBar() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      {router.pathname === "/posts" ? (
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Create New</Button>
-          </DialogTrigger>
-          <CreatePost></CreatePost>
-        </Dialog>
-      ) : (
-        <Button variant="ghost"></Button>
-      )}
+      {(() => {
+        switch (router.pathname) {
+          case "/posts":
+            return (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>Create New</Button>
+                </DialogTrigger>
+                <CreatePost />
+              </Dialog>
+            );
+          case "/announcements":
+            return (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>Create New</Button>
+                </DialogTrigger>
+                <CreateAnnouncement />
+              </Dialog>
+            );
+          default:
+            return <Button variant="ghost"></Button>;
+        }
+      })()}
     </aside>
   );
 }
