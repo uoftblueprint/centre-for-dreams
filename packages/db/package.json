@@ -28,7 +28,7 @@
     "@cfd/prettier-config": "^0.1.0",
     "@cfd/tsconfig": "^0.1.0",
     "@types/ws": "^8.5.10",
-    "dotenv-cli": "^7.3.0",
+    "dotenv-cli": "^7.4.4",
     "eslint": "^8.57.1",
     "prettier": "^3.4.2",
     "prisma": "^5.11.0",
